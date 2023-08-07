@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  USER_ID         String   @id @default(uuid())
+  USER_USERNAME   String   @db.VarChar(100)
+  USER_PASSWORD   String   @db.VarChar(255)
+  USER_EMAIL      String   @unique @db.VarChar(255)
+  USER_TOKEN      String   @default(uuid())
+  USER_ROLE       String
+  USER_PROFILE    String   @unique
+  USER_CREATED_AT DateTime @default(now())
+  USER_LAST_LOGIN DateTime @updatedAt
+  USER_IS_DELETED Boolean  @default(false)
+
+  // Relation to Roles Table
+  Role Roles @relation(fields: [USER_ROLE], references: [ROLE_ID], onUpdate: Cascade)
+
+  // Relation to Profile Table
+  Profile    Profile      @relation(fields: [USER_PROFILE], references: [PROFILE_ID], onUpdate: Cascade, onDelete: Cascade)
+  Similarity Similarity[]
+}
+
+model Roles {
+  ROLE_ID         String   @id @default(uuid())
+  ROLE_NAME       String   @unique @db.VarChar(150)
+  ROLE_CREATED_AT DateTime @default(now())
+  ROLE_UPDATED_AT DateTime @updatedAt
+  ROLE_IS_DELETED Boolean  @default(false)
+
+  // Relation to Users
+  User Users[]
+}
+
+model Profile {
+  PROFILE_ID           String @id @default(uuid())
+  PROFILE_NAME         String @db.VarChar(255)
+  PROFILE_ADDRESS      String @db.Text
+  PROFILE_PHONE_NUMBER String @db.VarChar(15)
+
+  // Relation to Users Table
+  Users Users?
+}
+
+model Similarity {
+  SIMILARITY_ID           String   @id @default(uuid())
+  SIMILARITY_NPP          String   @db.VarChar(10) // Id Praja
+  SIMILARITY_FILE         String   @db.VarChar(191)
+  SIMILARITY_STATUS       Int      @db.TinyInt // 1: Filed 2: Approved 3: Rejected
+  SIMILARITY_NOTES        String   @db.Text
+  SIMILARITY_PROCESSED_BY String
+  SIMILARITY_CREATED_AT   DateTime @default(now())
+  SIMILARITY_UPDATED_AT   DateTime @updatedAt
+  SIMILARITY_IS_DELETED   Boolean  @default(false)
+
+  // Relation to Users Table
+  Users Users @relation(fields: [SIMILARITY_PROCESSED_BY], references: [USER_ID], onUpdate: Cascade, onDelete: Cascade)
+}
