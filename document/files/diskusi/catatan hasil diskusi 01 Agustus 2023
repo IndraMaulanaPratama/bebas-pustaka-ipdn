@@ -1,0 +1,45 @@
+1. Similaritas
+-> Praja Upload Data Skripsi Ke Turn it in
+-> File yang diupload ke turn MS. Word
+-> Hasilnya berbentuk PDF dan presentasi similaritas
+-> Ketika presentasi dibawah 30% dinyatakan approved
+-> Admin Turn it in membarikan approval di aplikasi bebas pustaka 
+-> Output berupa surat keterangan similaritas yang 
+-> Berikan call to action ke system turn it in untuk melakukan upload skripsi
+
+~~ Buatkan modul untuk auto generated surat keterangan approved similaritas
+~~ Surat Keterangan sudah include dengan tanda tangan admin yang membuat approval
+~~ Buatkan Fitur Export Data Praja yang sudah selesai Similaritas untuk kebutuhan syarat kompre
+~~ Minta Contoh Surat Keterangan lulus tahap similaritas
+~~ Buatkan Form untuk mengisikan nilai similaritas yang nantinya akan diprint kedalam surat keterangan
+~~ Nomor Bukti Pemeriksaan Similaritas (BPS) diurutkan secara sistematis by system berdasarkan urutan approved yang dilakukan admin
+~~ Buatkan fitur kostumisasi kop surat untuk BPS
+~~ Buatkan fitur checklis Data Bibliografi, Small Word dan Quote Materials
+~~ Buatkan input form untuk mengisi data nomor ponsel, class name dan no. absen
+~~ Field Tanggal dan Pukul di isi by system berdasarkan waktu approv yng dilakukan admin
+~~ Tanggal di tanda tangan surat di tentukan by system sesuai dengan waktu approv yang dilakukan admin
+
+== Bibliografi adalah Settingan turn it in untuk mengecek bagian daftar pustaka
+== Small World adalah ketentuan jumlah kata yang akan di periksa oleh turn it in (default 15 kata)
+== Quote Material adalah settingan turn it in untuk tidak mengecek bagian ada didalam tanda kutip
+== Bagian Tanda tangan praja sedang didiskusikan
+
+
+
+2. Bebas pinjaman perpustakaan pusat
+-> Jika Pinjaman Perpustakaan Pusat sudah approve praja tidak boleh meminjam buku lagi
+-> Praja kebagian pelayanan untuk mengecek status pinjaman di aplikasi e-lib
+-> Ketika ada pinjaman, praja memiliki kewajiban untuk menyelesaikan terlebih dahulu. 
+-> Ketika tidak punya pinjaman, admin akan melakukan approve
+
+~~ Buatkan modul untuk auto generated surat keterangan approved perpustakaan pusat
+
+
+
+*** Tambahan ***
+-> Tracking kinerja admin dan staff
+-> Membenahi data reporting yang bersumber dari google form (karena yang exists sekarang hanya bisa reporting data yang seluruhnya terverifikasi sedangkan yang on progress belum bisa terdata)
+-> Layout by search spesifik by npp agar bisa tracking progress bebas pustakanya
+-> Admin/Operator harus upload foto/scan tanda tangan untuk kebutuhan generate surat
+-> Setiap Operator memiliki hak akses yang berbeda-beda untuk melakukan aksi approval
+-> Tambahkan field tanda tangan untuk admin dan operator
