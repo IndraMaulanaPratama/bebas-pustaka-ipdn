@@ -116,7 +116,7 @@ describe('POST /', () => {
 });
 
 describe('PUT /role/:id', () => {
-    // Membuat data dummy dengan status active
+    // Membuat data dummy sebelum menjalankan testing
     beforeEach(async () => {
         await connection.roles.createMany({
             data: [
@@ -134,7 +134,7 @@ describe('PUT /role/:id', () => {
         })
     })
 
-    // Menghapus data dummy dengan nama update-role
+    // Menghapus data dummy setelah menjalankan testing
     afterEach(async () => {
         await connection.roles.deleteMany({
             where: {
@@ -183,5 +183,56 @@ describe('PUT /role/:id', () => {
         expect(result.status).toBe(200);
         expect(result.body.message).toBeDefined();
         expect(result.body.message).toBe("Data role berhasil di update");
+    });
+});
+
+describe('DELETE /role/:id', () => {
+    // Membuat data dummy sebelum menjalankan testing
+    beforeEach(async () => {
+        await connection.roles.createMany({
+            data: [
+                {
+                    ROLE_ID: `dummy-role`,
+                    ROLE_NAME: `dummy-role`,
+                    ROLE_IS_DELETED: false
+                },
+                {
+                    ROLE_ID: `dummy-role-2`,
+                    ROLE_NAME: `dummy-role-2`,
+                    ROLE_IS_DELETED: true
+                }
+            ], skipDuplicates: true
+        })
+    })
+
+    // Menghapus data dummy setelah menjalankan testing
+    afterEach(async () => {
+        await connection.roles.deleteMany({
+            where: {
+                ROLE_ID: { contains: `dummy-role` }
+            }
+        })
+    })
+
+    it('should rejected becouse id role not found', async () => {
+        const result = await supertest(app).delete(`/role/unavailable`)
+
+        expect(result.status).toBe(400);
+        expect(result.body.errors).toBeDefined();
+    });
+
+    it('should rejected becouse selected role is inactive', async () => {
+        const result = await supertest(app).delete(`/role/dummy-role-2`)
+
+        expect(result.status).toBe(400);
+        expect(result.body.errors).toBeDefined();
+    });
+
+    it('should deleted role', async () => {
+        const result = await supertest(app).delete(`/role/dummy-role`)
+
+        expect(result.status).toBe(200);
+        expect(result.body.message).toBeDefined();
+        expect(result.body.message).toBe(`Data role berhasil dihapuskan`);
     });
 });
