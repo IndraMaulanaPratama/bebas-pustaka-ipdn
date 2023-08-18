@@ -1,4 +1,3 @@
-import e from "express"
 import { logger } from "../applications/logger.js"
 import { createRole, deleteRole, destroyRole, getDeletedRoles, getRoleById, getRoles, restoreRole, updateRole } from "../services/role-service.js"
 import { updateRoleValidator } from "../validations/role-validation.js"
