@@ -32,7 +32,7 @@ model Users {
 
 model Roles {
   ROLE_ID         String   @id @default(uuid())
-  ROLE_NAME       String   @unique @db.VarChar(150) @map("role_name")
+  ROLE_NAME       String   @unique @db.VarChar(150)
   ROLE_CREATED_AT DateTime @default(now())
   ROLE_UPDATED_AT DateTime @updatedAt
   ROLE_IS_DELETED Boolean  @default(false)
