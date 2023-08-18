@@ -14,14 +14,6 @@ export const createRole = async (req, res, next) => {
         select: { ROLE_NAME: true }
     })
 
-    if (null == result) {
-        throw new ErrorResponse(422, `Data role tidak ditemukan`)
-    } else {
-        return result
-    }
-
-
-
     if (null != checkDuplicatedData) {
         throw new ErrorResponse(422, `Nama role yang anda masukan sudah terdaftar`)
     }
