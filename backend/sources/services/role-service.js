@@ -79,8 +79,6 @@ export const updateRole = async (req) => {
         throw new ErrorResponse(404, `Data role tidak ditemukan`)
     }
 
-    logger.warn(req)
-
     // Validasi data mandatory
     const inputData = await validation(updateRoleValidator, req.body)
 
