@@ -2,6 +2,7 @@
 
 use App\Livewire\Page\Dashboard;
 use App\Livewire\Page\Login;
+use App\Livewire\Page\Menu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Dashboard::class)->middleware('auth')->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/menu', Menu::class)->name('menu');
+});
 
 // Ranahna gapura
 Route::get('/login', Login::class)->middleware('guest')->name('login');

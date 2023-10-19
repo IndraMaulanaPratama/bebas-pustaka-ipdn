@@ -35,7 +35,7 @@
                                 <div class="input-group has-validation">
                                     <input type="text" name="email" wire:model='email' class="form-control"
                                         id="yourUsername" required>
-                                    <span class="input-group-text" id="inputGroupPrepend">@praja.ipdn.ac.id</span>
+                                    {{-- <span class="input-group-text" id="inputGroupPrepend">@praja.ipdn.ac.id</span> --}}
                                     <div class="invalid-feedback">Please enter your username.</div>
                                 </div>
                             </div>

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,7 +46,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function role() : BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class, 'user_role', 'ROLE_ID');
+    }
+
+    public function scopeLoginUser(Builder $query, string $email) : void
+    {
+        // $query->where('email', $email)->with('role');
+        $query->where('email', '=', $email);
     }
 }

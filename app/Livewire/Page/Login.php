@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Page;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -23,7 +24,11 @@ class Login extends Component
         $credentials = $this->validate();
 
         if (Auth::attempt($credentials)) {
+            $user = User::with('role')->where('email', '=', $this->email)->first();
+
             session()->regenerate();
+            Auth::login($user);
+
             $this->redirect('/');
         } else {
             $this->password = null;
