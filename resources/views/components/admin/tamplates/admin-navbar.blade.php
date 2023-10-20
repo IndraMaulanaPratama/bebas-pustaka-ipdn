@@ -161,8 +161,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>{{ Auth::user()->role->ROLE_NAME }}</span>
+                        <span>{{ Auth::user()->role->role }}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

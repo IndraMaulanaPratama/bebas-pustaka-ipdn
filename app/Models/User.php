@@ -21,6 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_role',
         'name',
         'email',
         'password',
@@ -46,14 +47,30 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    /**
+     * --- *** RELATION AREA *** ---
+     */
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'user_role', 'ROLE_ID');
     }
 
-    public function scopeLoginUser(Builder $query, string $email) : void
+    // --- *** END OF RELATION AREA *** ---
+
+
+
+
+
+    /**
+     * --- *** SCOPE AREA *** ---
+     */
+
+    public function scopeLoginUser(Builder $query, string $email): void
     {
-        // $query->where('email', $email)->with('role');
         $query->where('email', '=', $email);
     }
+
+    // --- *** END OF SCOPE AREA *** ---
 }

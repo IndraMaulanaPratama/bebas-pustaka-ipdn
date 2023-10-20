@@ -24,7 +24,7 @@ class Login extends Component
         $credentials = $this->validate();
 
         if (Auth::attempt($credentials)) {
-            $user = User::with('role')->where('email', '=', $this->email)->first();
+            $user = User::with(['role.pivotMenu'])->where('email', '=', $this->email)->first();
 
             session()->regenerate();
             Auth::login($user);

@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
@@ -12,9 +15,25 @@ class Menu extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'MENUS';
     protected $primaryKey = 'MENU_ID';
-    protected $fillable = ['MENU_NAME', 'MENU_DESCRIPTION', 'MENU_URL'];
+    protected $keyType = 'string';
     protected $perPage = 10;
+    protected $fillable = ['MENU_NAME', 'MENU_ICON', 'MENU_DESCRIPTION', 'MENU_URL'];
 
+    /**
+     * --- *** RELATION AREA *** ---
+     */
+
+    public function pivotMenu(): HasMany
+    {
+        return $this->hasMany(pivotMenu::class, 'PIVOT_MENU', 'MENU_ID');
+    }
+
+    // --- *** END OF RELATION AREA *** ---
+
+
+    /**
+     * --- *** SCOPE AREA *** ---
+     */
     public function scopeDelete(Builder $builder, string $id)
     {
         return $builder->delete()->where('MENU_ID', $id);
@@ -53,4 +72,6 @@ class Menu extends Model
     {
         return $builder->where('MENU_ID', '=', $data['id'])->update($data);
     }
+
+    // --- *** END OF SCOPE AREA *** ---
 }

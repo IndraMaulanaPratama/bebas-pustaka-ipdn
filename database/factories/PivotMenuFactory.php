@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pivotMenu>
  */
-class RoleFactory extends Factory
+class PivotMenuFactory extends Factory
 {
     /**
      * Define the model's default state.

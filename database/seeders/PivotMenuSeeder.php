@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
@@ -11,15 +10,13 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class AksesSeeder extends Seeder
+class PivotMenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
-
         $dataMenu = [
             'MENU_ID' => uuid_create(4),
             'MENU_NAME' => fake()->word,
@@ -48,27 +45,9 @@ class AksesSeeder extends Seeder
             'PIVOT_DESCRIPTION' => fake()->sentence,
         ];
 
-        $dataAkses = [
-            'ACCESS_ID' => uuid_create(4),
-            'ACCESS_NAME' => fake()->word,
-            'ACCESS_MENU' => $dataPivotMenu['PIVOT_ID'],
-            'ACCESS_CREATE' => random_int(0, 1),
-            'ACCESS_READ' => random_int(0, 1),
-            'ACCESS_UPDATE' => random_int(0, 1),
-            'ACCESS_DELETE' => random_int(0, 1),
-            'ACCESS_RESTORE' => random_int(0, 1),
-            'ACCESS_DESTROY' => random_int(0, 1),
-            'ACCESS_DETAIL' => random_int(0, 1),
-            'ACCESS_VIEW' => random_int(0, 1),
-        ];
-
-            Role::create($dataRole);
-            User::create($dataUser);
-            Menu::create($dataMenu);
-            pivotMenu::create($dataPivotMenu);
-            Akses::create($dataAkses);
-
-        }
-
+        Role::create($dataRole);
+        User::create($dataUser);
+        Menu::create($dataMenu);
+        pivotMenu::create($dataPivotMenu);
     }
 }

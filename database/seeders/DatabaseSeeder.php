@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            RoleSeeder::class,
-            MenuSeeder::class,
+            // RoleSeeder::class,
+            // MenuSeeder::class,
+            // PivotMenuSeeder::class,
+            AksesSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
