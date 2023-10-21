@@ -13,13 +13,6 @@ class Menu extends Component
     public $spanTitle = ' | Menu';
     public $actionName = 'createData';
 
-    // public function mount()
-    // {
-    //     $this->title = 'Buat Data Baru';
-    //     $this->spanTitle = ' | Menu';
-    //     $this->actionName = 'createData';
-    // }
-
 
     #[On("menu-created"), On("deleted-menu"), On("menu-updated")]
     public function processSuccessfully($message)
