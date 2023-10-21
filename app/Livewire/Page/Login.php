@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Page;
 
+use App\Models\pivotMenu;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -24,12 +26,10 @@ class Login extends Component
         $credentials = $this->validate();
 
         if (Auth::attempt($credentials)) {
-            $user = User::with(['role.pivotMenu'])->where('email', '=', $this->email)->first();
-
             session()->regenerate();
-            Auth::login($user);
-
+            // Auth::guard('web')->login($credentials);
             $this->redirect('/');
+
         } else {
             $this->password = null;
             session()->flash('warning', 'Data pengguna tidak ditemukan');

@@ -15,6 +15,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    // Fungsi kanggo sawalasna maca relasi user ka table role teras ka tabel pivot menu
+    protected $with = ['role.pivotMenu'];
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,8 +62,6 @@ class User extends Authenticatable
     }
 
     // --- *** END OF RELATION AREA *** ---
-
-
 
 
 

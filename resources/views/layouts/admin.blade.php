@@ -29,7 +29,7 @@
     <link href="./assets/admin/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    {{-- <link href="./assets/admin/css/style.css" rel="stylesheet"> --}}
+    <link href="./assets/admin/css/style.css" rel="stylesheet">
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -39,7 +39,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-    @vite(['public/assets/admin/js/main.js', 'public/assets/admin/css/style.css'])
+    @vite(['./assets/admin/js/main.js', './assets/admin/css/style.css'])
 </head>
 
 <body>
@@ -74,17 +74,17 @@
 
 
     <!-- Vendor JS Files -->
-    <script src="./assets/admin/vendor/apexcharts/apexcharts.min.js"></script>
+    {{-- <script src="./assets/admin/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="./assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/admin/vendor/chart.js/chart.umd.js"></script>
     <script src="./assets/admin/vendor/echarts/echarts.min.js"></script>
     <script src="./assets/admin/vendor/quill/quill.min.js"></script>
     <script src="./assets/admin/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="./assets/admin/vendor/tinymce/tinymce.min.js"></script>
-    <script src="./assets/admin/vendor/php-email-form/validate.js"></script>
+    <script src="./assets/admin/vendor/php-email-form/validate.js"></script> --}}
 
     <!-- Template Main JS File -->
-    {{-- <script src="./assets/admin/js/main.js"></script> --}}
+    <script src="./assets/admin/js/main.js"></script>
 
 </body>
 

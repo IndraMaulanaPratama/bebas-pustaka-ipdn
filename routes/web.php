@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Dashboard::class)->middleware('auth')->name('dashboard');
+Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 
-Route::middleware('auth')->group(function () {
+// Ranahna nu gaduh akses
+Route::middleware(['auth', 'access'])->prefix('')->group(function () {
     Route::get('/menu', Menu::class)->name('menu');
+    Route::get('/similaritas', Menu::class)->name('similaritas');
 });
 
 // Ranahna gapura

@@ -45,7 +45,6 @@ class Menu extends Component
 
     public function render()
     {
-        info('test');
         return view('livewire.page.menu');
     }
 }

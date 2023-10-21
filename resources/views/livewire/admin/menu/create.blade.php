@@ -7,6 +7,10 @@
             {{-- Input Menu Name --}}
             <x-admin.components.form.input name='menu' placeholder='Nama Menu' />
 
+            {{-- Input Menu Name --}}
+            <x-admin.components.form.input name='folder' placeholder='Folder Menu' />
+
+
             {{-- Input Description --}}
             <x-admin.components.form.textarea name='description' placeholder='Deskripsi Menu' />
 

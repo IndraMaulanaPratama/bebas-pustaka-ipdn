@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="{{route('/')}}" class="logo d-flex align-items-center">
             <img src="./assets/admin/img/logo.png" alt="">
             <span class="d-none d-lg-block">Perpustakaan</span>
         </a>
@@ -161,7 +161,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <span>{{ Auth::user()->role->role }}</span>
+                        <span>{{ Auth::user()->role->ROLE_NAME}}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
