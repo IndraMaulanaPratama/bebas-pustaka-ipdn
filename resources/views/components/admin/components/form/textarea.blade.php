@@ -1,8 +1,8 @@
 <div class="col-{{ $size ?? 12 }}">
     <div class="form-floating">
-        <textarea class="form-control" placeholder="{{ $placeholder ?? 'Not Set' }}" wire:model.live='{{ $name }}'
+        <textarea class="form-control" placeholder="{{ $placeholder ?? 'Input Form' }}" wire:model.live='{{ $name }}'
             style="height: 150px;" {{ $disabled ?? null }} {{ $required ?? null }}></textarea>
-        <label>{{ $placeholder ?? 'Not Set' }}</label>
+        <label>{{ $placeholder ?? 'Input Form' }}</label>
 
         @error($name)
             <div class="alert alert-warning"> {{ $message }} </div>
