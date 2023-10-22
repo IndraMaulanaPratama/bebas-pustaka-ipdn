@@ -17,7 +17,7 @@ class Menu extends Model
     protected $primaryKey = 'MENU_ID';
     protected $keyType = 'string';
     protected $perPage = 10;
-    protected $fillable = ['MENU_NAME', 'MENU_ICON', 'MENU_DESCRIPTION', 'MENU_URL'];
+    protected $fillable = ['MENU_ID','MENU_NAME', 'MENU_ICON', 'MENU_DESCRIPTION', 'MENU_URL', 'MENU_POSITION'];
 
     /**
      * --- *** RELATION AREA *** ---
