@@ -18,7 +18,9 @@
 
         {{-- Logic kanggo nampilkeun data menu dumasar kana role nu login --}}
         @for ($i = 0; $i < count($pivot); $i++)
-            <x-admin.tamplates.sidebar.link :text="$pivot[$i]->menu[0]->MENU_NAME" :navigate="$pivot[$i]->menu[0]->MENU_URL" :icon="$pivot[$i]->menu[0]->MENU_ICON" />
+            @if ('sidebar' == $pivot[$i]->menu[0]->MENU_POSITION)
+                <x-admin.tamplates.sidebar.link :text="$pivot[$i]->menu[0]->MENU_NAME" :navigate="$pivot[$i]->menu[0]->MENU_URL" :icon="$pivot[$i]->menu[0]->MENU_ICON" />
+            @endif
         @endfor
 
         {{-- Menu kanggo area Admin --}}
