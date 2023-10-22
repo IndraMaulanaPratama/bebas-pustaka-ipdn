@@ -19,6 +19,10 @@ class Create extends Component
     #[Rule(['required', 'string', 'max:50', 'unique:MENUS,MENU_NAME'])]
     public $menu = '';
 
+    // Ngadamel sareng marios input data icon ti client
+    #[Rule(['string', 'max:50'])]
+    public $icon = '';
+
     // Ngadamel sareng marios input data description ti client
     #[Rule(['string'])]
     public $description = '';
@@ -26,6 +30,9 @@ class Create extends Component
     // Ngadamel sareng marios input data url ti client
     #[Rule(['required', 'string', 'max:20', 'unique:MENUS,MENU_URL'])]
     public $url = '';
+
+    #[Rule(['string', 'required'])]
+    public $position = '';
 
 
 
@@ -61,7 +68,6 @@ class Create extends Component
         $this->title = 'Buat Data Baru';
         $this->spanTitle = ' | Menu';
         $this->actionName = 'createData';
-
     }
 
 
@@ -78,9 +84,11 @@ class Create extends Component
         try {
             // Inisialisasi data nu bade di eksekusi
             $data = [
+                'MENU_ID' => uuid_create(4),
                 'MENU_NAME' => $this->menu,
                 'MENU_DESCRIPTION' => $this->description,
                 'MENU_URL' => str::slug($this->menu),
+                'MENU_POSITION' => $this->position,
             ];
 
             // proses nyimpen data ka database
@@ -93,7 +101,7 @@ class Create extends Component
             $this->resetForm();
 
         } catch (\Throwable $th) {
-            $this->dispatch('failed-creating-menu', 'Terjadi kesalahan pada saat menambahkan menu');
+            $this->dispatch('failed-creating-menu', $th->getMessage());
         }
     }
 

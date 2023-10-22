@@ -11,6 +11,7 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Deskripsi</th>
                     <th scope="col">URL</th>
+                    <th scope="col">Posisi</th>
                     <th scope="col" colspan="2">Option</th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                         <td>{{ $item->MENU_NAME }}</td>
                         <td>{{ $item->MENU_DESCRIPTION }}</td>
                         <td>{{ $item->MENU_URL }}</td>
+                        <td>{{ $item->MENU_POSITION }}</td>
 
                         {{-- Option Row --}}
                         <td>
@@ -40,6 +42,7 @@
                 @endforeach
             </tbody>
         </table>
+
         <x-admin.tamplates.paginate.paginate :item="$data" />
 
     </x-admin.components.card.card>
