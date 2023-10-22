@@ -21,6 +21,7 @@ class MenuSeeder extends Seeder
             // 'MENU_ICON',
             'MENU_DESCRIPTION' => fake()->sentence,
             'MENU_URL' => Str::slug("Ini data dummy"),
+            'MENU_POSITION' => fake()->word(),
         ];
 
         Menu::create($dataMenu);

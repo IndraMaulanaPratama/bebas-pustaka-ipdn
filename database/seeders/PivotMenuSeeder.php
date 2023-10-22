@@ -22,7 +22,8 @@ class PivotMenuSeeder extends Seeder
             'MENU_NAME' => fake()->word,
             // 'MENU_ICON',
             'MENU_DESCRIPTION' => fake()->sentence,
-            'MENU_URL' => Str::slug("ini data dummy"),
+            'MENU_URL' => Str::slug("Ini data dummy"),
+            'MENU_POSITION' => fake()->word(),
         ];
 
         $dataRole = [
