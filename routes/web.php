@@ -22,7 +22,7 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->prefix('')->group(function () {
     Route::get('/menu', Menu::class)->name('menu');
-    Route::get('/similaritas', Menu::class)->name('similaritas');
+    Route::get('/menu/asign', Menu::class)->name('menu-asign');
 });
 
 // Ranahna gapura
