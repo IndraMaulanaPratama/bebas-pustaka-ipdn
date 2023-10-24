@@ -31,6 +31,9 @@
                 <x-admin.tamplates.sidebar.link text="Manajemen Pengguna" navigate="user-manajemen"
                     icon="bi-person-lines-fill" />
 
+                <x-admin.tamplates.sidebar.link text="Manajemen Role" navigate="role-manajemen"
+                    icon="bi-bar-chart-steps" />
+
                 <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
             @endif <!-- Tungtung tina menu super admin -->
 

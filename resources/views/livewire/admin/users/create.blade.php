@@ -47,9 +47,4 @@
 
         </form>
     </x-admin.components.card.card>
-
-
-
-    {{-- Modal Update --}}
-
 </div>

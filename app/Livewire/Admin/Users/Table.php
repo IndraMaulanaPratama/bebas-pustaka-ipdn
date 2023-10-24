@@ -92,8 +92,8 @@ class Table extends Component
                 'name' => $this->update_name,
                 'email' => $this->update_email,
                 'password' => bcrypt($this->update_password),
-                'photo' => $photoName,
-                'sign' => $signName,
+                'photo' => str_replace(" ", "", $photoName),
+                'sign' => str_replace(" ", "", $signName),
                 'user_role' => $this->update_role,
             ];
 
@@ -110,6 +110,9 @@ class Table extends Component
                 unset($data['user_role']);
             }
 
+            // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
+            $this->update_photo != null ? $this->update_photo->storeAs('foto_pegawai', str_replace(" ", "", $photoName), 'public') : null;
+            $this->update_sign != null ? $this->update_sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
 
             User::query()->find($this->update_id)->update($data);
             $this->dispatch('user-updated', 'Data ' . $data['name'] . ' berhasil diperbaharui');
@@ -126,7 +129,8 @@ class Table extends Component
     /***
      * Percobaan kanggo ngosongkeun input file
      */
-    public function clearFile() {
+    public function clearFile()
+    {
         $this->update_photo = rand();
         $this->update_sign = rand();
     }

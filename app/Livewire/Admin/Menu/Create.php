@@ -87,6 +87,7 @@ class Create extends Component
                 'MENU_ID' => uuid_create(4),
                 'MENU_NAME' => $this->menu,
                 'MENU_DESCRIPTION' => $this->description,
+                'MENU_ICON' => $this->icon != null ? $this->icon : null,
                 'MENU_URL' => str::slug($this->menu),
                 'MENU_POSITION' => $this->position,
             ];

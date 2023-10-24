@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="{{route('/')}}" class="logo d-flex align-items-center">
+        <a href="{{ route('/') }}" class="logo d-flex align-items-center">
             <img src="./assets/admin/img/logo.png" alt="">
             <span class="d-none d-lg-block">Perpustakaan</span>
         </a>
@@ -155,13 +155,14 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="./assets/admin/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    {{-- <img src="./assets/admin/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
+                    <img src="{{asset('foto_pegawai/'. Auth::user()->photo) }}" alt="">
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <span>{{ Auth::user()->role->ROLE_NAME}}</span>
+                        <span>{{ Auth::user()->role->ROLE_NAME }}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

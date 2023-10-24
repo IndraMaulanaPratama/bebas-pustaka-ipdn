@@ -61,8 +61,6 @@
         <!-- End Page Title -->
 
         <section class="section dashboard">
-
-
             {{ $slot }}
             {{-- // TODO: Buatkan module similaritas --}}
         </section>

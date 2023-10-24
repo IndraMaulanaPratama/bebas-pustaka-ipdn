@@ -83,8 +83,8 @@ class Create extends Component
                 'email' => $this->email,
                 'email_verified_at' => $timestamp,
                 'password' => bcrypt($this->password),
-                'photo' => $photoName,
-                'sign' => $signName,
+                'photo' => str_replace(" ", "", $photoName),
+                'sign' => str_replace(" ", "", $signName),
                 'user_role' => $this->role,
             ];
 
@@ -97,8 +97,8 @@ class Create extends Component
             // $photoSign = $this->sign->getRealPath();
 
             // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
-            $this->photo != null ? $this->photo->storeAs('foto_pegawai', $photoName, 'public') : null;
-            $this->sign != null ? $this->sign->storeAs('tanda_tangan', $signName, 'public') : null;
+            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $photoName), 'public') : null;
+            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
 
             // Proses nyimpen data nu dikintun ka lebet database
             User::create($data);
