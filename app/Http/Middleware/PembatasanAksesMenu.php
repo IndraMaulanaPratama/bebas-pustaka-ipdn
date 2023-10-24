@@ -40,7 +40,7 @@ class PembatasanAksesMenu
 
 
         $menuAdmin = collect(['akses']);
-        $menuSuperAdmin = collect(['menu', 'user_manajemen']);
+        $menuSuperAdmin = collect(['menu', 'user-manajemen']);
 
         if ("Super Admin") {
             $data = $menuSuperAdmin->merge($menuAdmin);

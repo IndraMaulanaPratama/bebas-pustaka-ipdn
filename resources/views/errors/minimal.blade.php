@@ -46,7 +46,7 @@
             <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
                 <h1>@yield('code')</h1>
                 <h2>@yield('message')</h2>
-                <a class="btn" href="{{ route('/') }}">Kembali ke beranda</a>
+                <a class="btn" href="{{ route('/') }}" wire:navigate>Kembali ke beranda</a>
                 <img src="./assets/admin/img/not-found.svg" class="img-fluid py-5" alt="Page Not Found">
                 <div class="credits">
                     <!-- All the links in the footer should remain intact. -->

@@ -1,4 +1,4 @@
-<div class="col-8">
+<div class="col-12">
     <x-admin.components.card.card size=12 title='List Menu' titleSpan=' | Status Aktif'>
 
         {{-- Input Search --}}
@@ -27,13 +27,13 @@
                         {{-- Option Row --}}
                         <td>
                             <button type="button" class="btn btn-sm btn-outline-success rounded-pill"
-                                wire:click='updateMenu({{ $item->MENU_ID }})'>
+                                wire:click="updateMenu('{{ $item->MENU_ID }}')">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn rounded-pill btn-sm btn-outline-danger"
-                                wire:click='deleteMenu({{ $item->MENU_ID }})'
+                                wire:click='deleteMenu("{{ $item->MENU_ID }}")'
                                 wire:confirm='Anda yakin akan menghapus menu {{ $item->MENU_NAME }} ini?'>
                                 <i class="bi bi-trash3-fill"></i>
                             </button>

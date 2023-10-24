@@ -10,7 +10,7 @@ use Livewire\Component;
 class Menu extends Component
 {
     public $title = 'Buat Data Baru';
-    public $spanTitle = ' | Menu';
+    public $spanTitle = 'Menu';
     public $actionName = 'createData';
 
 

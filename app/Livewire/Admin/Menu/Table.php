@@ -42,7 +42,7 @@ class Table extends Component
             'url' => $menu->MENU_URL,
 
             'title' => 'Perbarui Data',
-            'spanTitle' => ' | Menu ' . $menu->MENU_NAME,
+            'spanTitle' => 'Menu ' . $menu->MENU_NAME,
             'actionName' => 'updateData',
         ];
 
@@ -57,7 +57,7 @@ class Table extends Component
             $this->placeholder();
             $this->dispatch('deleted-menu', 'Menu yang anda pilih, berhasil dihapuskan');
         } catch (\Throwable $th) {
-            $this->dispatch('failed-dleted-menu', $th->getMessage());
+            $this->dispatch('failed-deleting-menu', $th->getMessage());
         }
     }
 

@@ -28,13 +28,13 @@
             <x-admin.tamplates.sidebar.heading text='Admin Area' />
 
             @if ($role->ROLE_NAME == 'Super Admin')
-                <x-admin.tamplates.sidebar.link text="Manajemen Pengguna" navigate="user_management"
+                <x-admin.tamplates.sidebar.link text="Manajemen Pengguna" navigate="user-manajemen"
                     icon="bi-person-lines-fill" />
 
                 <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
             @endif <!-- Tungtung tina menu super admin -->
 
-            <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="akses" icon="bi-universal-access-circle" />
+            {{-- <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="akses" icon="bi-universal-access-circle" /> --}}
 
         @endif <!-- Tungtung tina menu admin -->
 

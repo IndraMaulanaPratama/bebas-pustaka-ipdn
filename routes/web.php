@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Page\Admin\Users;
 use App\Livewire\Page\Dashboard;
 use App\Livewire\Page\Login;
 use App\Livewire\Page\Menu;
@@ -22,7 +23,9 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->prefix('')->group(function () {
     Route::get('/menu', Menu::class)->name('menu');
-    Route::get('/menu/asign', Menu::class)->name('menu-asign');
+    Route::get('/menu/asign', Menu::class)->name('menu-asign'); // TODO: Selesaikan dong module ini say
+    Route::get('/users', Users::class)->name('user-manajemen');
+    Route::get('/role', Users::class)->name('role-manajemen');
 });
 
 // Ranahna gapura

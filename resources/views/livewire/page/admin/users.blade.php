@@ -1,4 +1,4 @@
-<div>
+<div class="row">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -12,19 +12,11 @@
     @endif
 
     <div class="row">
-        <div class="col-8">
-            <livewire:admin.menu.create :title="$title" :spanTitle="$spanTitle" :actionName='$actionName' />
-        </div>
-
-        <div class="col-4">
-            <x-admin.components.card.card size=12>
-                Asign Data Menu
-            </x-admin.components.card.card>
-        </div>
+        @livewire('admin.users.create', ['title' => $title, 'titleSpan' => $titleSpan, 'actionName' => $actionName])
     </div>
 
     <div class="row">
-        <livewire:admin.menu.table />
+        @livewire('admin.users.table')
     </div>
 
 </div>

@@ -5,7 +5,7 @@
 
 
 <li class="nav-item">
-    <a class="nav-link {{ $active ?? null }}" href="{{ $navigate }}">
+    <a class="nav-link {{ $active ?? null }}" href="{{ route($navigate) }}" wire:navigate>
         <i class="bi {{ $icon }}"></i>
         <span>{{ $text }}</span>
     </a>
