@@ -7,23 +7,25 @@
         <x-admin.components.form.input size=2 type='text' name='search' placeholder='Cari Data' />
 
         <table class="table table-hover">
+
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" width=3%>#</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
                     <th scope="col">Photo</th>
-                    <th scope="col" colspan="2">Option</th>
+                    <th scope="col" colspan="2" width=5%>Option</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach ($data as $item)
                     <tr wire:key='$item->id'>
                         <th scope="row"> {{ $loop->index + $data->firstItem() }} </th>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
-                        <td>{{ $item->role->ROLE_NAME }}</td>
+                        <td>{{ $item->role->ROLE_NAME ?? '' }}</td>
                         <td>
                             <img src="{{ asset('foto_pegawai/' . $item->photo) }}" width="40px" class="rounded-circle"
                                 alt="{{ $item->name }}">
@@ -49,6 +51,7 @@
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
 
         <x-admin.tamplates.paginate.paginate :item="$data" />

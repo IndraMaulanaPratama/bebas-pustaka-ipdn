@@ -106,7 +106,7 @@ class Table extends Component
             if (null == $this->update_sign) {
                 unset($data['sign']);
             }
-            if (null == $this->update_password) {
+            if (null == $this->update_role) {
                 unset($data['user_role']);
             }
 
@@ -114,7 +114,7 @@ class Table extends Component
             $this->update_photo != null ? $this->update_photo->storeAs('foto_pegawai', str_replace(" ", "", $photoName), 'public') : null;
             $this->update_sign != null ? $this->update_sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
 
-            User::query()->find($this->update_id)->update($data);
+            User::query()->where('id', $this->update_id)->update($data);
             $this->dispatch('user-updated', 'Data ' . $data['name'] . ' berhasil diperbaharui');
         } catch (\Throwable $th) {
             dd('' . $th->getMessage());

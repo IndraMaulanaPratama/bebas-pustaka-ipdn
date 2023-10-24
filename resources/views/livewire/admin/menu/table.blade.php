@@ -1,5 +1,5 @@
 <div class="col-12">
-    <x-admin.components.card.card size=12 title='List Menu' titleSpan=' | Status Aktif'>
+    <x-admin.components.card.card size=12 title='List Menu' titleSpan='Status Aktif'>
 
         {{-- Input Search --}}
         <x-admin.components.form.input size=2 type='text' name='search' placeholder='Cari Data' />
@@ -7,12 +7,12 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" width=3%>#</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Deskripsi</th>
                     <th scope="col">URL</th>
                     <th scope="col">Posisi</th>
-                    <th scope="col" colspan="2">Option</th>
+                    <th scope="col" colspan="2" width=5%>Option</th>
                 </tr>
             </thead>
             <tbody>

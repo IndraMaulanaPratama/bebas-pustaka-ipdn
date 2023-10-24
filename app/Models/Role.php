@@ -14,10 +14,11 @@ class Role extends Model
     protected $table = 'ROLES';
     protected $primaryKey = 'ROLE_ID';
     protected $keyType = 'string';
-    protected $perpage = 10;
+    protected $perPage = 10;
 
     protected $fillable = [
-        'ROLE_NAME'
+        'ROLE_ID',
+        'ROLE_NAME',
     ];
 
     public function user(): HasMany
