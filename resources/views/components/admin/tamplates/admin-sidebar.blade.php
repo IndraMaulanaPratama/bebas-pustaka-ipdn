@@ -43,8 +43,12 @@
 
 
         {{-- Contoh Dropdown menu --}}
-        <x-admin.tamplates.sidebar.list-item text="Petunjuk" name="pustaka">
-            <x-admin.tamplates.sidebar.item-link text="Alert-" navigate="/" icon="circle" />
+        <x-admin.tamplates.sidebar.list-item text="Data Sampah" name="dropDown">
+            <x-admin.tamplates.sidebar.item-link text="Data Pengguna" navigate="/" icon="circle" wire:key='1' />
+            <x-admin.tamplates.sidebar.item-link text="Data Role" navigate="/" icon="circle" wire:key='2' />
+            <x-admin.tamplates.sidebar.item-link text="Data Menu" navigate="/" icon="circle" wire:key='3' />
+            <x-admin.tamplates.sidebar.item-link text="Data Asign" navigate="/" icon="circle" wire:key='4' />
+            <x-admin.tamplates.sidebar.item-link text="Data Access" navigate="/" icon="circle" wire:key='5' />
         </x-admin.tamplates.sidebar.list-item>
 
 

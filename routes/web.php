@@ -23,7 +23,7 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->prefix('')->group(function () {
-    Route::get('/menu', Menu::class)->name('menu');
+    Route::get('/menu', Menu::class)->name('menu'); // TODO: Ini updatenya belum jalan ya say
     Route::get('/menu/asign', Menu::class)->name('menu-asign'); // TODO: Selesaikan dong module ini say
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/role', Role::class)->name('role-manajemen');
