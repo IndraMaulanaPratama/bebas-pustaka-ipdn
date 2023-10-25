@@ -3,8 +3,10 @@
 namespace App\Livewire\Page\Admin;
 
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title("Manajemen Role")]
 class Role extends Component
 {
     #[On("role-created"), On("role-updated"), On("role-deleted")]

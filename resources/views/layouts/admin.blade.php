@@ -56,7 +56,7 @@
     <main id="main" class="main">
 
         <!-- Breadcrumb -->
-        <x-admin.tamplates.admin-pageTitle />
+        <x-admin.tamplates.admin-pageTitle :title=$title />
         {{-- // TODO: Fixing breadcrumb  --}}
         <!-- End Page Title -->
 
