@@ -27,7 +27,7 @@ Route::middleware(['auth', 'access'])->prefix('')->group(function () {
     Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/role', Role::class)->name('role-manajemen');
-    Route::get('/assign', Assign::class)->name('assign-manajemen'); // TODO: Selesaikan dong module ini say
+    Route::get('/assign', Assign::class)->name('assign-manajemen');
 });
 
 // Ranahna gapura

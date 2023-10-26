@@ -58,6 +58,17 @@ class Table extends Component
 
 
 
+    /***
+     * Fungsi kanggo ngaktifkeun modal kanggo ngarobih password
+     */
+    public function resetPassword($id)
+    {
+        $this->dispatch('reset-password', $id);
+    }
+
+
+
+
 
     public function render()
     {

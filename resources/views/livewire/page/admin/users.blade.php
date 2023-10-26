@@ -20,5 +20,6 @@
     </div>
 
     @livewire('admin.users.update')
+    @livewire('admin.users.reset-password')
 
 </div>
