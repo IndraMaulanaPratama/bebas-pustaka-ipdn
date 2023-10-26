@@ -3,8 +3,26 @@
     {{-- Card Form Create User --}}
     <x-admin.components.card.card size=12 title='List Penggguna' titleSpan='Status Aktif'>
 
-        {{-- Input Search --}}
-        <x-admin.components.form.input size=2 type='text' name='search' placeholder='Cari Data' />
+        {{-- Baris bagian search sareng tombol tambih data --}}
+        <div class="row justify-content-between">
+
+            {{-- Tombol Tambah Data --}}
+            <div class="col-4">
+                {{-- Input Search --}}
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#formCreateData">
+                    <span class="bi bi-plus-circle" role="status" aria-hidden="true"></span>
+                    Tambah Data
+                </button>
+            </div>
+
+            {{-- Input Pencarian Data --}}
+            <div class="col-4">
+                <x-admin.components.form.input size=12 type='text' name='search' placeholder='Cari Data' />
+            </div>
+        </div>
+
+
 
         <div class="table-responsive">
             <table class="table table-hover">

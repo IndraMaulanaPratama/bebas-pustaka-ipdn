@@ -19,6 +19,7 @@
         @livewire('admin.users.table')
     </div>
 
+    @livewire('admin.users.create')
     @livewire('admin.users.update')
     @livewire('admin.users.reset-password')
 
