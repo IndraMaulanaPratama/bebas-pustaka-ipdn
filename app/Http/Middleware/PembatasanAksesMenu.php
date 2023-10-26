@@ -25,8 +25,9 @@ class PembatasanAksesMenu
             ]
         )->where('PIVOT_ROLE', $role)->first();
 
+
         // Upami menu anu di maksad teu kapendak dinu database mangka pulangkeun hasil false
-        if (null == $pivot) {
+        if (false == count($pivot->menu)) {
             return false;
         }
 
@@ -39,12 +40,12 @@ class PembatasanAksesMenu
         $role = Auth::user()->role->ROLE_NAME;
 
 
-        $menuAdmin = collect(['akses']);
-        $menuSuperAdmin = collect(['menu', 'user-manajemen']);
+        $menuAdmin = collect(['assign-manajemen', 'user-manajemen']);
+        $menuSuperAdmin = collect(['menu', 'role-manajemen']);
 
-        if ("Super Admin") {
+        if ($role == "Super Admin") {
             $data = $menuSuperAdmin->merge($menuAdmin);
-        } else {
+        } elseif ($role == "Admin Pustaka") {
             $data = $menuAdmin;
         }
 
@@ -53,10 +54,12 @@ class PembatasanAksesMenu
 
     public function handle(Request $request, Closure $next): Response
     {
+
         $checkDatabase = $this->checkMenuDatabase();
         $checkManual = $this->checkMenuManual();
 
-        if ($checkDatabase == true || $checkManual = true) {
+
+        if ($checkDatabase == true || $checkManual !== false) {
             return $next($request); // <-- Salam pangabaktos, mangga dihaturanan linggih pangersa 😈
         } else {
             return abort(404);
