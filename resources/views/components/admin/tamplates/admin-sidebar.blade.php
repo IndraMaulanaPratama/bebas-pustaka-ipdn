@@ -35,6 +35,9 @@
                     icon="bi-bar-chart-steps" />
 
                 <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
+
+                <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
+                    icon="bi-universal-access-circle" />
             @endif <!-- Tungtung tina menu super admin -->
 
             {{-- <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="akses" icon="bi-universal-access-circle" /> --}}
