@@ -19,6 +19,7 @@ class pivotMenu extends Model
     protected $perPage = 15;
 
     protected $fillable = [
+        'PIVOT_ID',
         'PIVOT_MENU',
         'PIVOT_ROLE',
         'PIVOT_DESCRIPTION',
