@@ -1,7 +1,6 @@
 <div class="col-12">
     <x-admin.components.card.card size=12 title='Data Role' titleSpan='Status Aktif'>
         <div class="row g-4">
-
             <div class="col-12">
 
                 {{-- Baris bagian search sareng tombol tambih data --}}
@@ -82,9 +81,14 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal">Batalkan</button>
-                <x-admin.components.form.button type='submit' color='primary' text="Ubah Data" />
+                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Batalkan
+                </button>
+
+                <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    Simpan Data
+                </button>
+
             </div>
         </form>
 
@@ -103,9 +107,13 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal">Batalkan</button>
-                <x-admin.components.form.button type='submit' color='primary' text="Simpan Data" />
+                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Batalkan
+                </button>
+
+                <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    Simpan Data
+                </button>
             </div>
         </form>
 
