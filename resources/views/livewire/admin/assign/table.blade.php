@@ -42,16 +42,6 @@
                         <td> {{ $item->PIVOT_DESCRIPTION }} </td>
 
                         {{-- Option Row --}}
-
-                        {{-- Button Details --}}
-                        <td>
-                            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill"
-                                wire:click="updatePivot('{{ $item->PIVOT_ID }}')" data-bs-toggle="modal"
-                                data-bs-target="#formUpdateMenu">
-                                <i class="bi bi-newspaper"></i>
-                            </button>
-                        </td>
-
                         {{-- Button Edit --}}
                         <td>
                             <button type="button" class="btn btn-sm btn-outline-success rounded-pill"
