@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\Role;
 use App\Livewire\Page\Admin\Users;
 use App\Livewire\Page\Dashboard;
@@ -23,10 +24,10 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->prefix('')->group(function () {
-    Route::get('/menu', Menu::class)->name('menu'); // TODO: Ini updatenya belum jalan ya say
-    Route::get('/menu/asign', Menu::class)->name('menu-asign'); // TODO: Selesaikan dong module ini say
+    Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/role', Role::class)->name('role-manajemen');
+    Route::get('/assign', Assign::class)->name('assign-manajemen'); // TODO: Selesaikan dong module ini say
 });
 
 // Ranahna gapura
