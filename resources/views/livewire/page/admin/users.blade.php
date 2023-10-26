@@ -19,4 +19,6 @@
         @livewire('admin.users.table')
     </div>
 
+    @livewire('admin.users.update')
+
 </div>
