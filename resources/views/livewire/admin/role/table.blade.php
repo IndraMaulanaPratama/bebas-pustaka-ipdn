@@ -9,7 +9,7 @@
                     {{-- Tombol Tambah Data --}}
                     <div class="col-4">
                         {{-- Input Search --}}
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+                        <button class="btn btn-outline-primary" {{ $buttonCreate }} type="button" data-bs-toggle="modal"
                             data-bs-target="#formCreateRole">
                             <span class="bi bi-plus-circle" role="status" aria-hidden="true"></span>
                             Tambah Data
@@ -41,14 +41,16 @@
                                 <td>{{ $item->ROLE_NAME }}</td>
                                 {{-- Option Row --}}
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill"
-                                        data-bs-toggle="modal" data-bs-target="#formUpdateRole"
+                                    <button type="button" {{ $buttonUpdate }}
+                                        class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
+                                        data-bs-target="#formUpdateRole"
                                         wire:click="updateRole('{{ $item->ROLE_ID }}')">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn rounded-pill btn-sm btn-outline-danger"
+                                    <button type="button" {{ $buttonDelete }}
+                                        class="btn rounded-pill btn-sm btn-outline-danger"
                                         wire:click="deleteRole('{{ $item->ROLE_ID }}')"
                                         wire:confirm='Anda yakin akan menghapus Role {{ $item->ROLE_NAME }} ini?'>
                                         <i class="bi bi-trash3-fill"></i>

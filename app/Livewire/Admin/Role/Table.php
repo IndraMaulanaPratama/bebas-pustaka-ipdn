@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Role;
 
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,6 +14,7 @@ class Table extends Component
 
     public $search;
 
+    public $buttonCreate, $buttonDelete, $buttonUpdate;
     public $title, $actionName, $textSubmit, $id, $name;
 
     public function deleteRole($id)
@@ -81,14 +83,19 @@ class Table extends Component
 
     public function render()
     {
-        $role = Role::query()->when(
+        $role = Auth::user()->role;
+        $role !== "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
+        $role !== "Super Admin" ? $this->buttonUpdate = "hidden" : $this->buttonUpdate = null;
+        $role !== "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonDelete = null;
+
+        $dataRole = Role::query()->when(
             $this->search,
             function ($query, $search) {
                 return $query->where('ROLE_NAME', 'like', '%' . $search . '%');
             }
-        )->whereNotIn('ROLE_NAME', ['Super Admin'])->paginate();
+        )->whereNot('ROLE_NAME', 'Super Admin')->paginate();
 
 
-        return view('livewire.admin.role.table', ['role' => $role]);
+        return view('livewire.admin.role.table', ['role' => $dataRole]);
     }
 }
