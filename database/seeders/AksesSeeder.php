@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class AksesSeeder extends Seeder
@@ -18,57 +19,90 @@ class AksesSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
-
         $dataMenu = [
             'MENU_ID' => uuid_create(4),
-            'MENU_NAME' => fake()->word,
+            'MENU_NAME' => "Seeder",
             // 'MENU_ICON',
-            'MENU_DESCRIPTION' => fake()->sentence,
-            'MENU_URL' => Str::slug("ini data dummy"),
+            'MENU_DESCRIPTION' => "Menu Beranda Seeder",
+            'MENU_URL' => "/",
+            'MENU_POSITION' => "tautan",
         ];
 
         $dataRole = [
-            "ROLE_ID" => uuid_create(4),
-            "ROLE_NAME" => fake()->word,
+            [
+                "ROLE_ID" => uuid_create(4),
+                "ROLE_NAME" => "Super Admin",
+            ],
+            [
+                "ROLE_ID" => uuid_create(4),
+                "ROLE_NAME" => "Admin Pustaka",
+            ],
         ];
 
         $dataUser = [
-            "user_role" => $dataRole['ROLE_ID'],
-            "name" => fake()->name(),
-            "email" => fake()->email(),
-            "email_verified_at" => now()->timestamp,
-            "password" => bcrypt("password"),
+            [
+                // "id" => uuid_create(4),
+                "user_role" => $dataRole[0]['ROLE_ID'],
+                "name" => "Rama Wirahma",
+                "email" => "rama-wirahma@ipdn.ac.id",
+                "password" => bcrypt("password"),
+            ],
+            [
+                // "id" => uuid_create(4),
+                "user_role" => $dataRole[1]['ROLE_ID'],
+                "name" => "Admin Pustaka",
+                "email" => "admin-pustaka@ipdn.ac.id",
+                "password" => bcrypt("password"),
+            ],
         ];
 
         $dataPivotMenu = [
-            'PIVOT_ID' => uuid_create(4),
-            'PIVOT_MENU' => $dataMenu['MENU_ID'],
-            'PIVOT_ROLE' => $dataRole['ROLE_ID'],
-            'PIVOT_DESCRIPTION' => fake()->sentence,
+            [
+                'PIVOT_ID' => uuid_create(4),
+                'PIVOT_MENU' => $dataMenu['MENU_ID'],
+                'PIVOT_ROLE' => $dataRole[0]['ROLE_ID'],
+                'PIVOT_DESCRIPTION' => "Assign Beranda untuk super admin",
+            ],
+            [
+                'PIVOT_ID' => uuid_create(4),
+                'PIVOT_MENU' => $dataMenu['MENU_ID'],
+                'PIVOT_ROLE' => $dataRole[1]['ROLE_ID'],
+                'PIVOT_DESCRIPTION' => "Assign Beranda untuk admin pustaka",
+            ],
         ];
 
         $dataAkses = [
-            'ACCESS_ID' => uuid_create(4),
-            'ACCESS_NAME' => fake()->word,
-            'ACCESS_MENU' => $dataPivotMenu['PIVOT_ID'],
-            'ACCESS_CREATE' => random_int(0, 1),
-            'ACCESS_READ' => random_int(0, 1),
-            'ACCESS_UPDATE' => random_int(0, 1),
-            'ACCESS_DELETE' => random_int(0, 1),
-            'ACCESS_RESTORE' => random_int(0, 1),
-            'ACCESS_DESTROY' => random_int(0, 1),
-            'ACCESS_DETAIL' => random_int(0, 1),
-            'ACCESS_VIEW' => random_int(0, 1),
+            [
+                'ACCESS_ID' => uuid_create(4),
+                'ACCESS_MENU' => $dataPivotMenu[0]['PIVOT_ID'],
+                'ACCESS_CREATE' => random_int(0, 1),
+                'ACCESS_READ' => random_int(0, 1),
+                'ACCESS_UPDATE' => random_int(0, 1),
+                'ACCESS_DELETE' => random_int(0, 1),
+                'ACCESS_RESTORE' => random_int(0, 1),
+                'ACCESS_DESTROY' => random_int(0, 1),
+                'ACCESS_DETAIL' => random_int(0, 1),
+                'ACCESS_VIEW' => random_int(0, 1),
+            ],
+            [
+                'ACCESS_ID' => uuid_create(4),
+                'ACCESS_MENU' => $dataPivotMenu[1]['PIVOT_ID'],
+                'ACCESS_CREATE' => random_int(0, 1),
+                'ACCESS_READ' => random_int(0, 1),
+                'ACCESS_UPDATE' => random_int(0, 1),
+                'ACCESS_DELETE' => random_int(0, 1),
+                'ACCESS_RESTORE' => random_int(0, 1),
+                'ACCESS_DESTROY' => random_int(0, 1),
+                'ACCESS_DETAIL' => random_int(0, 1),
+                'ACCESS_VIEW' => random_int(0, 1),
+            ],
         ];
 
-            Role::create($dataRole);
-            User::create($dataUser);
-            Menu::create($dataMenu);
-            pivotMenu::create($dataPivotMenu);
-            Akses::create($dataAkses);
-
-        }
+        Role::insert($dataRole);
+        User::insert($dataUser);
+        Menu::insert($dataMenu);
+        pivotMenu::insert($dataPivotMenu);
+        Akses::insert($dataAkses);
 
     }
 }
