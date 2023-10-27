@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('ACCESSES', function (Blueprint $table) {
             $table->string('ACCESS_ID', 36)->default(uuid_create(4))->primary();
-            $table->string('ACCESS_NAME', 150)->nullable(true);
             $table->string('ACCESS_MENU', 36)->comment('FOREIGN KEY ke table pivot menu');
             $table->boolean('ACCESS_CREATE')->default(false);
             $table->boolean('ACCESS_READ')->default(false);
