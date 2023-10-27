@@ -6,12 +6,14 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Create extends Component
 {
+    public $superAdmin, $roleLogin, $buttonCreate, $buttonUpdate, $buttonDelete;
     public $selectMenu, $selectRole, $description;
 
     public $switchRead = true, $switchView = true;
@@ -110,13 +112,29 @@ class Create extends Component
     }
 
 
+    public function mount()
+    {
+    }
+
+
+
 
     public function render()
     {
-        $role = Role::whereNotIn("ROLE_NAME", ["Super Admin"])->get();
+        $this->role = Auth::user()->role->ROLE_NAME;
+        $this->role != "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonDelete = null;
+        // $this->role != "Super Admin" ? $this->buttonUpdate = "hidden" : $this->buttonUpdate = null;
+        // $this->role != "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
+
+        if ($this->role === "Super Admin") {
+            $dataRole = Role::get();
+        } else {
+            $dataRole = Role::whereNot('ROLE_NAME', "Super Admin")->get();
+        }
+
         $menu = Menu::get();
         return view('livewire.admin.assign.create', [
-            'role' => $role,
+            'role' => $dataRole,
             'menu' => $menu,
         ]);
     }

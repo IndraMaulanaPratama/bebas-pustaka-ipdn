@@ -145,7 +145,7 @@ class Update extends Component
 
     public function render()
     {
-        $role = Role::whereNotIn("ROLE_NAME", ["Super Admin"])->get();
+        $role = Role::whereNot("ROLE_NAME", "Super Admin")->get();
         $menu = Menu::get();
 
         return view('livewire.admin.assign.update', [

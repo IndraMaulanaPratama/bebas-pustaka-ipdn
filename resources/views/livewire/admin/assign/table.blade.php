@@ -7,7 +7,7 @@
             {{-- Tombol Tambah Data --}}
             <div class="col-4">
                 {{-- Input Search --}}
-                <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+                <button class="btn {{ $buttonCreate }} btn-outline-primary" type="button" data-bs-toggle="modal"
                     data-bs-target="#formCreateAssign" wire:click='resetForm'>
                     <span class="bi bi-plus-circle" role="status" aria-hidden="true"></span>
                     Tambah Data
@@ -44,7 +44,8 @@
                         {{-- Option Row --}}
                         {{-- Button Edit --}}
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-success rounded-pill"
+                            <button type="button" {{ $buttonUpdate }}
+                                class="btn btn-sm btn-outline-success rounded-pill"
                                 wire:click="updatePivot('{{ $item->PIVOT_ID }}')" data-bs-toggle="modal"
                                 data-bs-target="#formUpdateAssign">
                                 <i class="bi bi-pencil-square"></i>
@@ -53,7 +54,8 @@
 
                         {{-- Button Delete --}}
                         <td>
-                            <button type="button" class="btn rounded-pill btn-sm btn-outline-danger"
+                            <button type="button" {{ $buttonDelete }}
+                                class="btn rounded-pill btn-sm btn-outline-danger"
                                 wire:click='deletePivot("{{ $item->PIVOT_ID }}")'
                                 wire:confirm='Anda yakin akan menghapus menu {{ $item->menu[0]->MENU_NAME ?? null }} ini?'>
                                 <i class="bi bi-trash3-fill"></i>
