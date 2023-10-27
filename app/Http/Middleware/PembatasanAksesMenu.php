@@ -40,8 +40,8 @@ class PembatasanAksesMenu
         $role = Auth::user()->role->ROLE_NAME;
 
 
-        $menuAdmin = collect(['assign-manajemen', 'user-manajemen']);
-        $menuSuperAdmin = collect(['menu', 'role-manajemen']);
+        $menuAdmin = collect(['assign-manajemen', 'user-manajemen', 'menu', 'role-manajemen']);
+        $menuSuperAdmin = collect([]);
 
         if ($role == "Super Admin") {
             $data = $menuSuperAdmin->merge($menuAdmin);
