@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\Menu;
 
 use App\Models\Menu;
+use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -12,6 +14,9 @@ use illuminate\Support\Str;
 class Table extends Component
 {
     use WithPagination;
+
+    public $buttonCreate, $buttonUpdate, $buttonDelete;
+
 
     public $search = '';
     public $id = '';
@@ -185,6 +190,11 @@ class Table extends Component
 
     public function render()
     {
+        $role = Auth::user()->role->ROLE_NAME;
+        $role !== "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
+        $role !== "Super Admin" ? $this->buttonUpdate = "hidden" : $this->buttonCreate = null;
+        $role !== "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonCreate = null;
+
         $menu = Menu::when(
             $this->search,
             function ($query, $search) {

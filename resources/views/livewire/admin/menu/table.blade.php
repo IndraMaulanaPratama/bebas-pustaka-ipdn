@@ -10,7 +10,7 @@
                     {{-- Tombol Tambah Data --}}
                     <div class="col-4">
                         {{-- Input Search --}}
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+                        <button class="btn btn-outline-primary" {{ $buttonCreate }} type="button" data-bs-toggle="modal"
                             data-bs-target="#formCreateMenu" wire:click='resetForm'>
                             <span class="bi bi-plus-circle" role="status" aria-hidden="true"></span>
                             Tambah Data
@@ -45,14 +45,16 @@
 
                                 {{-- Option Row --}}
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill"
+                                    <button type="button" {{ $buttonUpdate }}
+                                        class="btn btn-sm btn-outline-success rounded-pill"
                                         wire:click="updateMenu('{{ $item->MENU_ID }}')" data-bs-toggle="modal"
                                         data-bs-target="#formUpdateMenu">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn rounded-pill btn-sm btn-outline-danger"
+                                    <button type="button" {{ $buttonDelete }}
+                                        class="btn rounded-pill btn-sm btn-outline-danger"
                                         wire:click='deleteMenu("{{ $item->MENU_ID }}")'
                                         wire:confirm='Anda yakin akan menghapus menu {{ $item->MENU_NAME }} ini?'>
                                         <i class="bi bi-trash3-fill"></i>
