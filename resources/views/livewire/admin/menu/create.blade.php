@@ -27,7 +27,7 @@
                 @php
                     $host = env('APP_URL') . '/'; // Nyandak alamat aplikasi
                 @endphp
-                <x-admin.components.form.input-group name='url' :textGroup="$host" disabled='disabled' />
+                <x-admin.components.form.input-group name='url' :textGroup="$host" />
                 <span class="badge border-light border-1 text-black-50">Gambaran url aplikasi</span>
 
             </div>

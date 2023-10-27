@@ -99,7 +99,7 @@
                     @php
                         $host = env('APP_URL') . '/'; // Nyandak alamat aplikasi
                     @endphp
-                    <x-admin.components.form.input-group name='url' :textGroup="$host" disabled='disabled' />
+                    <x-admin.components.form.input-group name='url' :textGroup="$host" />
                     <small class="badge border-light border-1 text-black-50">Gambaran url aplikasi</small>
 
                     {{-- Input Posisi Menu --}}
@@ -139,7 +139,6 @@
 
             <div class="modal-body">
                 <div class="row g-4">
-                    <input type="hidden" class="form-control" wire:model.live='id' required='required' />
 
                     {{-- Baris kanggo input menu sareng icon --}}
                     {{-- Input Menu Name --}}
@@ -156,7 +155,7 @@
                     @php
                         $host = env('APP_URL') . '/'; // Nyandak alamat aplikasi
                     @endphp
-                    <x-admin.components.form.input-group name='url' :textGroup="$host" disabled='disabled' />
+                    <x-admin.components.form.input-group name='url' :textGroup="$host" />
                     <small class="badge border-light border-1 text-black-50">Gambaran url aplikasi</small>
 
                     {{-- Input Posisi Menu --}}
@@ -167,8 +166,7 @@
                     </x-admin.components.form.select>
 
                     {{-- Input Description --}}
-                    <x-admin.components.form.textarea name='description' placeholder='Deskripsi Menu'
-                        tinggi='100' />
+                    <x-admin.components.form.textarea name='description' placeholder='Deskripsi Menu' tinggi='100' />
 
                 </div>
             </div>

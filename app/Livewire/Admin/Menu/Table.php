@@ -22,7 +22,7 @@ class Table extends Component
     public $id = '';
 
     // Ngadamel sareng marios input data menu ti client
-    #[Rule(['required', 'string', 'max:50', 'unique:MENUS,MENU_NAME'])]
+    #[Rule(['required', 'string', 'max:50'])]
     public $menu = '';
 
     // Ngadamel sareng marios input data icon ti client
@@ -34,7 +34,7 @@ class Table extends Component
     public $description = '';
 
     // Ngadamel sareng marios input data url ti client
-    #[Rule(['required', 'string', 'max:20', 'unique:MENUS,MENU_URL'])]
+    #[Rule(['required', 'max:20', 'unique:MENUS,MENU_URL'])]
     public $url = '';
 
     #[Rule(['string', 'required'])]
@@ -54,10 +54,10 @@ class Table extends Component
     /**
      * Fungsi kanggo ngadamel slug url menu
      */
-    public function updatedMenu()
-    {
-        $this->url = str::slug($this->menu);
-    }
+    // public function updatedMenu()
+    // {
+    //     $this->url = str::slug($this->menu);
+    // }
 
 
     /**
@@ -76,7 +76,7 @@ class Table extends Component
                 'MENU_NAME' => $this->menu,
                 'MENU_DESCRIPTION' => $this->description,
                 'MENU_ICON' => $this->icon != null ? $this->icon : null,
-                'MENU_URL' => str::slug($this->menu),
+                'MENU_URL' => $this->url,
                 'MENU_POSITION' => $this->position,
             ];
 
