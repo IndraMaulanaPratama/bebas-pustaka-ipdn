@@ -18,7 +18,7 @@
             <x-admin.components.form.select name='selectMenu' placeholder="Pilih menu">
                 <option></option>
                 @foreach ($menu as $item)
-                    <option value="{{ $item->MENU_ID }}">{{ $item->MENU_NAME }}</option>
+                    <option value="{{ $item->MENU_ID }}">{{ $item->MENU_NAME . ' ~ ' . $item->MENU_URL }}</option>
                 @endforeach
             </x-admin.components.form.select>
 
