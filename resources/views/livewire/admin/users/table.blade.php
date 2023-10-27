@@ -71,7 +71,8 @@
 
                             {{-- Button Delete User --}}
                             <td>
-                                <button type="button" class="btn rounded-pill btn-sm btn-outline-danger"
+                                <button type="button" {{ $buttonDelete }}
+                                    class="btn rounded-pill btn-sm btn-outline-danger"
                                     wire:click='deleteUser("{{ $item->id }}")'
                                     wire:confirm='Anda yakin akan menghapus pengguna {{ $item->name }} ini?'>
                                     <i class="bi bi-trash3-fill"></i>

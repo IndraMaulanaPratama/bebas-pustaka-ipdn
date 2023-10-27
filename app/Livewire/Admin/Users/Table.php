@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -16,6 +17,7 @@ class Table extends Component
     use WithPagination, WithFileUploads;
 
     public $search;
+    public $role, $buttonDelete;
     public $update_id, $update_name, $update_email, $update_password, $update_confirm_password, $update_photo, $update_sign, $update_role;
 
 
@@ -68,6 +70,16 @@ class Table extends Component
 
 
 
+    public function mount()
+    {
+        $this->role = Auth::user()->role->ROLE_NAME;
+        if ($this->role != 'Super Admin') {
+            $this->buttonDelete = 'hidden';
+        }
+    }
+
+
+
 
 
     public function render()
@@ -77,7 +89,14 @@ class Table extends Component
             function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%');
             }
-        )->latest()->paginate();
+        )->when(
+                $this->role,
+                function ($query, $role) {
+                    if ($role != 'Super Admin') {
+                        return $query->whereNotIn('id', [1]);
+                    }
+                }
+            )->latest()->paginate();
 
         return view('livewire.admin.users.table', ['data' => $user]);
     }
