@@ -74,6 +74,13 @@ class Update extends Component
 
     public function checkDuplicate($menu, $role)
     {
+        $changeValue = Akses::with(['pivotMenu'])->where('ACCESS_ID', $this->idAccess)->first();
+        // dd($changeValue);
+
+        if ($changeValue->pivotMenu->PIVOT_MENU == $this->selectMenu && $changeValue->pivotMenu->PIVOT_ROLE == $this->selectRole) {
+            return null;
+        }
+
         return pivotMenu::where(["PIVOT_MENU" => $menu, "PIVOT_ROLE" => $role])->first();
     }
 
@@ -143,6 +150,8 @@ class Update extends Component
             $this->dispatch('failed-updating-assign', $th->getMessage());
         }
     }
+
+
 
     public function render()
     {
