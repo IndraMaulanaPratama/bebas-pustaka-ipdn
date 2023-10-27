@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -145,11 +146,13 @@ class Update extends Component
 
     public function render()
     {
-        $role = Role::whereNot("ROLE_NAME", "Super Admin")->get();
+        $role = Auth::user()->role->ROLE_NAME;
+        $role !== "Super Admin" ? $dataRole = Role::whereNot("ROLE_NAME", "Super Admin")->get() : $dataRole = Role::get();
+
         $menu = Menu::get();
 
         return view('livewire.admin.assign.update', [
-            'role' => $role,
+            'role' => $dataRole,
             'menu' => $menu
         ]);
     }
