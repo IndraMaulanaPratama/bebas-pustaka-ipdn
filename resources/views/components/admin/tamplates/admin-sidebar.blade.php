@@ -27,18 +27,21 @@
         @if ($role->ROLE_NAME == 'Super Admin' || $role->ROLE_NAME == 'Admin Pustaka')
             <x-admin.tamplates.sidebar.heading text='Admin Area' />
 
+            {{-- User Menu --}}
             <x-admin.tamplates.sidebar.link text="Manajemen Pengguna" navigate="user-manajemen"
                 icon="bi-person-lines-fill" />
 
-                <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
-                    icon="bi-universal-access-circle" />
+            {{-- Assign Menu --}}
+            <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
+                icon="bi-universal-access-circle" />
+
+            {{-- Manajemen Menu --}}
+            <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
+
+            {{-- Role Menu --}}
+            <x-admin.tamplates.sidebar.link text="Manajemen Role" navigate="role-manajemen" icon="bi-bar-chart-steps" />
+
             @if ($role->ROLE_NAME == 'Super Admin')
-                <x-admin.tamplates.sidebar.link text="Manajemen Role" navigate="role-manajemen"
-                    icon="bi-bar-chart-steps" />
-
-                <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
-
-
                 {{-- Data Sampah --}}
                 <x-admin.tamplates.sidebar.list-item text="Data Sampah" name="dropDown">
                     <x-admin.tamplates.sidebar.item-link text="Data Pengguna" navigate="/" icon="circle"
