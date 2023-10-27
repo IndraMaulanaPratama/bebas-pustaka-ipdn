@@ -56,7 +56,7 @@
     <main id="main" class="main">
 
         <!-- Breadcrumb -->
-        <x-admin.tamplates.admin-pageTitle :title=$title />
+        <x-admin.tamplates.admin-pageTitle :title=$title ?? "Judul Halaman" />
         {{-- // TODO: Fixing breadcrumb  --}}
         <!-- End Page Title -->
 
