@@ -36,6 +36,12 @@ class Create extends Component
     }
 
 
+    public function checkDuplicate($menu, $role)
+    {
+        return pivotMenu::where(["PIVOT_MENU" => $menu, "PIVOT_ROLE" => $role])->first();
+    }
+
+
     // Fungsi kanggo nambihan data assign
     public function createData()
     {
@@ -54,6 +60,14 @@ class Create extends Component
         // Validasi data menu
         if ($this->description == null) {
             $this->dispatch('failed-creating-assign', 'Anda belum mengisikan deskripsi assign');
+            return;
+        }
+
+
+        // Marios bilih data pivot menu tos pernah di daptarkeun sateuacana
+        $duplicate = $this->checkDuplicate($this->selectMenu, $this->selectRole);
+        if (null != $duplicate) {
+            $this->dispatch('failed-creating-assign', "Data assign yang anda input sudah tersimpan di aplikasi");
             return;
         }
 
