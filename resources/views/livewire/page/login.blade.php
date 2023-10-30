@@ -21,31 +21,24 @@
 
                         <form method="POST" wire:submit='login' class="row g-3 needs-validation" novalidate>
 
-                            @if (session()->has('warning'))
-                            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
-                                <div>
-                                    {{ session('warning') }}
-                                </div>
-                            </div>
+                            @if (session('success'))
+                                <x-admin.components.alert.success text="{{ session('success') }}" />
                             @endif
 
-                            <div class="col-12">
-                                <label for="yourUsername" class="form-label">Username</label>
-                                <div class="input-group has-validation">
-                                    <input type="text" name="email" wire:model='email' class="form-control"
-                                        id="yourUsername" required>
-                                    {{-- <span class="input-group-text" id="inputGroupPrepend">@praja.ipdn.ac.id</span> --}}
-                                    <div class="invalid-feedback">Please enter your username.</div>
-                                </div>
-                            </div>
+                            @if (session('warning'))
+                                <x-admin.components.alert.warning text="{{ session('warning') }}" />
+                            @endif
 
-                            <div class="col-12">
-                                <label for="yourPassword" class="form-label">Password</label>
-                                <input type="password" name="password" wire:model='password' class="form-control"
-                                    id="yourPassword" required>
-                                <div class="invalid-feedback">Please enter your password!</div>
-                            </div>
+                            @if (session('error'))
+                                <x-admin.components.alert.error text="{{ session('error') }}" />
+                            @endif
+
+                            {{-- Input Email --}}
+                            <x-admin.components.form.input type="email" name='email' placeholder='E-Mail' required='required' />
+
+                            {{-- Input Kata Sandi --}}
+                            <x-admin.components.form.input type="password" name='password' placeholder='Kata Sandi' required='required' />
+
 
                             <div class="col-12">
                                 <button class="btn btn-primary w-100" type="submit">Masuk</button>
