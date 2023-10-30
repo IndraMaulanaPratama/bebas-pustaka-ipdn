@@ -2,6 +2,7 @@
 
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\Role;
+use App\Livewire\Page\Admin\Similaritas;
 use App\Livewire\Page\Admin\Users;
 use App\Livewire\Page\Dashboard;
 use App\Livewire\Page\Login;
@@ -23,11 +24,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 
 // Ranahna nu gaduh akses
-Route::middleware(['auth', 'access'])->prefix('')->group(function () {
+Route::middleware(['auth', 'access'])->group(function () {
+    Route::get('/praja/similaritas', Similaritas::class)->name('praja-similaritas');
+
+
+    // --- *** Admin Area *** ---
+    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
+
+
     Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/role', Role::class)->name('role-manajemen');
     Route::get('/assign', Assign::class)->name('assign-manajemen');
+    // <!-- End Of Admin area !--->
 });
 
 // Ranahna gapura
