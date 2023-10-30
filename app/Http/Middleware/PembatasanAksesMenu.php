@@ -53,11 +53,11 @@ class PembatasanAksesMenu
 
         if ($role == "Super Admin") {
             $data = $menuSuperAdmin->merge($menuAdmin);
-        } elseif ($role == "Admin Pustaka") {
+        } else { // ($role == "Admin Pustaka")
             $data = $menuAdmin;
         }
 
-        return $result = $data->search($address);
+        return $data->search($address);
     }
 
     public function handle(Request $request, Closure $next): Response
