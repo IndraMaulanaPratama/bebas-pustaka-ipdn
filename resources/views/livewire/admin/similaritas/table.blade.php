@@ -27,8 +27,9 @@
             </div>
         </div>
 
-        <hr/>
+        <hr />
 
+        {{-- Table data similaritas --}}
         <div class="row">
             <table class="table table-responsive table-hover">
 
@@ -47,7 +48,12 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>20.0001</td>
+                        <td>
+                            <button type="button" class="btn" wire:click="detailPraja('30.0122')"
+                                data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
+                                30.0122
+                            </button>
+                        </td>
                         <td>Ini adalah judul skripsi yang berisikan data dummy menggunakan metode lorem ipsum dolor sit
                             amet
                         </td>
@@ -68,7 +74,13 @@
 
                     <tr>
                         <td>2</td>
-                        <td>20.0002</td>
+                        <td>
+                            <button type="button" class="btn" wire:click="detailPraja('31.0003')"
+                                data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
+                                31.0003
+
+                            </button>
+                        </td>
                         <td>Ini adalah judul skripsi yang sudah di approve
                         </td>
                         <td>Kelas didalam turnitin</td>
@@ -92,4 +104,112 @@
         <x-admin.tamplates.paginate.paginate :item="$similaritas" />
 
     </x-admin.components.card.card>
+
+
+    {{-- Modal Detail Praja --}}
+    <x-admin.components.modal.modal id='modalDetailPraja' size='xl'>
+        <x-admin.components.modal.header id='modalDetailPraja' title="Data Detail Praja" />
+
+        <div class="modal-body">
+            <div class="row g-2 p-2">
+                &nbsp;
+
+                <x-admin.components.form.input name='prajaNama' placeholder='Nama Lengkap' disabled='disabled' />
+
+                {{-- Email dan Nomor Ponsel --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaEmail' placeholder='Surat Elektronik'
+                        disabled='disabled' />
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaPonsel' placeholder='Nomor Ponsel' disabled='disabled' />
+
+                </div>
+
+                <hr />
+
+                {{-- Provinsi dan Kota --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaProvinsi' placeholder='Asal Provinsi'
+                        disabled='disabled' />
+
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaKota' placeholder='Asal Kota' disabled='disabled' />
+
+                </div>
+
+                {{-- Tempat Tanggal Lahir dan Jenis Kelamin --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaTempatTanggalLahir' placeholder='Tempat dan Tanggal Lahir'
+                        disabled='disabled' />
+
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaJenisKelamin' placeholder='Jenis Kelamin'
+                        disabled='disabled' />
+
+                </div>
+
+                <hr />
+
+                {{-- Tingkat dan Angkatan --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaTingkat' placeholder='Tingkat' disabled='disabled' />
+
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaAngkatan' placeholder='Angkatan' disabled='disabled' />
+
+                </div>
+
+                {{-- Kampus dan Wisma --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaKampus' placeholder='Alamat Kampus' disabled='disabled' />
+
+                </div>
+
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaWisma' placeholder='Nama Wisma' disabled='disabled' />
+
+                </div>
+
+                <hr />
+
+                {{-- Program Pendidikan dan Fakultas --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaPropen' placeholder='Program Pendidikan'
+                        disabled='disabled' />
+
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaFakultas' placeholder='Fakultas' disabled='disabled' />
+
+                </div>
+
+                {{-- Program Studi dan Kelas --}}
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaProdi' placeholder='Program Studi'
+                        disabled='disabled' />
+
+                </div>
+                <div class="col-6">
+                    <x-admin.components.form.input name='prajaKelas' placeholder='Kelas' disabled='disabled' />
+
+                </div>
+
+                <hr />
+
+                {{-- Tombol Reset sareng Submit --}}
+                <div class="modal-footer">
+                    {{-- Tombol Reset / Cancel --}}
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </x-admin.components.modal.modal>
+
 </div>
