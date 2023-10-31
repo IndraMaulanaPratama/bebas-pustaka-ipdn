@@ -3,6 +3,7 @@
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\Role;
 use App\Livewire\Page\Admin\Similaritas;
+// use App\Livewire\Page\Praja\Similaritas as PrajaSimilaritas;
 use App\Livewire\Page\Admin\Users;
 use App\Livewire\Page\Dashboard;
 use App\Livewire\Page\Login;
@@ -25,8 +26,7 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->group(function () {
-    Route::get('/praja/similaritas', Similaritas::class)->name('praja-similaritas');
-
+    Route::get('/praja/similaritas', App\Livewire\Page\Praja\Similaritas::class)->name('praja-similaritas');
 
     // --- *** Admin Area *** ---
     Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
