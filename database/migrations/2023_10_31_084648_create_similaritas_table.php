@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('SIMILARITAS_PRAJA')->references('PRAJA_NPM')->on('PRAJA')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('SIMILARITAS_PRAJA')->references('PRAJA_NPP')->on('PRAJA')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('SIMILARITAS_OFFICER')->references('email')->on('users');
         });
     }
