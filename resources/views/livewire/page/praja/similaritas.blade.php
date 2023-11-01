@@ -49,4 +49,7 @@
         </div>
 
     </div>
+
+    @livewire('praja.similaritas.update-ponsel')
+    @livewire('praja.similaritas.form-pengajuan')
 </div>
