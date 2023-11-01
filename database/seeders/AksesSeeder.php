@@ -37,6 +37,11 @@ class AksesSeeder extends Seeder
                 "ROLE_ID" => uuid_create(4),
                 "ROLE_NAME" => "Admin Pustaka",
             ],
+            [
+                "ROLE_ID" => uuid_create(4),
+                "ROLE_NAME" => "Praja Utama",
+            ],
+
         ];
 
         $dataUser = [
@@ -69,6 +74,13 @@ class AksesSeeder extends Seeder
                 'PIVOT_ROLE' => $dataRole[1]['ROLE_ID'],
                 'PIVOT_DESCRIPTION' => "Assign Beranda untuk admin pustaka",
             ],
+            [
+                'PIVOT_ID' => uuid_create(4),
+                'PIVOT_MENU' => $dataMenu['MENU_ID'],
+                'PIVOT_ROLE' => $dataRole[2]['ROLE_ID'],
+                'PIVOT_DESCRIPTION' => "Assign Beranda untuk praja utama",
+            ],
+
         ];
 
         $dataAkses = [
