@@ -19,7 +19,9 @@
         {{-- Update Nomor Ponsel --}}
         <li>
             <p>
-                Silahkan perbaharui data nomor ponsel anda dengan cara click <a href="#">Update Nomor Ponsel</a>
+                Silahkan perbaharui data nomor ponsel anda dengan cara click <button type="button"
+                    class="btn btn-link {{ $buttonPonsel }}" data-bs-toggle="modal" data-bs-target="#formUpdatePonsel">
+                    Nomor Ponsel</button>
                 guna
                 mempermudah komunikasi antara admin similaritas dengan anda <b>*</b> <small>Data Nomor Ponsel anda akan
                     kami
@@ -42,7 +44,9 @@
         <li>
             <p>
                 Setelah data-data diatas sudah anda dikumpulkan, silahkan click tautan <button type="button"
-                    class="btn btn-light btn-sm">Buat Pengajuan Similaritas</button>. Jika formulir pengajuan tidak
+                    class="btn btn-light btn-sm {{ $buttonPengajuan }}" data-bs-toggle="modal"
+                    data-bs-target="#formPengajuan">Buat Pengajuan
+                    Similaritas</button>. Jika formulir pengajuan tidak
                 muncul diperangkat anda, silahkan update terlebih dahulu nomor ponsel anda.
             </p>
         </li>
@@ -54,7 +58,9 @@
         </li>
 
         <li>
-            Data Skripsi yang memiliki tingkat similaritas dibawah 30%, akan di berikan approval oleh admin dan anda akan dihubungi oleh pihak admin atau aplikasi akan mengirimkan pemberitahuan atas approval tersebut kepada akun email praja anda.
+            Data Skripsi yang memiliki tingkat similaritas dibawah 30%, akan di berikan approval oleh admin dan anda
+            akan dihubungi oleh pihak admin atau aplikasi akan mengirimkan pemberitahuan atas approval tersebut kepada
+            akun email praja anda.
         </li>
 
     </ul>
