@@ -15,7 +15,7 @@ class Similaritas extends Model
     protected $primaryKey = "SIMILARITAS_ID";
     protected $keyType = "string";
     protected $perPage = 10;
-    protected $with = ['user', 'praja'];
+    protected $with = ['user'];
     protected $fillable = [
         'SIMILARITAS_ID',
         'SIMILARITAS_NUMBER',
@@ -35,12 +35,6 @@ class Similaritas extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, "SIMILARITAS_OFFICER", "email");
+        return $this->belongsTo(User::class, "SIMILARITAS_OFFICER", "id");
     }
-
-    public function praja(): BelongsTo
-    {
-        return $this->belongsTo(Praja::class, "SIMILARITAS_PRAJA", "PRAJA_NPM");
-    }
-
 }
