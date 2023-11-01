@@ -19,15 +19,6 @@ class AksesSeeder extends Seeder
      */
     public function run(): void
     {
-        $dataMenu = [
-            'MENU_ID' => uuid_create(4),
-            'MENU_NAME' => "Seeder",
-            // 'MENU_ICON',
-            'MENU_DESCRIPTION' => "Menu Beranda Seeder",
-            'MENU_URL' => "/",
-            'MENU_POSITION' => "tautan",
-        ];
-
         $dataRole = [
             [
                 "ROLE_ID" => uuid_create(4),
@@ -61,7 +52,17 @@ class AksesSeeder extends Seeder
             ],
         ];
 
+        $dataMenu = [
+            'MENU_ID' => uuid_create(4),
+            'MENU_NAME' => "Seeder",
+            // 'MENU_ICON',
+            'MENU_DESCRIPTION' => "Menu Beranda Seeder",
+            'MENU_URL' => "/",
+            'MENU_POSITION' => "tautan",
+        ];
+
         $dataPivotMenu = [
+            // Beranda
             [
                 'PIVOT_ID' => uuid_create(4),
                 'PIVOT_MENU' => $dataMenu['MENU_ID'],
@@ -80,7 +81,6 @@ class AksesSeeder extends Seeder
                 'PIVOT_ROLE' => $dataRole[2]['ROLE_ID'],
                 'PIVOT_DESCRIPTION' => "Assign Beranda untuk praja utama",
             ],
-
         ];
 
         $dataAkses = [
