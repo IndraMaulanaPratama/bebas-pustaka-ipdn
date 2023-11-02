@@ -6,9 +6,7 @@
         <div class="row g-2 p-2">
             &nbsp;
 
-            <x-admin.components.form.input name='nomorSurat' placeholder='Nomor Surat' disabled='disabled' />
-
-            <x-admin.components.form.input name='similaritas' placeholder='Tingkat Similaritas' />
+            <x-admin.components.form.input name='inputSimilaritas' placeholder='Tingkat Similaritas' />
 
             <div class="col-6">
                 {{-- Switch Access Create --}}
@@ -26,7 +24,7 @@
                     <div class="col-8">&nbsp;</div>
                 </div>
 
-                <x-admin.components.form.input name='smallWord' placeholder='Ketentuan Small Word' />
+                <x-admin.components.form.input name='inputSmallWord' placeholder='Ketentuan Small Word' />
 
             </div>
 
