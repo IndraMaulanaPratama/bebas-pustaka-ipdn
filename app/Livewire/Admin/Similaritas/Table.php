@@ -90,15 +90,47 @@ class Table extends Component
         $this->dispatch('similaritas-selected', $data);
     }
 
-    #[On("data-rejected")]
+    #[On("data-rejected"), On("failed-updating-data")]
     public function placeholder()
     {
         return view("components.admin.components.spinner.loading");
     }
 
+    #[On("selected-data")]
+    public function selectedData($id)
+    {
+        $this->dispatch("selected-data", $id);
+    }
+
     public function render()
     {
-        $similaritas = Similaritas::latest()->paginate();
+        $similaritas = Similaritas::
+            when(
+                // <!-- Pilari data pengajuan dumasar kana status
+                $this->sortStatus,
+                function ($query, $status) {
+                    return $query->where("SIMILARITAS_STATUS", $status);
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana fakultas
+                $this->sortFakultas,
+                function ($query, $fakultas) {
+                    return $query->where("SIMILARITAS_NUMBER", "LIKE", '%' . $fakultas . '%');
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana npp
+                $this->search,
+                function ($query, $npp) {
+                    return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
+                }
+            )
+            ->latest()
+            ->paginate();
+
+
+
         return view('livewire.admin.similaritas.table', [
             'similaritas' => $similaritas,
         ]);

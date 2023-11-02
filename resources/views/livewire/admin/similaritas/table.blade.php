@@ -7,8 +7,9 @@
             {{-- Select ututan data dumasar kana status --}}
             <div class="col-2">
                 <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
-                    <option value="process">Proses</option>
-                    <option value="approve">Disetujui</option>
+                    <option value="Proses">Proses</option>
+                    <option value="Disetujui">Disetujui</option>
+                    <option value="Ditolak">Ditolak</option>
                 </x-admin.components.form.select>
             </div>
 
@@ -24,9 +25,9 @@
             {{-- Select ututan data dumasar kana prodi --}}
             <div class="col-4">
                 <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
-                    <option value="fpp">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
-                    <option value="fmp">PRAKTIK PERPOLISIAN TATA PAMONG</option>
-                    <option value="fpm">KEUANGAN PUBLIK</option>
+                    <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
+                    <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
+                    <option value="FPM">KEUANGAN PUBLIK</option>
                 </x-admin.components.form.select>
             </div>
 
@@ -82,8 +83,9 @@
                         <tr>
                             <th scope="row"> {{ $loop->index + $similaritas->firstItem() }} </th>
                             <td>
-                                <button type="button" class="btn btn-link" wire:click="detailPraja('{{$item->SIMILARITAS_PRAJA}}')"
-                                    data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
+                                <button type="button" class="btn btn-link"
+                                    wire:click="detailPraja('{{ $item->SIMILARITAS_PRAJA }}')" data-bs-toggle="modal"
+                                    data-bs-target="#modalDetailPraja">
                                     {{ $item->SIMILARITAS_PRAJA }}
                                 </button>
                             </td>
@@ -99,7 +101,8 @@
                             <td>
                                 <button type="button" {{ $buttonApprove }}
                                     class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
-                                    data-bs-target="#formApprove">
+                                    data-bs-target="#formApprove"
+                                    wire:click='selectedData("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-check2-all"></i>
                                 </button>
                             </td>
@@ -107,7 +110,7 @@
                                 <button type="button" {{ $buttonReject }}
                                     class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="modal"
                                     data-bs-target="#formReject"
-                                    wire:click='rejectData("{{$item->SIMILARITAS_ID}}")'>
+                                    wire:click='rejectData("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-dash-circle-fill"></i>
                                 </button>
                             </td>
@@ -119,7 +122,6 @@
                             </td>
 
                         </tr>
-
                     @endforeach
                 </tbody>
             </table>
