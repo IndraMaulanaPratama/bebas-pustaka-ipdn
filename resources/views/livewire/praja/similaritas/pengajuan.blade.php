@@ -21,11 +21,9 @@
             <p>
                 Silahkan perbaharui data nomor ponsel anda dengan cara click <button type="button"
                     class="btn btn-link {{ $buttonPonsel }}" data-bs-toggle="modal" data-bs-target="#formUpdatePonsel">
-                    Nomor Ponsel</button>
-                guna
-                mempermudah komunikasi antara admin similaritas dengan anda <b>*</b> <small>Data Nomor Ponsel anda akan
-                    kami
-                    rahasiakan dan tidak akan bisa diakses oleh publik</small> <b>*</b>
+                    Daftarkan Nomor Ponsel</button> guna mempermudah komunikasi antara admin similaritas dengan anda
+                <b>*</b> <small>Data Nomor Ponsel anda akan kami rahasiakan dan tidak akan bisa diakses oleh
+                    publik</small> <b>*</b>
             </p>
         </li>
 
@@ -43,7 +41,7 @@
         {{-- Form Pengajuan Similaritas --}}
         <li>
             <p>
-                Setelah data-data diatas sudah anda dikumpulkan, silahkan click tautan <button type="button"
+                Setelah data-data diatas sudah anda kumpulkan, silahkan click tautan <button type="button"
                     class="btn btn-light btn-sm {{ $buttonPengajuan }}" data-bs-toggle="modal"
                     data-bs-target="#formPengajuan">Buat Pengajuan
                     Similaritas</button>. Jika formulir pengajuan tidak

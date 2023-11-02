@@ -13,15 +13,17 @@ class Pengajuan extends Component
     public $buttonPengajuan, $buttonPonsel;
 
     #[On("ponsel-updated")]
-    public function enableButtonPengajuan()
+    public function setConfigButton()
     {
         $this->buttonPengajuan = null;
+        $this->buttonPonsel = "disabled";
     }
 
     #[On("similaritas-created")]
-    public function disableButtonPengajuan()
+    public function setConfigButton2()
     {
         $this->buttonPengajuan = "disabled";
+        $this->buttonPonsel = "disabled";
     }
 
 
@@ -31,7 +33,8 @@ class Pengajuan extends Component
         $praja = User::where("id", Auth::user()->id)->first();
         $similaritas = Similaritas::where('SIMILARITAS_PRAJA', $npp)->first();
 
-        $praja->nomor_ponsel != null ? $this->buttonPonsel == 'disabled' : null;
+
+        $praja->nomor_ponsel != null ? $this->buttonPonsel = 'disabled' : null;
         $praja->nomor_ponsel != null && $similaritas == null ? $this->buttonPengajuan = null : $this->buttonPengajuan = 'disabled';
     }
 
