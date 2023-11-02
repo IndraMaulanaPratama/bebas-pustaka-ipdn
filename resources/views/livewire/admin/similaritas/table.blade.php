@@ -12,13 +12,25 @@
                 </x-admin.components.form.select>
             </div>
 
-            {{-- Select ututan data dumasar kana kelas --}}
-            <div class="col-7">
-                <x-admin.components.form.select size='3' name='sortKelas' placeholder='Urutan kelas'>
-                    <option value="process">Kelas A Turnitin</option>
-                    <option value="approve">Kelas B Turnitin</option>
+            {{-- Select ututan data dumasar kana fakultas --}}
+            <div class="col-3">
+                <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
+                    <option value="fpp">Politik Pemerintahan</option>
+                    <option value="fmp">Fakultas Manajemen Pemerintahan</option>
+                    <option value="fpm">Fakultas Perlindungan Masyarakat</option>
                 </x-admin.components.form.select>
             </div>
+
+            {{-- Select ututan data dumasar kana prodi --}}
+            <div class="col-4">
+                <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
+                    <option value="fpp">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
+                    <option value="fmp">PRAKTIK PERPOLISIAN TATA PAMONG</option>
+                    <option value="fpm">KEUANGAN PUBLIK</option>
+                </x-admin.components.form.select>
+            </div>
+
+
 
             {{-- Input Pencarian Data --}}
             <div class="col-3 ">
@@ -46,62 +58,74 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <button type="button" class="btn" wire:click="detailPraja('30.0122')"
-                                data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
-                                30.0122
-                            </button>
-                        </td>
-                        <td>Ini adalah judul skripsi yang berisikan data dummy menggunakan metode lorem ipsum dolor sit
-                            amet
-                        </td>
-                        <td>Kelas didalam turnitin</td>
-                        <td>0001</td>
-                        <td>
-                            <span class="badge bg-primary"><i class="bi bi-arrow-clockwise"></i> Proses</span>
-                        </td>
-                        <td>
-                            <button type="button" {{ $buttonApprove }}
-                                class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
-                                data-bs-target="#formApprove">
-                                <i class="bi bi-check2-all"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    @foreach ($similaritas as $item)
+                        @php
+                            $buttonApprove = 'hidden';
+                            $buttonReject = 'hidden';
+                            $buttonPrint = 'hidden';
 
+                            if ($item->SIMILARITAS_STATUS == 'Proses') {
+                                $colorStatus = 'primary';
+                                $iconStatus = 'bi-arrow-clockwise';
+                                $buttonApprove = null;
+                                $buttonReject = null;
+                            } elseif ($item->SIMILARITAS_STATUS == 'Disetujui') {
+                                $colorStatus = 'success';
+                                $iconStatus = 'bi-check2-all';
+                                $buttonPrint = null;
+                            } else {
+                                $colorStatus = 'danger';
+                                $iconStatus = 'bi-dash-circle-fill';
+                            }
+                        @endphp
 
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <button type="button" class="btn" wire:click="detailPraja('31.0003')"
-                                data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
-                                31.0003
+                        <tr>
+                            <th scope="row"> {{ $loop->index + $similaritas->firstItem() }} </th>
+                            <td>
+                                <button type="button" class="btn btn-link" wire:click="detailPraja('{{$item->SIMILARITAS_PRAJA}}')"
+                                    data-bs-toggle="modal" data-bs-target="#modalDetailPraja">
+                                    {{ $item->SIMILARITAS_PRAJA }}
+                                </button>
+                            </td>
+                            <td> {{ $item->SIMILARITAS_TITLE }} </td>
+                            <td> {{ $item->SIMILARITAS_CLASS }} </td>
+                            <td> {{ $item->SIMILARITAS_ABSENT }} </td>
+                            <td>
+                                <span class="badge bg-{{ $colorStatus }}">
+                                    <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                    {{ $item->SIMILARITAS_STATUS }}
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" {{ $buttonApprove }}
+                                    class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#formApprove">
+                                    <i class="bi bi-check2-all"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" {{ $buttonReject }}
+                                    class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#formReject"
+                                    wire:click='rejectData("{{$item->SIMILARITAS_ID}}")'>
+                                    <i class="bi bi-dash-circle-fill"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" {{ $buttonPrint }}
+                                    class="btn btn-sm btn-outline-secondary rounded-pill">
+                                    <i class="bi bi-printer-fill"></i>
+                                </button>
+                            </td>
 
-                            </button>
-                        </td>
-                        <td>Ini adalah judul skripsi yang sudah di approve
-                        </td>
-                        <td>Kelas didalam turnitin</td>
-                        <td>0002</td>
-                        <td>
-                            <span class="badge bg-success"><i class="bi bi-check2-all"></i> Approved</span>
-                        </td>
-                        <td>
-                            <button type="button" {{ $buttonApprove }}
-                                class="btn btn-sm btn-outline-secondary rounded-pill">
-                                <i class="bi bi-printer-fill"></i>
-                            </button>
-                        </td>
+                        </tr>
 
-                    </tr>
-
+                    @endforeach
                 </tbody>
             </table>
-        </div>
+            <x-admin.tamplates.paginate.paginate :item="$similaritas" />
 
-        <x-admin.tamplates.paginate.paginate :item="$similaritas" />
+        </div>
 
     </x-admin.components.card.card>
 
@@ -165,7 +189,8 @@
 
                 {{-- Kampus dan Wisma --}}
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaKampus' placeholder='Alamat Kampus' disabled='disabled' />
+                    <x-admin.components.form.input name='prajaKampus' placeholder='Alamat Kampus'
+                        disabled='disabled' />
 
                 </div>
 

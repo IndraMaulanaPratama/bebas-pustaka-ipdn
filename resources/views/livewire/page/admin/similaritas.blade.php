@@ -15,6 +15,7 @@
     @livewire('admin.similaritas.table', [], key('table'))
 
 
-    @livewire('admin.similaritas.approve', [], key('table'))
+    @livewire('admin.similaritas.approve', [], key('formApprove'))
+    @livewire('admin.similaritas.reject', [], key('formReject'))
 
 </div>
