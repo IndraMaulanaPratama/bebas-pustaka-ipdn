@@ -44,7 +44,7 @@
 
         <div class="col-3">
             <x-admin.components.card.card size=12 title="Status Pengajuan" titleSpan="Terbaru">
-                Hai
+                {{ $statusPengajuan}}
             </x-admin.components.card.card>
         </div>
 
