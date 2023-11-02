@@ -12,7 +12,7 @@ class Similaritas extends Component
 
 
 
-    #[On("data-rejected")]
+    #[On("data-rejected"), On("data-updated")]
     public function processSuccessfully($message)
     {
         session()->reflash();
@@ -20,7 +20,7 @@ class Similaritas extends Component
     }
 
 
-    #[On("failed-rejecting-data")]
+    #[On("failed-rejecting-data"), On("failed-updating-data")]
     public function failedProcess($message)
     {
         session()->reflash();
