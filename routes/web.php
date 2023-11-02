@@ -29,13 +29,13 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/praja/similaritas', App\Livewire\Page\Praja\Similaritas::class)->name('praja-similaritas');
 
     // --- *** Admin Area *** ---
-    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
+    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas'); // TODO: Fitur Print dan export
 
 
     Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/role', Role::class)->name('role-manajemen');
-    Route::get('/assign', Assign::class)->name('assign-manajemen');
+    Route::get('/assign', Assign::class)->name('assign-manajemen'); // TODO: Ada perubahan field table
     // <!-- End Of Admin area !--->
 });
 
