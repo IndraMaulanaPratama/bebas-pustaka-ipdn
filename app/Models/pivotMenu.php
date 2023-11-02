@@ -25,6 +25,8 @@ class pivotMenu extends Model
         'PIVOT_DESCRIPTION',
     ];
 
+    protected $with = ['access', 'menu', 'role'];
+
     public function access(): HasMany
     {
         return $this->hasMany(Akses::class, 'ACCESS_MENU', 'PIVOT_ID');
