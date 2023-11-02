@@ -29,7 +29,9 @@ class Similaritas extends Model
         'SIMILARITAS_SMALL_WORD',
         'SIMILARITAS_SMALL_WORD_COUNT',
         'SIMILARITAS_QUOTE',
+        'SIMILARITAS_STATUS',
         'SIMILARITAS_APPROVED',
+        'SIMILARITAS_NOTES',
     ];
     protected $hidden = ['updated_at', 'deleted_at'];
 
