@@ -31,6 +31,10 @@ class Akses extends Model
         'ACCESS_DESTROY',
         'ACCESS_DETAIL',
         'ACCESS_VIEW',
+        'ACCESS_APPROVE',
+        'ACCESS_REJECT',
+        'ACCESS_PRINT',
+
     ];
 
     public function pivotMenu(): BelongsTo

@@ -21,6 +21,9 @@ return new class extends Migration {
             $table->boolean('ACCESS_DESTROY')->default(false);
             $table->boolean('ACCESS_DETAIL')->default(false);
             $table->boolean('ACCESS_VIEW')->default(false);
+            $table->boolean('ACCESS_APPROVE')->default(false);
+            $table->boolean('ACCESS_REJECT')->default(false);
+            $table->boolean('ACCESS_PRINT')->default(false);
 
             $table->timestamps();
             $table->softDeletes();
