@@ -8,6 +8,8 @@ use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Similaritas;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Dompdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +102,68 @@ class Table extends Component
     public function selectedData($id)
     {
         $this->dispatch("selected-data", $id);
+    }
+
+    public function exportData()
+    {
+        // dd([
+        //     "search" => $this->search,
+        //     "status" => $this->sortStatus,
+        //     "fakultas" => $this->sortFakultas,
+        //     "prodi" => $this->sortProdi,
+        // ]);
+
+        $data = Similaritas::
+            when(
+                // <!-- Pilari data pengajuan dumasar kana status
+                $this->sortStatus,
+                function ($query, $status) {
+                    return $query->where("SIMILARITAS_STATUS", $status);
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana fakultas
+                $this->sortFakultas,
+                function ($query, $fakultas) {
+                    return $query->where("SIMILARITAS_NUMBER", "LIKE", '%' . $fakultas . '%');
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana npp
+                $this->search,
+                function ($query, $npp) {
+                    return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
+                }
+            )
+            ->get();
+
+        // dd($data);
+
+        $pdf = Pdf::loadView("pdf.similaritas.export-data", ['similaritas' => $data])->output();
+        // return $pdf->stream('filename.pdf');
+
+        return response()->streamDownload(
+            fn() => print($pdf),
+            "filename.pdf"
+        );
+    }
+
+    public function printApprooved($id)
+    {
+        $data = Similaritas::where("SIMILARITAS_ID", $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SIMILARITAS_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        $pdf = Pdf::loadView("pdf.similaritas.bukti-pemeriksaan", [
+            'similaritas' => $data,
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->output();
+
+        return response()->streamDownload(
+            fn() => print($pdf),
+            "filename.pdf"
+        );
     }
 
     public function render()

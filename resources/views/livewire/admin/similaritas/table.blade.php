@@ -4,34 +4,12 @@
         {{-- Baris bagian search sareng tombol tambih data --}}
         <div class="row justify-content-between g-4">
 
-            {{-- Select ututan data dumasar kana status --}}
+            {{-- Button Export Data --}}
             <div class="col-2">
-                <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
-                    <option value="Proses">Proses</option>
-                    <option value="Disetujui">Disetujui</option>
-                    <option value="Ditolak">Ditolak</option>
-                </x-admin.components.form.select>
+                <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
+                    <x-admin.components.button.icon-button text="Export Data" />
+                </div>
             </div>
-
-            {{-- Select ututan data dumasar kana fakultas --}}
-            <div class="col-3">
-                <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
-                    <option value="fpp">Politik Pemerintahan</option>
-                    <option value="fmp">Fakultas Manajemen Pemerintahan</option>
-                    <option value="fpm">Fakultas Perlindungan Masyarakat</option>
-                </x-admin.components.form.select>
-            </div>
-
-            {{-- Select ututan data dumasar kana prodi --}}
-            <div class="col-4">
-                <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
-                    <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
-                    <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
-                    <option value="FPM">KEUANGAN PUBLIK</option>
-                </x-admin.components.form.select>
-            </div>
-
-
 
             {{-- Input Pencarian Data --}}
             <div class="col-3 ">
@@ -45,6 +23,31 @@
         {{-- Table data similaritas --}}
         <div class="row">
             <table class="table table-responsive table-hover">
+                <div class="col-2">
+                    <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
+                        <option value="Proses">Proses</option>
+                        <option value="Disetujui">Disetujui</option>
+                        <option value="Ditolak">Ditolak</option>
+                    </x-admin.components.form.select>
+                </div>
+
+                {{-- Select ututan data dumasar kana fakultas --}}
+                <div class="col-3">
+                    <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
+                        <option value="fpp">Politik Pemerintahan</option>
+                        <option value="fmp">Fakultas Manajemen Pemerintahan</option>
+                        <option value="fpm">Fakultas Perlindungan Masyarakat</option>
+                    </x-admin.components.form.select>
+                </div>
+
+                {{-- Select ututan data dumasar kana prodi --}}
+                <div class="col-4">
+                    <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
+                        <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
+                        <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
+                        <option value="FPM">KEUANGAN PUBLIK</option>
+                    </x-admin.components.form.select>
+                </div>
 
                 <thead>
                     <tr>
@@ -116,7 +119,9 @@
                             </td>
                             <td>
                                 <button type="button" {{ $buttonPrint }}
-                                    class="btn btn-sm btn-outline-secondary rounded-pill">
+                                    class="btn btn-sm btn-outline-secondary rounded-pill"
+                                    wire:confirm='Cetak Pengajuan Similaritas {{$item->SIMILARITAS_PRAJA}} ?'
+                                    wire:click='printApprooved("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-printer-fill"></i>
                                 </button>
                             </td>
