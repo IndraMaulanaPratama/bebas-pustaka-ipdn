@@ -11,18 +11,10 @@ use App\Livewire\Page\Menu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', Dashboard::class)->middleware('auth')->name('/');
+
+
 
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->group(function () {
@@ -38,6 +30,8 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/assign', Assign::class)->name('assign-manajemen'); // TODO: Ada perubahan field table
     // <!-- End Of Admin area !--->
 });
+
+
 
 // Ranahna gapura
 Route::get('/login', Login::class)->middleware('guest')->name('login');
