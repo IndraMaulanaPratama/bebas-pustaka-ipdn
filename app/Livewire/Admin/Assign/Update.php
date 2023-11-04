@@ -16,7 +16,16 @@ class Update extends Component
 
     public $idAccess, $idAssign;
     public $switchRead = true, $switchView = true;
-    public $switchCreate = false, $switchUpdate = false, $switchDelete = false, $switchRestore = false, $switchDestroy = false, $switchDetail = false;
+    public $switchCreate = false,
+    $switchUpdate = false,
+    $switchDelete = false,
+    $switchRestore = false,
+    $switchDestroy = false,
+    $switchDetail = false,
+    $switchApprove = false,
+    $switchReject = false,
+    $switchPrint = false,
+    $switchExport = false;
 
 
 
@@ -35,6 +44,11 @@ class Update extends Component
         $this->switchRestore = false;
         $this->switchDestroy = false;
         $this->switchDetail = false;
+        $this->switchApprove = false;
+        $this->switchReject = false;
+        $this->switchPrint = false;
+        $this->switchExport = false;
+
     }
 
 
@@ -70,7 +84,12 @@ class Update extends Component
         $this->switchRestore = $this->convertSwitchValue($assign->ACCESS_RESTORE);
         $this->switchDestroy = $this->convertSwitchValue($assign->ACCESS_DESTROY);
         $this->switchDetail = $this->convertSwitchValue($assign->ACCESS_DETAIL);
+        $this->switchApprove = $this->convertSwitchValue($assign->ACCESS_APPROVE);
+        $this->switchReject = $this->convertSwitchValue($assign->ACCESS_REJECT);
+        $this->switchPrint = $this->convertSwitchValue($assign->ACCESS_PRINT);
+        $this->switchExport = $this->convertSwitchValue($assign->ACCESS_EXPORT);
     }
+
 
     public function checkDuplicate($menu, $role)
     {
@@ -139,6 +158,10 @@ class Update extends Component
                 'ACCESS_DESTROY' => $this->switchDestroy,
                 'ACCESS_DETAIL' => $this->switchDetail,
                 'ACCESS_VIEW' => $this->switchView,
+                'ACCESS_APPROVE' => $this->switchApprove,
+                'ACCESS_REJECT' => $this->switchReject,
+                'ACCESS_PRINT' => $this->switchPrint,
+                'ACCESS_EXPORT' => $this->switchExport,
             ];
 
             Akses::where('ACCESS_ID', $idAccess)->update($dataAccess);
@@ -150,7 +173,6 @@ class Update extends Component
             $this->dispatch('failed-updating-assign', $th->getMessage());
         }
     }
-
 
 
     public function render()

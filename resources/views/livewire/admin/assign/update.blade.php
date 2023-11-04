@@ -25,7 +25,34 @@
             {{-- Textbox Description --}}
             <x-admin.components.form.textarea placeholder="Deskripsi data assign" name="description" />
 
-            {{-- Akses Menu --}}
+
+            {{-- Akses Menu General --}}
+            <div class="row g-2 p-2">
+
+                {{-- Akses Menu, Approve, Reject --}}
+                <div class="col-6">
+
+                    {{-- Switch Access Approve --}}
+                    <x-admin.components.form.switch name="switchApprove" label="Persetujuan" />
+
+                    {{-- Switch View Data --}}
+                    <x-admin.components.form.switch name="switchReject" label="Penolakan" />
+                </div>
+
+                {{-- Print, Export --}}
+                <div class="col-6">
+                    {{-- Switch Print Data --}}
+                    <x-admin.components.form.switch name="switchPrint" label="Cetak Dokumen" />
+
+                    {{-- Switch Export Data --}}
+                    <x-admin.components.form.switch name="switchExport" label="Cetak Laporan" />
+
+                </div>
+
+            </div>
+
+
+            {{-- Akses Menu Admin --}}
             <div class="row g-2 p-2">
 
                 <input type="hidden" wire:model.live='idAccess'>

@@ -17,7 +17,16 @@ class Create extends Component
     public $selectMenu, $selectRole, $description;
 
     public $switchRead = true, $switchView = true;
-    public $switchCreate = false, $switchUpdate = false, $switchDelete = false, $switchRestore = false, $switchDestroy = false, $switchDetail = false;
+    public $switchCreate = false,
+    $switchUpdate = false,
+    $switchDelete = false,
+    $switchRestore = false,
+    $switchDestroy = false,
+    $switchDetail = false,
+    $switchApprove = false,
+    $switchReject = false,
+    $switchPrint = false,
+    $switchExport = false;
 
 
     // Fungsi kanggo mulangkeun kondisi formulir sapertos awalna
@@ -35,6 +44,11 @@ class Create extends Component
         $this->switchRestore = false;
         $this->switchDestroy = false;
         $this->switchDetail = false;
+        $this->switchApprove = false;
+        $this->switchReject = false;
+        $this->switchPrint = false;
+        $this->switchExport = false;
+
     }
 
 
@@ -99,6 +113,10 @@ class Create extends Component
                 'ACCESS_DESTROY' => $this->switchDestroy,
                 'ACCESS_DETAIL' => $this->switchDetail,
                 'ACCESS_VIEW' => $this->switchView,
+                'ACCESS_APPROVE' => $this->switchApprove,
+                'ACCESS_REJECT' => $this->switchReject,
+                'ACCESS_PRINT' => $this->switchPrint,
+                'ACCESS_EXPORT' => $this->switchExport,
             ];
 
             Akses::create($dataAccess);
