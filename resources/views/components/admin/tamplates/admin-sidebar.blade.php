@@ -4,6 +4,7 @@
     $role = Auth::user()->role;
     $pivot = pivotMenu::with(['menu'])
         ->where('PIVOT_ROLE', $role->ROLE_ID)
+        ->oldest()
         ->get();
 
 @endphp
