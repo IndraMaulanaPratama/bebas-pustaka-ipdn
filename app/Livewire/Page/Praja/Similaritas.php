@@ -42,7 +42,7 @@ class Similaritas extends Component
         session()->flash('success', $message);
 
         $update = $this->bacaStatusPengajuan();
-        $this->statusPengajuan = $update->SIMILARITAS_STATUS;
+        $this->statusPengajuan = $update->SIMILARITAS_STATUS ?? "Belum Ada Pengajuan";
     }
 
 
