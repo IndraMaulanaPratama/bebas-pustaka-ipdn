@@ -84,6 +84,7 @@ class Table extends Component
 
     public function render()
     {
+        $praja = Role::where("ROLE_NAME", "Praja Utama")->first();
         $user = User::with('role')->when(
             $this->search,
             function ($query, $search) {
@@ -91,9 +92,9 @@ class Table extends Component
             }
         )->when(
                 $this->role,
-                function ($query, $role) {
+                function ($query, $role) use ($praja) {
                     if ($role != 'Super Admin') {
-                        return $query->whereNotIn('id', [1]);
+                        return $query->whereNotIn('id', [1])->where('user_role', '!=', $praja->ROLE_ID);
                     }
                 }
             )->latest()->paginate();
