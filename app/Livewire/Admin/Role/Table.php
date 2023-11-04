@@ -84,7 +84,7 @@ class Table extends Component
     public function render()
     {
         $role = Auth::user()->role->ROLE_NAME;
-        $role !== "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
+        // $role !== "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
         $role !== "Super Admin" ? $this->buttonUpdate = "hidden" : $this->buttonUpdate = null;
         $role !== "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonDelete = null;
 
