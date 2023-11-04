@@ -7,7 +7,7 @@
             {{-- Button Export Data --}}
             <div class="col-2">
                 <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
-                    <x-admin.components.button.icon-button text="Export Data" />
+                    <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                 </div>
             </div>
 
@@ -103,24 +103,24 @@
                             </td>
                             <td>
                                 <button type="button" {{ $buttonApprove }}
-                                    class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
-                                    data-bs-target="#formApprove"
+                                    class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
+                                    data-bs-toggle="modal" data-bs-target="#formApprove"
                                     wire:click='selectedData("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-check2-all"></i>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" {{ $buttonReject }}
-                                    class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="modal"
-                                    data-bs-target="#formReject"
+                                    class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
+                                    data-bs-toggle="modal" data-bs-target="#formReject"
                                     wire:click='rejectData("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-dash-circle-fill"></i>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" {{ $buttonPrint }}
-                                    class="btn btn-sm btn-outline-secondary rounded-pill"
-                                    wire:confirm='Cetak Pengajuan Similaritas {{$item->SIMILARITAS_PRAJA}} ?'
+                                    class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
+                                    wire:confirm='Cetak Pengajuan Similaritas {{ $item->SIMILARITAS_PRAJA }} ?'
                                     wire:click='printApprooved("{{ $item->SIMILARITAS_ID }}")'>
                                     <i class="bi bi-printer-fill"></i>
                                 </button>

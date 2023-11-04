@@ -21,8 +21,8 @@ class Table extends Component
 {
     use WithPagination;
 
-    public $access;
-    public $buttonReject, $buttonApprove, $buttonPrint, $colorStatus, $iconStatus;
+    public $accessReject, $accessApprove, $accessPrint, $accessExport;
+    public $colorStatus, $iconStatus;
     public $sortStatus, $sortFakultas, $sortProdi, $search;
 
     public $npp,
@@ -49,11 +49,20 @@ class Table extends Component
         $url = Route::getCurrentRoute()->action['as']; // Maca nami route anu nuju di buka
         $menu = Menu::where("MENU_URL", $url)->first();
 
-        $this->access = Akses::with([
-            'pivotMenu' => function ($query) use ($menu, $roleLogin) {
-                return $query->where(['PIVOT_MENU' => $menu->id, 'PIVOT_ROLE' => $roleLogin]);
-            }
-        ])->first();
+        $access = Akses::
+            join("PIVOT_MENU", "ACCESSES.ACCESS_MENU", '=', "PIVOT_MENU.PIVOT_ID")
+            ->where(['PIVOT_MENU.PIVOT_MENU' => $menu->MENU_ID, 'PIVOT_MENU.PIVOT_ROLE' => $roleLogin])
+            ->first();
+
+        $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
+        $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
+        $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
+        $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
+    }
+
+    public function generateAccess($value)
+    {
+        return $value == 1 ? null : 'invisible';
     }
 
     public function detailPraja($npp)
