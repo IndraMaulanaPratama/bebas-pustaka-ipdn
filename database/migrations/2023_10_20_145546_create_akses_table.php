@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->boolean('ACCESS_APPROVE')->default(false);
             $table->boolean('ACCESS_REJECT')->default(false);
             $table->boolean('ACCESS_PRINT')->default(false);
+            $table->boolean('ACCESS_EXPORT')->default(false);
 
             $table->timestamps();
             $table->softDeletes();

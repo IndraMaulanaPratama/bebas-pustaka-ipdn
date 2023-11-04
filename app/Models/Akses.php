@@ -34,7 +34,7 @@ class Akses extends Model
         'ACCESS_APPROVE',
         'ACCESS_REJECT',
         'ACCESS_PRINT',
-
+        'ACCESS_EXPORT',
     ];
 
     public function pivotMenu(): BelongsTo

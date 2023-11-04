@@ -41,6 +41,7 @@ class AksesSeeder extends Seeder
                 "user_role" => $dataRole[0]['ROLE_ID'],
                 "name" => "Rama Wirahma",
                 "email" => "rama-wirahma@ipdn.ac.id",
+                "photo" => "defaultPhoto.jpeg",
                 "password" => bcrypt("password"),
             ],
             [
@@ -48,42 +49,84 @@ class AksesSeeder extends Seeder
                 "user_role" => $dataRole[1]['ROLE_ID'],
                 "name" => "Admin Pustaka",
                 "email" => "admin-pustaka@ipdn.ac.id",
+                "photo" => "defaultPhoto.jpeg",
                 "password" => bcrypt("password"),
             ],
         ];
 
         $dataMenu = [
-            'MENU_ID' => uuid_create(4),
-            'MENU_NAME' => "Seeder",
-            // 'MENU_ICON',
-            'MENU_DESCRIPTION' => "Menu Beranda Seeder",
-            'MENU_URL' => "/",
-            'MENU_POSITION' => "tautan",
+            [
+                'MENU_ID' => uuid_create(4),
+                'MENU_NAME' => "Seeder",
+                'MENU_ICON' => "bi-house-fill",
+                'MENU_DESCRIPTION' => "Menu Beranda Seeder",
+                'MENU_URL' => "/",
+                'MENU_POSITION' => "tautan",
+            ],
+
+            // Similaritas Admin
+            [
+                'MENU_ID' => uuid_create(4),
+                'MENU_NAME' => "Similaritas",
+                'MENU_ICON' => "bi-percent",
+                'MENU_DESCRIPTION' => "Menu Simiilaritas Admin",
+                'MENU_URL' => "admin-similaritas",
+                'MENU_POSITION' => "sidebar",
+            ],
+
+            // Similaritas Praja
+            [
+                'MENU_ID' => uuid_create(4),
+                'MENU_NAME' => "Similaritas",
+                'MENU_ICON' => "bi-percent",
+                'MENU_DESCRIPTION' => "Menu Simiilaritas Praja",
+                'MENU_URL' => "praja-similaritas",
+                'MENU_POSITION' => "sidebar",
+            ],
+
+            // Bebas Pinjaman Admin
+            [
+                'MENU_ID' => uuid_create(4),
+                'MENU_NAME' => "Bebas Pinjaman",
+                'MENU_ICON' => "bi-journal-bookmark-fill",
+                'MENU_DESCRIPTION' => "Menu Bebas Pinjaman Admin",
+                'MENU_URL' => "admin-bebasPinjaman",
+                'MENU_POSITION' => "sidebar",
+            ],
+
+            // Bebas Pinjaman Praja
+            [
+                'MENU_ID' => uuid_create(4),
+                'MENU_NAME' => "Bebas Pinjaman",
+                'MENU_ICON' => "bi-journal-bookmark-fill",
+                'MENU_DESCRIPTION' => "Menu Bebas Pinjaman Praja",
+                'MENU_URL' => "praja-bebasPinjaman",
+                'MENU_POSITION' => "sidebar",
+            ],
+
+
         ];
 
         $dataPivotMenu = [
             // Beranda
             [
                 'PIVOT_ID' => uuid_create(4),
-                'PIVOT_MENU' => $dataMenu['MENU_ID'],
+                'PIVOT_MENU' => $dataMenu[0]['MENU_ID'],
                 'PIVOT_ROLE' => $dataRole[0]['ROLE_ID'],
                 'PIVOT_DESCRIPTION' => "Assign Beranda untuk super admin",
             ],
+
             [
                 'PIVOT_ID' => uuid_create(4),
-                'PIVOT_MENU' => $dataMenu['MENU_ID'],
+                'PIVOT_MENU' => $dataMenu[0]['MENU_ID'],
                 'PIVOT_ROLE' => $dataRole[1]['ROLE_ID'],
-                'PIVOT_DESCRIPTION' => "Assign Beranda untuk admin pustaka",
+                'PIVOT_DESCRIPTION' => "Assign Beranda untuk admin",
             ],
-            [
-                'PIVOT_ID' => uuid_create(4),
-                'PIVOT_MENU' => $dataMenu['MENU_ID'],
-                'PIVOT_ROLE' => $dataRole[2]['ROLE_ID'],
-                'PIVOT_DESCRIPTION' => "Assign Beranda untuk praja utama",
-            ],
+
         ];
 
         $dataAkses = [
+            //
             [
                 'ACCESS_ID' => uuid_create(4),
                 'ACCESS_MENU' => $dataPivotMenu[0]['PIVOT_ID'],
