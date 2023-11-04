@@ -15,7 +15,7 @@ class Table extends Component
     use WithPagination;
 
     public $search;
-    public $superAdmin, $role, $buttonCreate, $buttonUpdate, $buttonDelete;
+    public $buttonCreate, $buttonUpdate, $buttonDelete;
 
 
     public function resetForm()
@@ -63,29 +63,29 @@ class Table extends Component
 
     public function render()
     {
-        $this->superAdmin = Role::where('ROLE_NAME', 'Super Admin')->first();
-        $this->role = Auth::user()->role->ROLE_NAME;
-        $this->role != "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonDelete = null;
-        // $this->role != "Super Admin" ? $this->buttonUpdate = "hidden" : $this->buttonUpdate = null;
-        // $this->role != "Super Admin" ? $this->buttonCreate = "hidden" : $this->buttonCreate = null;
+        $superAdmin = Role::where('ROLE_NAME', 'Super Admin')->first();
+        $role = Auth::user()->role;
+        $role != "Super Admin" ? $this->buttonDelete = "hidden" : $this->buttonDelete = null;
 
 
-        if ($this->role != "Super Admin") {
-            $assign = pivotMenu::with(["menu", "role"])->when(
+        $assign = pivotMenu::
+            when(
+                // Limiting role
+                $role,
+                function ($query, $role) use ($superAdmin) {
+                    if ($role->ROLE_NAME != "Super Admin") {
+                        return $query->whereNotIn("PIVOT_ROLE", [$superAdmin->ROLE_ID, $role->ROLE_ID]);
+                    }
+                }
+            )
+            ->when(
+                // Live search description
                 $this->search,
                 function ($query, $search) {
-                    return $query->where("PIVOT_DESCRIPTION", "like", "%" . $search . "%");
+                    return $query->where("PIVOT_DESCRIPTION", "LIKE", "%" . $search . "%");
                 }
-            )->whereNotIn("PIVOT_ROLE", [$this->superAdmin->ROLE_ID])->latest()->paginate();
-
-        } else {
-            $assign = pivotMenu::with(["menu", "role"])->when(
-                $this->search,
-                function ($query, $search) {
-                    return $query->where("PIVOT_DESCRIPTION", "like", "%" . $search . "%");
-                }
-            )->latest()->paginate();
-        }
+            )
+            ->paginate();
 
 
         return view('livewire.admin.assign.table', [
