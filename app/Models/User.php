@@ -77,6 +77,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(PinjamanPustaka::class, 'PUSTAKA_ID', 'id');
     }
+
+
+    public function PinjamanFakultas(): HasMany
+    {
+        return $this->hasMany(PinjamanFakultas::class, 'FAKULTAS_ID', 'id');
+    }
+
     // --- *** END OF RELATION AREA *** ---
 
 
