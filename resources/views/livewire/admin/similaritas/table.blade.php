@@ -1,7 +1,7 @@
 <div>
     <x-admin.components.card.card size=12 title="Tabel data similaritas" titleSpan='Praja utama'>
 
-        {{-- Baris bagian search sareng tombol tambih data --}}
+        {{-- Baris bagian search sareng tombol export data --}}
         <div class="row justify-content-between g-4">
 
             {{-- Button Export Data --}}
@@ -23,6 +23,7 @@
         {{-- Table data similaritas --}}
         <div class="row">
             <table class="table table-responsive table-hover">
+                {{-- Select Sort By Status --}}
                 <div class="col-2">
                     <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
                         <option value="Proses">Proses</option>
