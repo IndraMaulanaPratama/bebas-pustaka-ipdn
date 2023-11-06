@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PinjamanPustaka extends Model
@@ -32,7 +33,11 @@ class PinjamanPustaka extends Model
     // --- *** Ranahna Relasi *** --- //
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, "SIMILARITAS_OFFICER", "id");
+        return $this->belongsTo(User::class, "PUSTAKA_OFFICER", "id");
+    }
+
+    public function pivot_pinjaman(): HasOne {
+        return $this->hasOne(PivotPinjaman::class, "PIVOT_PUSTAKA", "PUSTAKA_ID");
     }
 
     // --- *** Tungtung tina Ranahna Relasi *** --- //
