@@ -41,7 +41,7 @@ class AksesSeeder extends Seeder
                 "user_role" => $dataRole[0]['ROLE_ID'],
                 "name" => "Rama Wirahma",
                 "email" => "rama-wirahma@ipdn.ac.id",
-                "photo" => "defaultPhoto.jpeg",
+                "photo" => "defaultPhoto.png",
                 "password" => bcrypt("password"),
             ],
             [
@@ -49,7 +49,7 @@ class AksesSeeder extends Seeder
                 "user_role" => $dataRole[1]['ROLE_ID'],
                 "name" => "Admin Pustaka",
                 "email" => "admin-pustaka@ipdn.ac.id",
-                "photo" => "defaultPhoto.jpeg",
+                "photo" => "defaultPhoto.png",
                 "password" => bcrypt("password"),
             ],
         ];
