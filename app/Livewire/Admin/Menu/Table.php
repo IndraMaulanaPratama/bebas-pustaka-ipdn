@@ -22,7 +22,7 @@ class Table extends Component
     public $id = '';
 
     // Ngadamel sareng marios input data menu ti client
-    #[Rule(['required', 'string', 'max:50'])]
+    #[Rule(['required', 'string', 'max:150'])]
     public $menu = '';
 
     // Ngadamel sareng marios input data icon ti client
@@ -34,7 +34,7 @@ class Table extends Component
     public $description = '';
 
     // Ngadamel sareng marios input data url ti client
-    #[Rule(['required', 'max:20', 'unique:MENUS,MENU_URL'])]
+    #[Rule(['required', 'max:150', 'unique:MENUS,MENU_URL'])]
     public $url = '';
 
     #[Rule(['string', 'required'])]
@@ -101,6 +101,7 @@ class Table extends Component
         return view('components.admin.components.spinner.loading');
     }
 
+
     public function updateMenu($id)
     {
         $this->reset();
@@ -121,7 +122,6 @@ class Table extends Component
      */
     public function updateData()
     {
-        $this->validate();
 
         try {
             // Inisialisasi data nu bade di eksekusi
