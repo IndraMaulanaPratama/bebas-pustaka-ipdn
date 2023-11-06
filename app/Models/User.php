@@ -69,9 +69,14 @@ class User extends Authenticatable
 
     public function similaritas(): HasMany
     {
-        return $this->hasMany(Similaritas::class, 'SIMILARITAS_OFFICER', 'email');
+        return $this->hasMany(Similaritas::class, 'SIMILARITAS_OFFICER', 'id');
     }
 
+
+    public function PinjamanPustaka(): HasMany
+    {
+        return $this->hasMany(PinjamanPustaka::class, 'PUSTAKA_ID', 'id');
+    }
     // --- *** END OF RELATION AREA *** ---
 
 
