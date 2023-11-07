@@ -1,6 +1,6 @@
 <div class="col-{{ $size ?? 12 }}">
     <div class="form-floating mb-3">
-        <select class="form-select" wire:model.live='{{ $name }}' id="{{ $name }}" aria-label="State"
+        <select class="form-select" wire:model.live='{{ $name }}' aria-label="State"
             {{ $required ?? null }} {{ $disabled ?? null }}>
             <option selected"></option>
             {{ $slot }}
