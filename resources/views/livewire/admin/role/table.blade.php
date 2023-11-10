@@ -4,10 +4,10 @@
             <div class="col-12">
 
                 {{-- Baris bagian search sareng tombol tambih data --}}
-                <div class="row justify-content-between">
+                <div class="row g-2 justify-content-between">
 
                     {{-- Tombol Tambah Data --}}
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         {{-- Input Search --}}
                         <button class="btn btn-outline-primary" {{ $buttonCreate }} type="button" data-bs-toggle="modal"
                             data-bs-target="#formCreateRole">
@@ -17,52 +17,55 @@
                     </div>
 
                     {{-- Input Pencarian Data --}}
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <x-admin.components.form.input size=12 type='text' name='search' placeholder='Cari Data' />
                     </div>
                 </div>
 
-
                 {{-- Table data Role --}}
-                <table class="table table-responsive table-hover">
+                <div class="table-responsive">
+                    <table class="table table-hover">
 
-                    <thead>
-                        <tr>
-                            <th scope="col" width=3%>#</th>
-                            <th scope="col">Role</th>
-                            <th scope="col" colspan="2" width=5%>Option</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach ($role as $item)
-                            <tr wire:key='{{ $item->ROLE_ID }}'>
-                                <th scope="row"> {{ $loop->index + $role->firstItem() }} </th>
-                                <td>{{ $item->ROLE_NAME }}</td>
-                                {{-- Option Row --}}
-                                <td>
-                                    <button type="button" {{ $buttonUpdate }}
-                                        class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
-                                        data-bs-target="#formUpdateRole"
-                                        wire:click="updateRole('{{ $item->ROLE_ID }}')">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" {{ $buttonDelete }}
-                                        class="btn rounded-pill btn-sm btn-outline-danger"
-                                        wire:click="deleteRole('{{ $item->ROLE_ID }}')"
-                                        wire:confirm='Anda yakin akan menghapus Role {{ $item->ROLE_NAME }} ini?'>
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </button>
-                                </td> <!-- END Of OPTION ROW !-->
-
+                        <thead>
+                            <tr>
+                                <th scope="col" width=3%>#</th>
+                                <th scope="col">Role</th>
+                                <th scope="col" colspan="2" width=5%>Option</th>
                             </tr>
-                        @endforeach
-                    </tbody>
+                        </thead>
 
-                </table>
+                        <tbody>
+                            @foreach ($role as $item)
+                                <tr wire:key='{{ $item->ROLE_ID }}'>
+                                    <th scope="row"> {{ $loop->index + $role->firstItem() }} </th>
+                                    <td>{{ $item->ROLE_NAME }}</td>
+                                    {{-- Option Row --}}
+                                    <td>
+                                        <button type="button" {{ $buttonUpdate }}
+                                            class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="modal"
+                                            data-bs-target="#formUpdateRole"
+                                            wire:click="updateRole('{{ $item->ROLE_ID }}')">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" {{ $buttonDelete }}
+                                            class="btn rounded-pill btn-sm btn-outline-danger"
+                                            wire:click="deleteRole('{{ $item->ROLE_ID }}')"
+                                            wire:confirm='Anda yakin akan menghapus Role {{ $item->ROLE_NAME }} ini?'>
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </td> <!-- END Of OPTION ROW !-->
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
                 <x-admin.tamplates.paginate.paginate :item="$role" />
+
+
 
             </div>
         </div>
