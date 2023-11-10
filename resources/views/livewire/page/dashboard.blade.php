@@ -2,7 +2,7 @@
     <div class="row">
 
         {{-- Card 1 --}}
-        <x-admin.components.card.card type='sales' title='Data Similaritas'>
+        <x-admin.components.card.card size='4' medium=4 type='sales' title='Data Similaritas'>
 
             {{-- Dropdown Title --}}
             <x-admin.components.card.dropdown-title title="pilihan">
@@ -25,7 +25,7 @@
         </x-admin.components.card.card>
 
         {{-- Card Data B --}}
-        <x-admin.components.card.card type='revenue' title='Data B'>
+        <x-admin.components.card.card  size='4' medium=4 type='revenue' title='Data B'>
 
             {{-- Dropdown Title --}}
             <x-admin.components.card.dropdown-title title="pilihan">
@@ -49,7 +49,7 @@
         </x-admin.components.card.card>
 
         {{-- Card Data C --}}
-        <x-admin.components.card.card type='customers' title='Data C' titleSpan='| Tahun ini'>
+        <x-admin.components.card.card size='4' medium=4 type='customers' title='Data C' titleSpan='| Tahun ini'>
 
             {{-- Dropdown Title --}}
             <x-admin.components.card.dropdown-title title="pilihan">
@@ -78,7 +78,7 @@
     <div class="row">
 
         {{-- Card 1 --}}
-        <x-admin.components.card.card size=8 type='sales' title='Data Similaritas'>
+        <x-admin.components.card.card size=8 medium=6 type='sales' title='Data Similaritas'>
 
             {{-- Dropdown Title --}}
             <x-admin.components.card.dropdown-title title="pilihan">
@@ -101,7 +101,7 @@
         </x-admin.components.card.card>
 
         {{-- Card Data B --}}
-        <x-admin.components.card.card type='revenue' title='Data B'>
+        <x-admin.components.card.card size=4 medium=6 type='revenue' title='Data B'>
 
             {{-- Dropdown Title --}}
             <x-admin.components.card.dropdown-title title="pilihan">
