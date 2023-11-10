@@ -4,10 +4,10 @@
     <x-admin.components.card.card size=12 title='List Penggguna' titleSpan='Status Aktif'>
 
         {{-- Baris bagian search sareng tombol tambih data --}}
-        <div class="row justify-content-between">
+        <div class="row g-2 justify-content-between">
 
             {{-- Tombol Tambah Data --}}
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 {{-- Input Search --}}
                 <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
                     data-bs-target="#formCreateData">
@@ -17,13 +17,14 @@
             </div>
 
             {{-- Input Pencarian Data --}}
-            <div class="col-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <x-admin.components.form.input size=12 type='text' name='search' placeholder='Cari Data' />
             </div>
         </div>
 
 
 
+        {{-- Data Table User --}}
         <div class="table-responsive">
             <table class="table table-hover">
 
@@ -85,6 +86,7 @@
             </table>
         </div>
 
+        {{-- Paginate Table --}}
         <x-admin.tamplates.paginate.paginate :item="$data" />
 
     </x-admin.components.card.card>
