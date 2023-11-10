@@ -194,14 +194,13 @@
                 </tr>
                 <tr>
                     <td height="200px">
-                        Tanga Tangan Praja <br />
+                        Tanda Tangan Praja <br />
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         <b>NPP: {{ $praja['NPP'] }}</b>
                     </td>
                     <td>&nbsp;</td>
                     <td>
-                        <img src="{{ env('APP_URL') . "/" }}">
-                        <br />
+                        Tanda Tangan Petugas
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         &nbsp;
                     </td>
@@ -210,10 +209,12 @@
         </div>
     </div>
 
+    {{-- Garis --}}
     <div style="width: 100%; position: absolute; top: 50%">
         <hr type="" />
     </div>
 
+    {{-- Lembar Perpustakaan --}}
     <div
         style="
                 position: absolute;
@@ -335,6 +336,38 @@
                 </tr>
             </table>
         </div>
+
+        {{-- Table Tanda tangan --}}
+        <div class="container" style="margin-top: 5px">
+            <table width="100%">
+                <tr>
+                    <td width="40%">&nbsp;</td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="40%">
+                        Jatinangor, {{ Carbon::now('Asia/Jakarta')->format('d - m - Y') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Praja</b></td>
+                    <td>&nbsp;</td>
+                    <td><b>Petugas Perpustakaan IPDN</b></td>
+                </tr>
+                <tr>
+                    <td height="200px">
+                        Tanda Tangan Praja <br />
+                        <hr style="width:200px;text-align:left;margin-left:0" />
+                        <b>NPP: {{ $praja['NPP'] }}</b>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                        Tanda Tangan Petugas
+                        <hr style="width:200px;text-align:left;margin-left:0" />
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 </body>
 
