@@ -31,7 +31,7 @@
                 <div class="row g-2 p-2">
 
                     {{-- Akses Menu, Approve, Reject --}}
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
 
                         {{-- Switch Access Approve --}}
                         <x-admin.components.form.switch name="switchApprove" label="Persetujuan" />
@@ -41,7 +41,7 @@
                     </div>
 
                     {{-- Print, Export --}}
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         {{-- Switch Print Data --}}
                         <x-admin.components.form.switch name="switchPrint" label="Cetak Dokumen" />
 
@@ -57,7 +57,7 @@
                 <div class="row g-2 p-2">
 
                     {{-- Akses Menu, Create, Read, Update, Delete --}}
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
 
                         {{-- Switch Access Create --}}
                         <x-admin.components.form.switch name="switchCreate" label="Tambah Data" />
@@ -73,7 +73,7 @@
                     </div>
 
                     {{-- Restore, Destroy, Detail, View --}}
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
                         {{-- Switch Restore Data --}}
                         <x-admin.components.form.switch name="switchRestore" label="Pulihkan Data" />
 
