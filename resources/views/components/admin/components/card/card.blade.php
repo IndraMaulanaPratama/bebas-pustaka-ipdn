@@ -1,4 +1,4 @@
-<div class="col-{{ $size ?? 4 }}">
+<div class="col-sm-{{ $small ?? 12 }} col-md-{{ $medium ?? 12 }} col-lg-{{ $size ?? 12 }}">
     <div class="card info-card {{ $type ?? 'sales' }}-card"> <!-- sales (biru), revenue (hijau), customers (orange) -->
         <div class="card-body">
 
