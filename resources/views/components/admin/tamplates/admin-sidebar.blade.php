@@ -28,19 +28,19 @@
         @if ($role->ROLE_NAME == 'Super Admin' || $role->ROLE_NAME == 'Admin Pustaka')
             <x-admin.tamplates.sidebar.heading text='Admin Area' />
 
-            {{-- User Menu --}}
+            {{-- Role Manajemen --}}
+            <x-admin.tamplates.sidebar.link text="Manajemen Role" navigate="role-manajemen" icon="bi-bar-chart-steps" />
+
+            {{-- Menu Manajemen --}}
+            <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
+
+            {{-- User Manajemen --}}
             <x-admin.tamplates.sidebar.link text="Manajemen Pengguna" navigate="user-manajemen"
                 icon="bi-person-lines-fill" />
 
-            {{-- Assign Menu --}}
+            {{-- Akses Manajemen --}}
             <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
                 icon="bi-universal-access-circle" />
-
-            {{-- Manajemen Menu --}}
-            <x-admin.tamplates.sidebar.link text="Manajemen Menu" navigate="menu" icon="bi-menu-button-fill" />
-
-            {{-- Role Menu --}}
-            <x-admin.tamplates.sidebar.link text="Manajemen Role" navigate="role-manajemen" icon="bi-bar-chart-steps" />
 
             @if ($role->ROLE_NAME == 'Super Admin')
                 {{-- Data Sampah --}}
