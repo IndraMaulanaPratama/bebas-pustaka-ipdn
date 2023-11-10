@@ -15,7 +15,7 @@
 
     {{-- Tabs Content Similaritas --}}
     <div class="row g-4">
-        <div class="col-9">
+        <div class="col-lg-9 col-md-9 col-sm-12">
             <x-admin.components.card.card size=12 title='Pengajuan Validasi Similaritas' titleSpan='Bebas Pustaka'>
 
                 <x-admin.components.tabs.nav id="tab-similaritas">
@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="col-3">
+        <div class="col-lg-3 col-md-3 col-sm-12">
             <x-admin.components.card.card size=12 title="Status Pengajuan" titleSpan="Terbaru">
                 {{ $statusPengajuan}}
             </x-admin.components.card.card>
