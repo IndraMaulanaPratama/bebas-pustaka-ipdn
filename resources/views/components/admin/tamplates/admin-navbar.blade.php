@@ -12,7 +12,8 @@
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 
-            <li class="nav-item dropdown">
+            {{-- Notivication Nav --}}
+            <li class="nav-item dropdown invisible">
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
@@ -87,7 +88,7 @@
 
             </li><!-- End Notification Nav -->
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown invisible">
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-chat-left-text"></i>
