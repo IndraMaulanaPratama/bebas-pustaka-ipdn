@@ -5,10 +5,10 @@
             <div class="col-12">
 
                 {{-- Baris bagian search sareng tombol tambih data --}}
-                <div class="row justify-content-between">
+                <div class="row g-2 justify-content-between">
 
                     {{-- Tombol Tambah Data --}}
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         {{-- Input Search --}}
                         <button class="btn btn-outline-primary" {{ $buttonCreate }} type="button" data-bs-toggle="modal"
                             data-bs-target="#formCreateMenu" wire:click='resetForm'>
@@ -18,57 +18,62 @@
                     </div>
 
                     {{-- Input Pencarian Data --}}
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
                         <x-admin.components.form.input size=12 type='text' name='search' placeholder='Cari Data' />
                     </div>
                 </div>
 
-                <table class="table table-responsive table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col" width=3%>#</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">URL</th>
-                            <th scope="col">Posisi</th>
-                            <th scope="col" colspan="2" width=5%>Option</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $item)
-                            <tr wire:key='$i'>
-                                <th scope="row"> {{ $loop->index + $data->firstItem() }} </th>
-                                <td>{{ $item->MENU_NAME }}</td>
-                                <td>{{ $item->MENU_DESCRIPTION }}</td>
-                                <td>{{ $item->MENU_URL }}</td>
-                                <td>{{ $item->MENU_POSITION }}</td>
-
-                                {{-- Option Row --}}
-                                <td>
-                                    <button type="button" {{ $buttonUpdate }}
-                                        class="btn btn-sm btn-outline-success rounded-pill"
-                                        wire:click="updateMenu('{{ $item->MENU_ID }}')" data-bs-toggle="modal"
-                                        data-bs-target="#formUpdateMenu">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" {{ $buttonDelete }}
-                                        class="btn rounded-pill btn-sm btn-outline-danger"
-                                        wire:click='deleteMenu("{{ $item->MENU_ID }}")'
-                                        wire:confirm='Anda yakin akan menghapus menu {{ $item->MENU_NAME }} ini?'>
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </button>
-                                </td> <!-- END Of OPTION ROW !-->
+                {{-- Data Table Menu --}}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" width=3%>#</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">URL</th>
+                                <th scope="col">Posisi</th>
+                                <th scope="col" colspan="2" width=5%>Option</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $item)
+                                <tr wire:key='$i'>
+                                    <th scope="row"> {{ $loop->index + $data->firstItem() }} </th>
+                                    <td>{{ $item->MENU_NAME }}</td>
+                                    <td>{{ $item->MENU_DESCRIPTION }}</td>
+                                    <td>{{ $item->MENU_URL }}</td>
+                                    <td>{{ $item->MENU_POSITION }}</td>
+
+                                    {{-- Option Row --}}
+                                    <td>
+                                        <button type="button" {{ $buttonUpdate }}
+                                            class="btn btn-sm btn-outline-success rounded-pill"
+                                            wire:click="updateMenu('{{ $item->MENU_ID }}')" data-bs-toggle="modal"
+                                            data-bs-target="#formUpdateMenu">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" {{ $buttonDelete }}
+                                            class="btn rounded-pill btn-sm btn-outline-danger"
+                                            wire:click='deleteMenu("{{ $item->MENU_ID }}")'
+                                            wire:confirm='Anda yakin akan menghapus menu {{ $item->MENU_NAME }} ini?'>
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </td> <!-- END Of OPTION ROW !-->
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Paginate Table --}}
+                <x-admin.tamplates.paginate.paginate :item="$data" />
 
             </div>
         </div>
 
-        <x-admin.tamplates.paginate.paginate :item="$data" />
 
     </x-admin.components.card.card>
 
@@ -80,9 +85,9 @@
         {{-- Header Modal --}}
         <x-admin.components.modal.header id={{ $id }} title="Formulir ubah data menu" />
 
-        <form wire:submit='updateData' method="POST">
+        <div class="modal-body">
+            <form wire:submit='updateData' method="POST">
 
-            <div class="modal-body">
                 <div class="row g-4">
                     <input type="hidden" class="form-control" wire:model.live='id' required='required' />
 
@@ -113,19 +118,20 @@
                     <x-admin.components.form.textarea name='description' placeholder='Deskripsi Menu' tinggi='100' />
 
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    Batalkan
-                </button>
+                <div class="modal-footer">
+                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                        Batalkan
+                    </button>
 
-                <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                    Simpan Data
-                </button>
+                    <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        Simpan Data
+                    </button>
 
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
 
     </x-admin.components.modal.modal>
 
@@ -135,9 +141,9 @@
         {{-- Header Modal --}}
         <x-admin.components.modal.header id={{ $id }} title="Formulir tambah data baru" />
 
-        <form wire:submit='createData' method="POST">
+        <div class="modal-body">
+            <form wire:submit='createData' method="POST">
 
-            <div class="modal-body">
                 <div class="row g-4">
 
                     {{-- Baris kanggo input menu sareng icon --}}
@@ -169,20 +175,20 @@
                     <x-admin.components.form.textarea name='description' placeholder='Deskripsi Menu' tinggi='100' />
 
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
-                    data-bs-dismiss="modal">
-                    Batalkan
-                </button>
+                <div class="modal-footer">
+                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                        Batalkan
+                    </button>
 
-                <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                    Simpan Data
-                </button>
+                    <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        Simpan Data
+                    </button>
 
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
 
     </x-admin.components.modal.modal>
 </div>
