@@ -23,7 +23,17 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('/');
 Route::middleware(['auth', 'access'])->group(function () {
     // --- *** Praja Area *** --- //
     Route::get('/praja/similaritas', App\Livewire\Page\Praja\Similaritas::class)->name('praja-similaritas');
-    Route::get('/praja/bebas-pinjaman', App\Livewire\Page\Praja\Similaritas::class)->name('praja-bebasPinjaman');
+    Route::get('/praja/bebas-pinjaman', \App\Livewire\Page\Praja\PinjamanPustaka::class)->name('praja-pinjaman.perpustakaan');
+    //
+    Route::get('praja/bebas-pinjaman-fakultas', \App\Livewire\Page\Praja\Blank::class)->name('praja-pinjaman.fakultas');
+    Route::get('praja/donasi-buku-perpustakaan', \App\Livewire\Page\Praja\Blank::class)->name('praja-donasi.perpustakaan');
+    Route::get('praja/donasi-buku-fakultas', \App\Livewire\Page\Praja\Blank::class)->name('praja-donasi.fakultas');
+    Route::get('praja/donasi-buku-elektronik', \App\Livewire\Page\Praja\Blank::class)->name('praja-donasi.elektronik');
+    Route::get('praja/survey', \App\Livewire\Page\Praja\Blank::class)->name('praja-survey');
+    Route::get('praja/konten-literasi', \App\Livewire\Page\Praja\Blank::class)->name('praja-konten.literasi');
+    Route::get('praja/unggah-repository', \App\Livewire\Page\Praja\Blank::class)->name('praja-unggah.repository');
+    Route::get('praja/hard-copy-skripsi', \App\Livewire\Page\Praja\Blank::class)->name('praja-hard.skripsi');
+    Route::get('praja/soft-copy-skripsi', \App\Livewire\Page\Praja\Blank::class)->name('praja-soft.skripsi');
 
 
     // --- *** Officer Area *** --- //
