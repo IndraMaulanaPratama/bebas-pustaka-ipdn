@@ -3,17 +3,17 @@
         <x-admin.components.card.card size=12 title="Data Assign Role" titleSpan='Aktif'>
 
             {{-- Baris bagian search sareng tombol export data --}}
-            <div class="row justify-content-between g-4">
+            <div class="row justify-content-between g-2">
 
                 {{-- Button Export Data --}}
-                <div class="col-2">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                     </div>
                 </div>
 
                 {{-- Input Pencarian Data --}}
-                <div class="col-3 ">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <x-admin.components.form.input size=12 type='text' name='search'
                         placeholder='Cari Nomor Pokok Praja' />
                 </div>
@@ -21,38 +21,40 @@
 
             <hr />
 
+            {{-- Opsi Pencarian --}}
             <div class="row">
-                <table class="table table-responsive table-hover">
-                    {{-- Select Sort By Status --}}
-                    <div class="col-2">
-                        <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
-                            <option value="Proses">Proses</option>
-                            <option value="Disetujui">Disetujui</option>
-                            <option value="Ditolak">Ditolak</option>
-                        </x-admin.components.form.select>
-                    </div>
+                {{-- Select Sort By Status --}}
+                <div class="col-lg-2 col-md-4 col-sm-4">
+                    <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
+                        <option value="Proses">Proses</option>
+                        <option value="Disetujui">Disetujui</option>
+                        <option value="Ditolak">Ditolak</option>
+                    </x-admin.components.form.select>
+                </div>
 
-                    {{-- Select ututan data dumasar kana fakultas --}}
-                    <div class="col-3">
-                        <x-admin.components.form.select size='12' name='sortFakultas'
-                            placeholder='Urutan Fakultas'>
-                            <option value="fpp">Politik Pemerintahan</option>
-                            <option value="fmp">Fakultas Manajemen Pemerintahan</option>
-                            <option value="fpm">Fakultas Perlindungan Masyarakat</option>
-                        </x-admin.components.form.select>
-                    </div>
+                {{-- Select ututan data dumasar kana fakultas --}}
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
+                        <option value="fpp">Politik Pemerintahan</option>
+                        <option value="fmp">Fakultas Manajemen Pemerintahan</option>
+                        <option value="fpm">Fakultas Perlindungan Masyarakat</option>
+                    </x-admin.components.form.select>
+                </div>
 
-                    {{-- Select ututan data dumasar kana prodi --}}
-                    <div class="col-4">
-                        <x-admin.components.form.select size='12' name='sortProdi'
-                            placeholder='Urutan Program Studi'>
-                            <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
-                            <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
-                            <option value="FPM">KEUANGAN PUBLIK</option>
-                        </x-admin.components.form.select>
-                    </div>
+                {{-- Select ututan data dumasar kana prodi --}}
+                <div class="col-lg-4 col-md-3 col-sm-6">
+                    <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
+                        <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
+                        <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
+                        <option value="FPM">KEUANGAN PUBLIK</option>
+                    </x-admin.components.form.select>
+                </div>
 
+            </div>
 
+            {{-- Data Table Bebas Pinjaman Perpustakaan --}}
+            <div class="table-responsive">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" width=3%>#</th>
@@ -136,9 +138,11 @@
 
                     </tbody>
                 </table>
-                <x-admin.tamplates.paginate.paginate :item="$pustaka" />
-
             </div>
+
+            {{-- Pagination data table --}}
+            <x-admin.tamplates.paginate.paginate :item="$pustaka" />
+
         </x-admin.components.card.card>
     </div>
 
