@@ -63,7 +63,7 @@ class Table extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents("http://localhost:8001/api/praja?npp=" . $npp), true);
+        $detailPraja = json_decode(file_get_contents( env("APP_PRAJA") ."praja?npp=" . $npp), true);
         $this->dataPraja = $detailPraja["data"][0];
 
         $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");
