@@ -1,3 +1,21 @@
-<div>
-    Knowing others is intelligence; knowing yourself is true wisdom.
+<div class="row">
+    {{-- In work, do what you enjoy. --}}
+    @if (session('success'))
+        <x-admin.components.alert.success text="{{ session('success') }}" />
+    @endif
+
+    @if (session('warning'))
+        <x-admin.components.alert.warning text="{{ session('warning') }}" />
+    @endif
+
+    @if (session('error'))
+        <x-admin.components.alert.error text="{{ session('error') }}" />
+    @endif
+
+    {{-- Data Table --}}
+    @livewire('Praja.PinjamanPustaka.Form', [], key('table'))
+
+    {{-- Form Reject --}}
+    {{-- @livewire('Praja.PinjamanPustaka.Reject', [], key('formReject')) --}}
+
 </div>
