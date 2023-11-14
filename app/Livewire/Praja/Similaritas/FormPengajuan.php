@@ -12,6 +12,8 @@ class FormPengajuan extends Component
     public $inputJudul, $inputKelas, $inputAbsen;
     public $praja, $npp;
 
+
+
     public function validasiForm($form, $name)
     {
         $form == null ? $this->dispatch("failed-creating-similaritas", "Data " . $name . " tidak boleh dikosongkan") : true;
@@ -37,10 +39,10 @@ class FormPengajuan extends Component
             $fakultas = "FPM";
         }
 
-        $jumlahData = Similaritas::whereNotNull('SIMILARITAS_APPROVED')->count();
+        $jumlahData = Similaritas::where('SIMILARITAS_APPROVED', "Disetujui")->count();
         $nomor = sprintf("%04s", abs($jumlahData + 1));
         $tahun = Carbon::now('Asia/Jakarta')->format("Y");
-        return "000.5.2.4/BPS-" . $fakultas . ". - /IPDN.21/" . $tahun;
+        return "000.5.2.4/BPS-" . $fakultas . ". - ". $nomor ."/IPDN.21/" . $tahun;
     }
 
 
@@ -75,6 +77,7 @@ class FormPengajuan extends Component
             $this->dispatch("failed-creating-similaritas", $th->getMessage());
         }
     }
+
 
 
     public function mount()
