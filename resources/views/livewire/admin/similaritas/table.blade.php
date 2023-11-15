@@ -21,9 +21,9 @@
         <hr />
 
         {{-- Opsi Pencarian --}}
-        <div class="row">
+        <div class="row g-2">
             {{-- Select Sort By Status --}}
-            <div class="col-lg-2 col-md-4 col-sm-4">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
                 <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
                     <option value="Proses">Proses</option>
                     <option value="Disetujui">Disetujui</option>
@@ -31,38 +31,37 @@
                 </x-admin.components.form.select>
             </div>
 
+            {{-- Select ututan data dumasar kana angkatan --}}
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                <x-admin.components.form.input size=12 type='text' name='angkatan' maxlength=2
+                placeholder='Angkatan' />
+            </div>
+
             {{-- Select ututan data dumasar kana fakultas --}}
-            <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
                     <option value="fpp">Politik Pemerintahan</option>
                     <option value="fmp">Fakultas Manajemen Pemerintahan</option>
                     <option value="fpm">Fakultas Perlindungan Masyarakat</option>
                 </x-admin.components.form.select>
             </div>
-
-            {{-- Select ututan data dumasar kana prodi --}}
-            <div class="col-lg-4 col-md-3 col-sm-6">
-                <x-admin.components.form.select size='12' name='sortProdi' placeholder='Urutan Program Studi'>
-                    <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
-                    <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
-                    <option value="FPM">KEUANGAN PUBLIK</option>
-                </x-admin.components.form.select>
-            </div>
-
         </div>
 
         {{-- Table data similaritas --}}
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover w-auto">
                 <thead>
                     <tr>
-                        <th scope="col" width=3%>#</th>
-                        <th scope="col">NPM</th>
-                        <th scope="col" width=50%>Judul Skripsi</th>
-                        <th scope="col">Nama Kelas</th>
-                        <th scope="col">Nomor Absen</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" colspan="3" width=5%>Option</th>
+                        <th width=3%>#</th>
+                        <th>NPM</th>
+                        <th>Judul Skripsi</th>
+                        <th>Nama Kelas</th>
+                        <th>Nomor Absen</th>
+                        <th>Status</th>
+                        <th>Petugas</th>
+                        <th>Tanggal Validasi</th>
+                        <th>Keterangan</th>
+                        <th colspan="3" width=5%>Option</th>
                     </tr>
                 </thead>
 
@@ -90,30 +89,41 @@
 
                         <tr>
                             <th scope="row"> {{ $loop->index + $similaritas->firstItem() }} </th>
-                            <td>
+
+                            <td> {{-- NPP Praja --}}
                                 <button type="button" class="btn btn-link"
                                     wire:click="detailPraja('{{ $item->SIMILARITAS_PRAJA }}')" data-bs-toggle="modal"
                                     data-bs-target="#modalDetailPraja">
                                     {{ $item->SIMILARITAS_PRAJA }}
                                 </button>
                             </td>
+
                             <td> {{ $item->SIMILARITAS_TITLE }} </td>
                             <td> {{ $item->SIMILARITAS_CLASS }} </td>
                             <td> {{ $item->SIMILARITAS_ABSENT }} </td>
-                            <td>
+
+                            <td> {{-- Status Pengajuan --}}
                                 <span class="badge bg-{{ $colorStatus }}">
                                     <i class="bi {{ $iconStatus }}"></i> &nbsp;
                                     {{ $item->SIMILARITAS_STATUS }}
                                 </span>
                             </td>
+
+                            <td> {{ $item->SIMILARITAS_OFFICER === 1 ? null : $item->user->name }} </td>
+                            <td> {{ $item->SIMILARITAS_APPROVED }} </td>
+                            <td> {{ $item->SIMILARITAS_NOTES }} </td>
+
+                            {{-- Button Approve --}}
                             <td>
                                 <button type="button" {{ $buttonApprove }}
                                     class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                     data-bs-toggle="modal" data-bs-target="#formApprove"
-                                    wire:click='selectedData("{{ $item->SIMILARITAS_ID }}")'>
+                                    wire:click='selectedData(["{{ $item->SIMILARITAS_ID }}", "{{ $item->SIMILARITAS_PRAJA }}"])'>
                                     <i class="bi bi-check2-all"></i>
                                 </button>
                             </td>
+
+                            {{-- Button Reject --}}
                             <td>
                                 <button type="button" {{ $buttonReject }}
                                     class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
@@ -122,6 +132,8 @@
                                     <i class="bi bi-dash-circle-fill"></i>
                                 </button>
                             </td>
+
+                            {{-- Button Print --}}
                             <td>
                                 <button type="button" {{ $buttonPrint }}
                                     class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
