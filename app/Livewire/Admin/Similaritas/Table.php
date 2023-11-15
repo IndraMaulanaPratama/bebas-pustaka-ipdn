@@ -23,7 +23,7 @@ class Table extends Component
 
     public $accessReject, $accessApprove, $accessPrint, $accessExport;
     public $colorStatus, $iconStatus;
-    public $sortStatus, $sortFakultas, $sortProdi, $search;
+    public $sortStatus, $sortFakultas, $sortProdi, $search, $angkatan;
 
     public $npp,
     $dataPraja,
@@ -67,7 +67,7 @@ class Table extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents( env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
         $this->dataPraja = $detailPraja["data"][0];
 
         $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");
@@ -107,10 +107,10 @@ class Table extends Component
         return view("components.admin.components.spinner.loading");
     }
 
-    #[On("selected-data")]
     public function selectedData($id)
     {
-        $this->dispatch("selected-data", $id);
+        $this->detailPraja($id[1]);
+        $this->dispatch("selected-data", [$id[0], $this->prajaFakultas]);
     }
 
     public function exportData()
@@ -199,10 +199,15 @@ class Table extends Component
                     return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
                 }
             )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana npp
+                $this->angkatan,
+                function ($query, $npp) {
+                    return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
+                }
+            )
             ->latest()
             ->paginate();
-
-
 
         return view('livewire.admin.similaritas.table', [
             'similaritas' => $similaritas,
