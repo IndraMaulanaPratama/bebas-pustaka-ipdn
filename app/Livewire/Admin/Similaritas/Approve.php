@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Approve extends Component
 {
-    public $inputSimilaritas, $inputSmallWord, $id;
+    public $inputSimilaritas, $inputSmallWord, $id, $fakultas;
     public $switchBibliografi = false, $switchSmallWord = false, $switchQuotes = false;
 
 
@@ -40,9 +40,10 @@ class Approve extends Component
 
 
     #[On("selected-data")]
-    public function getIdSimilaritas($id)
+    public function getIdSimilaritas($data)
     {
-        $this->id = $id;
+        $this->id = $data[0];
+        $this->fakultas = $data[1];
     }
 
 
@@ -50,7 +51,7 @@ class Approve extends Component
     public function approveData()
     {
         $officer = Auth::user()->id;
-        $nomorSurat = $this->generateNomorSurat('POLITIK PEMERINTAHAN');
+        $nomorSurat = $this->generateNomorSurat($this->fakultas);
 
         try {
             $data = [
@@ -62,6 +63,7 @@ class Approve extends Component
                 "SIMILARITAS_SMALL_WORD_COUNT" => $this->inputSmallWord,
                 "SIMILARITAS_QUOTE" => $this->switchQuotes,
                 "SIMILARITAS_STATUS" => "Disetujui",
+                "SIMILARITAS_NOTES" => null,
                 "SIMILARITAS_APPROVED" => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
 
