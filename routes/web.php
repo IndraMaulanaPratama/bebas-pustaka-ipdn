@@ -2,6 +2,7 @@
 
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\Blank;
+use App\Livewire\Page\Admin\DonasiPustaka;
 use App\Livewire\Page\Admin\PinjamanFakultas;
 use App\Livewire\Page\Admin\PinjamanPustaka;
 use App\Livewire\Page\Admin\Role;
@@ -38,10 +39,10 @@ Route::middleware(['auth', 'access'])->group(function () {
 
     // --- *** Officer Area *** --- //
     Route::get('/similaritas', Similaritas::class)->name('admin-similaritas'); // TODO: Fitur Print dan export
-    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan'); // TODO:: Fitur Print dan export
+    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
+    Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Fitur Print dan export
+    Route::get('/donasi-buku-perpustakaan', DonasiPustaka::class)->name('admin-donasi.perpustakaan');
     //
-    Route::get('/bebas-pinjaman-fakultas', Blank::class)->name('admin-pinjaman.fakultas');
-    Route::get('/donasi-buku-perpustakaan', Blank::class)->name('admin-donasi.perpustakaan');
     Route::get('/donasi-buku-fakultas', Blank::class)->name('admin-donasi.fakultas');
     Route::get('/donasi-buku-elektronik', Blank::class)->name('admin-donasi.elektronik');
     Route::get('/survey', Blank::class)->name('admin-survey');
