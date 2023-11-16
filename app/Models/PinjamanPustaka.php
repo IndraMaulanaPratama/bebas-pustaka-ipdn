@@ -21,7 +21,6 @@ class PinjamanPustaka extends Model
 
     protected $fillable = [
         'PUSTAKA_ID',
-        'PUSTAKA_NUMBER',
         'PUSTAKA_PRAJA',
         'PUSTAKA_OFFICER',
         'PUSTAKA_STATUS',
