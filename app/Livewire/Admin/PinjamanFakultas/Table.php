@@ -15,7 +15,7 @@ use Livewire\Component;
 class Table extends Component
 {
     public $accessReject, $accessApprove, $accessPrint, $accessExport;
-    public $sortStatus, $sortFakultas, $sortProdi, $search;
+    public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
     $prajaNama,
@@ -105,6 +105,7 @@ class Table extends Component
         try {
             $data = [
                 'FAKULTAS_STATUS' => "Disetujui",
+                'FAKULTAS_NOTES' => null,
                 'FAKULTAS_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
             PinjamanFakultas::where("FAKULTAS_ID", $id)->update($data);
@@ -148,6 +149,13 @@ class Table extends Component
                 $this->search,
                 function ($query, $npp) {
                     return $query->where("FAKULTAS_PRAJA", "LIKE", $npp . "%");
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana npp
+                $this->angkatan,
+                function ($query, $angkatan) {
+                    return $query->where("FAKULTAS_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
             ->latest()
