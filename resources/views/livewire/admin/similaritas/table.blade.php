@@ -5,14 +5,14 @@
         <div class="row justify-content-between g-2">
 
             {{-- Button Export Data --}}
-            <div class="col-lg-2 col-md-4 col-sm-4">
+            <div class="w-auto">
                 <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                     <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                 </div>
             </div>
 
             {{-- Input Pencarian Data --}}
-            <div class="col-lg-3 col-md-6 col-sm-6 ">
+            <div class="col-lg-3 col-md-4 col-sm-12 ">
                 <x-admin.components.form.input size=12 type='text' name='search'
                     placeholder='Cari Nomor Pokok Praja' />
             </div>
@@ -21,7 +21,7 @@
         <hr />
 
         {{-- Opsi Pencarian --}}
-        <div class="row g-2">
+        <div class="row g-2 mb-4">
             {{-- Select Sort By Status --}}
             <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
                 <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
@@ -34,7 +34,7 @@
             {{-- Select ututan data dumasar kana angkatan --}}
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
                 <x-admin.components.form.input size=12 type='text' name='angkatan' maxlength=2
-                placeholder='Angkatan' />
+                    placeholder='Angkatan' />
             </div>
 
             {{-- Select ututan data dumasar kana fakultas --}}
@@ -49,19 +49,19 @@
 
         {{-- Table data similaritas --}}
         <div class="table-responsive">
-            <table class="table table-hover w-auto">
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th width=3%>#</th>
-                        <th>NPP</th>
-                        <th>Judul Skripsi</th>
-                        <th>Nama Kelas</th>
-                        <th>Nomor Absen</th>
+                        <th>#</th>
                         <th>Status</th>
-                        <th>Petugas</th>
-                        <th>Tanggal Validasi</th>
-                        <th>Keterangan</th>
-                        <th colspan="3" width=5%>Option</th>
+                        <th>NPP</th>
+                        <th style="min-width: 10cm">Judul Skripsi</th>
+                        <th style="min-width: 4cm">Nama Kelas</th>
+                        <th style="min-width: 5cm">Nomor Absen</th>
+                        <th style="min-width: 6cm">Petugas</th>
+                        <th style="min-width: 5cm">Tanggal Validasi</th>
+                        <th style="min-width: 5cm">Keterangan</th>
+                        <th colspan="3">Option</th>
                     </tr>
                 </thead>
 
@@ -90,6 +90,13 @@
                         <tr>
                             <th scope="row"> {{ $loop->index + $similaritas->firstItem() }} </th>
 
+                            <td> {{-- Status Pengajuan --}}
+                                <span class="badge bg-{{ $colorStatus }}">
+                                    <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                    {{ $item->SIMILARITAS_STATUS }}
+                                </span>
+                            </td>
+
                             <td> {{-- NPP Praja --}}
                                 <button type="button" class="btn btn-link"
                                     wire:click="detailPraja('{{ $item->SIMILARITAS_PRAJA }}')" data-bs-toggle="modal"
@@ -101,14 +108,6 @@
                             <td> {{ $item->SIMILARITAS_TITLE }} </td>
                             <td> {{ $item->SIMILARITAS_CLASS }} </td>
                             <td> {{ $item->SIMILARITAS_ABSENT }} </td>
-
-                            <td> {{-- Status Pengajuan --}}
-                                <span class="badge bg-{{ $colorStatus }}">
-                                    <i class="bi {{ $iconStatus }}"></i> &nbsp;
-                                    {{ $item->SIMILARITAS_STATUS }}
-                                </span>
-                            </td>
-
                             <td> {{ $item->SIMILARITAS_OFFICER === 1 ? null : $item->user->name }} </td>
                             <td> {{ $item->SIMILARITAS_APPROVED }} </td>
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
