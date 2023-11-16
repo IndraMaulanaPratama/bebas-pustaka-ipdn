@@ -40,9 +40,9 @@ class FormPengajuan extends Component
         }
 
         $jumlahData = Similaritas::where('SIMILARITAS_APPROVED', "Disetujui")->count();
-        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        // $nomor = sprintf("%04s", abs($jumlahData + 1));
         $tahun = Carbon::now('Asia/Jakarta')->format("Y");
-        return "000.5.2.4/BPS-" . $fakultas . ". - ". $nomor ."/IPDN.21/" . $tahun;
+        return "000.5.2.4/BPS-" . $fakultas . ". - ". "nomor" ."/IPDN.21/" . $tahun;
     }
 
 
@@ -55,7 +55,7 @@ class FormPengajuan extends Component
 
         try {
             $id = uuid_create(4);
-            $officer = Auth::user()->id;
+            $officer = 1;
             $kodeSurat = $this->generateNomorSurat($this->praja['FAKULTAS']);
 
 
