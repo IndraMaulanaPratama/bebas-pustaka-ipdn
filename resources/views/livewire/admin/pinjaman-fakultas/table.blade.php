@@ -6,14 +6,14 @@
             <div class="row justify-content-between g-4">
 
                 {{-- Button Export Data --}}
-                <div class="col-2">
+                <div class="w-auto">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                     </div>
                 </div>
 
                 {{-- Input Pencarian Data --}}
-                <div class="col-3 ">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ">
                     <x-admin.components.form.input size=12 type='text' name='search'
                         placeholder='Cari Nomor Pokok Praja' />
                 </div>
@@ -21,45 +21,45 @@
 
             <hr />
 
-            <div class="row">
+            {{-- Opsi Pencarian --}}
+            <div class="row g-2 mb-4">
+                {{-- Select Sort By Status --}}
+                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                    <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
+                        <option value="Proses">Proses</option>
+                        <option value="Disetujui">Disetujui</option>
+                        <option value="Ditolak">Ditolak</option>
+                    </x-admin.components.form.select>
+                </div>
+
+                {{-- Select ututan data dumasar kana angkatan --}}
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                    <x-admin.components.form.input size=12 type='text' name='angkatan' maxlength=2
+                        placeholder='Angkatan' />
+                </div>
+
+                {{-- Select ututan data dumasar kana fakultas --}}
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
+                        <option value="fpp">Politik Pemerintahan</option>
+                        <option value="fmp">Fakultas Manajemen Pemerintahan</option>
+                        <option value="fpm">Fakultas Perlindungan Masyarakat</option>
+                    </x-admin.components.form.select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
                 <table class="table table-responsive table-hover">
-                    {{-- Select Sort By Status --}}
-                    <div class="col-2">
-                        <x-admin.components.form.select name='sortStatus' placeholder='Urutan status'>
-                            <option value="Proses">Proses</option>
-                            <option value="Disetujui">Disetujui</option>
-                            <option value="Ditolak">Ditolak</option>
-                        </x-admin.components.form.select>
-                    </div>
-
-                    {{-- Select ututan data dumasar kana fakultas --}}
-                    <div class="col-3">
-                        <x-admin.components.form.select size='12' name='sortFakultas'
-                            placeholder='Urutan Fakultas'>
-                            <option value="fpp">Politik Pemerintahan</option>
-                            <option value="fmp">Fakultas Manajemen Pemerintahan</option>
-                            <option value="fpm">Fakultas Perlindungan Masyarakat</option>
-                        </x-admin.components.form.select>
-                    </div>
-
-                    {{-- Select ututan data dumasar kana prodi --}}
-                    <div class="col-4">
-                        <x-admin.components.form.select size='12' name='sortProdi'
-                            placeholder='Urutan Program Studi'>
-                            <option value="FPP">MANAJEMEN KEAMANAN DAN KESELAMATAN PUBLIK</option>
-                            <option value="FMP">PRAKTIK PERPOLISIAN TATA PAMONG</option>
-                            <option value="FPM">KEUANGAN PUBLIK</option>
-                        </x-admin.components.form.select>
-                    </div>
-
 
                     <thead>
                         <tr>
-                            <th scope="col" width=3%>#</th>
-                            <th scope="col">NPP</th>
-                            <th scope="col">Keterangan</th>
-                            <th scope="col">Status</th>
-                            <th scope="col" colspan="3" width=5%>Option</th>
+                            <th scope="row">#</th>
+                            <th>Status</th>
+                            <th style="min-width: 2cm">NPP</th>
+                            <th style="min-width: 10cm">Keterangan</th>
+                            <th style="min-width: 6cm">Petugas</th>
+                            <th style="min-width: 5cm">Tanggal Validasi</th>
+                            <th colspan="3">Option</th>
                         </tr>
                     </thead>
 
@@ -86,7 +86,14 @@
                             @endphp
 
                             <tr>
-                                <td width=3%> {{ $loop->index + $fakultas->firstItem() }} </td>
+                                <td scope="row"> {{ $loop->index + $fakultas->firstItem() }} </td>
+
+                                <td>
+                                    <span class="badge bg-{{ $colorStatus }}">
+                                        <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                        {{ $item->FAKULTAS_STATUS }}
+                                    </span>
+                                </td>
 
                                 <td>
                                     <button type="button" class="btn btn-link"
@@ -97,13 +104,8 @@
                                 </td>
 
                                 <td> {{ $item->FAKULTAS_NOTES }} </td>
-
-                                <td>
-                                    <span class="badge bg-{{ $colorStatus }}">
-                                        <i class="bi {{ $iconStatus }}"></i> &nbsp;
-                                        {{ $item->FAKULTAS_STATUS }}
-                                    </span>
-                                </td>
+                                <td> {{ $item->FAKULTAS_OFFICER === 1 ? null : $item->user->name }} </td>
+                                <td> {{ $item->FAKULTAS_APPROVED }} </td>
 
                                 <td>
                                     <button type="button" {{ $buttonApprove }}
@@ -136,9 +138,10 @@
 
                     </tbody>
                 </table>
-                <x-admin.tamplates.paginate.paginate :item="$fakultas" />
 
             </div>
+            <x-admin.tamplates.paginate.paginate :item="$fakultas" />
+
         </x-admin.components.card.card>
     </div>
 
