@@ -75,13 +75,31 @@ class User extends Authenticatable
 
     public function PinjamanPustaka(): HasMany
     {
-        return $this->hasMany(PinjamanPustaka::class, 'PUSTAKA_ID', 'id');
+        return $this->hasMany(PinjamanPustaka::class, 'PUSTAKA_OFFICER', 'id');
     }
 
 
     public function PinjamanFakultas(): HasMany
     {
-        return $this->hasMany(PinjamanFakultas::class, 'FAKULTAS_ID', 'id');
+        return $this->hasMany(PinjamanFakultas::class, 'FAKULTAS_OFFICER', 'id');
+    }
+
+
+    public function DonasiPustaka(): HasMany
+    {
+        return $this->hasMany(DonasiPustaka::class, 'PUSTAKA_OFFICER', 'id');
+    }
+
+
+    public function DonasiFakultas(): HasMany
+    {
+        return $this->hasMany(DonasiFakultas::class, 'FAKULTAS_OFFICER', 'id');
+    }
+
+
+    public function DonasiElektronik(): HasMany
+    {
+        return $this->hasMany(DonasiElektronik::class, 'ELEKTRONIK_OFFICER', 'id');
     }
 
     // --- *** END OF RELATION AREA *** ---
