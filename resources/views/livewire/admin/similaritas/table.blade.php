@@ -53,7 +53,7 @@
                 <thead>
                     <tr>
                         <th width=3%>#</th>
-                        <th>NPM</th>
+                        <th>NPP</th>
                         <th>Judul Skripsi</th>
                         <th>Nama Kelas</th>
                         <th>Nomor Absen</th>
