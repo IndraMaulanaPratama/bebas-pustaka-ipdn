@@ -14,8 +14,8 @@ use Livewire\Component;
 
 class Table extends Component
 {
-    public $accessReject, $accessApprove, $accessPrint, $accessExport;
-    public $sortStatus, $sortFakultas, $sortProdi, $search;
+    public $accessReject, $accessApprove, $accessExport;
+    public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
     $prajaNama,
@@ -63,7 +63,7 @@ class Table extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents( env("APP_PRAJA") ."praja?npp=" . $npp), true);
+        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
         $this->dataPraja = $detailPraja["data"][0];
 
         $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");
@@ -105,6 +105,7 @@ class Table extends Component
         try {
             $data = [
                 'PUSTAKA_STATUS' => "Disetujui",
+                'PUSTAKA_NOTES' => null,
                 'PUSTAKA_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
             PinjamanPustaka::where("PUSTAKA_ID", $id)->update($data);
@@ -148,6 +149,13 @@ class Table extends Component
                 $this->search,
                 function ($query, $npp) {
                     return $query->where("PUSTAKA_PRAJA", "LIKE", $npp . "%");
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana npp
+                $this->angkatan,
+                function ($query, $angkatan) {
+                    return $query->where("PUSTAKA_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
             ->latest()
