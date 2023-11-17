@@ -107,8 +107,8 @@
                                 <td> {{ $item->FAKULTAS_OFFICER === 1 ? null : $item->user->name }} </td>
                                 <td> {{ $item->FAKULTAS_APPROVED }} </td>
 
-                                <td>
-                                    <button type="button" {{ $buttonApprove }}
+                                <td {{ $buttonApprove }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                         wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
                                         wire:click='approveData("{{ $item->FAKULTAS_ID }}")'>
@@ -116,8 +116,8 @@
                                     </button>
                                 </td>
 
-                                <td>
-                                    <button type="button" {{ $buttonReject }}
+                                <td {{ $buttonReject }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->FAKULTAS_ID }}")'>
@@ -125,8 +125,8 @@
                                     </button>
                                 </td>
 
-                                <td>
-                                    <button type="button" {{ $buttonPrint }}
+                                <td {{ $buttonPrint }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                         wire:confirm='Cetak Pengajuan Similaritas {{ $item->FAKULTAS_PRAJA }} ?'
                                         wire:click='printApprooved("{{ $item->FAKULTAS_ID }}")'>
