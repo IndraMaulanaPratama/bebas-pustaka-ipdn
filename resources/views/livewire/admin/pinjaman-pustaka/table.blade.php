@@ -106,8 +106,8 @@
                                 <td> {{ $item->PUSTAKA_APPROVED }} </td>
 
                                 {{-- Button Approve --}}
-                                <td>
-                                    <button type="button" {{ $buttonApprove }}
+                                <td {{ $buttonApprove }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                         wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
                                         wire:click='approveData("{{ $item->PUSTAKA_ID }}")'>
@@ -116,8 +116,8 @@
                                 </td>
 
                                 {{-- Button Reject Submision --}}
-                                <td>
-                                    <button type="button" {{ $buttonReject }}
+                                <td {{ $buttonReject }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->PUSTAKA_ID }}")'>
