@@ -113,8 +113,8 @@
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
 
                             {{-- Button Approve --}}
-                            <td>
-                                <button type="button" {{ $buttonApprove }}
+                            <td {{ $buttonApprove }}>
+                                <button type="button"
                                     class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                     data-bs-toggle="modal" data-bs-target="#formApprove"
                                     wire:click='selectedData(["{{ $item->SIMILARITAS_ID }}", "{{ $item->SIMILARITAS_PRAJA }}"])'>
@@ -123,8 +123,8 @@
                             </td>
 
                             {{-- Button Reject --}}
-                            <td>
-                                <button type="button" {{ $buttonReject }}
+                            <td {{ $buttonReject }}>
+                                <button type="button"
                                     class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                     data-bs-toggle="modal" data-bs-target="#formReject"
                                     wire:click='rejectData("{{ $item->SIMILARITAS_ID }}")'>
@@ -133,8 +133,8 @@
                             </td>
 
                             {{-- Button Print --}}
-                            <td>
-                                <button type="button" {{ $buttonPrint }}
+                            <td {{ $buttonPrint }}>
+                                <button type="button"
                                     class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                     wire:confirm='Cetak Pengajuan Similaritas {{ $item->SIMILARITAS_PRAJA }} ?'
                                     wire:click='printApprooved("{{ $item->SIMILARITAS_ID }}")'>
