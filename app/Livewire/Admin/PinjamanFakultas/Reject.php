@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\PinjamanFakultas;
 
 use App\Models\PinjamanFakultas;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -36,6 +37,7 @@ class Reject extends Component
             $data = [
                 'FAKULTAS_STATUS' => "Ditolak",
                 'FAKULTAS_NOTES' => $this->inputNote,
+                'FAKULTAS_APPROVED' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
             ];
 
             // Proses ngarobih data pengajuan
