@@ -104,10 +104,11 @@
 
                                 <td> {{ $item->PUSTAKA_NOTES }} </td>
                                 <td> {{ $item->PUSTAKA_OFFICER === 1 ? null : $item->user->name }} </td>
-                                <td> {{ $item->FAKULTAS_APPROVED }} </td>
+                                <td> {{ $item->PUSTAKA_APPROVED }} </td>
 
-                                <td>
-                                    <button type="button" {{ $buttonApprove }}
+                                {{-- Button Approve --}}
+                                <td {{ $buttonApprove }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                         wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
                                         wire:click='approveData("{{ $item->PUSTAKA_ID }}")'>
@@ -115,8 +116,9 @@
                                     </button>
                                 </td>
 
-                                <td>
-                                    <button type="button" {{ $buttonReject }}
+                                {{-- Button Reject --}}
+                                <td {{ $buttonReject }}>
+                                    <button type="button"
                                         class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->PUSTAKA_ID }}")'>
