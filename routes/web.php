@@ -2,6 +2,7 @@
 
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\Blank;
+use App\Livewire\Page\Admin\DonasiFakultas;
 use App\Livewire\Page\Admin\DonasiPustaka;
 use App\Livewire\Page\Admin\PinjamanFakultas;
 use App\Livewire\Page\Admin\PinjamanPustaka;
@@ -42,8 +43,8 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
     Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Fitur Print dan export
     Route::get('/donasi-buku-perpustakaan', DonasiPustaka::class)->name('admin-donasi.perpustakaan');
+    Route::get('/donasi-buku-fakultas', DonasiFakultas::class)->name('admin-donasi.fakultas');
     //
-    Route::get('/donasi-buku-fakultas', Blank::class)->name('admin-donasi.fakultas');
     Route::get('/donasi-buku-elektronik', Blank::class)->name('admin-donasi.elektronik');
     Route::get('/survey', Blank::class)->name('admin-survey');
     Route::get('/konten-literasi', Blank::class)->name('admin-konten.literasi');
