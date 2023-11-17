@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\PinjamanPustaka;
 
 use App\Models\PinjamanPustaka;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -36,6 +37,7 @@ class Reject extends Component
             $data = [
                 'PUSTAKA_STATUS' => "Ditolak",
                 'PUSTAKA_NOTES' => $this->inputNote,
+                'PUSTAKA_APPROVED' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),
             ];
 
             // Proses ngarobih data pengajuan
