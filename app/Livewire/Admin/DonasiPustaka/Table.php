@@ -103,7 +103,7 @@ class Table extends Component
             ];
             DonasiPustaka::where("PUSTAKA_ID", $id)->update($data);
 
-            $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan berhasil disetujui");
+            $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan pusat berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
