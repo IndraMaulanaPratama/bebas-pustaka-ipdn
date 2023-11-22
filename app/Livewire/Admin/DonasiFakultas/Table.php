@@ -15,7 +15,7 @@ use Livewire\Component;
 class Table extends Component
 {
 
-    public $accessReject, $accessApprove, $accessExport, $accessPrint;
+    public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessDetail;
     public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
@@ -52,6 +52,7 @@ class Table extends Component
         $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
         $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
         $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
+        $this->accessDetail = $this->generateAccess($access->ACCESS_DETAIL);
     }
 
 
@@ -117,6 +118,15 @@ class Table extends Component
     {
         $data = DonasiFakultas::where('FAKULTAS_ID', $id)->first();
         $this->dispatch('data-selected', $data);
+    }
+
+
+
+    public function showDetail($id) {
+        dd([
+            'id_pengajuan' => $id,
+            'bukti_pengajuan' => 'nanti keluar gambar disini',
+        ]);
     }
 
 

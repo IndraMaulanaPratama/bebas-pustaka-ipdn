@@ -70,6 +70,7 @@
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
                                 $buttonPrint = 'hidden';
+                                $buttonDetail = null;
 
                                 if ($item->FAKULTAS_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -80,6 +81,7 @@
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
                                     $buttonPrint = null;
+                                    $buttonDetail = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -128,12 +130,21 @@
                                     </button>
                                 </td>
 
+                                {{-- Button Detail --}}
+                                <td {{ $buttonPrint }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-primary rounded-pill {{ $accessDetail }}"
+                                        wire:click='showDetail("{{ $item->FAKULTAS_ID }}")'>
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </td>
+
                                 {{-- Button Print --}}
                                 <td {{ $buttonPrint }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
-                                        wire:confirm='Cetak Pengajuan Similaritas {{ $item->SIMILARITAS_PRAJA }} ?'
-                                        wire:click='printApprooved("{{ $item->SIMILARITAS_ID }}")'>
+                                        wire:confirm='Cetak Pengajuan Similaritas {{ $item->FAKULTAS_PRAJA }} ?'
+                                        wire:click='printApprooved("{{ $item->FAKULTAS_ID }}")'>
                                         <i class="bi bi-printer-fill"></i>
                                     </button>
                                 </td>
