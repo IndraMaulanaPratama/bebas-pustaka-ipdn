@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -158,6 +159,11 @@ class AksesSeeder extends Seeder
         Menu::insert($dataMenu);
         pivotMenu::insert($dataPivotMenu);
         Akses::insert($dataAkses);
+        Survey::created([
+            'SURVEY_ID' => uuid_create(4),
+            'SURVEY_URL' => env("APP_URL"),
+            'SURVEY_OFFICER' => 1,
+        ]);
 
     }
 }
