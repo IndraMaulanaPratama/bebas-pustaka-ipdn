@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    #[Title('Beranda - Perpustakaan IPDN')]
+    #[Title('Beranda - Bebas Pustaka IPDN')]
 
     public function render()
     {
