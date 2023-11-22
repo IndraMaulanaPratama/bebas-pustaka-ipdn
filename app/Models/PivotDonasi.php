@@ -43,7 +43,7 @@ class PivotDonasi extends Model
 
     public function donasi_elektronik(): BelongsTo
     {
-        return $this->belongsTo(DonasiElektronik::class, "PIVOT_ELEKTRONIK", "FAKULTAS_ID");
+        return $this->belongsTo(DonasiElektronik::class, "PIVOT_ELEKTRONIK", "ELEKTRONIK_ID");
     }
 
     // --- *** Tungtung tina Ranahna Relasi *** --- //
