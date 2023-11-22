@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Menu;
 
 use App\Models\Menu;
+use App\Models\pivotMenu;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -150,6 +151,7 @@ class Table extends Component
     public function deleteMenu($id)
     {
         try {
+            pivotMenu::where('PIVOT_MENU', $id)->delete();
             Menu::find($id)->delete();
 
             $this->placeholder();
