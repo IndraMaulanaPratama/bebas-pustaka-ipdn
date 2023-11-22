@@ -21,7 +21,6 @@
                 <x-admin.components.tabs.nav id="tab-similaritas">
                     <x-admin.components.tabs.nav-link id="tab-1" active="active" text="Buat Pengajuan" />
                     <x-admin.components.tabs.nav-link id="tab-2" text="Resume Similaritas" />
-                    <x-admin.components.tabs.nav-link id="tab-3" text='Tips & Trick' />
                 </x-admin.components.tabs.nav>
 
                 <x-admin.components.tabs.tab-content id="myTabjustified">
@@ -33,9 +32,6 @@
                         @livewire('praja.similaritas.resume', [], key(2))
                     </x-admin.components.tabs.content>
 
-                    <x-admin.components.tabs.content id="tab-3">
-                        @livewire('praja.similaritas.tips-trick', [], key(3))
-                    </x-admin.components.tabs.content>
                 </x-admin.components.tabs.tab-content>
             </x-admin.components.card.card>
 
