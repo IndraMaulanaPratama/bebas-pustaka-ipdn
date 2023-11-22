@@ -16,7 +16,7 @@ class pivotMenu extends Model
     protected $table = 'PIVOT_MENU';
     protected $pimaryKey = 'PIVOT_ID';
     protected $keyType = 'string';
-    protected $perPage = 15;
+    protected $perPage = 10;
 
     protected $fillable = [
         'PIVOT_ID',
