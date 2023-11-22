@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -100,6 +101,17 @@ class User extends Authenticatable
     public function DonasiElektronik(): HasMany
     {
         return $this->hasMany(DonasiElektronik::class, 'ELEKTRONIK_OFFICER', 'id');
+    }
+
+    public function survey(): HasOne
+    {
+        return $this->hasOne(Survey::class, 'SURVEY_OFFICER', 'id');
+    }
+
+
+    public function konten_literasi(): HasOne
+    {
+        return $this->hasOne(KontenLiterasi::class, 'KONTEN_OFFICER', 'id');
     }
 
     // --- *** END OF RELATION AREA *** ---
