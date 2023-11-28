@@ -1,5 +1,5 @@
 {{-- Because she competes with no one, no one can compete with her. --}}
-<div class="row">
+<div>
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -15,7 +15,7 @@
     {{-- Tabs Content Similaritas --}}
     <div class="row g-4">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <x-admin.components.card.card size=12 title='Data Pengajuan' titleSpan='Bebas Pustaka'>
+            <x-admin.components.card.card size=12 title='Data Pengajuan' titleSpan='Bebas Pinjaman'>
 
                 <x-admin.components.tabs.nav id="tab-similaritas">
                     <x-admin.components.tabs.nav-link id="tab-1" active="active" text="Buat Pengajuan" />
