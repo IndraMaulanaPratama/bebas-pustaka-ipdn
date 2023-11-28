@@ -47,13 +47,6 @@
                             Lihat Status Pengajuan
                         </button>
 
-                        {{-- Button Pengajuan --}}
-                        <button class="btn btn-outline-secondary" {{ $buttonPengajuan }}
-                            wire:confirm='Apakah anda akan membuat pengajuan donasi?'
-                            wire:click='buatPengajuan'>
-                            Buat Pengajuan
-                        </button>
-
                     </td>
                 </tr>
 
@@ -74,16 +67,25 @@
                         <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? 'Belum Ada Pengajuan' : $dataDonasi->donasi_fakultas->FAKULTAS_STATUS }}
+                            <td class="col-11">
+                                {{ $data == null ? 'Belum Ada Pengajuan' : $data->donasi_pustaka->PUSTAKA_STATUS }}
                             </td>
                         </tr>
                         <tr>
                             <td>Catatan</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? null : $dataDonasi->donasi_fakultas->FAKULTAS_NOTES }}
+                            <td class="col-11">
+                                {{ $data == null ? null : $data->donasi_pustaka->PUSTAKA_NOTES }}
                             </td>
                         </tr>
                     </table>
+
+                    <button wire:confirm='Anda yakin akan membuat pengajuan ulang?'
+                        wire:click='resendPengajuan("pustaka")' class="btn btn-sm btn-outline-secondary"
+                        {{ $buttonResendPustaka }}>
+                        Ajukan Ulang
+                    </button>
+
                 </div>
 
             </x-admin.components.card.card>
@@ -100,16 +102,25 @@
                         <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? 'Belum Ada Pengajuan' : $dataDonasi->donasi_pustaka->PUSTAKA_STATUS }}
+                            <td class="col-11">
+                                {{ $data == null ? 'Belum Ada Pengajuan' : $data->donasi_fakultas->FAKULTAS_STATUS }}
                             </td>
                         </tr>
                         <tr>
                             <td>Catatan</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? null : $dataDonasi->donasi_pustaka->PUSTAKA_NOTES }}
+                            <td class="col-11">
+                                {{ $data == null ? null : $data->donasi_fakultas->FAKULTAS_NOTES }}
                             </td>
                         </tr>
                     </table>
+
+                    <button wire:confirm='Anda yakin akan membuat pengajuan ulang?'
+                        wire:click='resendPengajuan("fakultas")' class="btn btn-sm btn-outline-secondary"
+                        {{ $buttonResendFakultas }}>
+                        Ajukan Ulang
+                    </button>
+
                 </div>
 
             </x-admin.components.card.card>
@@ -125,16 +136,25 @@
                         <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? 'Belum Ada Pengajuan' : $dataDonasi->donasi_elektronik->ELEKTRONIK_STATUS }}
+                            <td class="col-11">
+                                {{ $data == null ? 'Belum Ada Pengajuan' : $data->donasi_elektronik->ELEKTRONIK_STATUS }}
                             </td>
                         </tr>
                         <tr>
                             <td>Catatan</td>
                             <td>:</td>
-                            <td>{{ $dataDonasi == null ? null : $dataDonasi->donasi_elektronik->ELEKTRONIK_NOTES }}
+                            <td class="col-11">
+                                {{ $data == null ? null : $data->donasi_elektronik->ELEKTRONIK_NOTES }}
                             </td>
                         </tr>
                     </table>
+
+                    <button wire:confirm='Anda yakin akan membuat pengajuan ulang?'
+                        wire:click='resendPengajuan("elektronik")' class="btn btn-sm btn-outline-secondary"
+                        {{ $buttonResendElektronik }}>
+                        Ajukan Ulang
+                    </button>
+
                 </div>
 
             </x-admin.components.card.card>
