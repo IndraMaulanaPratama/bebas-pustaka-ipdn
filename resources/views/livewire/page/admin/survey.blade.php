@@ -16,4 +16,7 @@
     {{-- Data --}}
     @livewire('Admin.Survey.Data', [], key('table'))
 
+    {{-- Form Reject Data --}}
+    @livewire('Admin.Survey.Reject', [], key('reject'))
+
 </div>
