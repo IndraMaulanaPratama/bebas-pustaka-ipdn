@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string("PIVOT_PRAJA", 8)->comment("Foreign Key untuk data praja");
             $table->string("PIVOT_PUSTAKA", 36)->comment("Foreign Key untuk data bebas pinjaman perpustakaan");
             $table->string("PIVOT_FAKULTAS", 36)->comment("Foreign Key untuk data bebas pinjaman fakultas");
-            $table->enum("PIVOT_STATUS", ["Selesai", "Belum Selesai"])->comment("Keterangan dari proses pustaka dan fakultas");
             $table->timestamps();
             $table->softDeletes();
 
