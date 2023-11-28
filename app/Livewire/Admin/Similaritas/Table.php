@@ -115,12 +115,6 @@ class Table extends Component
 
     public function exportData()
     {
-        // dd([
-        //     "search" => $this->search,
-        //     "status" => $this->sortStatus,
-        //     "fakultas" => $this->sortFakultas,
-        //     "prodi" => $this->sortProdi,
-        // ]);
 
         $data = Similaritas::
             when(

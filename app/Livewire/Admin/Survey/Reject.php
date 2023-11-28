@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin\DonasiFakultas;
+namespace App\Livewire\Admin\Survey;
 
-use App\Models\DonasiFakultas;
+use App\Models\Survey;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Reject extends Component
 {
-    public $inputNote, $fakultas;
+    public $inputNote, $survey;
 
     #[On("data-selected")]
     /**
@@ -18,7 +18,7 @@ class Reject extends Component
      */
     public function getData($data)
     {
-        $this->fakultas = $data;
+        $this->survey = $data;
     }
 
 
@@ -30,21 +30,21 @@ class Reject extends Component
     {
         try {
             // Nyandak id pengajuan
-            $id = $this->fakultas['FAKULTAS_ID'];
+            $id = $this->survey['SURVEY_ID'];
 
             // Inisialisasi data anu bade di robih
             $data = [
-                'FAKULTAS_OFFICER' => Auth::user()->id,
-                'FAKULTAS_STATUS' => "Ditolak",
-                'FAKULTAS_NOTES' => $this->inputNote,
-                'FAKULTAS_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),
+                'SURVEY_OFFICER' => Auth::user()->id,
+                'SURVEY_STATUS' => "Ditolak",
+                'SURVEY_NOTES' => $this->inputNote,
+                'SURVEY_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),
             ];
 
             // Proses ngarobih data pengajuan
-            DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
+            Survey::where("SURVEY_ID", $id)->update($data);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
-            $this->dispatch("data-rejected", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil ditolak");
+            $this->dispatch("data-rejected", "Pengajuan survey perpustakaan berhasil ditolak");
             $this->reset();
 
         } catch (\Throwable $th) {
@@ -65,9 +65,8 @@ class Reject extends Component
 
 
 
-
     public function render()
     {
-        return view('livewire.admin.donasi-fakultas.reject');
+        return view('livewire.admin.survey.reject');
     }
 }

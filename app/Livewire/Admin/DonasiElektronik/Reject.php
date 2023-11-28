@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\DonasiElektronik;
 
 use App\Models\DonasiElektronik;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -36,6 +37,7 @@ class Reject extends Component
 
             // Inisialisasi data anu bade di robih
             $data = [
+                'ELEKTRONIK_OFFICER' => Auth::user()->id,
                 'ELEKTRONIK_STATUS' => "Ditolak",
                 'ELEKTRONIK_NOTES' => $this->inputNote,
                 'ELEKTRONIK_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),

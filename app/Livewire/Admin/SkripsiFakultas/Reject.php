@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin\DonasiFakultas;
+namespace App\Livewire\Admin\SkripsiFakultas;
 
-use App\Models\DonasiFakultas;
+use App\Models\SkripsiFakultas;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -10,7 +10,8 @@ use Livewire\Component;
 
 class Reject extends Component
 {
-    public $inputNote, $fakultas;
+
+    public $inputNote, $data;
 
     #[On("data-selected")]
     /**
@@ -18,7 +19,7 @@ class Reject extends Component
      */
     public function getData($data)
     {
-        $this->fakultas = $data;
+        $this->data = $data;
     }
 
 
@@ -30,21 +31,21 @@ class Reject extends Component
     {
         try {
             // Nyandak id pengajuan
-            $id = $this->fakultas['FAKULTAS_ID'];
+            $id = $this->data['SKRIPSI_ID'];
 
             // Inisialisasi data anu bade di robih
             $data = [
-                'FAKULTAS_OFFICER' => Auth::user()->id,
-                'FAKULTAS_STATUS' => "Ditolak",
-                'FAKULTAS_NOTES' => $this->inputNote,
-                'FAKULTAS_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),
+                'SKRIPSI_OFFICER' => Auth::user()->id,
+                'SKRIPSI_STATUS' => "Ditolak",
+                'SKRIPSI_NOTES' => $this->inputNote,
+                'SKRIPSI_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),
             ];
 
             // Proses ngarobih data pengajuan
-            DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
+            SkripsiFakultas::where("SKRIPSI_ID", $id)->update($data);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
-            $this->dispatch("data-rejected", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil ditolak");
+            $this->dispatch("data-rejected", "Pengajuan pengumpulan hard copy skripsi berhasil ditolak");
             $this->reset();
 
         } catch (\Throwable $th) {
@@ -65,9 +66,8 @@ class Reject extends Component
 
 
 
-
     public function render()
     {
-        return view('livewire.admin.donasi-fakultas.reject');
+        return view('livewire.admin.skripsi-fakultas.reject');
     }
 }

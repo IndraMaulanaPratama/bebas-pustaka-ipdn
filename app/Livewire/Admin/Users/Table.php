@@ -97,7 +97,8 @@ class Table extends Component
                         return $query->whereNotIn('id', [1])->where('user_role', '!=', $praja->ROLE_ID);
                     }
                 }
-            )->latest()->paginate();
+            )
+            ->latest()->paginate();
 
         return view('livewire.admin.users.table', ['data' => $user]);
     }

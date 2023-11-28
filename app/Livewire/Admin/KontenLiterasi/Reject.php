@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\KontenLiterasi;
 
 use App\Models\KontenLiterasi;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -33,6 +34,7 @@ class Reject extends Component
 
             // Inisialisasi data anu bade di robih
             $data = [
+                'KONTEN_OFFICER' => Auth::user()->id,
                 'KONTEN_STATUS' => "Ditolak",
                 'KONTEN_NOTES' => $this->inputNote,
                 'KONTEN_APPROVED' => Carbon::now('Asia/Jakarta')->format("Y-m-d H:i:s"),

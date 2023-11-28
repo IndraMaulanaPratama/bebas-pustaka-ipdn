@@ -16,7 +16,7 @@ use Livewire\Component;
 class Table extends Component
 {
 
-    public $accessReject, $accessApprove, $accessExport, $accessPrint;
+    public $accessReject, $accessApprove, $accessExport;
     public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
@@ -51,7 +51,6 @@ class Table extends Component
 
         $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
         $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
-        $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
         $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
     }
 
@@ -99,6 +98,7 @@ class Table extends Component
     {
         try {
             $data = [
+                'ELEKTRONIK_OFFICER' => Auth::user()->id,
                 'ELEKTRONIK_STATUS' => "Disetujui",
                 'ELEKTRONIK_NOTES' => null,
                 'ELEKTRONIK_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),

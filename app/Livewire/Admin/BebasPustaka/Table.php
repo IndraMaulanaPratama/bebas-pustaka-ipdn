@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Livewire\Admin\KontenLiterasi;
+namespace App\Livewire\Admin\BebasPustaka;
 
 use App\Models\Akses;
-use App\Models\KontenLiterasi;
+use App\Models\BebasPustaka;
 use App\Models\Menu;
-use App\Models\SettingApps;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +14,9 @@ use Livewire\Component;
 
 class Table extends Component
 {
-
     public $inputUrl;
     public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate;
-    public $sortStatus, $sortFakultas, $angkatan, $search;
+    public $sortUrutan, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
     $prajaNama,
@@ -36,6 +34,7 @@ class Table extends Component
     $prajaProdi,
     $prajaKelas,
     $prajaPonsel;
+
 
 
 
@@ -63,24 +62,6 @@ class Table extends Component
     {
         return $value == 1 ? null : 'hidden';
     }
-
-
-
-    public function updateUrl()
-    {
-        $setting = SettingApps::first();
-
-        try {
-            SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_LITERASI' => $this->inputUrl]);
-
-            $this->dispatch("data-updated", "Alamat formulir literasi berhasil diperbaharui");
-            $this->reset();
-
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-updating-data", $th->getMessage());
-        }
-    }
-
 
 
     public function detailPraja($npp)
@@ -114,31 +95,13 @@ class Table extends Component
 
 
 
-    public function approveData($id)
-    {
-        try {
-            $data = [
-                'KONTEN_OFFICER' => Auth::user()->id,
-                'KONTEN_STATUS' => "Disetujui",
-                'KONTEN_NOTES' => null,
-                'KONTEN_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
-            ];
-            KontenLiterasi::where("KONTEN_ID", $id)->update($data);
 
-            $this->dispatch("data-updated", "Pengajuan konten literasi berhasil disetujui");
-            $this->reset();
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-updating-data", $th->getMessage());
-        }
+    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
+    public function placeholder()
+    {
+        return view("components.admin.components.spinner.loading");
     }
 
-
-
-    public function rejectData($id)
-    {
-        $data = KontenLiterasi::where('KONTEN_ID', $id)->first();
-        $this->dispatch('data-selected', $data);
-    }
 
 
 
@@ -149,52 +112,47 @@ class Table extends Component
 
 
 
-    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
-    public function placeholder()
-    {
-        return view("components.admin.components.spinner.loading");
-    }
-
-
     public function render()
     {
-        $setting = SettingApps::latest()->first();
-        $konten = KontenLiterasi::
+
+        $data = BebasPustaka::
             when(
-                // <!-- Pilari data pengajuan dumasar kana status
-                $this->sortStatus,
-                function ($query, $status) {
-                    return $query->where("KONTEN_STATUS", $status);
-                }
-            )
-            ->when(
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("KONTEN_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("BEBAS_NUMBER", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->search,
                 function ($query, $npp) {
-                    return $query->where("KONTEN_PRAJA", "LIKE", $npp . "%");
+                    return $query->where("BEBAS_PRAJA", "LIKE", $npp . "%");
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->angkatan,
                 function ($query, $angkatan) {
-                    return $query->where("KONTEN_PRAJA", "LIKE", $angkatan . "%");
+                    return $query->where("BEBAS_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana urutan
+                $this->sortUrutan,
+                function ($query, $urutan) {
+                    if ("nomor" == $urutan) {
+                        return $query->orderBy('created_at', 'ASC');
+                    } elseif ("terbaru" == $urutan) {
+                        return $query->latest();
+                    }
+                }
+            )
+
             ->paginate();
 
-
-        return view('livewire.admin.konten-literasi.table', [
-            'konten' => $konten,
-            'setting' => $setting,
+        return view('livewire.admin.bebas-pustaka.table', [
+            'data' => $data
         ]);
     }
 }

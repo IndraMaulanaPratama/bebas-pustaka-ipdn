@@ -104,6 +104,7 @@ class Table extends Component
     {
         try {
             $data = [
+                'FAKULTAS_OFFICER' => Auth::user()->id,
                 'FAKULTAS_STATUS' => "Disetujui",
                 'FAKULTAS_NOTES' => null,
                 'FAKULTAS_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),

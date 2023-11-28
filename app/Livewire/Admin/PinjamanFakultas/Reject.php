@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\PinjamanFakultas;
 
 use App\Models\PinjamanFakultas;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -35,6 +36,7 @@ class Reject extends Component
 
             // Inisialisasi data anu bade di robih
             $data = [
+                'FAKULTAS_OFFICER' => Auth::user()->id,
                 'FAKULTAS_STATUS' => "Ditolak",
                 'FAKULTAS_NOTES' => $this->inputNote,
                 'FAKULTAS_APPROVED' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),

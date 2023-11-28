@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Similaritas;
 
 use App\Models\Similaritas;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -33,6 +34,7 @@ class Reject extends Component
 
             // Inisialisasi data anu bade di robih
             $data = [
+                'SIMILARITAS_OFFICER' => Auth::user()->id,
                 'SIMILARITAS_STATUS' => "Ditolak",
                 'SIMILARITAS_NOTES' => $this->inputNote,
                 'SIMILARITAS_APPROVED' => Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s'),

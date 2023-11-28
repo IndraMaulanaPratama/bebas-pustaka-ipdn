@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Admin\KontenLiterasi;
+namespace App\Livewire\Admin\Repository;
 
 use App\Models\Akses;
 use App\Models\KontenLiterasi;
 use App\Models\Menu;
-use App\Models\SettingApps;
+use App\Models\Repository;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -66,23 +66,6 @@ class Table extends Component
 
 
 
-    public function updateUrl()
-    {
-        $setting = SettingApps::first();
-
-        try {
-            SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_LITERASI' => $this->inputUrl]);
-
-            $this->dispatch("data-updated", "Alamat formulir literasi berhasil diperbaharui");
-            $this->reset();
-
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-updating-data", $th->getMessage());
-        }
-    }
-
-
-
     public function detailPraja($npp)
     {
         $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
@@ -118,14 +101,14 @@ class Table extends Component
     {
         try {
             $data = [
-                'KONTEN_OFFICER' => Auth::user()->id,
-                'KONTEN_STATUS' => "Disetujui",
-                'KONTEN_NOTES' => null,
-                'KONTEN_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
+                'REPOSITORY_OFFICER' => Auth::user()->id,
+                'REPOSITORY_STATUS' => "Disetujui",
+                'REPOSITORY_NOTES' => null,
+                'REPOSITORY_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
-            KontenLiterasi::where("KONTEN_ID", $id)->update($data);
+            Repository::where("REPOSITORY_ID", $id)->update($data);
 
-            $this->dispatch("data-updated", "Pengajuan konten literasi berhasil disetujui");
+            $this->dispatch("data-updated", "Pengajuan unggah repository berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
@@ -136,7 +119,7 @@ class Table extends Component
 
     public function rejectData($id)
     {
-        $data = KontenLiterasi::where('KONTEN_ID', $id)->first();
+        $data = Repository::where('REPOSITORY_ID', $id)->first();
         $this->dispatch('data-selected', $data);
     }
 
@@ -158,43 +141,41 @@ class Table extends Component
 
     public function render()
     {
-        $setting = SettingApps::latest()->first();
-        $konten = KontenLiterasi::
+
+        $data = Repository::
             when(
                 // <!-- Pilari data pengajuan dumasar kana status
                 $this->sortStatus,
                 function ($query, $status) {
-                    return $query->where("KONTEN_STATUS", $status);
+                    return $query->where("REPOSITORY_STATUS", $status);
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("KONTEN_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("REPOSITORY_NUMBER", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->search,
                 function ($query, $npp) {
-                    return $query->where("KONTEN_PRAJA", "LIKE", $npp . "%");
+                    return $query->where("REPOSITORY_PRAJA", "LIKE", $npp . "%");
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->angkatan,
                 function ($query, $angkatan) {
-                    return $query->where("KONTEN_PRAJA", "LIKE", $angkatan . "%");
+                    return $query->where("REPOSITORY_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
             ->latest()
             ->paginate();
 
-
-        return view('livewire.admin.konten-literasi.table', [
-            'konten' => $konten,
-            'setting' => $setting,
+        return view('livewire.admin.repository.table', [
+            'data' => $data
         ]);
     }
 }
