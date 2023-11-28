@@ -114,6 +114,43 @@ class User extends Authenticatable
         return $this->hasOne(KontenLiterasi::class, 'KONTEN_OFFICER', 'id');
     }
 
+
+    public function setting_app(): HasOne
+    {
+        return $this->hasOne(SettingApps::class, 'SETTING_OFFICER', 'id');
+    }
+
+
+    public function repository(): HasOne
+    {
+        return $this->hasOne(Repository::class, 'REPOSITORY_OFFICER', 'id');
+    }
+
+    public function skripsiFakultas(): HasOne
+    {
+        return $this->hasOne(SkripsiFakultas::class, 'SKRIPSI_OFFICER', 'id');
+    }
+
+
+    public function skripsiPerpustakaan(): HasOne
+    {
+        return $this->hasOne(SkripsiPerpustakaan::class, 'SKRIPSI_OFFICER', 'id');
+    }
+
+
+
+    public function skripsiSoftcopy(): HasOne
+    {
+        return $this->hasOne(SkripsiSoftcopy::class, 'SKRIPSI_OFFICER', 'id');
+    }
+
+
+
+    public function bebasPustaka(): HasOne
+    {
+        return $this->hasOne(BebasPustaka::class, 'BEBAS_OFFICER', 'id');
+    }
+
     // --- *** END OF RELATION AREA *** ---
 
 
