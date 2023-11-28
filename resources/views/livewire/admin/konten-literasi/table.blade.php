@@ -13,8 +13,7 @@
 
                         <p>
                             Untuk melihat formulir literasi, silahkan klik tautan berikut ini:
-                            <a href="https://getbootstrap.com/docs/5.3/components/collapse/" target="blank"
-                                class="btn btn-link btn-sm">
+                            <a href="{{ $setting->SETTING_URL_LITERASI }}" target="blank" class="btn btn-link btn-sm">
                                 Buka Formulir <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
                             </a>
                         </p>
@@ -149,7 +148,6 @@
                             @php
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
-                                $buttonPrint = 'hidden';
 
                                 if ($item->KONTEN_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -159,7 +157,6 @@
                                 } elseif ($item->KONTEN_STATUS == 'Disetujui') {
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
-                                    $buttonPrint = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -211,16 +208,6 @@
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->KONTEN_ID }}")'>
                                         <i class="bi bi-dash-circle-fill"></i>
-                                    </button>
-                                </td>
-
-                                {{-- Button Print --}}
-                                <td {{ $buttonPrint }}>
-                                    <button type="button"
-                                        class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
-                                        wire:confirm='Cetak Pengajuan Similaritas {{ $item->KONTEN_PRAJA }} ?'
-                                        wire:click='printApprooved("{{ $item->KONTEN_ID }}")'>
-                                        <i class="bi bi-printer-fill"></i>
                                     </button>
                                 </td>
 
