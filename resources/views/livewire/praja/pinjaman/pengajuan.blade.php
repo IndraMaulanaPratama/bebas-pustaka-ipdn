@@ -13,7 +13,11 @@
             melakukan penggantian koleksi tersebut dengan koleksi yang sama atau koleksi dengan subjek yang sejenis.</p>
 
         <li><b>Pengajuan</b></li>
-        <p>silahkan klik tombol <button class="btn btn-outline-primary btn-sm"> Buat Pengajuan </button> untuk melakukan pengajuan pemeriksaan bebas pinjaman perpustakaan </p>
+        <p>
+            silahkan klik tombol <button wire:confirm='Anda yakin akan membuat pengajuan bebas pinjaman?'
+                wire:click='buatPengajuan' class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat Pengajuan
+            </button> untuk melakukan pengajuan pemeriksaan bebas pinjaman perpustakaan
+        </p>
 
     </ol>
 </div>
