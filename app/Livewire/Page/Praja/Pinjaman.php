@@ -11,6 +11,14 @@ class Pinjaman extends Component
 {
 
 
+    #[On("failed-updating-data"), On("data-updated"), On("data-created"), On("failed-creating-data")]
+    public function placeholder()
+    {
+        return view("components.admin.components.spinner.loading");
+    }
+
+
+
     #[On("data-rejected"), On("data-updated"), On("data-created")]
     public function processSuccessfully($message)
     {
@@ -19,14 +27,12 @@ class Pinjaman extends Component
     }
 
 
-
     #[On("failed-rejecting-data"), On("failed-updating-data"), On("failed-creating-data")]
     public function failedProcess($message)
     {
         session()->reflash();
         session()->flash('warning', $message);
     }
-
 
 
     public function render()
