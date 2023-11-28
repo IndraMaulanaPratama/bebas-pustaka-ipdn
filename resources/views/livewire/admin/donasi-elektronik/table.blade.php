@@ -69,7 +69,6 @@
                             @php
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
-                                $buttonPrint = 'hidden';
 
                                 if ($item->ELEKTRONIK_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -79,7 +78,6 @@
                                 } elseif ($item->ELEKTRONIK_STATUS == 'Disetujui') {
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
-                                    $buttonPrint = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -125,16 +123,6 @@
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->ELEKTRONIK_ID }}")'>
                                         <i class="bi bi-dash-circle-fill"></i>
-                                    </button>
-                                </td>
-
-                                {{-- Button Print --}}
-                                <td {{ $buttonPrint }}>
-                                    <button type="button"
-                                        class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
-                                        wire:confirm='Cetak Pengajuan Similaritas {{ $item->ELEKTRONIK_PRAJA }} ?'
-                                        wire:click='printApprooved("{{ $item->ELEKTRONIK_ID }}")'>
-                                        <i class="bi bi-printer-fill"></i>
                                     </button>
                                 </td>
 
