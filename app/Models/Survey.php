@@ -16,7 +16,7 @@ class Survey extends Model
     protected $keyType = "string";
     protected $perPage = 10;
     protected $with = ['user'];
-    protected $fillable = ['SURVEY_ID', 'SURVEY_URL', 'SURVEY_OFFICER'];
+    protected $fillable = ['SURVEY_ID', 'SURVEY_PRAJA', 'SURVEY_OFFICER', 'SURVEY_STATUS', 'SURVEY_APPROVED'];
 
 
     /**
