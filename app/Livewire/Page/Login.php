@@ -33,7 +33,7 @@ class Login extends Component
             $credentials = $this->validate();
             if (Auth::attempt($credentials)) {
                 session()->regenerate();
-                $this->redirect('/');
+                return redirect()->route('/');
 
             } else {
                 $this->password = null;
@@ -53,7 +53,7 @@ class Login extends Component
                 // Milarian data praja ka table user
                 if (Auth::attempt($credentials)) {
                     session()->regenerate();
-                    $this->redirect('/');
+                    return redirect()->route('/');
                 }
 
                 // Ngadamel user praja kumargi teu acan ka data di user
@@ -75,7 +75,7 @@ class Login extends Component
                         $credentials = $this->validate();
                         Auth::attempt($credentials);
                         session()->regenerate();
-                        $this->redirect('/');
+                        return redirect()->route('/');
 
                     } catch (\Throwable $th) {
                         $this->password = null;
