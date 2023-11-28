@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string("PIVOT_PUSTAKA", 36)->comment("Foreign Key untuk data donasi buku perpustakaan");
             $table->string("PIVOT_FAKULTAS", 36)->comment("Foreign Key untuk data donasi buku fakultas");
             $table->string("PIVOT_ELEKTRONIK", 36)->comment("Foreign Key untuk data donasi buku elektronik");
-            $table->enum("PIVOT_STATUS", ["Selesai", "Belum Selesai"])->comment("Keterangan dari donasi, fakultas dan elektronik");
             $table->timestamps();
             $table->softDeletes();
 
