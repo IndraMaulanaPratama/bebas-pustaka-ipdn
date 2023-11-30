@@ -7,53 +7,55 @@
     $smallWord = $similaritas->SIMILARITAS_SMALL_WORD == 1 ? 'checked' : null;
     $quote = $similaritas->SIMILARITAS_QUOTE == 1 ? 'checked' : null;
 @endphp ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
+
     <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
     <link href="bootstrap.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-size: 10px;
+        }
+
+        .container {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        .bottomright {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 10px;
+        }
+
+        h3 {
+            line-height: 1px;
+            font-size: 14px;
+        }
+
+        h4 {
+            line-height: 2px;
+            font-size: 12px;
+        }
+
+        .table,
+        .tr,
+        .th,
+        .td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
-
-<style>
-    .container {
-        padding-left: 50px;
-        padding-right: 50px;
-    }
-
-    .bottomright {
-        position: absolute;
-        top: 8px;
-        right: 20px;
-        font-size: 18px;
-    }
-
-    p {
-        font-size: 10px;
-    }
-
-    h3 {
-        line-height: 1px;
-        font-size: 14px;
-    }
-
-    h4 {
-        line-height: 2px;
-        font-size: 12px;
-    }
-
-    body {
-        font-size: 10px;
-    }
-
-    .table,
-    .tr,
-    .th,
-    .td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
 
 <body>
     <div
@@ -164,7 +166,7 @@
                             ">
                         <input type="checkbox" {{ $smallWord }} /> &nbsp;
                         <label for="smallWord"> SMALL WORD</label> &nbsp;
-                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD }}
+                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD_COUNT }}
                             )</b>
                     </td>
                 </tr>
@@ -194,13 +196,13 @@
                 </tr>
                 <tr>
                     <td height="200px">
-                        Tanda Tangan Praja <br />
+                        {{ $praja['NAMA'] }} <br />
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         <b>NPP: {{ $praja['NPP'] }}</b>
                     </td>
                     <td>&nbsp;</td>
                     <td>
-                        Tanda Tangan Petugas
+                        {{ $similaritas->user->name }}
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         &nbsp;
                     </td>
@@ -235,7 +237,7 @@
                     border-width: 1px;
                     padding: 5px;
                 ">
-            Arsip Pribadi
+            Arsip Perpustakaan
         </p>
 
         <div id="Judul" style="margin-top: 40px">
@@ -324,7 +326,7 @@
                             ">
                         <input type="checkbox" {{ $smallWord }} /> &nbsp;
                         <label for="smallWord"> SMALL WORD</label> &nbsp;
-                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD }}
+                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD_COUNT }}
                             )</b>
                     </td>
                 </tr>
@@ -354,13 +356,13 @@
                 </tr>
                 <tr>
                     <td height="200px">
-                        Tanda Tangan Praja <br />
+                        {{ $praja['NAMA'] }} <br />
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         <b>NPP: {{ $praja['NPP'] }}</b>
                     </td>
                     <td>&nbsp;</td>
                     <td>
-                        Tanda Tangan Petugas
+                        {{ $similaritas->user->name }}
                         <hr style="width:200px;text-align:left;margin-left:0" />
                         &nbsp;
                     </td>
