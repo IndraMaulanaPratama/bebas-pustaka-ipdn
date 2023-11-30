@@ -1,123 +1,105 @@
 <div class="row g-4">
 
+    {{-- Bagean Kenca --}}
     <div class="col-lg-8 col-md-8 col-sm-12">
         <div class="row">
             <x-admin.components.card.card title='Progres Pengajuan' titleSpan='Bebas Pustaka'>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th class="col-9">Nama Pengajuan</th>
-                            <th class="col-2">Status</th>
-                        </tr>
-                    </thead>
+                <div class="table-responsive">
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Pemeriksaan Similaritas</td>
-                            <td><span class="badge bg-primary"><i class="bi bi-arrow-clockwise me-1"></i> Proses</span>
-                            </td>
-                        </tr>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th class="col-9" style="min-width: 10cm">Nama Pengajuan</th>
+                                <th class="col-2">Status</th>
+                            </tr>
+                        </thead>
 
-                        <tr>
-                            <td>2</td>
-                            <td>Bebas Pinjaman Buku Perpustakaan Pusat</td>
-                            <td><span class="badge bg-success"><i class="bi bi-check2-all me-1"></i> Disetujui</span>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <?php $no = 0; ?>
+                            @foreach ($data as $item)
+                                @php
+                                    $buttonApprove = 'hidden';
+                                    $buttonReject = 'hidden';
+                                    $no++;
 
-                        <tr>
-                            <td>3</td>
-                            <td>Bebas Pinjaman Buku Perpustakaan Fakultas</td>
-                            <td><span class="badge bg-danger"><i class="bi bi-dash-circle me-1"></i> Ditolak</span></td>
-                        </tr>
+                                    if ($item['status'] == 'Proses') {
+                                        $colorStatus = 'primary';
+                                        $iconStatus = 'bi-arrow-clockwise me-1';
+                                        $buttonApprove = null;
+                                        $buttonReject = null;
+                                    } elseif ($item['status'] == 'Disetujui') {
+                                        $colorStatus = 'success';
+                                        $iconStatus = 'bi-check2-all me-1';
+                                    } elseif ($item['status'] == 'Ditolak') {
+                                        $colorStatus = 'danger';
+                                        $iconStatus = 'bi-dash-circle-fill me-1';
+                                    } elseif ($item['status'] == 'Belum ada pengajuan') {
+                                        $colorStatus = 'secondary';
+                                        $iconStatus = 'bi-info-circle me-1';
+                                    }
+                                @endphp
 
-                        <tr>
-                            <td>4</td>
-                            <td>Donasi Buku Perpustakaan Pusat</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
+                                <tr>
+                                    <td>{{ $no }}</td>
+                                    <td>{{ $item['pengajuan'] }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ $colorStatus }}"><i
+                                                class="bi {{ $iconStatus }}"></i>
+                                            {{ $item['status'] }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                        <tr>
-                            <td>5</td>
-                            <td>Donasi Buku Perpustakaan Fakultas</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
+                        </tbody>
+                    </table>
 
-                        <tr>
-                            <td>6</td>
-                            <td>Bebas Poin Perpustakaan Pusat</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>7</td>
-                            <td>Pengisian Survei</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>8</td>
-                            <td>Konten Literasi</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>9</td>
-                            <td>Unggah data repositori</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>10</td>
-                            <td>Pengumpulan hard copy skripsi di perpustakaan pusat</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>11</td>
-                            <td>Pengumpulan hard copy skripsi di perpustakaan fakultas</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>12</td>
-                            <td>Pengumpulan soft copy skripsi</td>
-                            <td><span class="badge bg-secondary"><i class="bi bi-info-circle me-1"></i> Belum ada
-                                    Pengajuan</span></td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                </div>
 
             </x-admin.components.card.card>
         </div>
     </div>
 
+    {{-- Bagean Katuhu --}}
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="row">
-            <x-admin.components.card.card>
-                b <br />
-                b <br />
-                b <br />
-                b <br />
-                b <br />
-                b <br />
-                b <br />
-            </x-admin.components.card.card>
 
-            <x-admin.components.card.card>
-                c
+            {{-- Penerbitas Surat Bebas Pustaka --}}
+            <div {{ $resume == true ? null : 'hidden' }}>
+                <x-admin.components.card.card title='Keterangan Bebas Pustaka' titleSpan='Ringkasan'>
+
+                    {{-- Terbitkan SKBP --}}
+                    <div {{ $bebasPustaka == true ? 'hidden' : null }}>
+                        <button class="btn btn-sm btn-info" wire:click='buatSurat'>Generate Surat Keterangan Bebas Pustaka</button>
+                    </div>
+
+                    {{-- Done --}}
+                    <div {{ $bebasPustaka == false ? 'hidden' : null }}>
+                        <p>
+                            <b>Selamat, Anda sudah menyelesaikan bebas pustaka</b>
+                        </p>
+
+                        <p>
+                            Silahkan cetak <b>Surat Keterangan Bebas Pustaka</b> Anda di <b>Gedung Perpustakaan Pusat
+                                Lt.3</b> (Copy Center Area)
+                        </p>
+                    </div>
+
+                </x-admin.components.card.card>
+            </div>
+
+            {{-- Surat Tugas Bebas Pustaka --}}
+            <x-admin.components.card.card title="Surat Tugas Bebas Pustaka" titleSpan='Unduh dokumen'>
+
+                <p>
+                    Berikut adalah dokumen yang berisikan informasi terkait <b>surat tugas dan petugas di setiap
+                        unit</b> untuk pelayanan bebas pustaka:
+                </p>
+
+                <button class="btn btn-sm btn-outline-primary">Unduh dokumen</button>
+
             </x-admin.components.card.card>
 
         </div>
