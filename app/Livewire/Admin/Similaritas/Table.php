@@ -145,28 +145,38 @@ class Table extends Component
         $pdf = Pdf::loadView("pdf.similaritas.export-data", ['similaritas' => $data])->output();
         // return $pdf->stream('filename.pdf');
 
-        return response()->streamDownload(
+        return response()->stream(
             fn() => print($pdf),
-            "filename.pdf"
+            "SIMILARITAS-" . Auth::user()->name . ".pdf"
         );
     }
 
     public function printApprooved($id)
     {
+
         $data = Similaritas::where("SIMILARITAS_ID", $id)->first();
         $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SIMILARITAS_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        $pdf = Pdf::loadView("pdf.similaritas.bukti-pemeriksaan", [
+        // dd($data);
+        $dokumen = view("pdf.similaritas.bukti-pemeriksaan", [
             'similaritas' => $data,
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
-        ])->output();
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
 
         return response()->streamDownload(
-            fn() => print($pdf),
-            "filename.pdf"
+            function () use ($pdf) {
+                print($pdf);
+            },
+            'SIMILARITAS-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
         );
+
     }
 
     public function render()
