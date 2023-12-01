@@ -1,88 +1,76 @@
 {{-- Close your eyes. Count to one. That is how long forever feels. --}}
 
 <div>
-    <ol type="a">
+
+    <ol type="I">
         <li>
-            <b>Lokasi Verifikasi</b>
+            <b>Hard Copy</b>
 
-            <p>Perpustakaan IPDN Jatinangor</p>
-        </li>
-
-        <li>
-            <b>Petunjuk</b>
-
-            <ol type="I">
+            <ol type="a">
                 <li>
-                    <b>Hard Copy</b>
+                    <b>Lokasi Verifikasi</b>
 
-                    <ol type="a">
-                        <li>
-                            <b>Lokasi Verifikasi</b>
-
-                            <p>Perpustakaan Pusat IPDN dan Perpustakaan Fakultas.</p>
-                        </li>
-
-                        <li>
-                            <b>Petunjuk</b>
-
-                            <p>
-                                Praja melakukan penyerahan 1 eksemplar <i>hard copy</i> skripsi ke Perpustakaan Fakultas
-                                masing-masing dan 1 eksemplar <i>hard copy</i> skripsi ke Perpustakaan Pusat IPDN di
-                                Gedung
-                                Perpustakaan Pusat IPDN Lantai 3 Ruang Laporan Akhir. Pastikan sudah dilengkapi tanda
-                                tangan basah pada Lembar Persetujuan, Lembar Pengesahan, dan Lembar Pernyataan Keaslian
-                                Skripsi (diatas materai).
-                            </p>
-                        </li>
-                    </ol>
+                    <p>Perpustakaan Pusat IPDN dan Perpustakaan Fakultas.</p>
                 </li>
 
                 <li>
-                    <b>Soft Copy</b>
+                    <b>Petunjuk</b>
 
-                    <ol type="a">
-                        <li>
-                            <b>Lokasi Verifikasi</b>
-
-                            <p>Perpustakaan Pusat IPDN.</p>
-                        </li>
-
-                        <li>
-                            <b>Petunjuk</b>
-
-                            <p>
-                                Praja melakukan unggah <i>Soft Copy</i> Skripsi dalam bentuk <b>Pdf</b> ke alamat email
-                                <a href="perpustakaan@ipdn.ac.id" target="blank">perpustakaan@ipdn.ac.id</a>. Adapun file
-                                yang harus dilampirkan antara lain: (1) Halaman
-                                awal skripsi; (2) Bab I; (3) Bab II; (4) Bab III; (5) Bab IV; (6) Bab V; (7) Daftar
-                                Pustaka; (8) Ringkasan skripsi; dan (9) <i>Full text </i>skripsi. Jika Praja sudah
-                                melakukan
-                                <i>upload</i> 9 (Sembilan) file tersebut, selanjutnya silahkan Praja melakukan
-                                verifikasi
-                                kepada petugas di Ruang Laporan Akhir Gedung Perpustakaan Pusat IPDN lantai 3.
-                            </p>
-                        </li>
-
-                        <li>
-                            <b>Catatan</b>
-
-                            <p>
-                                Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan
-                                Praja lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas. Kemudian
-                                silahkan kirimkan Kembali file tersebut ke alamat <a href="perpustakaan@ipdn.ac.id"
-                                    target="blank">perpustakaan@ipdn.ac.id</a> dan
-                                selanjutnya lakukan <b>pengajuan ulang</b> pada website Bebas Pustaka pada menu <b>Soft
-                                    Copy</b>.
-                                Status pengajuan akan berubah menjadi <b>diterima</b> jika file perbaikan sudah sesuai
-                                dengan
-                                ketentuan berdasarkan verifikasi petugas.
-                            </p>
-                        </li>
-                    </ol>
+                    <p>
+                        Praja melakukan penyerahan 1 eksemplar <i>hard copy</i> skripsi ke Perpustakaan Fakultas
+                        masing-masing dan 1 eksemplar <i>hard copy</i> skripsi ke Perpustakaan Pusat IPDN di
+                        Gedung
+                        Perpustakaan Pusat IPDN Lantai 3 Ruang Laporan Akhir. Pastikan sudah dilengkapi tanda
+                        tangan basah pada Lembar Persetujuan, Lembar Pengesahan, dan Lembar Pernyataan Keaslian
+                        Skripsi (diatas materai).
+                    </p>
                 </li>
             </ol>
         </li>
 
+        <li>
+            <b>Soft Copy</b>
+
+            <ol type="a">
+                <li>
+                    <b>Lokasi Verifikasi</b>
+
+                    <p>Perpustakaan Pusat IPDN.</p>
+                </li>
+
+                <li>
+                    <b>Petunjuk</b>
+
+                    <p>
+                        Praja melakukan unggah <i>Soft Copy</i> Skripsi dalam bentuk <b>Pdf</b> ke alamat email
+                        <a href="perpustakaan@ipdn.ac.id" target="blank">perpustakaan@ipdn.ac.id</a>. Adapun file
+                        yang harus dilampirkan antara lain: (1) Halaman
+                        awal skripsi; (2) Bab I; (3) Bab II; (4) Bab III; (5) Bab IV; (6) Bab V; (7) Daftar
+                        Pustaka; (8) Ringkasan skripsi; dan (9) <i>Full text </i>skripsi. Jika Praja sudah
+                        melakukan
+                        <i>upload</i> 9 (Sembilan) file tersebut, selanjutnya silahkan Praja melakukan
+                        verifikasi
+                        kepada petugas di Ruang Laporan Akhir Gedung Perpustakaan Pusat IPDN lantai 3.
+                    </p>
+                </li>
+
+                <li>
+                    <b>Catatan</b>
+
+                    <p>
+                        Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan
+                        Praja lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas. Kemudian
+                        silahkan kirimkan Kembali file tersebut ke alamat <a href="perpustakaan@ipdn.ac.id"
+                            target="blank">perpustakaan@ipdn.ac.id</a> dan
+                        selanjutnya lakukan <b>pengajuan ulang</b> pada website Bebas Pustaka pada menu <b>Soft
+                            Copy</b>.
+                        Status pengajuan akan berubah menjadi <b>diterima</b> jika file perbaikan sudah sesuai
+                        dengan
+                        ketentuan berdasarkan verifikasi petugas.
+                    </p>
+                </li>
+            </ol>
+        </li>
 
         <li>
             <b>Pengajuan</b>
@@ -94,5 +82,8 @@
                 </button> untuk melakukan pengajuan pemeriksaan tahap pengumpulan skripsi
             </p>
         </li>
+
+    </ol>
+
     </ol>
 </div>
