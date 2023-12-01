@@ -37,22 +37,11 @@ class Data extends Component
     $prajaPonsel;
 
 
-    public function mount()
+
+    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
+    public function placeholder()
     {
-        $roleLogin = Auth::user()->user_role;
-        $url = Route::getCurrentRoute()->action['as']; // Maca nami route anu nuju di buka
-        $menu = Menu::where("MENU_URL", $url)->first();
-
-        $access = Akses::
-            join("PIVOT_MENU", "ACCESSES.ACCESS_MENU", '=', "PIVOT_MENU.PIVOT_ID")
-            ->where(['PIVOT_MENU.PIVOT_MENU' => $menu->MENU_ID, 'PIVOT_MENU.PIVOT_ROLE' => $roleLogin])
-            ->first();
-
-        $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
-        $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
-        $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
-        $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
-        $this->accessUpdate = $this->generateAccess($access->ACCESS_UPDATE);
+        return view("components.admin.components.spinner.loading");
     }
 
 
@@ -145,11 +134,22 @@ class Data extends Component
     }
 
 
-
-    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
-    public function placeholder()
+    public function mount()
     {
-        return view("components.admin.components.spinner.loading");
+        $roleLogin = Auth::user()->user_role;
+        $url = Route::getCurrentRoute()->action['as']; // Maca nami route anu nuju di buka
+        $menu = Menu::where("MENU_URL", $url)->first();
+
+        $access = Akses::
+            join("PIVOT_MENU", "ACCESSES.ACCESS_MENU", '=', "PIVOT_MENU.PIVOT_ID")
+            ->where(['PIVOT_MENU.PIVOT_MENU' => $menu->MENU_ID, 'PIVOT_MENU.PIVOT_ROLE' => $roleLogin])
+            ->first();
+
+        $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
+        $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
+        $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
+        $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
+        $this->accessUpdate = $this->generateAccess($access->ACCESS_UPDATE);
     }
 
 
