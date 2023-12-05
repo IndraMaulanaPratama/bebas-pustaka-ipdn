@@ -64,6 +64,7 @@
                             <th scope="row">#</th>
                             <th>Status</th>
                             <th style="min-width: 2cm">NPP</th>
+                            <th style="min-width: 5cm">Tautan Eprints</th>
                             <th style="min-width: 10cm">Keterangan</th>
                             <th style="min-width: 6cm">Petugas</th>
                             <th style="min-width: 5cm">Tanggal Validasi</th>
@@ -107,6 +108,13 @@
                                         data-bs-target="#modalDetailPraja">
                                         {{ $item->REPOSITORY_PRAJA }}
                                     </button>
+                                </td>
+
+                                <td>
+                                    <a href="{{ $item->REPOSITORY_URL }}" target="blank" class="btn btn-link">
+                                        Buka tautan
+                                        <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
+                                    </a>
                                 </td>
 
                                 <td> {{ $item->REPOSITORY_NOTES }} </td>
@@ -245,7 +253,8 @@
                 {{-- Tombol Reset sareng Submit --}}
                 <div class="modal-footer">
                     {{-- Tombol Reset / Cancel --}}
-                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
                         Tutup
                     </button>
                 </div>
