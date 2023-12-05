@@ -36,6 +36,19 @@
     </tr>
 
     <tr>
+        <td>Petugas</td>
+        <td>:</td>
+        <td>{{ $data != null && $data->KONTEN_OFFICER != 1 ? $data->user->name : '-' }}</td>
+    </tr>
+
+
+    <tr>
+        <td>Tanggal</td>
+        <td>:</td>
+        <td>{{ $data->updated_at ?? '-' }}</td>
+    </tr>
+
+    <tr>
         <td>Status Pengajuan</td>
         <td>:</td>
         <td>
