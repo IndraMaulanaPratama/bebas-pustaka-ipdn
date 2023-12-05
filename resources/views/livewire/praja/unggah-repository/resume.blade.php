@@ -48,6 +48,17 @@
     </tr>
 
     <tr>
+        <td>Tautan eprints</td>
+        <td>:</td>
+        <td>
+            <a href="{{ $data->REPOSITORY_URL ?? '-' }}" target="blank">
+                Lihat Konten <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup>
+            </a>
+
+        </td>
+    </tr>
+
+    <tr>
         <td>Status Pengajuan</td>
         <td>:</td>
         <td>
@@ -57,8 +68,8 @@
                 </div>
 
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                    <button type="button" class="btn btn-rounded-pill btn-outline-secondary btn-sm" {{ $buttonAjukan }}
-                        wire:click='pengajuanUlang("{{ $data->REPOSITORY_ID ?? null }}")'
+                    <button type="button" class="btn btn-rounded-pill btn-outline-secondary btn-sm"
+                        {{ $buttonAjukan }} wire:click='pengajuanUlang("{{ $data->REPOSITORY_ID ?? null }}")'
                         wire:confirm='Ajukan kembali perubahan yang sudah dilakukan di unggah repository?'>
                         <i class="bi bi-arrow-clockwise"></i>Ajukan Ulang
                     </button>
