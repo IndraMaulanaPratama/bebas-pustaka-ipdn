@@ -47,11 +47,11 @@
         <td>{{ $data->updated_at ?? '-' }}</td>
     </tr>
 
-    <tr>
+    <tr {{ $data->REPOSITORY_URL ?? 'hidden' }}>
         <td>Tautan eprints</td>
         <td>:</td>
         <td>
-            <a href="{{ $data->REPOSITORY_URL ?? '-' }}" target="blank">
+            <a href="{{ $data->REPOSITORY_URL ?? null }}" target="blank">
                 Lihat Konten <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup>
             </a>
 

@@ -72,7 +72,7 @@
         <td>Tautan Konten</td>
         <td>:</td>
         <td>
-            <a href="{{ $data->KONTEN_URL ?? '-' }}" target="blank">
+            <a href="{{ $data->KONTEN_URL ?? null }}" target="blank">
                 Lihat Konten <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup>
             </a>
         </td>
