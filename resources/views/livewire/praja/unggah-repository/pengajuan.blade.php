@@ -29,8 +29,8 @@
             <b>Pengajuan</b>
 
             <p>
-                silahkan klik tombol <button wire:confirm='Anda yakin akan membuat pengajuan tahap unggah repository?'
-                    wire:click='buatPengajuan' class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
+                silahkan klik tombol <button data-bs-toggle="modal"
+                    data-bs-target="#formPengajuan" class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
                     Pengajuan
                 </button> untuk melakukan pengajuan pemeriksaan tahap unggah repository
             </p>
@@ -49,4 +49,34 @@
             </p>
         </li>
     </ol>
+
+
+    <x-admin.components.modal.modal id='formPengajuan'>
+        <x-admin.components.modal.header id='formPengajuan' title="Formulir pengajuan unggah repository" />
+
+        <form wire:submit='buatPengajuan' method="POST">
+
+            <div class="row g-4 p-2">
+                &nbsp;
+
+                <x-admin.components.form.input name='inputUrl'
+                    placeholder='Masukan url repository eprints anda' />
+
+                {{-- Tombol Reset sareng Submit --}}
+                <div class="modal-footer">
+                    {{-- Tombol Reset / Cancel --}}
+                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                        Batalkan
+                    </button>
+
+                    {{-- Tombol Simpan / Submit --}}
+                    <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </x-admin.components.modal.modal>
 </div>
