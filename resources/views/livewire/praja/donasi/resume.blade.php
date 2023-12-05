@@ -65,6 +65,20 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Petugas</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->donasi_pustaka->PUSTAKA_OFFICER != 1 ? $data->donasi_pustaka->user->name : '-'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->donasi_pustaka->updated_at }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -75,7 +89,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->donasi_pustaka->PUSTAKA_NOTES }}
+                                {{ $data == null ? '-' : $data->donasi_pustaka->PUSTAKA_NOTES }}
                             </td>
                         </tr>
                     </table>
@@ -100,6 +114,20 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Petugas</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->donasi_fakultas->FAKULTAS_OFFICER != 1 ? $data->donasi_fakultas->user->name : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->donasi_fakultas->updated_at }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -110,7 +138,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->donasi_fakultas->FAKULTAS_NOTES }}
+                                {{ $data == null ? '-' : $data->donasi_fakultas->FAKULTAS_NOTES }}
                             </td>
                         </tr>
                     </table>
@@ -134,6 +162,20 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Petugas</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->donasi_elektronik->ELEKTRONIK_OFFICER != 1 ? $data->donasi_elektronik->user->name : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->donasi_elektronik->updated_at }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -144,7 +186,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->donasi_elektronik->ELEKTRONIK_NOTES }}
+                                {{ $data == null ? '-' : $data->donasi_elektronik->ELEKTRONIK_NOTES }}
                             </td>
                         </tr>
                     </table>
