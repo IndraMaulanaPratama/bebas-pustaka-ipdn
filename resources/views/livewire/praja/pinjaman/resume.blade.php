@@ -65,6 +65,21 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td class="col-1">Petugas</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->pinjaman_pustaka->PUSTAKA_OFFICER != 1 ? $data->pinjaman_pustaka->user->name : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1">Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->pinjaman_pustaka->updated_at }}
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -75,7 +90,7 @@
                             <td class="col-1">Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->pinjaman_pustaka->PUSTAKA_NOTES }}
+                                {{ $data == null ? '-' : $data->pinjaman_pustaka->PUSTAKA_NOTES }}
                             </td>
                         </tr>
                     </table>
@@ -99,6 +114,20 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Petugas</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->pinjaman_fakultas->FAKULTAS_OFFICER != 1 ? $data->pinjaman_fakultas->user->name : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->pinjaman_fakultas->updated_at }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -109,7 +138,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->pinjaman_fakultas->FAKULTAS_NOTES }}
+                                {{ $data == null ? '-' : $data->pinjaman_fakultas->FAKULTAS_NOTES }}
                             </td>
                         </tr>
                     </table>
