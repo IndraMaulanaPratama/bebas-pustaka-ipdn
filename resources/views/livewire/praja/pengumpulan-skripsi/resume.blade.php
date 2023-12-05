@@ -66,6 +66,23 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Catatan</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->skripsi_perpustakaan->SKRIPSI_OFFICER != 1 ? $data->skripsi_perpustakaan->SKRIPSI_NOTES : '-' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->skripsi_perpustakaan->updated_at }}
+                            </td>
+                        </tr>
+
+
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -76,7 +93,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->skripsi_perpustakaan->SKRIPSI_NOTES }}
+                                {{ $data == null ? '-' : $data->skripsi_perpustakaan->SKRIPSI_NOTES }}
                             </td>
                         </tr>
                     </table>
@@ -101,6 +118,22 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Catatan</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->skripsi_fakultas->SKRIPSI_OFFICER != 1 ? $data->skripsi_fakultas->SKRIPSI_NOTES : '-' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->skripsi_fakultas->updated_at }}
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -111,7 +144,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->skripsi_fakultas->SKRIPSI_NOTES }}
+                                {{ $data == null ? '-' : $data->skripsi_fakultas->SKRIPSI_NOTES }}
                             </td>
                         </tr>
                     </table>
@@ -135,6 +168,22 @@
                 <div class="table-responsive">
                     <table class="table table-borderless">
                         <tr>
+                            <td>Catatan</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data != null && $data->skripsi_softcopy->SKRIPSI_OFFICER != 1 ? $data->skripsi_softcopy->SKRIPSI_NOTES : '-' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>:</td>
+                            <td class="col-11">
+                                {{ $data == null ? '-' : $data->skripsi_softcopy->updated_at }}
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td class="col-1">Status</td>
                             <td>:</td>
                             <td class="col-11">
@@ -145,7 +194,7 @@
                             <td>Catatan</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data == null ? null : $data->skripsi_softcopy->SKRIPSI_NOTES }}
+                                {{ $data == null ? '-' : $data->skripsi_softcopy->SKRIPSI_NOTES }}
                             </td>
                         </tr>
                     </table>
