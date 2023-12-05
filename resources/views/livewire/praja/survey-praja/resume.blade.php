@@ -36,6 +36,18 @@
     </tr>
 
     <tr>
+        <td>Petugas</td>
+        <td>:</td>
+        <td>{{ $data != null && $data->SURVEY_OFFICER != 1 ? $data->user->name : '-' }}</td>
+    </tr>
+
+    <tr>
+        <td>Tanggal</td>
+        <td>:</td>
+        <td>{{ $data->updated_at ?? '-' }}</td>
+    </tr>
+
+    <tr>
         <td>Status Pengajuan</td>
         <td>:</td>
         <td>
@@ -45,8 +57,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                    <button type="button"
-                        class="btn btn-rounded-pill btn-outline-secondary btn-sm" {{ $buttonAjukan }}
+                    <button type="button" class="btn btn-rounded-pill btn-outline-secondary btn-sm" {{ $buttonAjukan }}
                         wire:click='pengajuanUlang("{{ $data->SURVEY_ID ?? null }}")'
                         wire:confirm='Ajukan kembali perubahan yang sudah dilakukan di survey perpustakaan?'>
                         <i class="bi bi-arrow-clockwise"></i>Ajukan Ulang
