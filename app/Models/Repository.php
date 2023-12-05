@@ -18,6 +18,7 @@ class Repository extends Model
     protected $with = ['user'];
     protected $fillable = [
         'REPOSITORY_ID',
+        'REPOSITORY_URL',
         'REPOSITORY_PRAJA',
         'REPOSITORY_OFFICER',
         'REPOSITORY_STATUS',
