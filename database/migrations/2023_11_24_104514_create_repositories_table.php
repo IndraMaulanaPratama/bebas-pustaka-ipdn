@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('REPOSITORY', function (Blueprint $table) {
             $table->string('REPOSITORY_ID', 36)->primary()->comment('Primary Key untuk table repository');
+            $table->text('REPOSITORY_URL')->comment('Url repository dari eprints');
             $table->string('REPOSITORY_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->unsignedBigInteger('REPOSITORY_OFFICER');
             $table->enum('REPOSITORY_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
