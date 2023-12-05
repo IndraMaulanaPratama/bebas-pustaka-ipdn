@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Pengajuan extends Component
 {
-    public $praja, $npp, $data;
+    public $praja, $npp, $data, $inputUrl;
     public $buttonCreate;
 
 
@@ -29,6 +29,7 @@ class Pengajuan extends Component
 
             $data = [
                 'REPOSITORY_ID' => uuid_create(4),
+                'REPOSITORY_URL' => $this->inputUrl,
                 'REPOSITORY_PRAJA' => $this->npp,
                 'REPOSITORY_OFFICER' => 1,
                 'REPOSITORY_STATUS' => 'Proses'
