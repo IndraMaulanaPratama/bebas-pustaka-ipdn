@@ -20,6 +20,7 @@ class SettingApps extends Model
         "SETTING_HEAD_OFFICE_ID",
         "SETTING_URL_SURVEY",
         "SETTING_URL_LITERASI",
+        "SETTING_URL_REPOSITORY",
         "SETTING_OFFICER",
     ];
 
