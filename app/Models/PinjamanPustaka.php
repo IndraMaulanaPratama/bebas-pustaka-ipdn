@@ -21,6 +21,7 @@ class PinjamanPustaka extends Model
 
     protected $fillable = [
         'PUSTAKA_ID',
+        'PUSTAKA_NUMBER',
         'PUSTAKA_PRAJA',
         'PUSTAKA_OFFICER',
         'PUSTAKA_STATUS',
@@ -35,7 +36,8 @@ class PinjamanPustaka extends Model
         return $this->belongsTo(User::class, "PUSTAKA_OFFICER", "id");
     }
 
-    public function pivot_pinjaman(): HasOne {
+    public function pivot_pinjaman(): HasOne
+    {
         return $this->hasOne(PivotPinjaman::class, "PIVOT_PUSTAKA", "PUSTAKA_ID");
     }
 
