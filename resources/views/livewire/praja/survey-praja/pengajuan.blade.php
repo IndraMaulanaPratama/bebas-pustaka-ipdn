@@ -12,7 +12,9 @@
             <b>Petunjuk</b>
 
             <p>
-                Praja akan mendapatkan <b><i>link Google Form</i></b> yang sudah dibagikan ke ketua kelas, kemudian
+                Praja akan mendapatkan link <a href="{{ $setting->SETTING_URL_SURVEY }}" target="_blank">Google Form
+                    <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a> yang sudah dibagikan ke ketua kelas,
+                kemudian
                 silahkan lakukan
                 pengisian hingga seluruh item kuisoner terisi. Kami sarankan untuk menggunakan <b><i>laptop</i></b> agar
                 lebih
