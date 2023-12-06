@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string("SETTING_HEAD_OFFICE_ID", 50)->default('010101 01010101 010101')->comment('Nomor Induk kepala bagian');
             $table->text("SETTING_URL_SURVEY")->comment("URL untuk google form survey");
             $table->text("SETTING_URL_LITERASI")->comment("URL untuk google form literasi");
+            $table->text("SETTING_URL_REPOSITORY")->comment("URL untuk google form repository");
             $table->unsignedBigInteger("SETTING_OFFICER");
 
             $table->timestamps();
