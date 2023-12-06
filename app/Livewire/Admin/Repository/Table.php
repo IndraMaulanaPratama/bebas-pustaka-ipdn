@@ -105,7 +105,7 @@ class Table extends Component
         try {
             SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_REPOSITORY' => $this->inputUrl]);
 
-            $this->dispatch("data-updated", "Alamat formulir repository berhasil diperbaharui");
+            $this->dispatch("data-updated", "Alamat tamplate repository berhasil diperbaharui");
             $this->reset();
 
         } catch (\Throwable $th) {
