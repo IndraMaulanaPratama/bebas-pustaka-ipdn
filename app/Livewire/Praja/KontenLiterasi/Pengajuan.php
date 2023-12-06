@@ -3,6 +3,7 @@
 namespace App\Livewire\Praja\KontenLiterasi;
 
 use App\Models\KontenLiterasi;
+use App\Models\SettingApps;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -67,6 +68,10 @@ class Pengajuan extends Component
 
     public function render()
     {
-        return view('livewire.praja.konten-literasi.pengajuan');
+        $setting = SettingApps::first();
+
+        return view('livewire.praja.konten-literasi.pengajuan', [
+            'setting' => $setting,
+        ]);
     }
 }
