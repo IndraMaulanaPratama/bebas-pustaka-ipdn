@@ -3,6 +3,7 @@
 namespace App\Livewire\Praja\UnggahRepository;
 
 use App\Models\Repository;
+use App\Models\SettingApps;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -66,8 +67,10 @@ class Pengajuan extends Component
 
     public function render()
     {
+        $setting = SettingApps::first();
         return view('livewire.praja.unggah-repository.pengajuan', [
             'data' => $this->data,
+            'setting' => $setting,
         ]);
     }
 }
