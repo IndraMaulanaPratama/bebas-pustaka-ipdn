@@ -3,6 +3,69 @@
 
 <div class="col-12">
 
+    {{-- Section Formulir Pengaturan URL Repository --}}
+    <div class="row collapse" id="formRepository" wire:ignore>
+
+        {{-- Pengaturan Repository --}}
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <x-admin.components.card.card size=12 title="Pengaturan Formulir Repository">
+
+                <ul>
+                    <li>
+                        <b>Lihat Formulir</b>
+
+                        <p>
+                            Untuk melihat formulir repository, silahkan klik tautan berikut ini:
+                            <a href="{{ $setting->SETTING_URL_REPOSITORY }}" target="_blank" class="btn btn-link btn-sm">
+                                Buka Formulir <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
+                            </a>
+                        </p>
+
+                    </li>
+
+                    <li>
+                        <b>Ubah Formulir</b>
+
+                        <p>
+                            Untuk merubah URL formulir, silahkan klik tautan berikut ini:
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#updateRepository"
+                                aria-expanded="false" aria-controls="updateRepository" class="btn btn-link btn-sm">
+                                Ubah URL Formulir
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+
+            </x-admin.components.card.card>
+        </div>
+
+
+        {{-- Form ubah URL Repository --}}
+        <div class="col-lg-6 col-md-6 col-sm-12 collapse" id="updateRepository">
+            <x-admin.components.card.card size=12 title="Ubah URL Repository">
+
+                <form wire:submit='updateUrl' method="POST">
+                    <div class="row g-2">
+                        <div>
+                            <x-admin.components.form.input name="inputUrl" placeholder="URL Formulir Repository" />
+                        </div>
+
+                        <div>
+                            <x-admin.components.form.button type="submit" color="primary" text="Simpan" />
+
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#updateRepository"
+                                aria-expanded="false" aria-controls="updateRepository" class="btn btn-outline-secondary"
+                                wire:click='resetForm'>
+                                Batalkan
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+            </x-admin.components.card.card>
+        </div>
+    </div>
+
     {{-- Data Table Konten Literasi --}}
     <div>
         <x-admin.components.card.card size=12 title="Data Pengajuan" titleSpan='Aktif'>
@@ -14,6 +77,15 @@
                 <div class="w-auto bd-highlight">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
+                    </div>
+                </div>
+
+                {{-- Button Formulir Repository --}}
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
+                    <div data-bs-toggle="collapse" data-bs-target="#formRepository" aria-expanded="false"
+                        aria-controls="formRepository">
+                        <x-admin.components.button.icon-button color="info" icon="bi-card-list"
+                            text="Formulir Repository" :access=$accessUpdate />
                     </div>
                 </div>
 
