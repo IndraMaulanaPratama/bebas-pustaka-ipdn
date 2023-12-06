@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\KontenLiterasi;
 use App\Models\Menu;
 use App\Models\Repository;
+use App\Models\SettingApps;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +98,23 @@ class Table extends Component
 
 
 
+    public function updateUrl()
+    {
+        $setting = SettingApps::first();
+
+        try {
+            SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_REPOSITORY' => $this->inputUrl]);
+
+            $this->dispatch("data-updated", "Alamat formulir repository berhasil diperbaharui");
+            $this->reset();
+
+        } catch (\Throwable $th) {
+            $this->dispatch("failed-updating-data", $th->getMessage());
+        }
+    }
+
+
+
     public function approveData($id)
     {
         try {
@@ -142,6 +160,7 @@ class Table extends Component
     public function render()
     {
 
+        $setting = SettingApps::latest()->first();
         $data = Repository::
             when(
                 // <!-- Pilari data pengajuan dumasar kana status
@@ -175,7 +194,8 @@ class Table extends Component
             ->paginate();
 
         return view('livewire.admin.repository.table', [
-            'data' => $data
+            'data' => $data,
+            'setting' => $setting,
         ]);
     }
 }
