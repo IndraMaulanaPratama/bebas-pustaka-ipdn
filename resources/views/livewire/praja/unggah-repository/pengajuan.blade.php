@@ -17,7 +17,7 @@
                 <i>file yang
                     diunggah dalam jenis Pdf dan sudah sesuai template yang ditentukan</i>. Adapun template tersebut
                 dapat Praja
-                unduh pada alamat <a href="https://bit.ly/46RAoeo" target="blank">Buka Tamplate <sup><i
+                unduh pada alamat <a href="{{ $setting->SETTING_URL_REPOSITORY }}" target="blank">Buka Tamplate <sup><i
                             class="bi bi-arrow-up-right-circle-fill"></i></sup></a>. Tutorial tips mudah
                 deposit repository dapat Praja tonton pada
                 laman <a href="https://www.youtube.com/watch?v=yqEX4CzYPAE" target="blank">Youtube Bayu Pambayun <sup><i
@@ -29,8 +29,8 @@
             <b>Pengajuan</b>
 
             <p>
-                silahkan klik tombol <button data-bs-toggle="modal"
-                    data-bs-target="#formPengajuan" class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
+                silahkan klik tombol <button data-bs-toggle="modal" data-bs-target="#formPengajuan"
+                    class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
                     Pengajuan
                 </button> untuk melakukan pengajuan pemeriksaan tahap unggah repository
             </p>
@@ -59,8 +59,7 @@
             <div class="row g-4 p-2">
                 &nbsp;
 
-                <x-admin.components.form.input name='inputUrl'
-                    placeholder='Masukan url repository eprints anda' />
+                <x-admin.components.form.input name='inputUrl' placeholder='Masukan url repository eprints anda' />
 
                 {{-- Tombol Reset sareng Submit --}}
                 <div class="modal-footer">
