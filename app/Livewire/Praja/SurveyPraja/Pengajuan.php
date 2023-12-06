@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Praja\SurveyPraja;
 
+use App\Models\SettingApps;
 use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,10 @@ class Pengajuan extends Component
 
     public function render()
     {
-        return view('livewire.praja.survey-praja.pengajuan');
+        $setting = SettingApps::first();
+
+        return view('livewire.praja.survey-praja.pengajuan', [
+            'setting' => $setting,
+        ]);
     }
 }
