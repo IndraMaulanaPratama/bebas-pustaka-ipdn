@@ -43,7 +43,7 @@
 
                     <p>
                         Praja melakukan unggah <i>Soft Copy</i> Skripsi dalam bentuk <b>Pdf</b> ke alamat email
-                        <a href="perpustakaan@ipdn.ac.id" target="blank">perpustakaan@ipdn.ac.id</a>. Adapun file
+                        <button class="btn btn-link">perpustakaan@ipdn.ac.id</button>. Adapun file
                         yang harus dilampirkan antara lain: (1) Halaman
                         awal skripsi; (2) Bab I; (3) Bab II; (4) Bab III; (5) Bab IV; (6) Bab V; (7) Daftar
                         Pustaka; (8) Ringkasan skripsi; dan (9) <i>Full text </i>skripsi. Jika Praja sudah
@@ -60,8 +60,8 @@
                     <p>
                         Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan
                         Praja lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas. Kemudian
-                        silahkan kirimkan Kembali file tersebut ke alamat <a href="perpustakaan@ipdn.ac.id"
-                            target="blank">perpustakaan@ipdn.ac.id</a> dan
+                        silahkan kirimkan Kembali file tersebut ke alamat <button
+                            class="btn btn-link">perpustakaan@ipdn.ac.id</button> dan
                         selanjutnya lakukan <b>pengajuan ulang</b> pada website Bebas Pustaka pada menu <b>Soft
                             Copy</b>.
                         Status pengajuan akan berubah menjadi <b>diterima</b> jika file perbaikan sudah sesuai
