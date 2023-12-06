@@ -29,27 +29,32 @@
                 </li>
 
                 <li>
-                    <p>Ajakan untuk berkunjung ke perpustakaan dan <b><i>Daily life as Praja IPDN</i></b>.</p>
+                    <p>Ajakan untuk berkunjung ke perpustakaan dan</p>
                 </li>
 
                 <li>
-                    <p>
-                         Selanjutnya unggah video tersebut pada platform
-                        Instagram
-                        dengan
-                        menggunakan fitur Reels dan pastikan sudah dilakukan tag pada akun <i><b>Instagram
-                                @perpustakaanipdn</b></i>.
-                        Kemudian
-                        kirimkan <i>softfile</i> video tersebut melalui <i><b>link Google Form</b></i> yang sudah kami
-                        sediakan.
-                        Jika
-                        kedua proses
-                        unggah sudah selesai dilakukan, maka Praja sudah dapat melakukan verifikasi kepada Petugas
-                        Perpustakaan
-                        Pusat IPDN.
-                    </p>
+                    <p>Buatkan konten yang bertemakan <b><i>Daily life as Praja IPDN</i></b></p>
                 </li>
             </ol>
+
+
+            <p>
+                Selanjutnya unggah video tersebut pada platform
+                Instagram
+                dengan
+                menggunakan fitur Reels dan pastikan sudah dilakukan tag pada akun <i><b>Instagram
+                        @perpustakaanipdn</b></i>.
+                Kemudian
+                kirimkan <i>soft file</i> video tersebut melalui link <a href="{{ $setting->SETTING_URL_LITERASI }}"
+                    target="_blank">Google Form <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a> yang
+                sudah kami
+                sediakan.
+                Jika
+                kedua proses
+                unggah sudah selesai dilakukan, maka Praja sudah dapat melakukan verifikasi kepada Petugas
+                Perpustakaan
+                Pusat IPDN.
+            </p>
 
         </li>
 
@@ -58,8 +63,8 @@
             <b>Pengajuan</b>
 
             <p>
-                silahkan klik tombol <button data-bs-toggle="modal" data-bs-target="#formPengajuan" class="btn btn-outline-primary btn-sm"
-                    {{ $buttonCreate }}> Buat Pengajuan
+                silahkan klik tombol <button data-bs-toggle="modal" data-bs-target="#formPengajuan"
+                    class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat Pengajuan
                 </button> untuk melakukan pengajuan pemeriksaan tahap konten litarasi
             </p>
         </li>
