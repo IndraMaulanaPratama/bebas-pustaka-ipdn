@@ -8,29 +8,29 @@
 
         {{-- Pengaturan Repository --}}
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <x-admin.components.card.card size=12 title="Pengaturan Formulir Repository">
+            <x-admin.components.card.card size=12 title="Pengaturan Tamplate Repository">
 
                 <ul>
                     <li>
-                        <b>Lihat Formulir</b>
+                        <b>Lihat Tamplate</b>
 
                         <p>
-                            Untuk melihat formulir repository, silahkan klik tautan berikut ini:
+                            Untuk melihat tamplate repository, silahkan klik tautan berikut ini: <br/>
                             <a href="{{ $setting->SETTING_URL_REPOSITORY }}" target="_blank" class="btn btn-link btn-sm">
-                                Buka Formulir <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
+                                Buka Tamplate <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
                             </a>
                         </p>
 
                     </li>
 
                     <li>
-                        <b>Ubah Formulir</b>
+                        <b>Ubah Tamplate</b>
 
                         <p>
-                            Untuk merubah URL formulir, silahkan klik tautan berikut ini:
+                            Untuk merubah URL Tamplate, silahkan klik tautan berikut ini: <br/>
                             <a href="#" data-bs-toggle="collapse" data-bs-target="#updateRepository"
                                 aria-expanded="false" aria-controls="updateRepository" class="btn btn-link btn-sm">
-                                Ubah URL Formulir
+                                Ubah URL Tamplate
                             </a>
                         </p>
                     </li>
@@ -47,7 +47,7 @@
                 <form wire:submit='updateUrl' method="POST">
                     <div class="row g-2">
                         <div>
-                            <x-admin.components.form.input name="inputUrl" placeholder="URL Formulir Repository" />
+                            <x-admin.components.form.input name="inputUrl" placeholder="URL Tamplate Repository" />
                         </div>
 
                         <div>
