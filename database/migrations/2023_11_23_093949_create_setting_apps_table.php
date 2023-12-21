@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('SETTING_APPS', function (Blueprint $table) {
             $table->string("SETTING_ID", 36)->primary()->comment('Primary Key untuk table setting aplikasi');
             $table->string("SETTING_HEAD_OFFICE_NAME", 255)->default('Indra Maulana Pratama S.T.')->comment('Nama Kepala Bagian yang menjabat');
+            $table->string("SETTING_HEAD_OFFICE_SIGN", 255)->default('Head_office_sign.png')->comment('Tanda tangan kepala bagian');
             $table->string("SETTING_HEAD_OFFICE_ID", 50)->default('010101 01010101 010101')->comment('Nomor Induk kepala bagian');
             $table->text("SETTING_URL_SURVEY")->comment("URL untuk google form survey");
             $table->text("SETTING_URL_LITERASI")->comment("URL untuk google form literasi");
