@@ -48,7 +48,7 @@ class PembatasanAksesMenu
         $role = Auth::user()->role->ROLE_NAME;
 
 
-        $menuAdmin = collect(['assign-manajemen', 'user-manajemen', 'menu', 'role-manajemen']);
+        $menuAdmin = collect(['assign-manajemen', 'user-manajemen', 'menu', 'role-manajemen', 'settings-web']);
         $menuSuperAdmin = collect([]);
 
         if ($role == "Super Admin") {
