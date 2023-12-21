@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\PinjamanPustaka;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,7 @@ use Livewire\Component;
 
 class Table extends Component
 {
-    public $accessReject, $accessApprove, $accessExport;
+    public $accessReject, $accessApprove, $accessPrint, $accessExport;
     public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
@@ -116,6 +117,51 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    public function generateNomorSurat($fakultas)
+    {
+        if ($fakultas == "POLITIK PEMERINTAHAN") {
+            $fakultas = "FPP";
+        } elseif ($fakultas == "MANAJEMEN PEMERINTAHAN") {
+            $fakultas = "FMP";
+        } elseif ($fakultas == "PERLINDUNGAN MASYARAKAT") {
+            $fakultas = "FPM";
+        }
+
+        $jumlahData = PinjamanPustaka::whereNotNull('PUSTAKA_APPROVED')->count();
+        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
+        return "000.5.2.4/BPS-" . $fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
+    }
+
+
+    public function printApprooved($id)
+    {
+        $data = PinjamanPustaka::where("PUSTAKA_ID", $id)->first();
+        $this->detailPraja($data->PUSTAKA_PRAJA);
+
+        $ponsel = User::where("email", $this->prajaEmail)->first('nomor_ponsel');
+
+        $dokumen = view("pdf.similaritas.bukti-pemeriksaan", [
+            'similaritas' => $data,
+            'praja' => $this->dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print($pdf);
+            },
+            'PINJAMAN_PUSTAKA-' . $this->dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
