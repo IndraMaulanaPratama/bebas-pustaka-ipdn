@@ -42,7 +42,12 @@
             <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
                 icon="bi-universal-access-circle" />
 
-            @if ($role->ROLE_NAME == 'Super Admin')
+            {{-- Akses Manajemen --}}
+            <x-admin.tamplates.sidebar.link text="Pengaturan Website" navigate="settings-web"
+                icon="bi-gear-wide-connected" />
+
+
+                @if ($role->ROLE_NAME == 'Super Admin')
                 {{-- Data Sampah --}}
                 <x-admin.tamplates.sidebar.list-item text="Data Sampah" name="dropDown">
                     <x-admin.tamplates.sidebar.item-link text="Data Pengguna" navigate="/" icon="circle"
@@ -57,8 +62,6 @@
                         wire:key='5' />
                 </x-admin.tamplates.sidebar.list-item>
             @endif <!-- Tungtung tina menu super admin -->
-
-            {{-- <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="akses" icon="bi-universal-access-circle" /> --}}
 
         @endif <!-- Tungtung tina menu admin -->
 
