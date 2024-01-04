@@ -70,8 +70,8 @@ class Create extends Component
         try {
             $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
             $idUser = uuid_create(4); // <!-- Ngadamel id nu unik kanggo database
-            $this->photo != null ? $photoName = $timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = "defaultPhoto.jpeg";
-            $this->sign != null ? $signName = $timestamp . '-' . $this->sign->getClientOriginalName() : $signName = "defaultSign.jpeg";
+            $this->photo != null ? $photoName = $timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = "defaultPhoto.png";
+            $this->sign != null ? $signName = $timestamp . '-' . $this->sign->getClientOriginalName() : $signName = "defaultSign.png";
 
             // $photoName = $this->photo == null ? 'defaultPhoto.jpg' : $timestamp . '-' . $this->photo->getClientOriginalName();
             // $signName = $this->sign == null ? 'defaultSign.jpg' : $timestamp . '-' . $this->sign->getClientOriginalName();
