@@ -47,8 +47,21 @@ class PembatasanAksesMenu
         $address = Route::currentRouteName();
         $role = Auth::user()->role->ROLE_NAME;
 
+        $menuAdmin = collect(
+            [
+                'assign-manajemen',
+                'user-manajemen',
+                'menu',
+                'role-manajemen',
+                'settings-web',
 
-        $menuAdmin = collect(['assign-manajemen', 'user-manajemen', 'menu', 'role-manajemen', 'settings-web']);
+                'pengaturan-kepala.unit',
+                'pengaturan-sprint',
+                'pengaturan-formulir.survei.praja',
+                'pengaturan-formulir.konten,literasi',
+                'pengaturan-formulir.unggah.repository',
+            ]
+        );
         $menuSuperAdmin = collect([]);
 
         if ($role == "Super Admin") {
@@ -66,8 +79,7 @@ class PembatasanAksesMenu
         $checkDatabase = $this->checkMenuDatabase();
         $checkManual = $this->checkMenuManual();
 
-
-        if ($checkDatabase == true || $checkManual !== false) {
+        if ($checkDatabase == true || $checkManual != false) {
             return $next($request); // <-- Salam pangabaktos, mangga dihaturanan linggih pangersa 😈
         } else {
             return abort(404);
