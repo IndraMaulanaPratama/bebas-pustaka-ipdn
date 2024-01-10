@@ -42,14 +42,26 @@
             <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
                 icon="bi-universal-access-circle" />
 
-            {{-- Akses Manajemen --}}
-            <x-admin.tamplates.sidebar.link text="Pengaturan Website" navigate="settings-web"
-                icon="bi-gear-wide-connected" />
+            {{-- Pengaturan Website --}}
+            <x-admin.tamplates.sidebar.list-item text="Pengaturan website" name="pengaturan" wire:key='pengaturan'>
+                <x-admin.tamplates.sidebar.item-link text="Data Kepala Unit" navigate="/pengaturan/data-kepala-unit"
+                    icon="circle" wire:key='1' />
+                <x-admin.tamplates.sidebar.item-link text="File Sprint Bebas Pustaka" navigate="/pengaturan/sprint"
+                    icon="circle" wire:key='2' />
+                <x-admin.tamplates.sidebar.item-link text="Formulir Survei Praja"
+                    navigate="/pengaturan/formulir/survei-praja" icon="circle" wire:key='3' />
+                <x-admin.tamplates.sidebar.item-link text="Formulir Konten Literasi"
+                    navigate="/pengaturan/formulir/konten-literasi" icon="circle" wire:key='4' />
+                <x-admin.tamplates.sidebar.item-link text="Formulir Unggah Repository"
+                    navigate="/pengaturan/formulir/unggah-repository" icon="circle" wire:key='5' />
+            </x-admin.tamplates.sidebar.list-item>
 
 
-                @if ($role->ROLE_NAME == 'Super Admin')
+
+            @if ($role->ROLE_NAME == 'Super Admin')
                 {{-- Data Sampah --}}
-                <x-admin.tamplates.sidebar.list-item text="Data Sampah" name="dropDown">
+                <x-admin.tamplates.sidebar.list-item text="Data Sampah" name="sampah" icon="bi-trash3-fill"
+                    wire:key='sampah'>
                     <x-admin.tamplates.sidebar.item-link text="Data Pengguna" navigate="/" icon="circle"
                         wire:key='1' />
                     <x-admin.tamplates.sidebar.item-link text="Data Role" navigate="/" icon="circle"
