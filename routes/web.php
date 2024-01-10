@@ -6,6 +6,11 @@ use App\Livewire\Page\Admin\DonasiElektronik;
 use App\Livewire\Page\Admin\DonasiFakultas;
 use App\Livewire\Page\Admin\DonasiPustaka;
 use App\Livewire\Page\Admin\KontenLiterasi;
+use App\Livewire\Page\Admin\Pengaturan\FormulirKontenLiterasi;
+use App\Livewire\Page\Admin\Pengaturan\FormulirRepository;
+use App\Livewire\Page\Admin\Pengaturan\FormulirSurvei;
+use App\Livewire\Page\Admin\Pengaturan\KepalaUnit;
+use App\Livewire\Page\Admin\Pengaturan\SprintSkbp;
 use App\Livewire\Page\Admin\PengaturanApplikasi;
 use App\Livewire\Page\Admin\PinjamanFakultas;
 use App\Livewire\Page\Admin\PinjamanPustaka;
@@ -55,10 +60,8 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/hard-copy-perpustakaan', SkripsiPerpustakaan::class)->name('admin-hard.perpustakaan');
     Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi');
     //
+
     Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export SKBP
-
-
-
 
     // -- *** Admin Area --- //
     Route::get('/menu', Menu::class)->name('menu');
@@ -66,7 +69,14 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/role', Role::class)->name('role-manajemen');
     Route::get('/assign', Assign::class)->name('assign-manajemen');
     Route::get('/setting', PengaturanApplikasi::class)->name('settings-web');
+
+    Route::get('/pengaturan/data-kepala-unit', KepalaUnit::class)->name('pengaturan-kepala.unit');
+    Route::get('/pengaturan/sprint', SprintSkbp::class)->name('pengaturan-sprint');
+    Route::get('/pengaturan/formulir/survei-praja', FormulirSurvei::class)->name('pengaturan-formulir.survei.praja');
+    Route::get('/pengaturan/formulir/konten-literasi', FormulirKontenLiterasi::class)->name('pengaturan-formulir.konten,literasi');
+    Route::get('/pengaturan/formulir/unggah-repository', FormulirRepository::class)->name('pengaturan-formulir.unggah.repository');
     // <!-- End Of Admin area !--->
+
 });
 
 
