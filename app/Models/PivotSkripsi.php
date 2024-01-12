@@ -23,6 +23,9 @@ class PivotSkripsi extends Model
         "PIVOT_PUSTAKA",
         "PIVOT_FAKULTAS",
         "PIVOT_SOFTCOPY",
+        "PIVOT_JUDUL",
+        "PIVOT_PEMBIMBING_SATU",
+        "PIVOT_PEMBIMBING_DUA",
     ];
 
     /**

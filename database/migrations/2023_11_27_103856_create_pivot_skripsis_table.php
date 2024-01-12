@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->string("PIVOT_PUSTAKA", 36)->comment("Foreign Key untuk data skripsi perpustakaan");
             $table->string("PIVOT_FAKULTAS", 36)->comment("Foreign Key untuk data skripsi fakultas");
             $table->string("PIVOT_SOFTCOPY", 36)->comment("Foreign Key untuk data skripsi elektronik");
+            $table->text("PIVOT_JUDUL")->comment("Judul skripsi praja");
+            $table->string("PIVOT_PEMBIMBING_SATU", 100)->comment("Nama pembimbing satu");
+            $table->string("PIVOT_PEMBIMBING_DUA", 100)->comment("Nama pembimbing dua");
             $table->timestamps();
             $table->softDeletes();
 
