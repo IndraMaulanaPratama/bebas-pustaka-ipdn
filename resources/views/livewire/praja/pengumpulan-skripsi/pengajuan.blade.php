@@ -76,8 +76,9 @@
             <b>Pengajuan</b>
 
             <p>
-                silahkan klik tombol <button wire:confirm='Anda yakin akan membuat pengajuan tahap pengumpulan skripsi?'
-                    wire:click='buatPengajuan' class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
+                silahkan klik tombol
+                <button data-bs-toggle="modal" data-bs-target="#formPengajuan" class="btn btn-outline-primary btn-sm"
+                    {{ $buttonCreate }}> Buat
                     Pengajuan
                 </button> untuk melakukan pengajuan pemeriksaan tahap pengumpulan skripsi
             </p>

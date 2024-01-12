@@ -36,6 +36,24 @@
                     <td>:</td>
                     <td>{{ Auth::user()->nomor_ponsel }}</td>
                 </tr>
+
+                <tr>
+                    <td>Judul Skripsi</td>
+                    <td>:</td>
+                    <td>{{ $data->PIVOT_JUDUL ?? null }}</td>
+                </tr>
+
+                <tr>
+                    <td>Nama Pembimbing</td>
+                    <td>:</td>
+                    <td>
+                        <ol type="1">
+                            <li>{{$data->PIVOT_PEMBIMBING_SATU ?? null}}</li>
+                            <li>{{$data->PIVOT_PEMBIMBING_DUA ?? null}}</li>
+                        </ol>
+                    </td>
+                </tr>
+
                 <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>

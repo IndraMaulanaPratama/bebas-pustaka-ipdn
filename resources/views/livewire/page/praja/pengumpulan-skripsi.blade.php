@@ -37,4 +37,5 @@
         </div>
     </div>
 
+    @livewire('praja.PengumpulanSkripsi.form-pengajuan')
 </div>

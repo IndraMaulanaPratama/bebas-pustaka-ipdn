@@ -47,7 +47,7 @@ Route::middleware(['auth', 'access'])->group(function () {
 
 
     // --- *** Officer Area *** --- //
-    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas'); // TODO: Fitur Print dan export
+    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
     Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
     Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Fitur Print dan export
     Route::get('/donasi-buku-perpustakaan', DonasiPustaka::class)->name('admin-donasi.perpustakaan');
