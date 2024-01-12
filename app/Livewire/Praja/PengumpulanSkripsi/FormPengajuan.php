@@ -52,6 +52,11 @@ class FormPengajuan extends Component
         }
     }
 
+    public function resetForm()
+    {
+        $this->reset();
+    }
+
 
     public function mount()
     {
