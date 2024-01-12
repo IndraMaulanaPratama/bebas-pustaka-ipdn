@@ -23,6 +23,7 @@ class SettingApps extends Model
         "SETTING_URL_LITERASI",
         "SETTING_URL_REPOSITORY",
         "SETTING_OFFICER",
+        "SETTING_SPRINT"
     ];
 
 
