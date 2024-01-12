@@ -48,12 +48,12 @@
                     icon="circle" wire:key='1' />
                 <x-admin.tamplates.sidebar.item-link text="File Sprint Bebas Pustaka" navigate="/pengaturan/sprint"
                     icon="circle" wire:key='2' />
-                <x-admin.tamplates.sidebar.item-link text="Formulir Survei Praja"
+                {{-- <x-admin.tamplates.sidebar.item-link text="Formulir Survei Praja"
                     navigate="/pengaturan/formulir/survei-praja" icon="circle" wire:key='3' />
                 <x-admin.tamplates.sidebar.item-link text="Formulir Konten Literasi"
                     navigate="/pengaturan/formulir/konten-literasi" icon="circle" wire:key='4' />
                 <x-admin.tamplates.sidebar.item-link text="Formulir Unggah Repository"
-                    navigate="/pengaturan/formulir/unggah-repository" icon="circle" wire:key='5' />
+                    navigate="/pengaturan/formulir/unggah-repository" icon="circle" wire:key='5' /> --}}
             </x-admin.tamplates.sidebar.list-item>
 
 
