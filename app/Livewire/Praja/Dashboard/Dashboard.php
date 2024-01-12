@@ -10,6 +10,7 @@ use App\Models\KontenLiterasi;
 use App\Models\PinjamanFakultas;
 use App\Models\PinjamanPustaka;
 use App\Models\Repository;
+use App\Models\SettingApps;
 use App\Models\Similaritas;
 use App\Models\SkripsiFakultas;
 use App\Models\SkripsiPerpustakaan;
@@ -24,7 +25,7 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     public $npp, $praja, $fakultas, $bebasPustaka;
-    public $buttonPrint, $resume, $data;
+    public $buttonPrint, $resume, $data, $sprint;
 
 
 
@@ -90,6 +91,7 @@ class Dashboard extends Component
     public function render()
     {
 
+        $this->sprint = SettingApps::where('SETTING_ID', 1)->first();
 
         $this->bebasPustaka = BebasPustaka::where('BEBAS_PRAJA', $this->npp)->first() != null ? true : false;
 

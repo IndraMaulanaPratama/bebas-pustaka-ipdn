@@ -1,7 +1,7 @@
 <div class="row g-4">
 
     {{-- Bagean Kenca --}}
-    <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="col-lg-7 col-md-7 col-sm-12">
         <div class="row">
             <x-admin.components.card.card title='Progres Pengajuan' titleSpan='Bebas Pustaka'>
 
@@ -72,7 +72,8 @@
 
                     {{-- Terbitkan SKBP --}}
                     <div {{ $bebasPustaka == true ? 'hidden' : null }}>
-                        <button class="btn btn-sm btn-info" wire:click='buatSurat'>Generate Surat Keterangan Bebas Pustaka</button>
+                        <button class="btn btn-sm btn-info" wire:click='buatSurat'>Generate Surat Keterangan Bebas
+                            Pustaka</button>
                     </div>
 
                     {{-- Done --}}
@@ -98,7 +99,8 @@
                         unit</b> untuk pelayanan bebas pustaka:
                 </p>
 
-                <button class="btn btn-sm btn-outline-primary">Unduh dokumen</button>
+                <a href="{{ asset('storage/dokumen/' . $sprint->SETTING_SPRINT) }}" target="_" class="btn btn-sm btn-outline-primary">Unduh
+                    dokumen</a>
 
             </x-admin.components.card.card>
 
