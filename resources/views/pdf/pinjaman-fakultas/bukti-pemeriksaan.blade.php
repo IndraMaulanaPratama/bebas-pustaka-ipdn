@@ -1,11 +1,8 @@
 @php
     use Illuminate\Support\Carbon;
-    $date = Carbon::parse($similaritas->SIMILARITAS_APPROVED);
+    $date = Carbon::parse($pinjaman->FAKULTAS_APPROVED);
     $tanggal = $date->toDateString();
     $waktu = $date->toTimeString();
-    $bibliografi = $similaritas->SIMILARITAS_BIBLIOGRAFI == 1 ? 'checked' : null;
-    $smallWord = $similaritas->SIMILARITAS_SMALL_WORD == 1 ? 'checked' : null;
-    $quote = $similaritas->SIMILARITAS_QUOTE == 1 ? 'checked' : null;
 @endphp ?>
 
 <!DOCTYPE html>
@@ -82,9 +79,9 @@
 
         <div id="Judul" style="margin-top: 40px">
             <center>
-                <h3>BUKTI PEMERIKSAAN SIMILARITAS</h3>
-                <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: {{ $similaritas->SIMILARITAS_NUMBER }} </h4>
+                <h3>BUKTI BEBAS PEMINJAMAN BUKU/KOLEKSI</h3>
+                <h4>PERPUSTAKAAN FAKULTAS {{ $praja['FAKULTAS'] }}</h4>
+                <h4>NOMOR: 000.5.2.4/BPS-FPP.0001/IPDN.21/2023</h4>
             </center>
         </div>
 
@@ -118,69 +115,21 @@
                     <td>:</td>
                     <td>{{ $ponsel->nomor_ponsel }}</td>
                 </tr>
-                <tr>
-                    <td><i>Class Name</i> dan No. Absen</td>
-                    <td>:</td>
-                    <td>
-                        {{ $similaritas->SIMILARITAS_CLASS }} - {{ $similaritas->SIMILARITAS_ABSENT }}
-                    </td>
-                </tr>
             </table>
         </div>
 
         <br />
-        {{-- Table Data Similaritas --}}
-        <div class="container">
-            <table width="100%" class="table">
-                {{-- THEAD --}}
-                <tr class="tr">
-                    <th class="th">TANGGAL UPLOAD</th>
-                    <th class="th">PUKUL</th>
-                    <th class="th">EXCLUDE</th>
-                    <th class="th">SIMILARITAS</th>
-                </tr>
 
-                {{-- TBODY --}}
-                <tr>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $tanggal }}</h3>
-                    </th>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $waktu }}</h3>
-                    </th>
-                    <td class="td">
-                        <input type="checkbox" {{ $bibliografi }} /> &nbsp;
-                        DATA BIBLIOGRAFI
-                    </td>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $similaritas->SIMILARITAS_VALUE }} %</h3>
-                    </th>
-                </tr>
-
-                <tr class="tr">
-                    <td
-                        style="
-                                line-height: 5%;
-                                display: inline-block;
-                                vertical-align: middle;
-                            ">
-                        <input type="checkbox" {{ $smallWord }} /> &nbsp;
-                        <label for="smallWord"> SMALL WORD</label> &nbsp;
-                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD_COUNT }}
-                            )</b>
-                    </td>
-                </tr>
-                <tr class="tr">
-                    <td class="td">
-                        <input type="checkbox" {{ $quote }} /> &nbsp; QUOTE
-                        MATERIALS
-                    </td>
-                </tr>
-            </table>
-        </div>
+        {{-- Table Data Pinjaman --}}
+        <p class="container" style="text-indent: 5px">
+            Tidak mempunyai tanggungan peminjaman buku/ koleksi di Perpustakaan Pusat IPDN Jatinangor.
+            Bukti ini merupakan salah satu syarat mengikuti Sidang Akhir Skripsi (Sidang Komprehensif), yang
+            kemudian sebagai dasar diterbitkannya Surat Keterangan Bebas Pustaka. Demikian untuk dapat
+            dipergunakan sebagaimana mestinya.
+        </p>
 
         {{-- Table Tanda tangan --}}
-        <div class="container" style="margin-top: 5px">
+        <div class="container" style="margin-top: 50px">
             <table width="100%">
                 <tr>
                     <td width="40%">&nbsp;</td>
@@ -195,20 +144,22 @@
                     <td><b>Petugas Perpustakaan IPDN</b></td>
                 </tr>
                 <tr>
-                    <td height="200px">
-                        {{ $praja['NAMA'] }} <br />
-                        <hr style="width:200px;text-align:left;margin-left:0" />
-                        <b>NPP: {{ $praja['NPP'] }}</b>
+                    <td>
+                        <div style="position: absolute; bottom: 70px;">
+                            {{ $praja['NAMA'] }} <br />
+                            <hr style="width:200px;text-align:left;margin-left:0" />
+                            <b>NPP: {{ $praja['NPP'] }}</b>
+                        </div>
                     </td>
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $similaritas->user->sign }}"
-                                alt="{{ $similaritas->user->name }}" width="50%" />
+                            <img src="tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
+                                width="50%" />
                         </div>
 
-                        <div style="position: absolute; bottom: 30px;">
-                            {{ $similaritas->user->name }}
+                        <div style="position: absolute; bottom: 80px;">
+                            {{ $pinjaman->user->name }}
                             <hr style="width:200px;text-align:left;margin-left:0" />
                         </div>
                     </td>
@@ -248,9 +199,9 @@
 
         <div id="Judul" style="margin-top: 40px">
             <center>
-                <h3>BUKTI PEMERIKSAAN SIMILARITAS</h3>
-                <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: {{ $similaritas->SIMILARITAS_NUMBER }} </h4>
+                <h3>BUKTI BEBAS PEMINJAMAN BUKU/KOLEKSI</h3>
+                <h4>PERPUSTAKAAN FAKULTAS {{ $praja['FAKULTAS'] }}</h4>
+                <h4>NOMOR: 000.5.2.4/BPS-FPP.0001/IPDN.21/2023</h4>
             </center>
         </div>
 
@@ -284,69 +235,21 @@
                     <td>:</td>
                     <td>{{ $ponsel->nomor_ponsel }}</td>
                 </tr>
-                <tr>
-                    <td><i>Class Name</i> dan No. Absen</td>
-                    <td>:</td>
-                    <td>
-                        {{ $similaritas->SIMILARITAS_CLASS }} - {{ $similaritas->SIMILARITAS_ABSENT }}
-                    </td>
-                </tr>
             </table>
         </div>
 
         <br />
-        {{-- Table Data Similaritas --}}
-        <div class="container">
-            <table width="100%" class="table">
-                {{-- THEAD --}}
-                <tr class="tr">
-                    <th class="th">TANGGAL UPLOAD</th>
-                    <th class="th">PUKUL</th>
-                    <th class="th">EXCLUDE</th>
-                    <th class="th">SIMILARITAS</th>
-                </tr>
 
-                {{-- TBODY --}}
-                <tr>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $tanggal }}</h3>
-                    </th>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $waktu }}</h3>
-                    </th>
-                    <td class="td">
-                        <input type="checkbox" {{ $bibliografi }} /> &nbsp;
-                        DATA BIBLIOGRAFI
-                    </td>
-                    <th class="th" rowspan="3">
-                        <h3>{{ $similaritas->SIMILARITAS_VALUE }} %</h3>
-                    </th>
-                </tr>
-
-                <tr class="tr">
-                    <td
-                        style="
-                                line-height: 5%;
-                                display: inline-block;
-                                vertical-align: middle;
-                            ">
-                        <input type="checkbox" {{ $smallWord }} /> &nbsp;
-                        <label for="smallWord"> SMALL WORD</label> &nbsp;
-                        <b>( {{ $similaritas->SIMILARITAS_SMALL_WORD_COUNT }}
-                            )</b>
-                    </td>
-                </tr>
-                <tr class="tr">
-                    <td class="td">
-                        <input type="checkbox" {{ $quote }} /> &nbsp; QUOTE
-                        MATERIALS
-                    </td>
-                </tr>
-            </table>
-        </div>
+        {{-- Table Data Pinjaman --}}
+        <p class="container" style="text-indent: 5px">
+            Tidak mempunyai tanggungan peminjaman buku/ koleksi di Perpustakaan Pusat IPDN Jatinangor.
+            Bukti ini merupakan salah satu syarat mengikuti Sidang Akhir Skripsi (Sidang Komprehensif), yang
+            kemudian sebagai dasar diterbitkannya Surat Keterangan Bebas Pustaka. Demikian untuk dapat
+            dipergunakan sebagaimana mestinya.
+        </p>
 
         {{-- Table Tanda tangan --}}
-        <div class="container" style="margin-top: 5px">
+        <div class="container" style="margin-top: 50px">
             <table width="100%">
                 <tr>
                     <td width="40%">&nbsp;</td>
@@ -362,24 +265,21 @@
                 </tr>
                 <tr>
                     <td>
-
-                        <div style="position: absolute; bottom: 20px;">
+                        <div style="position: absolute; bottom: 70px;">
                             {{ $praja['NAMA'] }} <br />
                             <hr style="width:200px;text-align:left;margin-left:0" />
                             <b>NPP: {{ $praja['NPP'] }}</b>
                         </div>
                     </td>
-                    <td>
-                        &nbsp;
-                    </td>
+                    <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $similaritas->user->sign }}"
-                                alt="{{ $similaritas->user->name }}" width="50%" />
+                            <img src="tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
+                                width="50%" />
                         </div>
 
-                        <div style="position: absolute; bottom: 30px;">
-                            {{ $similaritas->user->name }}
+                        <div style="position: absolute; bottom: 80px;">
+                            {{ $pinjaman->user->name }}
                             <hr style="width:200px;text-align:left;margin-left:0" />
                         </div>
                     </td>
