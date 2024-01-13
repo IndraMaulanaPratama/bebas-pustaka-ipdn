@@ -62,8 +62,9 @@ class Update extends Component
     public function updateData()
     {
         try {
-            $photoName = $this->fileName($this->photo);
-            $signName = $this->fileName($this->sign);
+            $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
+            $this->photo != null ? $timestamp . '-' . $this->photo->getClientOriginalName() : null;
+            $this->sign != null ? $timestamp . '-' . $this->sign->getClientOriginalName() : null;
             // null != $this->photo ? $photoName = Carbon::now()->timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = null;
             // null != $this->sign ? $signName = Carbon::now()->timestamp . '-' . $this->sign->getClientOriginalName() : $signName = null;
 
@@ -71,8 +72,8 @@ class Update extends Component
             $data = [
                 'name' => $this->name,
                 'email' => $this->email,
-                'photo' => str_replace(" ", "", $photoName),
-                'sign' => str_replace(" ", "", $signName),
+                'photo' => str_replace(" ", "", $this->photo),
+                'sign' => str_replace(" ", "", $this->sign),
                 'user_role' => $this->role,
             ];
 
@@ -87,8 +88,8 @@ class Update extends Component
             }
 
             // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
-            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $photoName), 'public') : null;
-            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
+            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $this->photo), 'public') : null;
+            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $this->sign), 'public') : null;
 
             User::where('id', $this->id)->update($data);
             $this->dispatch('user-updated', 'Data ' . $data['name'] . ' berhasil diperbaharui');
