@@ -2,14 +2,11 @@
 
 namespace App\Livewire\Admin\Similaritas;
 
-use App\Http\Controllers\SimilaritasController;
 use App\Models\Akses;
 use App\Models\Menu;
-use App\Models\pivotMenu;
 use App\Models\Similaritas;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Dompdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -158,9 +155,9 @@ class Table extends Component
         $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SIMILARITAS_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        // dd($data);
         $dokumen = view("pdf.similaritas.bukti-pemeriksaan", [
             'similaritas' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
         ])->render();
