@@ -67,8 +67,8 @@ class Update extends Component
             $sign = null;
 
             $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
-            $this->photo != null ? $photo = $timestamp . '-' . $this->photo->getClientOriginalName() : null;
-            $this->sign != null ? $sign = $timestamp . '-' . $this->sign->getClientOriginalName() : null;
+            $this->photo != null ? $photo = $timestamp . '-' . str_replace(" ", "", $this->photo->getClientOriginalName()) : null;
+            $this->sign != null ? $sign = $timestamp . '-' . str_replace(" ", "", $this->sign->getClientOriginalName()) : null;
 
             // null != $this->photo ? $photoName = Carbon::now()->timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = null;
             // null != $this->sign ? $signName = Carbon::now()->timestamp . '-' . $this->sign->getClientOriginalName() : $signName = null;
