@@ -61,10 +61,15 @@ class Update extends Component
     // Fungsi kanggo ngarobih data user dumasar kana form anu tos dirobih
     public function updateData()
     {
+
         try {
+            $photo = null;
+            $sign = null;
+
             $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
-            $this->photo != null ? $timestamp . '-' . $this->photo->getClientOriginalName() : null;
-            $this->sign != null ? $timestamp . '-' . $this->sign->getClientOriginalName() : null;
+            $this->photo != null ? $photo = $timestamp . '-' . $this->photo->getClientOriginalName() : null;
+            $this->sign != null ? $sign = $timestamp . '-' . $this->sign->getClientOriginalName() : null;
+
             // null != $this->photo ? $photoName = Carbon::now()->timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = null;
             // null != $this->sign ? $signName = Carbon::now()->timestamp . '-' . $this->sign->getClientOriginalName() : $signName = null;
 
@@ -72,8 +77,8 @@ class Update extends Component
             $data = [
                 'name' => $this->name,
                 'email' => $this->email,
-                'photo' => str_replace(" ", "", $this->photo),
-                'sign' => str_replace(" ", "", $this->sign),
+                'photo' => $photo,
+                'sign' => $sign,
                 'user_role' => $this->role,
             ];
 
