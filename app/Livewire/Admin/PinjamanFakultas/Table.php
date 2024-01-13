@@ -156,7 +156,6 @@ class Table extends Component
 
         $dokumen = view("pdf.pinjaman-fakultas.bukti-pemeriksaan", [
             'pinjaman' => $data,
-            'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
         ])->render();
