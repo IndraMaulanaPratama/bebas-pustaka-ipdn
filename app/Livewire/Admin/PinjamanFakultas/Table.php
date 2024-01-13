@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\PinjamanFakultas;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -100,10 +101,37 @@ class Table extends Component
 
 
 
+    public function generateNomorSurat($npp)
+    {
+
+        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $dataPraja = $detailPraja["data"][0];
+
+        if ($dataPraja['FAKULTAS'] == "POLITIK PEMERINTAHAN") {
+            $fakultas = "FPP";
+        } elseif ($dataPraja['FAKULTAS'] == "MANAJEMEN PEMERINTAHAN") {
+            $fakultas = "FMP";
+        } elseif ($dataPraja['FAKULTAS'] == "PERLINDUNGAN MASYARAKAT") {
+            $fakultas = "FPM";
+        }
+
+        $jumlahData = PinjamanFakultas::whereNotNull('FAKULTAS_APPROVED')->count();
+        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
+        return "000.5.6.2/BBPB-" . $fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
+    }
+
+
+
+
     public function approveData($id)
     {
+        $pinjaman = PinjamanFakultas::where("FAKULTAS_ID", $id)->first();
+        $nomorSurat = $this->generateNomorSurat($pinjaman->FAKULTAS_PRAJA);
+
         try {
             $data = [
+                'FAKULTAS_NUMBER' => $nomorSurat,
                 'FAKULTAS_OFFICER' => Auth::user()->id,
                 'FAKULTAS_STATUS' => "Disetujui",
                 'FAKULTAS_NOTES' => null,
@@ -116,6 +144,34 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    public function printApprooved($id)
+    {
+        $data = PinjamanFakultas::where('FAKULTAS_ID', $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->FAKULTAS_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        $dokumen = view("pdf.pinjaman-fakultas.bukti-pemeriksaan", [
+            'pinjaman' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print($pdf);
+            },
+            'PINJAMAN_FAKULTAS-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
