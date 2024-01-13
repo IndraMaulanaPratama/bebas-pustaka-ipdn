@@ -93,8 +93,8 @@ class Update extends Component
             }
 
             // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
-            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $this->photo), 'public') : null;
-            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $this->sign), 'public') : null;
+            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $photo), 'public') : null;
+            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $sign), 'public') : null;
 
             User::where('id', $this->id)->update($data);
             $this->dispatch('user-updated', 'Data ' . $data['name'] . ' berhasil diperbaharui');
