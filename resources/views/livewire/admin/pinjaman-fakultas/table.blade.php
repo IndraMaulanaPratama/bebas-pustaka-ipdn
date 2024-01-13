@@ -128,7 +128,7 @@
                                 <td {{ $buttonPrint }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
-                                        wire:confirm='Cetak Pengajuan Similaritas {{ $item->FAKULTAS_PRAJA }} ?'
+                                        wire:confirm='Cetak Pengajuan Pinjaman Fakultas {{ $item->FAKULTAS_PRAJA }} ?'
                                         wire:click='printApprooved("{{ $item->FAKULTAS_ID }}")'>
                                         <i class="bi bi-printer-fill"></i>
                                     </button>
