@@ -5,7 +5,9 @@ namespace App\Livewire\Admin\BebasPustaka;
 use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\Menu;
+use App\Models\SettingApps;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +110,35 @@ class Table extends Component
     public function resetForm()
     {
         $this->reset();
+    }
+
+
+
+
+    public function printApprooved($id)
+    {
+        $data = BebasPustaka::where('BEBAS_ID', $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->FAKULTAS_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+        $kepalaUnit = SettingApps::first();
+
+        $dokumen = view("pdf.skbp.skbp", [
+            'skbp' => $data,
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+            'kepalaUnit' => $kepalaUnit,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print($pdf);
+            },
+            'SKBP-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
     }
 
 
