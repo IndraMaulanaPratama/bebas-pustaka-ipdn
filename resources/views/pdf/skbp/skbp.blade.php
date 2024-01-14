@@ -62,7 +62,7 @@
             <table width='100%'>
                 <tr>
                     <th>
-                        <img src="foto_pegawai/defaultPhoto.png" alt="Logo ipdn" width="90px" />
+                        <img src="foto_pegawai/logo-ipdn.jpg" alt="Logo ipdn" width="90px" />
                     </th>
 
                     <td>
