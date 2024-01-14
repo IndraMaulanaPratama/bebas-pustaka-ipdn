@@ -101,10 +101,37 @@ class Table extends Component
 
 
 
+    public function generateNomorSurat($npp)
+    {
+
+        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $dataPraja = $detailPraja["data"][0];
+
+        if ($dataPraja['FAKULTAS'] == "POLITIK PEMERINTAHAN") {
+            $fakultas = "FPP";
+        } elseif ($dataPraja['FAKULTAS'] == "MANAJEMEN PEMERINTAHAN") {
+            $fakultas = "FMP";
+        } elseif ($dataPraja['FAKULTAS'] == "PERLINDUNGAN MASYARAKAT") {
+            $fakultas = "FPM";
+        }
+
+        $jumlahData = PinjamanPustaka::whereNotNull('PUSTAKA_APPROVED')->count();
+        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
+        return "000.5.6.2/BBPB-" . $fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
+    }
+
+
+
+
     public function approveData($id)
     {
+        $pinjaman = PinjamanPustaka::where("PUSTAKA_ID", $id)->first();
+        $nomorSurat = $this->generateNomorSurat($pinjaman->PUSTAKA_PRAJA);
+
         try {
             $data = [
+                'PUSTAKA_NUMBER' => $nomorSurat,
                 'PUSTAKA_OFFICER' => Auth::user()->id,
                 'PUSTAKA_STATUS' => "Disetujui",
                 'PUSTAKA_NOTES' => null,
@@ -121,33 +148,15 @@ class Table extends Component
 
 
 
-    public function generateNomorSurat($fakultas)
-    {
-        if ($fakultas == "POLITIK PEMERINTAHAN") {
-            $fakultas = "FPP";
-        } elseif ($fakultas == "MANAJEMEN PEMERINTAHAN") {
-            $fakultas = "FMP";
-        } elseif ($fakultas == "PERLINDUNGAN MASYARAKAT") {
-            $fakultas = "FPM";
-        }
-
-        $jumlahData = PinjamanPustaka::whereNotNull('PUSTAKA_APPROVED')->count();
-        $nomor = sprintf("%04s", abs($jumlahData + 1));
-        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
-        return "000.5.2.4/BPS-" . $fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
-    }
-
-
     public function printApprooved($id)
     {
-        $data = PinjamanPustaka::where("PUSTAKA_ID", $id)->first();
-        $this->detailPraja($data->PUSTAKA_PRAJA);
+        $data = PinjamanPustaka::where('PUSTAKA_ID', $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->PUSTAKA_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        $ponsel = User::where("email", $this->prajaEmail)->first('nomor_ponsel');
-
-        $dokumen = view("pdf.similaritas.bukti-pemeriksaan", [
-            'similaritas' => $data,
-            'praja' => $this->dataPraja,
+        $dokumen = view("pdf.pinjaman-pustaka.bukti-pemeriksaan", [
+            'pinjaman' => $data,
+            'praja' => $dataPraja,
             'ponsel' => $ponsel,
         ])->render();
 
@@ -158,7 +167,7 @@ class Table extends Component
             function () use ($pdf) {
                 print($pdf);
             },
-            'PINJAMAN_PUSTAKA-' . $this->dataPraja['NAMA'] . '.pdf',
+            'PINJAMAN_PUSTAKA-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
         );
 
