@@ -81,7 +81,7 @@
             <center>
                 <h3>BUKTI BEBAS PEMINJAMAN BUKU/KOLEKSI</h3>
                 <h4>PERPUSTAKAAN FAKULTAS {{ $praja['FAKULTAS'] }}</h4>
-                <h4>NOMOR: 000.5.2.4/BPS-FPP.0001/IPDN.21/2023</h4>
+                <h4>NOMOR: {{ $pinjaman->FAKULTAS_NUMBER }}</h4>
             </center>
         </div>
 
@@ -201,7 +201,7 @@
             <center>
                 <h3>BUKTI BEBAS PEMINJAMAN BUKU/KOLEKSI</h3>
                 <h4>PERPUSTAKAAN FAKULTAS {{ $praja['FAKULTAS'] }}</h4>
-                <h4>NOMOR: 000.5.2.4/BPS-FPP.0001/IPDN.21/2023</h4>
+                <h4>NOMOR: {{ $pinjaman->FAKULTAS_NUMBER }}</h4>
             </center>
         </div>
 
