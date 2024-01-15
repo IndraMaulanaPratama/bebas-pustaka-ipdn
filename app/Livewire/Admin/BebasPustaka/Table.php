@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -139,6 +140,13 @@ class Table extends Component
             'SKBP-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
         );
+    }
+
+
+
+    public function exportData()
+    {
+        return Excel::download(new \App\Exports\BebasPustaka, 'Bebas-pustaka.xlsx');
     }
 
 

@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Admin\SkripsiFakultas;
 
+use App\Exports\SkripsiHardcopyFakultas;
 use App\Models\Akses;
 use App\Models\Menu;
-use App\Models\Repository;
 use App\Models\SkripsiFakultas;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -112,6 +113,14 @@ class Table extends Component
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
     }
+
+
+
+    public function exportData()
+    {
+        return Excel::download(new SkripsiHardcopyFakultas, 'Skripsi-hardcopy-fakultas.xlsx');
+    }
+
 
 
 

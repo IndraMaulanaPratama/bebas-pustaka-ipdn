@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\SkripsiPerpustakaan;
 
+use App\Exports\SkripsiHardcopyPerpustakaan;
 use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\SkripsiPerpustakaan;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -120,6 +122,14 @@ class Table extends Component
         $data = SkripsiPerpustakaan::where('SKRIPSI_ID', $id)->first();
         $this->dispatch('data-selected', $data);
     }
+
+
+
+    public function exportData()
+    {
+        return Excel::download(new SkripsiHardcopyPerpustakaan, 'Skripsi-hardcopy-perpustakaan.xlsx');
+    }
+
 
 
 

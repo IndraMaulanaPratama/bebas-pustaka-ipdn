@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -111,6 +112,13 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    public function exportData()
+    {
+        return Excel::download(new \App\Exports\DonasiFakuktas, 'Donasi-fakultas.xlsx');
     }
 
 

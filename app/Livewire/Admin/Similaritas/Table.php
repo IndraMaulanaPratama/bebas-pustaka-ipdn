@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -112,41 +113,9 @@ class Table extends Component
 
     public function exportData()
     {
-
-        $data = Similaritas::
-            when(
-                // <!-- Pilari data pengajuan dumasar kana status
-                $this->sortStatus,
-                function ($query, $status) {
-                    return $query->where("SIMILARITAS_STATUS", $status);
-                }
-            )
-            ->when(
-                // <!-- Pilari data pengajuan dumasar kana fakultas
-                $this->sortFakultas,
-                function ($query, $fakultas) {
-                    return $query->where("SIMILARITAS_NUMBER", "LIKE", '%' . $fakultas . '%');
-                }
-            )
-            ->when(
-                // <!-- Pilari data pengajuan dumasar kana npp
-                $this->search,
-                function ($query, $npp) {
-                    return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
-                }
-            )
-            ->get();
-
-        // dd($data);
-
-        $pdf = Pdf::loadView("pdf.similaritas.export-data", ['similaritas' => $data])->output();
-        // return $pdf->stream('filename.pdf');
-
-        return response()->stream(
-            fn() => print($pdf),
-            "SIMILARITAS-" . Auth::user()->name . ".pdf"
-        );
+        return Excel::download(new \App\Exports\Similaritas, 'Similaritas.xlsx');
     }
+
 
     public function printApprooved($id)
     {
