@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\PivotSkripsi;
 use App\Models\SkripsiSoftcopy;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -112,6 +113,34 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    public function printApprooved($id)
+    {
+        $data = PivotSkripsi::where('PIVOT_SOFTCOPY', $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->PIVOT_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+
+        $dokumen = view("pdf.penyerahan-skripsi .bukti-pemeriksaan", [
+            'data' => $data,
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print($pdf);
+            },
+            'PENYERAHAN_SKRIPSI-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
