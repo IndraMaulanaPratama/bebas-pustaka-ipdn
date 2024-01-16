@@ -47,9 +47,9 @@ Route::middleware(['auth', 'access'])->group(function () {
 
 
     // --- *** Officer Area *** --- //
-    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
-    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
-    Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Fitur Print dan export
+    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas'); // TODO:: Export Excel
+    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan'); // TODO:: Export Excel
+    Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Export Excel
     Route::get('/donasi-buku-perpustakaan', DonasiPustaka::class)->name('admin-donasi.perpustakaan');
     Route::get('/donasi-buku-fakultas', DonasiFakultas::class)->name('admin-donasi.fakultas');
     Route::get('/donasi-buku-elektronik', DonasiElektronik::class)->name('admin-donasi.elektronik');
@@ -58,16 +58,16 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/unggah-repository', UnggahRepository::class)->name('admin-unggah.repository');
     Route::get('/hard-copy-fakultas', SkripsiFakultas::class)->name('admin-hard.fakultas');
     Route::get('/hard-copy-perpustakaan', SkripsiPerpustakaan::class)->name('admin-hard.perpustakaan');
-    Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi');
+    Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi'); // TODO:: Export Excel
+    Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export Excel
     //
 
-    Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export SKBP
 
     // -- *** Admin Area --- //
     Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
-    Route::get('/role', Role::class)->name('role-manajemen');
     Route::get('/assign', Assign::class)->name('assign-manajemen');
+    Route::get('/role', Role::class)->name('role-manajemen');
     Route::get('/setting', PengaturanApplikasi::class)->name('settings-web');
 
     Route::get('/pengaturan/data-kepala-unit', KepalaUnit::class)->name('pengaturan-kepala.unit');

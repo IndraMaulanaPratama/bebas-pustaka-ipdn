@@ -49,8 +49,9 @@ class PembatasanAksesMenu
 
         $menuAdmin = collect(
             [
-                'assign-manajemen',
+                '',
                 'user-manajemen',
+                'assign-manajemen',
                 'menu',
                 'role-manajemen',
                 'settings-web',
