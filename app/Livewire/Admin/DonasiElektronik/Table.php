@@ -146,28 +146,28 @@ class Table extends Component
                 // <!-- Pilari data pengajuan dumasar kana status
                 $this->sortStatus,
                 function ($query, $status) {
-                    return $query->where("FAKULTAS_STATUS", $status);
+                    return $query->where("ELEKTRONIK_STATUS", $status);
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("FAKULTAS_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("ELEKTRONIK_NUMBER", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->search,
                 function ($query, $npp) {
-                    return $query->where("FAKULTAS_PRAJA", "LIKE", $npp . "%");
+                    return $query->where("ELEKTRONIK_PRAJA", "LIKE", $npp . "%");
                 }
             )
             ->when(
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->angkatan,
                 function ($query, $angkatan) {
-                    return $query->where("FAKULTAS_PRAJA", "LIKE", $angkatan . "%");
+                    return $query->where("ELEKTRONIK_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
             ->latest()

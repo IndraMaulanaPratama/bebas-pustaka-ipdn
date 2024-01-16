@@ -67,6 +67,7 @@ class Table extends Component
     }
 
 
+
     public function detailPraja($npp)
     {
         $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
