@@ -152,7 +152,7 @@ class Table extends Component
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("PUSTAKA_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("PUSTAKA_FAKULTAS", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
@@ -163,7 +163,7 @@ class Table extends Component
                 }
             )
             ->when(
-                // <!-- Pilari data pengajuan dumasar kana npp
+                // <!-- Pilari data pengajuan dumasar kana angkatan
                 $this->angkatan,
                 function ($query, $angkatan) {
                     return $query->where("PUSTAKA_PRAJA", "LIKE", $angkatan . "%");
