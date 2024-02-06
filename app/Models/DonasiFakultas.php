@@ -22,6 +22,7 @@ class DonasiFakultas extends Model
     protected $fillable = [
         'FAKULTAS_ID',
         'FAKULTAS_PRAJA',
+        'FAKULTAS_FAKULTAS',
         'FAKULTAS_OFFICER',
         'FAKULTAS_STATUS',
         'FAKULTAS_APPROVED',
