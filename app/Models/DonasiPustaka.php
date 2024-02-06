@@ -22,6 +22,7 @@ class DonasiPustaka extends Model
 
     protected $fillable = [
         'PUSTAKA_ID',
+        'PUSTAKA_FAKULTAS',
         'PUSTAKA_PRAJA',
         'PUSTAKA_OFFICER',
         'PUSTAKA_STATUS',
