@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('DONASI_PUSTAKA', function (Blueprint $table) {
             $table->string('PUSTAKA_ID', 36)->primary()->comment('Primary Key untuk table donasi buku fakultas');
+            $table->string('PUSTAKA_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->string('PUSTAKA_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->unsignedBigInteger('PUSTAKA_OFFICER');
             $table->enum('PUSTAKA_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
