@@ -20,6 +20,7 @@ class KontenLiterasi extends Model
         'KONTEN_ID',
         'KONTEN_URL',
         'KONTEN_PRAJA',
+        'KONTEN_FAKULTAS',
         'KONTEN_OFFICER',
         'KONTEN_STATUS',
         'KONTEN_APPROVED',
