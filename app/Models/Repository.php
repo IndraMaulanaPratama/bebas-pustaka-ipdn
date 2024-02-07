@@ -20,6 +20,7 @@ class Repository extends Model
         'REPOSITORY_ID',
         'REPOSITORY_URL',
         'REPOSITORY_PRAJA',
+        'REPOSITORY_FAKULTAS',
         'REPOSITORY_OFFICER',
         'REPOSITORY_STATUS',
         'REPOSITORY_APPROVED',
