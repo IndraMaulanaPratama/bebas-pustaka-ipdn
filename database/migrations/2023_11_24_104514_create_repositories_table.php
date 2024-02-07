@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('REPOSITORY_ID', 36)->primary()->comment('Primary Key untuk table repository');
             $table->text('REPOSITORY_URL')->comment('Url repository dari eprints');
             $table->string('REPOSITORY_PRAJA', 8)->comment('Foreign Key ke data praja');
+            $table->string('REPOSITORY_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('REPOSITORY_OFFICER');
             $table->enum('REPOSITORY_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
             $table->string('REPOSITORY_APPROVED')->nullable()->comment('Tanggal Approve');
