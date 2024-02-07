@@ -20,6 +20,7 @@ class SkripsiPerpustakaan extends Model
     protected $fillable = [
         'SKRIPSI_ID',
         'SKRIPSI_PRAJA',
+        'SKRIPSI_FAKULTAS',
         'SKRIPSI_OFFICER',
         'SKRIPSI_STATUS',
         'SKRIPSI_APPROVED',
