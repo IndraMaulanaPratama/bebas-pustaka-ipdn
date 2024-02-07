@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('SKRIPSI_FAKULTAS', function (Blueprint $table) {
             $table->string('SKRIPSI_ID', 36)->primary()->comment('Primary Key untuk table hard copy skripsi fakultas');
             $table->string('SKRIPSI_PRAJA', 8)->comment('Foreign Key ke data praja');
+            $table->string('SKRIPSI_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('SKRIPSI_OFFICER');
             $table->enum('SKRIPSI_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
             $table->string('SKRIPSI_APPROVED')->nullable()->comment('Tanggal Approve');
