@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('SURVEY', function (Blueprint $table) {
             $table->string("SURVEY_ID", 36)->primary()->comment("Primary Key untuk table survey");
             $table->string('SURVEY_PRAJA', 8)->comment('Foreign Key ke data praja');
+            $table->string('SURVEY_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('SURVEY_OFFICER');
             $table->enum('SURVEY_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
             $table->string('SURVEY_APPROVED')->nullable()->comment('Tanggal Approve');
