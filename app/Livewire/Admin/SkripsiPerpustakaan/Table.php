@@ -161,7 +161,7 @@ class Table extends Component
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("SKRIPSI_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("SKRIPSI_FAKULTAS", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
