@@ -69,6 +69,7 @@ class Dashboard extends Component
                 ['created_at', 'like', Date('Y') . '%']
             ])->count();
 
+
         } elseif ('survey' == $table) {
             return Survey::where([
                 ['SURVEY_STATUS', '=', $status],

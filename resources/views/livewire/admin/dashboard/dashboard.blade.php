@@ -361,6 +361,17 @@
 
                             </tr>
 
+                            {{-- Donasi poin Perpustakaan --}}
+                            <tr>
+                                <td>6</td>
+                                <td>Donasi Poin Perpustakaan</td>
+                                <td> {{ number_format($data['proses']['donasi_poin'], 0, 0, '.') }} </td>
+                                <td> {{ number_format($data['disetujui']['donasi_poin'], 0, 0, '.') }} </td>
+                                <td> {{ number_format($data['ditolak']['donasi_poin'], 0, 0, '.') }} </td>
+
+                            </tr>
+
+
                             {{-- Pengisian Survei Praja --}}
                             <tr>
                                 <td>7</td>
