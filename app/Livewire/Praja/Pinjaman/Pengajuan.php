@@ -6,6 +6,7 @@ use App\Models\PinjamanFakultas;
 use App\Models\PinjamanPustaka;
 use App\Models\PivotPinjaman;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -23,15 +24,39 @@ class Pengajuan extends Component
     }
 
 
+    public function generateNomorSurat($npp)
+    {
+
+        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $dataPraja = $detailPraja["data"][0];
+
+        if ($dataPraja['FAKULTAS'] == "POLITIK PEMERINTAHAN") {
+            $fakultas = "FPP";
+        } elseif ($dataPraja['FAKULTAS'] == "MANAJEMEN PEMERINTAHAN") {
+            $fakultas = "FMP";
+        } elseif ($dataPraja['FAKULTAS'] == "PERLINDUNGAN MASYARAKAT") {
+            $fakultas = "FPM";
+        }
+
+        // $jumlahData = PinjamanPustaka::where('SIMILARITAS_APPROVED', "Disetujui")->count();
+        $jumlahData = PinjamanPustaka::whereNotNull('PUSTAKA_APPROVED')->count();
+        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
+        return "000.5.6.2/BBPB-" . $fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
+    }
+
+
 
     public function buatPengajuan()
     {
         try {
             $id = uuid_create(4);
+            $nomorSurat = $this->generateNomorSurat($this->npp);
 
             $data_pustaka = [
                 'PUSTAKA_ID' => $id,
                 'PUSTAKA_PRAJA' => $this->npp,
+                'PUSTAKA_NUMBER' => $nomorSurat,
                 'PUSTAKA_OFFICER' => 1,
                 'PUSTAKA_STATUS' => 'Proses'
             ];
@@ -40,8 +65,8 @@ class Pengajuan extends Component
 
             $data_fakultas = [
                 'FAKULTAS_ID' => $id,
-                'FAKULTAS_NUMBER' => 'number',
                 'FAKULTAS_PRAJA' => $this->npp,
+                'FAKULTAS_NUMBER' => $nomorSurat,
                 'FAKULTAS_OFFICER' => 1,
                 'FAKULTAS_STATUS' => 'Proses'
             ];
