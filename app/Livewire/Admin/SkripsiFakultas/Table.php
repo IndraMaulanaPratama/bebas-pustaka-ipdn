@@ -6,6 +6,7 @@ use App\Exports\SkripsiHardcopyFakultas;
 use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\SkripsiFakultas;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -160,7 +161,7 @@ class Table extends Component
                 // <!-- Pilari data pengajuan dumasar kana fakultas
                 $this->sortFakultas,
                 function ($query, $fakultas) {
-                    return $query->where("SKRIPSI_NUMBER", "LIKE", '%' . $fakultas . '%');
+                    return $query->where("SKRIPSI_FAKULTAS", "LIKE", '%' . $fakultas . '%');
                 }
             )
             ->when(
