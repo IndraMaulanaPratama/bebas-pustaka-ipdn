@@ -33,7 +33,7 @@
                 </li>
 
                 <li>
-                    <p>Buatkan konten yang bertemakan <b><i>Daily life as Praja IPDN</i></b></p>
+                    <p><i>Daily life as Praja IPDN</i></p>
                 </li>
             </ol>
 
