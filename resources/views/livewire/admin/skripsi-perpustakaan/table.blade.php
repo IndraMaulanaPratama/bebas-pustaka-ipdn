@@ -10,7 +10,7 @@
             <div class="row d-flex bd-highlight g-4">
 
                 {{-- Button Export Data --}}
-                <div class="w-auto bd-highlight">
+                <div class="w-auto bd-highlight invisible">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                     </div>

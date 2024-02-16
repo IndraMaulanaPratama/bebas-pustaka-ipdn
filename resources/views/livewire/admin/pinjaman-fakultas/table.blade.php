@@ -6,7 +6,7 @@
             <div class="row justify-content-between g-4">
 
                 {{-- Button Export Data --}}
-                <div class="w-auto">
+                <div class="w-auto invisible">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                     </div>
