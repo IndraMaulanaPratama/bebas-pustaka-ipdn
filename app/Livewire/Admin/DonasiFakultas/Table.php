@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
+
+    use WithPagination;
 
     public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessDetail;
     public $sortStatus, $sortFakultas, $angkatan, $search;

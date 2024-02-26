@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
+
+    use WithPagination;
 
     public $inputUrl;
     public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate;
