@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\BebasPustaka\Selesai;
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\BebasPustaka;
 use App\Livewire\Page\Admin\DonasiElektronik;
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/hard-copy-perpustakaan', SkripsiPerpustakaan::class)->name('admin-hard.perpustakaan');
     Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi'); // TODO:: Export Excel
     Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export Excel
+    Route::get('/bebas-pustaka/selesai', Selesai::class)->name('admin-pustaka.selesai'); // TODO:: Export Excel
     //
 
 
