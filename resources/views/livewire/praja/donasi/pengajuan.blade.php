@@ -54,9 +54,11 @@
             <b>Pengajuan</b>
 
             <p>
-                silahkan klik tombol <button wire:confirm='Anda yakin akan membuat pengajuan donasi perpustakaan?'
-                    wire:click='buatPengajuan' class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat Pengajuan
-                </button> untuk melakukan pengajuan pemeriksaan donasi perpustakaan
+                silahkan klik tombol <button type="button" class="btn btn-outline-primary btn-sm {{ $buttonCreate }}"
+                    data-bs-toggle="modal" data-bs-target="#formPengajuan">
+                    Buat Pengajuan
+                </button>
+                untuk melakukan pengajuan pemeriksaan donasi perpustakaan
             </p>
         </li>
 
