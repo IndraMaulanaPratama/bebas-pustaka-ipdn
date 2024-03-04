@@ -12,8 +12,8 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
-    {{-- Tabs Content Similaritas --}}
-    <div class="row g-4">
+    {{-- Tabs Content Donasi --}}
+    <div class="row g-2">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <x-admin.components.card.card size=12 title='Data Pengajuan' titleSpan='Donasi Perpustakaan'>
 
@@ -36,4 +36,6 @@
         </div>
     </div>
 
+    {{-- Modal Form Pengajuan --}}
+    @livewire('praja.Donasi.form-pengajuan')
 </div>
