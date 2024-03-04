@@ -116,7 +116,7 @@ class FormPengajuan extends Component
 
                 $data_elektronik = [
                     'ELEKTRONIK_ID' => uuid_create(4),
-                    'ELEKTRONIK_ID_PO' => $this->inputOrder,
+                    'ELEKTRONIK_ID_PO' => trim($this->inputOrder),
                     'ELEKTRONIK_NUMBER' => 'number',
                     'ELEKTRONIK_PRAJA' => $this->npp,
                     'ELEKTRONIK_FAKULTAS' => $fakultas,
