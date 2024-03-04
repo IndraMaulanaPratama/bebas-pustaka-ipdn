@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('DONASI_ELEKTRONIK', function (Blueprint $table) {
             $table->string('ELEKTRONIK_ID', 36)->primary()->comment('Primary Key untuk table donasi buku elektronik');
+            $table->string('ELEKTRONIK_ID_PO', 25)->comment('ID Purches Order dari pihak ke 3');
             $table->string('ELEKTRONIK_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->string('ELEKTRONIK_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('ELEKTRONIK_OFFICER');
