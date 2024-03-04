@@ -57,6 +57,7 @@
                             <th scope="row">#</th>
                             <th>Status</th>
                             <th style="min-width: 2cm">NPP</th>
+                            <th style="min-width: 5cm">ID Purches Order</th>
                             <th style="min-width: 10cm">Keterangan</th>
                             <th style="min-width: 6cm">Petugas</th>
                             <th style="min-width: 5cm">Tanggal Validasi</th>
@@ -102,6 +103,7 @@
                                     </button>
                                 </td>
 
+                                <td> {{ $item->ELEKTRONIK_ID_PO }} </td>
                                 <td> {{ $item->ELEKTRONIK_NOTES }} </td>
                                 <td> {{ $item->ELEKTRONIK_OFFICER === 1 ? null : $item->user->name }} </td>
                                 <td> {{ $item->ELEKTRONIK_APPROVED }} </td>
