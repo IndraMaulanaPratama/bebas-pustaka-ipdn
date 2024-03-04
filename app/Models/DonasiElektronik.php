@@ -21,6 +21,7 @@ class DonasiElektronik extends Model
 
     protected $fillable = [
         'ELEKTRONIK_ID',
+        'ELEKTRONIK_ID_PO',
         'ELEKTRONIK_PRAJA',
         'ELEKTRONIK_FAKULTAS',
         'ELEKTRONIK_OFFICER',
