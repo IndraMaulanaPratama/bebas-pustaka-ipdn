@@ -31,11 +31,6 @@
                     <td>{{ $praja->PROGRAM_STUDI }}</td>
                 </tr>
                 <tr>
-                    <td>Nomor Ponsel</td>
-                    <td>:</td>
-                    <td>{{ Auth::user()->nomor_ponsel }}</td>
-                </tr>
-                <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>
@@ -68,7 +63,7 @@
                             <td>Petugas</td>
                             <td>:</td>
                             <td class="col-11">
-                                {{ $data != null && $data->donasi_pustaka->PUSTAKA_OFFICER != 1 ? $data->donasi_pustaka->user->name : '-'}}
+                                {{ $data != null && $data->donasi_pustaka->PUSTAKA_OFFICER != 1 ? $data->donasi_pustaka->user->name : '-' }}
                             </td>
                         </tr>
                         <tr>
@@ -154,7 +149,7 @@
             </x-admin.components.card.card>
         </div>
 
-        {{-- Pengajuan donasi fakultas --}}
+        {{-- Pengajuan donasi elektronik --}}
         <div class="col-lg-6 col-md-12 col-sm-12 collapse multi-collapse" id="multiCollapseExample3">
             <x-admin.components.card.card small=12 medium=12 size=12 title='Donasi Poin Perpustakaan Pusat'>
 
@@ -191,16 +186,45 @@
                         </tr>
                     </table>
 
-                    <button wire:confirm='Anda yakin akan membuat pengajuan ulang?'
-                        wire:click='resendPengajuan("elektronik")' class="btn btn-sm btn-outline-secondary"
-                        {{ $buttonResendElektronik }}>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" {{ $buttonResendElektronik }}
+                        data-bs-toggle="modal" data-bs-target="#formPengajuanUlang">
                         Ajukan Ulang
                     </button>
-
                 </div>
 
             </x-admin.components.card.card>
         </div>
 
     </div>
+
+
+    <x-admin.components.modal.modal id='formPengajuanUlang'>
+        <x-admin.components.modal.header id='formPengajuanUlang' title="Formulir Pengajuan Donasi Perpustakaan" />
+
+        <div class="modal-body">
+            <form wire:submit='createPengajuanUlang'>
+                <div class="row g-4">
+
+                    <x-admin.components.form.input type="hidden" name='inputID' placeholder='Id Pengajuan' />
+                    <x-admin.components.form.input name='inputOrder' placeholder='Nomor Purches Order (PO) Donasi Poin' />
+
+
+                    {{-- Tombol Reset sareng Submit --}}
+                    <div class="modal-footer">
+                        {{-- Tombol Reset / Cancel --}}
+                        <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">
+                            Batalkan Sayang
+                        </button>
+
+                        {{-- Tombol Simpan / Submit --}}
+                        <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </x-admin.components.modal.modal>
+
 </div>
