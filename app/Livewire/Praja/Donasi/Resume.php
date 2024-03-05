@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Resume extends Component
 {
-    public $praja, $npp, $dataDonasi;
+    public $praja, $npp, $dataDonasi, $inputOrder, $inputID;
 
     public $buttonResendPustaka = 'hidden',
     $buttonResendFakultas = 'hidden',
@@ -28,6 +28,13 @@ class Resume extends Component
 
 
 
+    public function resetForm()
+    {
+        $this->reset();
+    }
+
+
+
     public function resendPengajuan($table)
     {
         try {
@@ -35,14 +42,37 @@ class Resume extends Component
                 DonasiFakultas::where('FAKULTAS_PRAJA', $this->npp)->update(['FAKULTAS_STATUS' => 'Proses']);
             } elseif ('pustaka' == $table) {
                 DonasiPustaka::where('PUSTAKA_PRAJA', $this->npp)->update(['PUSTAKA_STATUS' => 'Proses']);
-            } elseif ('elektronik' == $table) {
-                DonasiElektronik::where('ELEKTRONIK_PRAJA', $this->npp)->update(['ELEKTRONIK_STATUS' => 'Proses']);
             }
 
             $this->dispatch("data-updated", "Pengajuan donasi perpustakaan anda berhasil diajukan ulang");
         } catch (\Throwable $th) {
             $this->dispatch("failed-creating-data", $th->getMessage());
         }
+    }
+
+
+
+
+    // Pengajuan ulang donasi poin
+    public function createPengajuanUlang()
+    {
+        if (null != $this->inputOrder):
+            try {
+                $data = [
+                    'ELEKTRONIK_STATUS' => 'Proses',
+                    'ELEKTRONIK_ID_PO' => trim($this->inputOrder),
+                ];
+
+                DonasiElektronik::where('ELEKTRONIK_ID', $this->inputID)->update($data);
+
+                $this->dispatch("data-updated", "Pengajuan donasi perpustakaan anda berhasil diajukan ulang");
+            } catch (\Throwable $th) {
+                $this->dispatch("failed-creating-data", $th->getMessage());
+            }
+
+        else:
+            $this->dispatch("failed-creating-data", 'Data ID Purchase Order (PO) tidak boleh dikosongkan');
+        endif;
     }
 
 
@@ -64,6 +94,7 @@ class Resume extends Component
         $this->dataDonasi = PivotDonasi::where('PIVOT_PRAJA', $this->npp)->first();
 
         if ($this->dataDonasi != null) {
+            $this->inputID = $this->dataDonasi->donasi_elektronik->ELEKTRONIK_ID;
             $this->buttonResendPustaka = $this->dataDonasi->donasi_pustaka->PUSTAKA_STATUS != 'Ditolak' ? 'hidden' : null;
             $this->buttonResendFakultas = $this->dataDonasi->donasi_fakultas->FAKULTAS_STATUS != 'Ditolak' ? 'hidden' : null;
             $this->buttonResendElektronik = $this->dataDonasi->donasi_elektronik->ELEKTRONIK_STATUS != 'Ditolak' ? 'hidden' : null;
