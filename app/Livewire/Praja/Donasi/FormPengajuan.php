@@ -89,8 +89,17 @@ class FormPengajuan extends Component
     {
         // Validasi formulir bilih teu di eusian ku semah
         if (null != $this->inputOrder):
-            try {
 
+            // Validasi Duplikat Data
+            $checkData = PivotDonasi::where('PIVOT_PRAJA', $this->npp)->count();
+            if (0 != $checkData) {
+                $this->dispatch("failed-creating-data", 'Pengajuan anda sudah tersimpan sebelumnya, harap menunggu proses validasi admin kami');
+                return;
+            }
+
+
+            // Proses Input Data
+            try {
                 $fakultas = $this->fakultasPraja($this->npp);
 
                 $data_pustaka = [
@@ -138,6 +147,7 @@ class FormPengajuan extends Component
                 PivotDonasi::create($data_pivot);
 
                 $this->buttonCreate = 'disabled';
+                $this->reset();
 
                 $this->dispatch("data-created", "Pengajuan donasi perpustakaan anda berhasil disimpan");
             } catch (\Throwable $th) {
@@ -147,10 +157,8 @@ class FormPengajuan extends Component
         else:
             // Masihan beja error ka semah kusabab form id po teu di eusian
             $this->dispatch("failed-creating-data", 'Nomor Purches Order (PO) harus tidak boleh dikosongkan');
-
+            return;
         endif;
-
-
     }
 
 
@@ -162,7 +170,6 @@ class FormPengajuan extends Component
         $this->praja = User::where("id", Auth::user()->id)->first();
         $this->donasi = PivotDonasi::where('PIVOT_PRAJA', $this->npp)->first();
         $this->buttonCreate = $this->donasi == null ? true : 'disabled';
-
     }
 
 
