@@ -2,12 +2,8 @@
 
 namespace App\Livewire\Praja\Donasi;
 
-use App\Models\DonasiElektronik;
-use App\Models\DonasiFakultas;
-use App\Models\DonasiPustaka;
 use App\Models\PivotDonasi;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -18,6 +14,12 @@ class Pengajuan extends Component
     public $buttonCreate;
 
 
+
+    #[On("data-created")]
+    public function setButtonCreated()
+    {
+        $this->buttonCreate = "disabled";
+    }
 
 
     public function mount()
