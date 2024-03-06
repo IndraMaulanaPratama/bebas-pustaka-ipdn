@@ -17,7 +17,7 @@
                     </button>
 
                     {{-- Tombol Simpan / Submit --}}
-                    <button type="submit" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    <button type="submit" class="btn btn-outline-primary" {{$buttonCreate}} data-bs-dismiss="modal">
                         Simpan
                     </button>
                 </div>
