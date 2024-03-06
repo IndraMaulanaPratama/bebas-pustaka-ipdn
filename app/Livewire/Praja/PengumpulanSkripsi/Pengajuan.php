@@ -15,10 +15,10 @@ class Pengajuan extends Component
 
 
 
-    #[On("data-created"), On("failed-creating-data")]
-    public function placeholder()
+    #[On("data-created")]
+    public function setButtonCreated()
     {
-        return view("components.admin.components.spinner.loading");
+        $this->buttonCreate = "disabled";
     }
 
 
