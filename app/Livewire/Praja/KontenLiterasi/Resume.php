@@ -9,9 +9,10 @@ use Livewire\Component;
 
 class Resume extends Component
 {
-    public $praja, $npp, $konten;
+    public $praja, $npp, $konten, $inputUrl;
 
     public $buttonAjukan = 'hidden', $buttonContent = 'hidden';
+    public $buttonCreate;
 
 
 
@@ -25,14 +26,24 @@ class Resume extends Component
 
     public function pengajuanUlang()
     {
-        try {
+        if (null != $this->inputUrl):
+            try {
+                $data = [
+                    'KONTEN_STATUS' => 'Proses',
+                    'KONTEN_URL' => $this->inputUrl,
+                ];
 
-            KontenLiterasi::where('KONTEN_PRAJA', $this->npp)->update(['KONTEN_STATUS' => 'Proses']);
+                KontenLiterasi::where('KONTEN_PRAJA', $this->npp)->update($data);
 
-            $this->dispatch("data-updated", "Pengajuan tahap konten literasi anda berhasil diajukan ulang");
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-creating-data", $th->getMessage());
-        }
+                $this->dispatch("data-updated", "Pengajuan tahap konten literasi anda berhasil diajukan ulang");
+            } catch (\Throwable $th) {
+                $this->dispatch("failed-creating-data", $th->getMessage());
+            }
+
+        else:
+            $this->dispatch("failed-creating-data", "Data Tautan URL tidak boleh dikosongkan");
+            return;
+        endif;
     }
 
 
@@ -55,6 +66,7 @@ class Resume extends Component
         if ($this->konten != null) {
             $this->buttonAjukan = $this->konten->KONTEN_STATUS != 'Ditolak' ? 'hidden' : null;
             $this->buttonContent = null;
+            $this->konten != null ? $this->buttonCreate = 'hidden' : $this->buttonCreate = true;
         }
 
         return view('livewire.praja.konten-literasi.resume', [
