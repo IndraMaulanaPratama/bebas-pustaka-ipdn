@@ -73,26 +73,31 @@ class Pengajuan extends Component
 
     public function buatPengajuan()
     {
-        try {
-            $fakultas = $this->fakultasPraja($this->npp);
+        if(null != $this->inputUrl) :
+            try {
+                $fakultas = $this->fakultasPraja($this->npp);
 
-            $data = [
-                'KONTEN_ID' => uuid_create(4),
-                'KONTEN_URL' => $this->inputUrl,
-                'KONTEN_PRAJA' => $this->npp,
-                'KONTEN_FAKULTAS' => $fakultas,
-                'KONTEN_OFFICER' => 1,
-                'KONTEN_STATUS' => 'Proses'
-            ];
+                $data = [
+                    'KONTEN_ID' => uuid_create(4),
+                    'KONTEN_URL' => $this->inputUrl,
+                    'KONTEN_PRAJA' => $this->npp,
+                    'KONTEN_FAKULTAS' => $fakultas,
+                    'KONTEN_OFFICER' => 1,
+                    'KONTEN_STATUS' => 'Proses'
+                ];
 
-            KontenLiterasi::create($data);
+                KontenLiterasi::create($data);
 
-            $this->buttonCreate = 'disabled';
+                $this->buttonCreate = 'disabled';
 
-            $this->dispatch("data-created", "Pengajuan tahap konten literasi anda berhasil disimpan");
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-creating-data", $th->getMessage());
-        }
+                $this->dispatch("data-created", "Pengajuan tahap konten literasi anda berhasil disimpan");
+            } catch (\Throwable $th) {
+                $this->dispatch("failed-creating-data", $th->getMessage());
+            }
+        else:
+            $this->dispatch("failed-creating-data", "Data Tautan URL tidak boleh dikosongkan");
+            return;
+        endif;
     }
 
 
