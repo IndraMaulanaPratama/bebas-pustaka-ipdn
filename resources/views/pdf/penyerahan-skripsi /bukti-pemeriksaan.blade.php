@@ -177,7 +177,7 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $data->skripsi_softcopy->user->sign }}"
+                            <img src="storage/tanda_tangan/{{ $data->skripsi_softcopy->user->sign }}"
                                 alt="{{ $data->skripsi_softcopy->user->name }}" width="50%" />
                         </div>
 
@@ -320,7 +320,7 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $data->skripsi_softcopy->user->sign }}"
+                            <img src="storage/tanda_tangan/{{ $data->skripsi_softcopy->user->sign }}"
                                 alt="{{ $data->skripsi_softcopy->user->name }}" width="50%" />
                         </div>
 

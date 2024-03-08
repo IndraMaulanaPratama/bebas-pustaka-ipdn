@@ -203,7 +203,7 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $similaritas->user->sign }}"
+                            <img src="storage/tanda_tangan/{{ $similaritas->user->sign }}"
                                 alt="{{ $similaritas->user->name }}" width="50%" />
                         </div>
 
@@ -374,7 +374,7 @@
                     </td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $similaritas->user->sign }}"
+                            <img src="storage/tanda_tangan/{{ $similaritas->user->sign }}"
                                 alt="{{ $similaritas->user->name }}" width="50%" />
                         </div>
 

@@ -194,7 +194,7 @@
                 <td>&nbsp;</td>
                 <td style="height: 110px;">
                     <div style="position: absolute">
-                        <img src="tanda_tangan/{{ $kepalaUnit->SETTING_HEAD_OFFICE_SIGN }}"
+                        <img src="storage/tanda_tangan/{{ $kepalaUnit->SETTING_HEAD_OFFICE_SIGN }}"
                             alt="{{ $kepalaUnit->SETTING_HEAD_OFFICE_NAME }}" width="50%" />
                     </div>
 

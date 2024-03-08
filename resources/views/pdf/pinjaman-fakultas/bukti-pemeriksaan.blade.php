@@ -154,7 +154,7 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
+                            <img src="storage/tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
                                 width="50%" />
                         </div>
 
@@ -274,7 +274,7 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
+                            <img src="storage/tanda_tangan/{{ $pinjaman->user->sign }}" alt="{{ $pinjaman->user->name }}"
                                 width="50%" />
                         </div>
 
