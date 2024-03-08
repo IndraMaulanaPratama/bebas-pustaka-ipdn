@@ -1,7 +1,7 @@
 {{-- Care about people's approval and you will be their prisoner. --}}
 
 <x-admin.components.modal.modal id='formPengajuan'>
-    <x-admin.components.modal.header id='formPengajuan' title="Formulir Pengajuan Validasi Similaritas" />
+    <x-admin.components.modal.header id='formPengajuan' title="Formulir Pengajuan Pengumpulan Skripsi" />
 
     <div class="modal-body">
         <form wire:submit='buatPengajuan'>
