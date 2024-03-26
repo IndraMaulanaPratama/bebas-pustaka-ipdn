@@ -30,7 +30,7 @@ class Resume extends Component
 
     public function resetForm()
     {
-        $this->reset();
+        $this->inputOrder = null;
     }
 
 

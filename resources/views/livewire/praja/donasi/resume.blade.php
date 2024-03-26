@@ -205,7 +205,7 @@
             <form wire:submit='createPengajuanUlang'>
                 <div class="row g-4">
 
-                    <x-admin.components.form.input type="hidden" name='inputID' placeholder='Id Pengajuan' />
+                    <x-admin.components.form.input type="hidden" name='inputID' placeholder='' />
                     <x-admin.components.form.input name='inputOrder' placeholder='Nomor Purches Order (PO) Donasi Poin' />
 
 
@@ -214,7 +214,7 @@
                         {{-- Tombol Reset / Cancel --}}
                         <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
                             data-bs-dismiss="modal">
-                            Batalkan Sayang
+                            Batalkan
                         </button>
 
                         {{-- Tombol Simpan / Submit --}}
