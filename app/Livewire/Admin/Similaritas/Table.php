@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Similaritas;
 
+use App\Exports\SimilaritasExport;
 use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\Similaritas;
@@ -113,7 +114,15 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\Similaritas, 'Similaritas.xlsx');
+        return (new SimilaritasExport)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forFakultas($this->sortFakultas)
+            ->forSearch($this->search)
+            ->download(
+                'Similaritas.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
     }
 
 
@@ -137,7 +146,7 @@ class Table extends Component
 
         return response()->streamDownload(
             function () use ($pdf) {
-                print($pdf);
+                print ($pdf);
             },
             'SIMILARITAS-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
