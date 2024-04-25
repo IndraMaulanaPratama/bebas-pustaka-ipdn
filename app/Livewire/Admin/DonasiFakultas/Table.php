@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\DonasiFakultas;
 
+use App\Exports\DonasiFakultasExcel;
 use App\Models\Akses;
 use App\Models\DonasiFakultas;
 use App\Models\Menu;
@@ -121,7 +122,16 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\DonasiFakuktas, 'Donasi-fakultas.xlsx');
+        return (new DonasiFakultasExcel)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forSearch($this->search)
+            ->forFakultas($this->sortFakultas)
+            ->download(
+                'Donasi_Fakultas_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
+
     }
 
 
@@ -134,7 +144,8 @@ class Table extends Component
 
 
 
-    public function showDetail($id) {
+    public function showDetail($id)
+    {
         dd([
             'id_pengajuan' => $id,
             'bukti_pengajuan' => 'nanti keluar gambar disini',
@@ -148,6 +159,8 @@ class Table extends Component
     {
         return view("components.admin.components.spinner.loading");
     }
+
+
 
     public function render()
     {
