@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\DonasiPustaka;
 
+use App\Exports\DonasiPustakaExcel;
 use App\Models\Akses;
 use App\Models\DonasiPustaka;
 use App\Models\Menu;
@@ -120,7 +121,16 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\DonasiPustaka, 'Donasi-pustaka.xlsx');
+        return (new DonasiPustakaExcel)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forSearch($this->search)
+            ->forFakultas($this->sortFakultas)
+            ->download(
+                'Donasi_Perpustakaan_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
+
     }
 
 
