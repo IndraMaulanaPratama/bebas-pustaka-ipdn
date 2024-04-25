@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\PinjamanFakultas;
 
+use App\Exports\PinjamanFakultasExcel;
 use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\PinjamanFakultas;
@@ -182,7 +183,16 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\PinjamanFakultas, 'Pinjaman-fakultas.xlsx');
+        return (new PinjamanFakultasExcel)
+        ->forStatus($this->sortStatus)
+        ->forAngkatan($this->angkatan)
+        ->forSearch($this->search)
+        ->forFakultas($this->sortFakultas)
+        ->download(
+            'Pinjaman_Fakultas_Export.xlsx',
+            \Maatwebsite\Excel\Excel::XLSX
+        );
+
     }
 
 
