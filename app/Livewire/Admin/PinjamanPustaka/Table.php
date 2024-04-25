@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\PinjamanPustaka;
 
+use App\Exports\PinjamanPerpustakaanExcel;
 use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\PinjamanPustaka;
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Maatwebsite\Excel\Facades\Excel;
 
 class Table extends Component
 {
@@ -170,7 +170,7 @@ class Table extends Component
 
         return response()->streamDownload(
             function () use ($pdf) {
-                print($pdf);
+                print ($pdf);
             },
             'PINJAMAN_PUSTAKA-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
@@ -182,7 +182,16 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\PinjamanPustaka, 'Pinjaman-pustaka.xlsx');
+        return (new PinjamanPerpustakaanExcel)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forSearch($this->search)
+            ->forFakultas($this->sortFakultas)
+            ->download(
+                'Pinjaman_Perpustakaan_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
+
     }
 
 
