@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\DonasiElektronik;
 
+use App\Exports\DonasiElektronikExcel;
 use App\Models\Akses;
 use App\Models\DonasiElektronik;
 use App\Models\DonasiFakultas;
@@ -119,9 +120,17 @@ class Table extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\DonasiElektronik, 'Donasi-elektronik.xlsx');
-    }
+        return (new DonasiElektronikExcel)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forSearch($this->search)
+            ->forFakultas($this->sortFakultas)
+            ->download(
+                'Donasi_Point_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
 
+    }
 
 
     public function rejectData($id)
