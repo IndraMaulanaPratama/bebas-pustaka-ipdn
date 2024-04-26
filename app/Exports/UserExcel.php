@@ -30,7 +30,7 @@ class UserExcel implements FromQuery, WithHeadings
                     'name',
                     'email',
                 ]
-            );
+            )->where('email', 'LIKE', '%@praja.ipdn.ac.id');
     }
 
 
