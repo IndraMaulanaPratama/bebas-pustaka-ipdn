@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Exports\UserExcel;
+use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Models\User;
@@ -17,7 +19,7 @@ class Table extends Component
     use WithPagination, WithFileUploads;
 
     public $search;
-    public $role, $buttonDelete;
+    public $role, $buttonDelete, $buttonExport;
     public $update_id, $update_name, $update_email, $update_password, $update_confirm_password, $update_photo, $update_sign, $update_role;
 
 
@@ -72,11 +74,39 @@ class Table extends Component
 
     public function mount()
     {
+
+        // $roleLogin = Auth::user()->user_role;
+        // $url = Route::getCurrentRoute()->action['as']; // Maca nami route anu nuju di buka
+        // $menu = Menu::where("MENU_URL", $url)->first();
+
+        // $access = Akses::
+        //     join("PIVOT_MENU", "ACCESSES.ACCESS_MENU", '=', "PIVOT_MENU.PIVOT_ID")
+        //     ->where(['PIVOT_MENU.PIVOT_MENU' => $menu->MENU_ID, 'PIVOT_MENU.PIVOT_ROLE' => $roleLogin])
+        //     ->first();
+
+        // $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
+        // $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
+        // $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
+        // $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
+
         $this->role = Auth::user()->role->ROLE_NAME;
         if ($this->role != 'Super Admin') {
             $this->buttonDelete = 'hidden';
+            $this->buttonExport = 'hidden';
         }
     }
+
+
+    public function exportData()
+    {
+        return (new UserExcel)
+            ->download(
+                'Pengguna_Excel_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
+
+    }
+
 
 
 
