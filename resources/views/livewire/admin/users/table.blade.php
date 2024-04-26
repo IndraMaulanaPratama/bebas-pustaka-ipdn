@@ -4,10 +4,19 @@
     <x-admin.components.card.card size=12 title='List Penggguna' titleSpan='Status Aktif'>
 
         {{-- Baris bagian search sareng tombol tambih data --}}
+        <div class="row g-2 mb-4">
+            <div class="col-lg-2 col-md-6 col-sm-12 {{ $buttonExport }}">
+                <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
+                    <x-admin.components.button.icon-button text="Export Data" :access=$buttonExport />
+                </div>
+            </div>
+        </div>
+
+
         <div class="row g-2 justify-content-between">
 
             {{-- Tombol Tambah Data --}}
-            <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="col-lg-2 col-md-6 col-sm-12">
                 {{-- Input Search --}}
                 <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
                     data-bs-target="#formCreateData">
