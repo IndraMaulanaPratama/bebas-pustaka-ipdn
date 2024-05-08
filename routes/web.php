@@ -48,9 +48,9 @@ Route::middleware(['auth', 'access'])->group(function () {
 
 
     // --- *** Officer Area *** --- //
-    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas'); // TODO:: Export Excel
-    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan'); // TODO:: Export Excel
-    Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas'); // TODO:: Export Excel
+    Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
+    Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
+    Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas');
     Route::get('/donasi-buku-perpustakaan', DonasiPustaka::class)->name('admin-donasi.perpustakaan');
     Route::get('/donasi-buku-fakultas', DonasiFakultas::class)->name('admin-donasi.fakultas');
     Route::get('/donasi-buku-elektronik', DonasiElektronik::class)->name('admin-donasi.elektronik');
