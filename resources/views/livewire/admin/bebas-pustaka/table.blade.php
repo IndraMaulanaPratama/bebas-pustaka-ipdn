@@ -12,7 +12,7 @@
 
 
     <div class="col-6">
-        <a href="{{ route('admin-pustaka.selesai') }}">
+        <a href="{{ route('admin-pustaka.belum-selesai') }}">
             <div class="btn btn-primary form-control p-4">
                 BELUM SELESAI
             </div>

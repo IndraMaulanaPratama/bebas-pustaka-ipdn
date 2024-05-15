@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\BebasPustaka\BelumSelesai;
 use App\Livewire\Admin\BebasPustaka\Selesai;
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\BebasPustaka;
@@ -62,7 +63,8 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi'); // TODO:: Export Excel
     Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export Excel
     Route::get('/bebas-pustaka/selesai', Selesai::class)->name('admin-pustaka.selesai'); // TODO:: Export Excel
-    //
+    Route::get('/bebas-pustaka/belum-selesai', BelumSelesai::class)->name('admin-pustaka.belum-selesai'); // TODO:: Export Excel
+    // --- *** End Of Officer Area *** --- //
 
 
     // -- *** Admin Area --- //
