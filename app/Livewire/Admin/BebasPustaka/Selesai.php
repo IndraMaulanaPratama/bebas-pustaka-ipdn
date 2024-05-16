@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\BebasPustaka;
 
+use App\Exports\ResumeSelesaiExcel;
 use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\Menu;
@@ -151,7 +152,15 @@ class Selesai extends Component
 
     public function exportData()
     {
-        return Excel::download(new \App\Exports\BebasPustaka, 'Bebas-pustaka.xlsx');
+        return (new ResumeSelesaiExcel)
+            ->forData($this->sortUrutan)
+            ->forAngkatan($this->angkatan)
+            ->forFakultas($this->sortFakultas)
+            ->forSearch($this->search)
+            ->download(
+                'Resume Bebas Pustaka - Selesai.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
     }
 
     public function render()
