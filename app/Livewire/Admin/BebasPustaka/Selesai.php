@@ -125,7 +125,7 @@ class Selesai extends Component
     public function printApprooved($id)
     {
         $data = BebasPustaka::where('BEBAS_ID', $id)->first();
-        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->FAKULTAS_PRAJA), true)["data"][0];
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->BEBAS_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
         $kepalaUnit = SettingApps::first();
 
