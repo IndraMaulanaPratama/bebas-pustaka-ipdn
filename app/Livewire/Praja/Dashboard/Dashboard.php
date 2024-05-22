@@ -42,7 +42,7 @@ class Dashboard extends Component
         $jumlahData = BebasPustaka::count();
         $nomor = sprintf("%04s", abs($jumlahData + 1));
         $tahun = Carbon::now('Asia/Jakarta')->format("Y");
-        return "000.5.2.4/SKBP-" . $this->fakultas . "." . $nomor . "/IPDN.21/" . $tahun;
+        return "000.5.2.4/SKBP-" . $this->fakultas . "." . $nomor . "/IPDN.18.4/" . $tahun;
     }
 
 
