@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Resume extends Component
 {
-    public $praja, $npp, $data;
+    public $praja, $npp, $data, $inputUrl;
 
     public $buttonAjukan = 'hidden';
 
@@ -27,9 +27,13 @@ class Resume extends Component
     {
         try {
 
-            Repository::where('REPOSITORY_PRAJA', $this->npp)->update(['REPOSITORY_STATUS' => 'Proses']);
+            Repository::where('REPOSITORY_PRAJA', $this->npp)->update([
+                'REPOSITORY_URL' => $this->inputUrl,
+                'REPOSITORY_STATUS' => 'Proses'
+            ]);
 
             $this->dispatch("data-updated", "Pengajuan tahap unggah repository anda berhasil diajukan ulang");
+            $this->buttonAjukan = 'hidden';
         } catch (\Throwable $th) {
             $this->dispatch("failed-creating-data", $th->getMessage());
         }
