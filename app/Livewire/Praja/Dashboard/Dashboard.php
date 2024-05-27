@@ -81,7 +81,7 @@ class Dashboard extends Component
             $this->fakultas = 'FPM';
         } elseif ('POLITIK PEMERINTAHAN' == $this->praja['FAKULTAS']) {
             $this->fakultas = 'FPP';
-        } elseif ('Manajemen Pemerintahan' == $this->praja['FAKULTAS']) {
+        } elseif ('MANAJEMEN PEMERINTAHAN' == $this->praja['FAKULTAS']) {
             $this->fakultas = 'FMP';
         }
     }
