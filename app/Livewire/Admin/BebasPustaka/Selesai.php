@@ -199,7 +199,7 @@ class Selesai extends Component
                     }
                 }
             )
-
+            ->where('BEBAS_NUMBER', '!=', null)
             ->paginate();
 
         return view('livewire.admin.bebas-pustaka.selesai', ['data' => $data]);
