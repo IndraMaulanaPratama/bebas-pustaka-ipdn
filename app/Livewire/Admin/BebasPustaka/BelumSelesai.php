@@ -200,7 +200,6 @@ class BelumSelesai extends Component
             }
         )
         ->where('BEBAS_NUMBER', null)
-
         ->paginate();
 
         return view('livewire.admin.bebas-pustaka.belum-selesai', ['data' => $data]);
