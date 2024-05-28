@@ -17,6 +17,18 @@ return new class extends Migration {
             $table->unsignedBigInteger('BEBAS_OFFICER');
             $table->timestamps();
             $table->softDeletes();
+            $table->boolean('BEBAS_SIMILARITAS')->nullable()->default(false)->comment('Status Pengajuan Similaritas');
+            $table->boolean('BEBAS_PINJAMAN_FAKULTAS')->nullable()->default(false)->comment('Status Pengajuan Pinjaman Fakultas');
+            $table->boolean('BEBAS_PINJAMAN_PUSAT')->nullable()->default(false)->comment('Status Pengajuan Pinjaman Pusat');
+            $table->boolean('BEBAS_DONASI_FAKULTAS')->nullable()->default(false)->comment('Status Pengajuan Donasi Fakultas');
+            $table->boolean('BEBAS_DONASI_PUSAT')->nullable()->default(false)->comment('Status Pengajuan Donasu Pusat');
+            $table->boolean('BEBAS_DONASI_POIN')->nullable()->default(false)->comment('Status Pengajuan Donasi Poin');
+            $table->boolean('BEBAS_SURVEI')->nullable()->default(false)->comment('Status Pengajuan Survei Praja');
+            $table->boolean('BEBAS_KONTEN_LITERASI')->nullable()->default(false)->comment('Status Pengajuan Konten Literasi');
+            $table->boolean('BEBAS_REPOSITORY')->nullable()->default(false)->comment('Status Pengajuan Unggah Repository');
+            $table->boolean('BEBAS_HARD_COPY_PUSAT')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Hard Copy Skripsi Perpustakaan Pusat');
+            $table->boolean('BEBAS_HARD_COPY_FAKULTAS')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Hard Copy Skripsi Perpustakaan Fakultas');
+            $table->boolean('BEBAS_SOFT_COPY')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Soft Copy');
 
 
             $table->foreign('BEBAS_OFFICER')->references('id')->on('users');
