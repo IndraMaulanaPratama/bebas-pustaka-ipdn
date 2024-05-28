@@ -21,6 +21,18 @@ class BebasPustaka extends Model
         'BEBAS_NUMBER',
         'BEBAS_PRAJA',
         'BEBAS_OFFICER',
+        'BEBAS_SIMILARITAS',
+        'BEBAS_PINJAMAN_FAKULTAS',
+        'BEBAS_PINJAMAN_PUSAT',
+        'BEBAS_DONASI_FAKULTAS',
+        'BEBAS_DONASI_PUSAT',
+        'BEBAS_DONASI_POIN',
+        'BEBAS_SURVEI',
+        'BEBAS_KONTEN_LITERASI',
+        'BEBAS_REPOSITORY',
+        'BEBAS_HARD_COPY_PUSAT',
+        'BEBAS_HARD_COPY_FAKULTAS',
+        'BEBAS_SOFT_COPY',
     ];
 
     // --- *** Ranahna Relasi *** --- //
