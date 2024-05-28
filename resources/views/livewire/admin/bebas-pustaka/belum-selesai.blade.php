@@ -94,23 +94,18 @@
                                     </button>
                                 </td>
 
-                                @php
-                                    $check = '<i class="bi bi-check2-circle"></i>';
-                                    $cross = '<i class="bi bi-x-octagon"></i>';
-                                @endphp
-
-                                <td> {{ $item->BEBAS_SIMILARITAS == true ? '✅' : '❌' }} </td>
-                                <td> {{ $item->BEBAS_BEBAS_PINJAMAN_PUSAT == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_PINJAMAN_FAKULTAS == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_DONASI_PUSAT == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_DONASI_FAKULTAS == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_DONASI_POINT == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_SURVEI == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_KONTEN_LITERASI == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_REPOSITORY == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_HARD_COPY_PUSAT == true ? '✅' : '❌' }}</td>
-                                <td> {{ $item->BEBAS_BEBAS_SOFT_COPY == true ? '✅' : '❌' }}</td>
-                                <td>😈</td>
+                                <td> {{ $item->BEBAS_SIMILARITAS != 0 ? '✅' : '❌'; }} </td>
+                                <td> {{ $item->BEBAS_PINJAMAN_PUSAT != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_PINJAMAN_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_DONASI_PUSAT != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_DONASI_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_DONASI_POIN != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_SURVEI != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_KONTEN_LITERASI != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_REPOSITORY != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_HARD_COPY_PUSAT != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_HARD_COPY_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_SOFT_COPY != 0 ? '✅' : '❌'; }}</td>
 
                                 {{-- Button Print --}}
                                 <td {{ $accessPrint }}>
