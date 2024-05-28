@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Page;
 
+use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Ramsey\Uuid\Uuid;
 
 #[Layout('layouts.login')]
 class Login extends Component
@@ -70,7 +72,14 @@ class Login extends Component
                             'user_role' => $role->ROLE_ID,
                         ];
 
+                        $skbp = [
+                            'BEBAS_ID' => Uuid::uuid4(),
+                            'BEBAS_PRAJA' => $praja['data'][0]['NPP'],
+                            'BEBAS_OFFICER' => 1,
+                        ];
+
                         User::create($data);
+                        BebasPustaka::create($skbp);
 
                         $credentials = $this->validate();
                         Auth::attempt($credentials);
