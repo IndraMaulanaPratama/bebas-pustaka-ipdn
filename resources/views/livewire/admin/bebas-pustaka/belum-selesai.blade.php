@@ -62,7 +62,6 @@
                             <th rowspan="2" scope="row">#</th>
                             <th rowspan="2" style="min-width: 6cm">Nomor Pokok Praja</th>
                             <th colspan="12" style="min-width: 2cm; text-align: center">Status Pengajuan</th>
-                            <th colspan="3">Option</th>
                         </tr>
 
                         <tr style="text-align: center">
@@ -108,13 +107,6 @@
                                 <td> {{ $item->BEBAS_SOFT_COPY != 0 ? '✅' : '❌'; }}</td>
 
                                 {{-- Button Print --}}
-                                <td {{ $accessPrint }}>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill"
-                                        wire:confirm='Cetak Surat Keterangan Bebas Pustaka {{ $item->BEBAS_PRAJA }} ?'
-                                        wire:click='printApprooved("{{ $item->BEBAS_ID }}")'>
-                                        <i class="bi bi-printer-fill"></i>
-                                    </button>
-                                </td>
 
                             </tr>
                         @endforeach
