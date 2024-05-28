@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Selesai extends Component
 {
+    use WithPagination;
 
     #[Title('Resume SKBP - Selesai')]
 
