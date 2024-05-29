@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Similaritas;
 
+use App\Models\BebasPustaka;
 use App\Models\Similaritas;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,7 @@ class Approve extends Component
     }
 
 
+
     #[On("selected-data")]
     public function getIdSimilaritas($data)
     {
@@ -52,6 +54,7 @@ class Approve extends Component
     {
         $officer = Auth::user()->id;
         $nomorSurat = $this->generateNomorSurat($this->fakultas);
+        $similaritas = Similaritas::where('SIMILARITAS_ID', $this->id)->first();
 
         try {
             $data = [
@@ -68,6 +71,11 @@ class Approve extends Component
             ];
 
             Similaritas::where("SIMILARITAS_ID", $this->id)->update($data);
+
+            // Update Data Table Bebas Pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $similaritas->SIMILARITAS_PRAJA)->update(['BEBAS_SIMILARITAS' => true]);
+
+
             $this->dispatch("data-updated", "Pengajuan similaritas berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -75,6 +83,8 @@ class Approve extends Component
         }
 
     }
+
+
 
     public function render()
     {
