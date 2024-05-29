@@ -25,7 +25,7 @@ class Selesai extends Component
     #[Title('Resume SKBP - Selesai')]
 
     public $inputUrl;
-    public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate;
+    public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate, $accessDelete;
     public $sortUrutan, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
@@ -64,8 +64,35 @@ class Selesai extends Component
         $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
         $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
         $this->accessUpdate = $this->generateAccess($access->ACCESS_UPDATE);
+        $this->accessDelete = $this->generateAccess($access->ACCESS_DELETE);
     }
 
+
+
+    #[On("success")]
+    public function processSuccessfully($message)
+    {
+        session()->reflash();
+        session()->flash('success', $message);
+    }
+
+
+
+    #[On("warning")]
+    public function warningProcess($message)
+    {
+        session()->reflash();
+        session()->flash('warning', $message);
+    }
+
+
+
+    #[On("error")]
+    public function failedProcess($message)
+    {
+        session()->reflash();
+        session()->flash('error', $message);
+    }
 
 
     public function generateAccess($value)
@@ -152,6 +179,27 @@ class Selesai extends Component
 
 
 
+    public function deleteSkbp($id)
+    {
+        try {
+            $data = [
+                'BEBAS_NUMBER' => null,
+                'deleted_at' => date('Y-m-d H:i:s', Carbon::now('Asia/Jakarta')->getTimestamp()),
+            ];
+
+            // Proses menghapus data
+            BebasPustaka::where('BEBAS_ID', $id)->update($data);
+
+            // Mengembalikan pesan sukses
+            $this->processSuccessfully('Data SKBP berhasil dihapuskan');
+        } catch (\Throwable $th) {
+            // Mengembalikan pesan error
+            $this->warningProcess('Data SKBP gagal dihapuskan');
+        }
+    }
+
+
+
     public function exportData()
     {
         return (new ResumeSelesaiExcel)
@@ -164,6 +212,8 @@ class Selesai extends Component
                 \Maatwebsite\Excel\Excel::XLSX
             );
     }
+
+
 
     public function render()
     {

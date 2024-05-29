@@ -2,6 +2,19 @@
 
 <div class="col-12">
 
+    @if (session('success'))
+        <x-admin.components.alert.success text="{{ session('success') }}" />
+    @endif
+
+    @if (session('warning'))
+        <x-admin.components.alert.warning text="{{ session('warning') }}" />
+    @endif
+
+    @if (session('error'))
+        <x-admin.components.alert.error text="{{ session('error') }}" />
+    @endif
+
+
     {{-- Data Table Konten Literasi --}}
     <div>
         <x-admin.components.card.card size=12 title="Data Pengajuan" titleSpan='Aktif'>
@@ -64,7 +77,7 @@
                             <th style="min-width: 2cm">NPP</th>
                             <th style="min-width: 6cm">Petugas</th>
                             <th style="min-width: 5cm">Tanggal Terbit</th>
-                            <th colspan="3">Option</th>
+                            <th colspan="2">Option</th>
                         </tr>
                     </thead>
 
@@ -92,6 +105,15 @@
                                         wire:confirm='Cetak Surat Keterangan Bebas Pustaka {{ $item->BEBAS_PRAJA }} ?'
                                         wire:click='printApprooved("{{ $item->BEBAS_ID }}")'>
                                         <i class="bi bi-printer-fill"></i>
+                                    </button>
+                                </td>
+
+                                {{-- Button Delete --}}
+                                <td {{ $accessDelete }}>
+                                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill"
+                                        wire:confirm='Anda ingin menghapus data SKBP {{ $item->BEBAS_PRAJA }} ?'
+                                        wire:click='deleteSkbp("{{ $item->BEBAS_ID }}")'>
+                                        <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </td>
 
