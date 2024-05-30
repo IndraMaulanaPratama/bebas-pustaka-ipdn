@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Survey;
 
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\SettingApps;
 use App\Models\Survey;
@@ -109,12 +110,27 @@ class Data extends Component
     public function approveData($id)
     {
         try {
+
+            // Mencari data survei praja berdasarkan id
+            $survei = Survey::where('SURVEY_ID', $id)->first();
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_SURVEI' => true,
+            ];
+
+            // Inisialisasi data survei praja
             $data = [
                 'SURVEY_OFFICER' => Auth::user()->id,
                 'SURVEY_STATUS' => "Disetujui",
                 'SURVEY_NOTES' => null,
                 'SURVEY_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $survei->SURVEY_PRAJA)->update($skbp);
+
+            // Proses update data survei praja
             Survey::where("SURVEY_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan survey perpustakaan berhasil disetujui");
