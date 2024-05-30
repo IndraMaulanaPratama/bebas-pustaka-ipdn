@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\DonasiFakultas;
 
 use App\Exports\DonasiFakultasExcel;
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\DonasiFakultas;
 use App\Models\Menu;
 use App\Models\User;
@@ -103,12 +104,27 @@ class Table extends Component
     public function approveData($id)
     {
         try {
+            // Mencari data donasi fakultas berdasarkan id
+            $donasi = DonasiFakultas::where('FAKULTAS_ID', $id)->first();
+
+            // Inisialisasi data donasi fakultas
             $data = [
                 'FAKULTAS_OFFICER' => Auth::user()->id,
                 'FAKULTAS_STATUS' => "Disetujui",
                 'FAKULTAS_NOTES' => null,
                 'FAKULTAS_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_PRAJA' => $donasi->FAKULTAS_PRAJA,
+                'BEBAS_DONASI_FAKULTAS' => true,
+            ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $donasi->FAKULTAS_PRAJA)->update($skbp);
+
+            // Proses update data table donasi fakultas
             DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil disetujui");
