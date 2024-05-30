@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\PinjamanFakultas;
 
 use App\Exports\PinjamanFakultasExcel;
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\PinjamanFakultas;
 use App\Models\User;
@@ -136,6 +137,8 @@ class Table extends Component
         $nomorSurat = $this->generateNomorSurat($pinjaman->FAKULTAS_PRAJA);
 
         try {
+
+            // Inisialisasi data table pinjaman fakultas
             $data = [
                 'FAKULTAS_NUMBER' => $nomorSurat,
                 'FAKULTAS_OFFICER' => Auth::user()->id,
@@ -143,6 +146,17 @@ class Table extends Component
                 'FAKULTAS_NOTES' => null,
                 'FAKULTAS_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Inisialisasi data table bebas pustaka pinjaman fakultas
+            $skbp = [
+                'BEBAS_PRAJA' => $pinjaman->FAKULTAS_PRAJA,
+                'BEBAS_PINJAMAN_FAKULTAS' => true,
+            ];
+
+            // Proses update data table bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $pinjaman->FAKULTAS_PRAJA)->update($skbp);
+
+            // Proses update data table pinjaman fakultas
             PinjamanFakultas::where("FAKULTAS_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan bebas pinjaman fakultas berhasil disetujui");
@@ -171,7 +185,7 @@ class Table extends Component
 
         return response()->streamDownload(
             function () use ($pdf) {
-                print($pdf);
+                print ($pdf);
             },
             'PINJAMAN_FAKULTAS-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
@@ -184,14 +198,14 @@ class Table extends Component
     public function exportData()
     {
         return (new PinjamanFakultasExcel)
-        ->forStatus($this->sortStatus)
-        ->forAngkatan($this->angkatan)
-        ->forSearch($this->search)
-        ->forFakultas($this->sortFakultas)
-        ->download(
-            'Pinjaman_Fakultas_Export.xlsx',
-            \Maatwebsite\Excel\Excel::XLSX
-        );
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forSearch($this->search)
+            ->forFakultas($this->sortFakultas)
+            ->download(
+                'Pinjaman_Fakultas_Export.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
 
     }
 
