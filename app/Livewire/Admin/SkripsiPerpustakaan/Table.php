@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\SkripsiPerpustakaan;
 
 use App\Exports\SkripsiHardcopyPerpustakaan;
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\SkripsiPerpustakaan;
 use App\Models\User;
@@ -105,12 +106,27 @@ class Table extends Component
     public function approveData($id)
     {
         try {
+
+            // Mencari data pengajuan pengumpulan skripsi perpustakaan berdasarkan id
+            $skripsi = SkripsiPerpustakaan::where('SKRIPSI_ID', $id)->first();
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_HARD_COPY_PUSAT' => true
+            ];
+
+            // Inisialisasi Data Skripsi Perpustakaan
             $data = [
                 'SKRIPSI_OFFICER' => Auth::user()->id,
                 'SKRIPSI_STATUS' => "Disetujui",
                 'SKRIPSI_NOTES' => null,
                 'SKRIPSI_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $skripsi->SKRIPSI_PRAJA)->update($skbp);
+
+            // Proses update data skripsi perpustakaan
             SkripsiPerpustakaan::where("SKRIPSI_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
