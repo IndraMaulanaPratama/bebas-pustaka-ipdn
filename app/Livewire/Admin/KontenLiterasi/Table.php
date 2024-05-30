@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\KontenLiterasi;
 
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\KontenLiterasi;
 use App\Models\Menu;
 use App\Models\SettingApps;
@@ -121,12 +122,27 @@ class Table extends Component
     public function approveData($id)
     {
         try {
+            // mencari data konten literasi berdasarkan id
+            $literasi = KontenLiterasi::where('KONTEN_ID', $id)->first();
+
+
+            // Inisialisasi data konten literasi
             $data = [
                 'KONTEN_OFFICER' => Auth::user()->id,
                 'KONTEN_STATUS' => "Disetujui",
                 'KONTEN_NOTES' => null,
                 'KONTEN_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_KONTEN_LITERASI' => true,
+            ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $literasi->KONTEN_PRAJA)->update($skbp);
+
+            // Proses update data konten literasi
             KontenLiterasi::where("KONTEN_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan konten literasi berhasil disetujui");
