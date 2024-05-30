@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\PinjamanPustaka;
 
 use App\Exports\PinjamanPerpustakaanExcel;
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\PinjamanPustaka;
 use App\Models\User;
@@ -135,6 +136,8 @@ class Table extends Component
         $nomorSurat = $this->generateNomorSurat($pinjaman->PUSTAKA_PRAJA);
 
         try {
+
+            // Inisialisasi Data Table Pinjaman Pustaka
             $data = [
                 'PUSTAKA_NUMBER' => $nomorSurat,
                 'PUSTAKA_OFFICER' => Auth::user()->id,
@@ -142,10 +145,22 @@ class Table extends Component
                 'PUSTAKA_NOTES' => null,
                 'PUSTAKA_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Inisialisasi data table bebas pustaka
+            $skbp = [
+                'BEBAS_PRAJA' => $pinjaman->PUSTAKA_PRAJA,
+                'BEBAS_PINJAMAN_PUSAT' => true,
+            ];
+
+            // Proses update status bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $pinjaman->PUSTAKA_PRAJA)->update($skbp);
+
+            // Proses update data table pinjaman pustaka
             PinjamanPustaka::where("PUSTAKA_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan bebas pustaka perpustakaan berhasil disetujui");
             $this->reset();
+
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
