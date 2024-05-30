@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Repository;
 
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\KontenLiterasi;
 use App\Models\Menu;
 use App\Models\Repository;
@@ -121,12 +122,28 @@ class Table extends Component
     public function approveData($id)
     {
         try {
+
+            // Mencari data repository berdasarkan id
+            $repository = Repository::where('REPOSITORY_ID', $id)->first();
+
+            // Inisialisasi data repository
             $data = [
                 'REPOSITORY_OFFICER' => Auth::user()->id,
                 'REPOSITORY_STATUS' => "Disetujui",
                 'REPOSITORY_NOTES' => null,
                 'REPOSITORY_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_REPOSITORY' => true
+            ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $repository->REPOSITORY_PRAJA)->update($skbp);
+
+            // Proses update data repository
             Repository::where("REPOSITORY_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan unggah repository berhasil disetujui");
