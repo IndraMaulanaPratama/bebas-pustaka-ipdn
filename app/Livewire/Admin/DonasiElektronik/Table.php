@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\DonasiElektronik;
 
 use App\Exports\DonasiElektronikExcel;
 use App\Models\Akses;
+use App\Models\BebasPustaka;
 use App\Models\DonasiElektronik;
 use App\Models\DonasiFakultas;
 use App\Models\Menu;
@@ -101,12 +102,28 @@ class Table extends Component
     public function approveData($id)
     {
         try {
+
+            // Mencari data donasi poin berdasarkan id
+            $donasi = DonasiElektronik::where('ELEKTRONIK_ID', $id)->first();
+
+            // Inisialisasi data donasi poin
             $data = [
                 'ELEKTRONIK_OFFICER' => Auth::user()->id,
                 'ELEKTRONIK_STATUS' => "Disetujui",
                 'ELEKTRONIK_NOTES' => null,
                 'ELEKTRONIK_APPROVED' => Carbon::now("Asia/Jakarta")->format("Y-m-d H:i:s"),
             ];
+
+            // Inisialisasi data bebas pustaka
+            $skbp = [
+                'BEBAS_PRAJA' => $donasi->ELEKTRONIK_PRAJA,
+                'BEBAS_DONASI_POIN' => true,
+            ];
+
+            // Proses update data bebas pustaka
+            BebasPustaka::where('BEBAS_PRAJA', $donasi->ELEKTRONIK_PRAJA)->update($skbp);
+
+            // Proses update data donasi poin
             DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($data);
 
             $this->dispatch("data-updated", "Pengajuan donasi buku elektronik perpustakaan pusat berhasil disetujui");
