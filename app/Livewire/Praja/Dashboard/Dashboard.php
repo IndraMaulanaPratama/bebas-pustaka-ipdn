@@ -37,40 +37,6 @@ class Dashboard extends Component
 
 
 
-    public function generateSurat()
-    {
-        $jumlahData = BebasPustaka::count();
-        $nomor = sprintf("%04s", abs($jumlahData + 1));
-        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
-        return "000.5.2.4/SKBP-" . $this->fakultas . "." . $nomor . "/IPDN.18.4/" . $tahun;
-    }
-
-
-
-    public function buatSurat()
-    {
-        $nomorSurat = $this->generateSurat();
-
-        try {
-            $data = [
-                'BEBAS_ID' => uuid_create(4),
-                'BEBAS_NUMBER' => $nomorSurat,
-                'BEBAS_PRAJA' => $this->npp,
-                'BEBAS_OFFICER' => 1,
-            ];
-
-            BebasPustaka::create($data);
-            $this->bebasPustaka = false;
-
-            $this->dispatch("data-created", "Selamat, Surat Keterangan Bebas Pustaka anda sudah siap diterbitkan");
-        } catch (\Throwable $th) {
-            $this->dispatch("failed-creating-data", $th->getMessage());
-        }
-
-    }
-
-
-
     public function mount()
     {
         $this->npp = explode("@", Auth::user()->email)[0];
@@ -88,12 +54,46 @@ class Dashboard extends Component
 
 
 
+    public function generateSurat()
+    {
+        $jumlahData = BebasPustaka::count();
+        $nomor = sprintf("%04s", abs($jumlahData + 1));
+        $tahun = Carbon::now('Asia/Jakarta')->format("Y");
+        return "000.5.2.4/SKBP-" . $this->fakultas . "." . $nomor . "/IPDN.18.4/" . $tahun;
+    }
+
+
+
+    public function buatSurat()
+    {
+        $nomorSurat = $this->generateSurat();
+
+        try {
+            $data = [
+                'BEBAS_NUMBER' => $nomorSurat,
+            ];
+
+            BebasPustaka::where('BEBAS_PRAJA', $this->npp)->update($data);
+            $this->bebasPustaka = false;
+
+            $this->dispatch("data-created", "Selamat, Surat Keterangan Bebas Pustaka anda sudah siap diterbitkan");
+        } catch (\Throwable $th) {
+            $this->dispatch("failed-creating-data", $th->getMessage());
+        }
+
+    }
+
+
+
     public function render()
     {
 
         $this->sprint = SettingApps::where('SETTING_ID', 1)->first();
 
-        $this->bebasPustaka = BebasPustaka::where('BEBAS_PRAJA', $this->npp)->first() != null ? true : false;
+        $this->bebasPustaka = BebasPustaka::where([
+            ['BEBAS_PRAJA', $this->npp],
+            ['BEBAS_NUMBER', '!=', null]
+        ])->first() != null ? true : false;
 
         $similaritas = Similaritas::where('SIMILARITAS_PRAJA', $this->npp)->first()->SIMILARITAS_STATUS ?? 'Belum ada pengajuan';
         $pinjamanPustaka = PinjamanPustaka::where('PUSTAKA_PRAJA', $this->npp)->first()->PUSTAKA_STATUS ?? 'Belum ada pengajuan';
