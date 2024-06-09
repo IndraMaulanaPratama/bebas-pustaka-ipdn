@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\BebasPustaka;
 
-use App\Exports\ResumeSelesaiExcel;
+use App\Exports\ResumeBelumSelesaiExcel;
 use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\Menu;
@@ -560,13 +560,10 @@ class BelumSelesai extends Component
 
     public function exportData()
     {
-        return (new ResumeSelesaiExcel)
-            ->forData($this->sortUrutan)
-            ->forAngkatan($this->angkatan)
-            ->forFakultas($this->sortFakultas)
+        return (new ResumeBelumSelesaiExcel)
             ->forSearch($this->search)
             ->download(
-                'Resume Bebas Pustaka - Selesai.xlsx',
+                'Resume Bebas Pustaka - Belum Selesai.xlsx',
                 \Maatwebsite\Excel\Excel::XLSX
             );
     }
