@@ -2,6 +2,18 @@
 
 <div class="col-12">
 
+    @if (session('success'))
+        <x-admin.components.alert.success text="{{ session('success') }}" />
+    @endif
+
+    @if (session('warning'))
+        <x-admin.components.alert.warning text="{{ session('warning') }}" />
+    @endif
+
+    @if (session('error'))
+        <x-admin.components.alert.error text="{{ session('error') }}" />
+    @endif
+
     {{-- Data Table Konten Literasi --}}
     <div>
         <x-admin.components.card.card size=12 title="Data Pengajuan" titleSpan='Aktif'>
@@ -12,47 +24,140 @@
                 {{-- Button Export Data --}}
                 <div class="w-auto bd-highlight {{ $accessExport }}">
                     <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
-                        <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
+                        <x-admin.components.button.icon-button text="Export Data" :access=$accessExport
+                            icon='bi-filetype-pdf' />
                     </div>
                 </div>
 
-
-                {{-- Input Pencarian Data --}}
-                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 ms-auto bd-highlight">
-                    <x-admin.components.form.input size=12 type='text' name='search'
-                        placeholder='Cari Nomor Pokok Praja' />
+                {{-- Button Singkronasisasi Data --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi?' wire:click='syncData'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data" :access=$accessUpdate
+                            icon="bi-arrow-repeat" />
+                    </div>
                 </div>
 
+                {{-- Button Singkronasisasi Data Similaritas --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi similaritas data?'
+                        wire:click='syncSimilaritas'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Similaritas" :access=$accessUpdate
+                            icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Pinjaman Perpustakaan --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncPinjamanPusat'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Pinjaman Perpustakaan"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Pinjaman Fakultas --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncPinjamanFakultas'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Pinjaman Fakultas"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Donasi Perpustakaan --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncDonasiPusat'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Donasi Perpustakaan"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Donasi Fakultas --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncDonasiFakultas'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Donasi Fakultas"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi?' wire:click='syncDonasiPoint'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data" :access=$accessUpdate
+                            icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Survei Praja --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncSurvei'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Survei Praja"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Konten Literasi --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncKontenLiterasi'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Konten Literasi"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Repositroy --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncRepository'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Repositroy" :access=$accessUpdate
+                            icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Hard Copy Skripsi Perpustakaan --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncCopyPusat'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Hard Copy Skripsi Perpustakaan"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Hard Copy Skripsi Fakultas --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
+                        wire:click='syncCopyFakultas'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Hard Copy Skripsi Fakultas"
+                            :access=$accessUpdate icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+                {{-- Button Singkronasisasi Data Soft Copy --}}
+                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                    <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data ?' wire:click='syncSoftCopy'>
+                        <x-admin.components.button.icon-button text="Singkronasi Data Soft Copy" :access=$accessUpdate
+                            icon="bi-arrow-repeat" />
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row justify-content-between g-4 mt-4">
+
+                <div class="col-auto">&nbsp;</div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    {{-- Input Pencarian Data --}}
+                    <div class="ms-auto bd-highlight">
+                        <x-admin.components.form.input size=12 type='text' name='search'
+                            placeholder='Cari Nomor Pokok Praja' />
+                    </div>
+                </div>
 
             </div>
 
             <hr />
-
-            {{-- Opsi Pencarian --}}
-            <div class="row g-2 mb-4">
-                {{-- Select Sort By Urutan --}}
-                {{-- <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
-                    <x-admin.components.form.select name='sortUrutan' placeholder='Urutan Data'>
-                        <option value="nomor">Nomor Surat</option>
-                        <option value="terbaru">Data Terbaru</option>
-                    </x-admin.components.form.select>
-                </div> --}}
-
-                {{-- Select ututan data dumasar kana angkatan --}}
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
-                    <x-admin.components.form.input size=12 type='text' name='angkatan' maxlength=2
-                        placeholder='Angkatan' />
-                </div>
-
-                {{-- Select ututan data dumasar kana fakultas --}}
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <x-admin.components.form.select size='12' name='sortFakultas' placeholder='Urutan Fakultas'>
-                        <option value="fpp">Politik Pemerintahan</option>
-                        <option value="fmp">Fakultas Manajemen Pemerintahan</option>
-                        <option value="fpm">Fakultas Perlindungan Masyarakat</option>
-                    </x-admin.components.form.select>
-                </div>
-            </div>
 
             <div class="table-responsive">
                 <table class="table table-responsive table-hover">
@@ -93,18 +198,18 @@
                                     </button>
                                 </td>
 
-                                <td> {{ $item->BEBAS_SIMILARITAS != 0 ? '✅' : '❌'; }} </td>
-                                <td> {{ $item->BEBAS_PINJAMAN_PUSAT != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_PINJAMAN_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_DONASI_PUSAT != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_DONASI_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_DONASI_POIN != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_SURVEI != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_KONTEN_LITERASI != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_REPOSITORY != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_HARD_COPY_PUSAT != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_HARD_COPY_FAKULTAS != 0 ? '✅' : '❌'; }}</td>
-                                <td> {{ $item->BEBAS_SOFT_COPY != 0 ? '✅' : '❌'; }}</td>
+                                <td> {{ $item->BEBAS_SIMILARITAS != 0 ? '✅' : '❌' }} </td>
+                                <td> {{ $item->BEBAS_PINJAMAN_PUSAT != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_PINJAMAN_FAKULTAS != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_DONASI_PUSAT != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_DONASI_FAKULTAS != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_DONASI_POIN != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_SURVEI != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_KONTEN_LITERASI != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_REPOSITORY != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_HARD_COPY_PUSAT != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_HARD_COPY_FAKULTAS != 0 ? '✅' : '❌' }}</td>
+                                <td> {{ $item->BEBAS_SOFT_COPY != 0 ? '✅' : '❌' }}</td>
 
                                 {{-- Button Print --}}
 
@@ -138,7 +243,8 @@
                         disabled='disabled' />
                 </div>
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaPonsel' placeholder='Nomor Ponsel' disabled='disabled' />
+                    <x-admin.components.form.input name='prajaPonsel' placeholder='Nomor Ponsel'
+                        disabled='disabled' />
 
                 </div>
 
@@ -157,8 +263,8 @@
 
                 {{-- Tempat Tanggal Lahir dan Jenis Kelamin --}}
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaTempatTanggalLahir' placeholder='Tempat dan Tanggal Lahir'
-                        disabled='disabled' />
+                    <x-admin.components.form.input name='prajaTempatTanggalLahir'
+                        placeholder='Tempat dan Tanggal Lahir' disabled='disabled' />
 
                 </div>
                 <div class="col-6">
