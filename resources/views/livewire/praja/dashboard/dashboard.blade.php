@@ -71,13 +71,13 @@
                 <x-admin.components.card.card title='Keterangan Bebas Pustaka' titleSpan='Ringkasan'>
 
                     {{-- Terbitkan SKBP --}}
-                    <div {{ $bebasPustaka == true ? 'hidden' : null }}>
+                    <div {{ $buttonPrint == true ? 'hidden' : null }}>
                         <button class="btn btn-sm btn-info" wire:click='buatSurat'>Generate Surat Keterangan Bebas
                             Pustaka</button>
                     </div>
 
                     {{-- Done --}}
-                    <div {{ $bebasPustaka == false ? 'hidden' : null }}>
+                    <div {{ $buttonPrint == false ? 'hidden' : null }}>
                         <p>
                             <b>Selamat, Anda sudah menyelesaikan bebas pustaka</b>
                         </p>
