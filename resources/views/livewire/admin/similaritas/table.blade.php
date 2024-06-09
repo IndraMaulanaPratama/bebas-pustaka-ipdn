@@ -58,6 +58,9 @@
                         <th style="min-width: 10cm">Judul Skripsi</th>
                         <th style="min-width: 4cm">Nama Kelas</th>
                         <th style="min-width: 5cm">Nomor Absen</th>
+                        <th style="min-width: 5cm">Tingkat Similaritas</th>
+                        <th style="min-width: 5cm">Status Bibliografi</th>
+                        <th style="min-width: 5cm">Status Small Word</th>
                         <th style="min-width: 6cm">Petugas</th>
                         <th style="min-width: 5cm">Tanggal Validasi</th>
                         <th style="min-width: 5cm">Keterangan</th>
@@ -108,6 +111,9 @@
                             <td> {{ $item->SIMILARITAS_TITLE }} </td>
                             <td> {{ $item->SIMILARITAS_CLASS }} </td>
                             <td> {{ $item->SIMILARITAS_ABSENT }} </td>
+                            <td> {{ $item->SIMILARITAS_VALUE }}% </td>
+                            <td> {{ $item->SIMILARITAS_BIBLIOGRAFI == 1 ? '✅' : '❌' }} </td>
+                            <td> {{ $item->SIMILARITAS_SMALL_WORD == 1 ? '✅' : '❌' }} </td>
                             <td> {{ $item->SIMILARITAS_OFFICER === 1 ? null : $item->user->name }} </td>
                             <td> {{ $item->SIMILARITAS_APPROVED }} </td>
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
