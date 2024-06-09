@@ -65,6 +65,7 @@ class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
                 function ($query, $npp) {
                     return $query->where("BEBAS_PRAJA", "LIKE", $npp . "%");
                 }
-            );
+            )
+            ->where('BEBAS_NUMBER', '=', null);
     }
 }
