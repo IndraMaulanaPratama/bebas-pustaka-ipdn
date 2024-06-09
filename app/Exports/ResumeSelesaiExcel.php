@@ -89,6 +89,7 @@ class ResumeSelesaiExcel implements FromQuery, WithHeadings
                 function ($query, $angkatan) {
                     return $query->where("BEBAS_PRAJA", "LIKE", $angkatan . "%");
                 }
-            );
+            )
+            ->whereNotNull('BEBAS_NUMBER');
     }
 }
