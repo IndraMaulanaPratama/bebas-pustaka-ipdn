@@ -10,7 +10,7 @@ use Livewire\Component;
 class BebasPustaka extends Component
 {
 
-    #[On("data-rejected"), On("data-updated")]
+    #[On("success")]
     public function processSuccessfully($message)
     {
         session()->reflash();
@@ -19,11 +19,19 @@ class BebasPustaka extends Component
 
 
 
-    #[On("failed-rejecting-data"), On("failed-updating-data")]
-    public function failedProcess($message)
+    #[On("warning")]
+    public function warningProcess($message)
     {
         session()->reflash();
         session()->flash('warning', $message);
+    }
+
+
+    #[On("error")]
+    public function failedProcess($message)
+    {
+        session()->reflash();
+        session()->flash('error', $message);
     }
 
 
