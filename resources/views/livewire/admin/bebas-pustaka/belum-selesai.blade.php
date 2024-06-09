@@ -30,7 +30,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi?' wire:click='syncData'>
                         <x-admin.components.button.icon-button text="Singkronasi Data" :access=$accessUpdate
                             icon="bi-arrow-repeat" />
@@ -38,7 +38,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Similaritas --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi similaritas data?'
                         wire:click='syncSimilaritas'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Similaritas" :access=$accessUpdate
@@ -47,7 +47,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Pinjaman Perpustakaan --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncPinjamanPusat'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Pinjaman Perpustakaan"
@@ -56,7 +56,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Pinjaman Fakultas --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncPinjamanFakultas'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Pinjaman Fakultas"
@@ -65,7 +65,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Donasi Perpustakaan --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncDonasiPusat'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Donasi Perpustakaan"
@@ -74,7 +74,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Donasi Fakultas --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncDonasiFakultas'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Donasi Fakultas"
@@ -83,7 +83,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi?' wire:click='syncDonasiPoint'>
                         <x-admin.components.button.icon-button text="Singkronasi Data" :access=$accessUpdate
                             icon="bi-arrow-repeat" />
@@ -91,7 +91,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Survei Praja --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncSurvei'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Survei Praja"
                             :access=$accessUpdate icon="bi-arrow-repeat" />
@@ -99,7 +99,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Konten Literasi --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncKontenLiterasi'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Konten Literasi"
@@ -108,7 +108,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Repositroy --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncRepository'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Repositroy" :access=$accessUpdate
                             icon="bi-arrow-repeat" />
@@ -116,7 +116,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Hard Copy Skripsi Perpustakaan --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?' wire:click='syncCopyPusat'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Hard Copy Skripsi Perpustakaan"
                             :access=$accessUpdate icon="bi-arrow-repeat" />
@@ -124,7 +124,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Hard Copy Skripsi Fakultas --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data?'
                         wire:click='syncCopyFakultas'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Hard Copy Skripsi Fakultas"
@@ -133,7 +133,7 @@
                 </div>
 
                 {{-- Button Singkronasisasi Data Soft Copy --}}
-                <div class="w-auto bd-highlight {{ $accessUpdate }}">
+                <div class="w-auto bd-highlight" {{ $accessUpdate }}>
                     <div wire:confirm='Apakah anda yakin ingin melakukan singkronasi data ?' wire:click='syncSoftCopy'>
                         <x-admin.components.button.icon-button text="Singkronasi Data Soft Copy" :access=$accessUpdate
                             icon="bi-arrow-repeat" />
