@@ -526,3 +526,4 @@ resources/views/layouts/NiceAdmin/assets/vendor/tinymce/themes/silver/theme.js
 resources/views/layouts/NiceAdmin/assets/vendor/tinymce/themes/silver/theme.min.js
 resources/views/layouts/NiceAdmin/forms/contact.php
 resources/views/layouts/NiceAdmin/forms/Readme.txt
+composer.lock
