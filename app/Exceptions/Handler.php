@@ -27,4 +27,38 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        // Cék naha pamundut ngaharepkeun réspon JSON
+        if ($request->wantsJson() || $request->is('api/*')) {
+
+            // Nangtukeun status HTTP dumasar kana jinis éksepsi
+            if ($this->isHttpException($exception)) {
+                $status = $exception->getStatusCode();
+            }
+
+            // Ngolah éksepsi JWT spésifik
+            if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                $status = 401;
+                $response['errors'] = 'Token is invalid';
+            } else if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                $status = 401;
+                $response['errors'] = 'Token has expired';
+            } else if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+                $status = 401;
+                $response['errors'] = $exception->getMessage();
+            } else if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
+                $status = 401;
+                $response['errors'] = 'Authentication error';
+            } else {
+                $status = 500;
+                $response['errors'] = $exception->getMessage();
+            }
+
+            return response()->json($response, $status);
+        }
+
+        return parent::render($request, $exception);
+    }
 }
