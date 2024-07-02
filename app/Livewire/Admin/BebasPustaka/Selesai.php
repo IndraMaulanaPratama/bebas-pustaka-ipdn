@@ -251,6 +251,7 @@ class Selesai extends Component
                     }
                 }
             )
+            ->orderBy('updated_at', 'DESC')
             ->where('BEBAS_NUMBER', '!=', null)
             ->paginate();
 
