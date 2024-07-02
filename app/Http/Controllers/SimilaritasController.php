@@ -58,4 +58,35 @@ class SimilaritasController extends Controller
 
 
     }
+
+
+    public function count($status = null)
+    {
+        if ($status != 'proses' || $status != 'disetujui' || $status != 'ditolak') {
+            return response()->json(['message' => 'Status tidak valid'], 400);
+        }
+
+        
+        try {
+            $data = Similaritas::
+                when(
+                    $status,
+                    function ($query, $status) {
+                        return $query->where('SIMILARITAS_STATUS', $status);
+                    }
+                )->count();
+
+            $response = [
+                'message' => 'Data Similaritas berhasil dibaca',
+                'data' => [
+                    'status' => $status == null ? 'semua data' : $status,
+                    'total' => $data,
+                ]
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
+    }
 }
