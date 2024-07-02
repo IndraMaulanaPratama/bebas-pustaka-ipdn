@@ -62,11 +62,11 @@ class SimilaritasController extends Controller
 
     public function count($status = null)
     {
-        if ($status != 'proses' || $status != 'disetujui' || $status != 'ditolak') {
+        if ($status != 'proses' || $status != 'disetujui' || $status != 'ditolak' || $status == null) {
             return response()->json(['message' => 'Status tidak valid'], 400);
         }
 
-        
+
         try {
             $data = Similaritas::
                 when(
