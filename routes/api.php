@@ -32,5 +32,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 /** Route kanggo Similaritas */
 Route::group(['middleware' => 'jwt.auth'], function () {
-    Route::get('/similaritas/search', [SimilaritasController::class, 'index']);
+    Route::get('/similaritas/count/{status?}', [SimilaritasController::class, 'count']); // Ngetang jumlah data dumasar kana status (optional)
+    Route::get('/similaritas/', [SimilaritasController::class, 'index']);
 });
