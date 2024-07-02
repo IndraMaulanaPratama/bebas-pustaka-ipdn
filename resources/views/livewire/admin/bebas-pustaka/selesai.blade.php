@@ -77,7 +77,7 @@
                             <th style="min-width: 2cm">NPP</th>
                             <th style="min-width: 6cm">Petugas</th>
                             <th style="min-width: 5cm">Tanggal Terbit</th>
-                            <th colspan="2">Option</th>
+                            <th class="text-center" colspan="2" style="width: 5%">Option</th>
                         </tr>
                     </thead>
 
@@ -190,7 +190,8 @@
 
                 {{-- Kampus dan Wisma --}}
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaKampus' placeholder='Alamat Kampus' disabled='disabled' />
+                    <x-admin.components.form.input name='prajaKampus' placeholder='Alamat Kampus'
+                        disabled='disabled' />
 
                 </div>
 
