@@ -97,7 +97,7 @@
                                 </td>
 
                                 <td> {{ $item->BEBAS_OFFICER === 1 ? null : $item->user->name }} </td>
-                                <td> {{ $item->created_at }} </td>
+                                <td> {{ $item->updated_at }} </td>
 
                                 {{-- Button Print --}}
                                 <td {{ $accessPrint }}>
