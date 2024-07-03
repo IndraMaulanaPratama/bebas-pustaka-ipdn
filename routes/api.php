@@ -33,11 +33,18 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 /** Route kanggo Similaritas */
 Route::group(['middleware' => 'jwt.auth'], function () {
-    Route::get('/similaritas/count/{status?}', [SimilaritasController::class, 'count']); // Ngetang jumlah data dumasar kana status (optional)
+    // Ngetang jumlah data dumasar kana status (optional)
+    Route::get('/similaritas/count/{status?}', [SimilaritasController::class, 'count']); 
+
+    // 
     Route::get('/similaritas/', [SimilaritasController::class, 'index']);
 });
 
 /** Route kanggo SKBP */
-Route::group(['middleware' => 'jwt.auth'], function() {
+Route::group(['middleware' => 'jwt.auth'], function () {
+    // Nampilkeun sareng milarian data
     Route::get('/bebas-pustaka/', [BebasPustakaController::class, 'index']);
+
+    // Ngetang jumlah data dumasar kana status
+    Route::get('/bebas-pustaka/count/{status?}', [BebasPustakaController::class, 'count']);
 });
