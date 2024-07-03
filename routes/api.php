@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BebasPustakaController;
 use App\Http\Controllers\SimilaritasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/similaritas/count/{status?}', [SimilaritasController::class, 'count']); // Ngetang jumlah data dumasar kana status (optional)
     Route::get('/similaritas/', [SimilaritasController::class, 'index']);
+});
+
+/** Route kanggo SKBP */
+Route::group(['middleware' => 'jwt.auth'], function() {
+    Route::get('/bebas-pustaka/', [BebasPustakaController::class, 'index']);
 });
