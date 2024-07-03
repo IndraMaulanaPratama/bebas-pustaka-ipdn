@@ -34,7 +34,7 @@ class BebasPustakaController extends Controller
                 ->byNumber($number)
                 ->byStatus($status)
                 ->without('user')
-                ->orderBy('updated_at')
+                ->orderBy('updated_at', 'DESC')
                 ->paginate($item);
 
             // Mulangkeun hasil tinu logika
