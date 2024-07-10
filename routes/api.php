@@ -43,8 +43,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 /** Route kanggo SKBP */
 Route::group(['middleware' => 'jwt.auth'], function () {
     // Nampilkeun sareng milarian data
-    Route::get('/bebas-pustaka/', [BebasPustakaController::class, 'index']);
+    Route::get('/bebas-pustaka/', [BebasPustakaController::class, 'index'])->name('skbp.get-data');
 
     // Ngetang jumlah data dumasar kana status
-    Route::get('/bebas-pustaka/count/{status?}', [BebasPustakaController::class, 'count']);
+    Route::get('/bebas-pustaka/count/{status?}', [BebasPustakaController::class, 'count'])->name('skbp.count');
 });
