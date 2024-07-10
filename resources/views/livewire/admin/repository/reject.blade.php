@@ -1,7 +1,7 @@
 {{-- Stop trying to control. --}}
 
 <x-admin.components.modal.modal id='formReject'>
-    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan donasi buku perpustakaan" />
+    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan unggah repository" />
 
     <form wire:submit='rejecting' method="POST">
 
