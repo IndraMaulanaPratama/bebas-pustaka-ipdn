@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class BebasPustakaController extends Controller
 {
+    /**
+     * fungsi kanggo ngadamel generalisasi balikan kanggo client
+     * @status-200, @status-400
+     */
     private function responseData($data)
     {
         if (count($data) != null) {
@@ -23,6 +27,10 @@ class BebasPustakaController extends Controller
         ], $code);
     }
 
+    /**
+     * SKBP Get Data
+     * @get-all, @search-id, @search-number, @search-angkatan, @search-npp, @search-status, @search-item
+     */
     public function index(Request $request)
     {
 
@@ -57,12 +65,18 @@ class BebasPustakaController extends Controller
             return $this->responseData($data);
 
         } catch (\Throwable $th) {
+            // Masihan inpormasi kasalahan anu kapendak ku sistem
             return response()->json(['message' => $th->getMessage()], $th->getCode());
         }
     }
 
+    /**
+     * SKBP Count data
+     * @count-status
+     */
     public function count($status = 'all')
     {
+        // Marios status nu dikintun
         if ('all' != $status && 'selesai' != $status && 'proses' != $status) {
             return response()->json(['message' => 'Permintaan status tidak valid'], 400);
         }
@@ -80,7 +94,7 @@ class BebasPustakaController extends Controller
                 }
             );
 
-            // Mulangkeun hasil tinu logika
+            // Mulangkeun hasil ka client
             return response()->json([
                 'message' => 'Data bebas pustaka berhasil dibaca',
                 'data' => [
@@ -90,6 +104,7 @@ class BebasPustakaController extends Controller
             ]);
 
         } catch (\Throwable $th) {
+            // Masihan inpormasi kasalahan anu kapendak ku sistem
             return response()->json(['message' => $th->getMessage()]);
         }
     }
