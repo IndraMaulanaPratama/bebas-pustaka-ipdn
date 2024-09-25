@@ -175,7 +175,7 @@
                             <th style="min-width: 5cm">Pinjaman Fakultas</th>
                             <th style="min-width: 5cm">Donasi Pusat</th>
                             <th style="min-width: 5cm">Donasi Fakultas</th>
-                            <th style="min-width: 5cm">Donasi Poin</th>
+                            <th style="min-width: 5cm">Donasi Buku Elektronik</th>
                             <th style="min-width: 5cm">Survei Praja</th>
                             <th style="min-width: 5cm">Konten Literasi</th>
                             <th style="min-width: 5cm">Repository</th>
