@@ -21,10 +21,19 @@
 
             <ol type="a">
                 <li><b>Lokasi Verifikasi</b></li>
-                <p>Perpustakaan Pusat Ruang Koleksi Sivitas Akademika Lt. 2</p>
+                <p>Perpustakan Pusat IPDN Jatinangor</p>
 
                 <li><b>Petunjuk</b></li>
-                <p>Menyusul</p>
+                <p>
+                    Praja melakukan pembelian buku cetak pada kegiatan Bazaar Buku Perpustakaan IPDN yang dilaksanakan
+                    di Gedung Perpustakaan IPDN Lt. 2 pada tahun 2025.
+                </p>
+
+                <p>
+                    Setelah melakukan pembelian, Praja akan mendapatkan bukti transaksi yang selanjutnya buku tersebut
+                    dapat diserahkan ke petugas Perpustakaan di Ruang Pengolahan Gedung Perpustakaan Pusat IPDN Lantai
+                    1.
+                </p>
             </ol>
         </li>
 
