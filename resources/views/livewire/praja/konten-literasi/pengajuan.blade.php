@@ -5,55 +5,60 @@
         <li>
             <b>Lokasi Verifikasi</b>
 
-            <p>Perpustakaan IPDN Jatinangor</p>
+            <p>Perpustakaan Pusat IPDN Jatinangor</p>
         </li>
 
         <li>
             <b>Petunjuk</b>
 
             <p>
-                Praja membuat 1 (satu) buah video dengan durasi minimal 1 (satu) menit dan maksimal 2 (dua) menit sesuai
-                dengan tema yang sudah ditentukan. Adapun tema yang dapat Praja pilih antara lain:
+                Praja membuat 1 (satu) buah video review buku/rekomendasi buku. Adapun ketentuan konten sebagai berikut:
 
             <ol type="1">
+
+                {{-- 1 --}}
                 <li>
-                    <p>Review koleksi perpustakaan atau rekomendasi buku</p>
+                    <p>
+                        <b>Praja wajib In Frame;</b>
+                    </p>
                 </li>
 
+                {{-- 2 --}}
                 <li>
-                    <p>Review layanan perpustakaan baik <i>onsite/ online</i></p>
+                    <p>
+                        Konten memuat: (1) Judul buku; (2) Nama pengarang; (3) Waktu terbit; (4) Durasi membaca buku;
+                        (5) pembahasan buku (kelebihan, kekurangan); (6) Tempat mengakses buku tersebut.
+                    </p>
                 </li>
 
+                {{-- 3 --}}
                 <li>
-                    <p>Tips dan Trik penulisan karya ilmiah atau penelusuran informasi</p>
+                    <p>
+                        Tuliskan <b>Caption</b> yang bertemakan literasi/ ajakan membaca buku/ ajakan berkunjung ke
+                        Perpustakaan IPDN.
+                    </p>
                 </li>
 
+                {{-- 4 --}}
                 <li>
-                    <p>Ajakan untuk berkunjung ke perpustakaan dan</p>
-                </li>
-
-                <li>
-                    <p><i>Daily life as Praja IPDN</i></p>
+                    <p>
+                        Sertakan tagar <b>#perpustakaanipdn #fomoliterasi</b>.
+                    </p>
                 </li>
             </ol>
 
 
             <p>
-                Selanjutnya unggah video tersebut pada platform
-                Instagram
-                dengan
-                menggunakan fitur Reels dan pastikan sudah dilakukan tag pada akun <i><b>Instagram
-                        @perpustakaanipdn</b></i>.
-                Kemudian
-                kirimkan <i>soft file</i> video tersebut melalui link <a href="{{ $setting->SETTING_URL_LITERASI }}"
-                    target="_blank">Google Form <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a> yang
-                sudah kami
-                sediakan.
-                Jika
-                kedua proses
-                unggah sudah selesai dilakukan, maka Praja sudah dapat melakukan verifikasi kepada Petugas
-                Perpustakaan
-                Pusat IPDN.
+                Selanjutnya unggah video tersebut pada platform social media <b>Instagram/ Tiktok/ Youtube</b> dengan
+                menggunakan fitur Reels/ Short dan pastikan sudah dilakukan tag pada akun Instagram <b>@perpustakaanipdn</b>.
+            </p>
+
+            <p>
+                Kemudian kirimkan <i>softfile video</i> tersebut melalui  <a href="{{ $setting->SETTING_URL_LITERASI }}"
+                    target="_blank">Google Form <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a> yang sudah kami
+                sediakan. Jika kedua
+                proses unggah sudah selesai dilakukan, maka Praja sudah dapat melakukan verifikasi kepada Petugas
+                Perpustakaan Pusat IPDN.
             </p>
 
         </li>
