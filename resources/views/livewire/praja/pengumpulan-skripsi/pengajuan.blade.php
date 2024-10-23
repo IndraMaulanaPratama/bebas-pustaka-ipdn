@@ -43,14 +43,15 @@
 
                     <p>
                         Praja melakukan unggah <i>Soft Copy</i> Skripsi dalam bentuk <b>Pdf</b> ke alamat email
-                        <button class="btn btn-link">perpustakaan@ipdn.ac.id</button>. Adapun file
-                        yang harus dilampirkan antara lain: (1) Halaman
-                        awal skripsi; (2) Bab I; (3) Bab II; (4) Bab III; (5) Bab IV; (6) Bab V; (7) Daftar
-                        Pustaka; (8) Ringkasan skripsi; dan (9) <i>Full text </i>skripsi. Jika Praja sudah
-                        melakukan
-                        <i>upload</i> 9 (Sembilan) file tersebut, selanjutnya silahkan Praja melakukan
-                        verifikasi
-                        kepada petugas di Ruang Laporan Akhir Gedung Perpustakaan Pusat IPDN lantai 3.
+                        <button class="btn btn-link">perpustakaan@ipdn.ac.id</button>.
+
+                        Adapun file
+                        yang harus dilampirkan antara lain: (1) File Full text skripsi dan (2) File Ringkasan Skripsi/
+                        Repositori.
+
+                        Jika Praja sudah melakukan <i>upload</i> 2 (dua) file tersebut, selanjutnya silahkan Praja
+                        melakukan verifikasi kepada petugas di Ruang Laporan Akhir Gedung Perpustakaan Pusat IPDN lantai
+                        3.
                     </p>
                 </li>
 
@@ -58,12 +59,18 @@
                     <b>Catatan</b>
 
                     <p>
+                        Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan Praja
+                        lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas.
+                    </p>
+
+                    <p>
                         Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan
-                        Praja lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas. Kemudian
-                        silahkan kirimkan Kembali file tersebut ke alamat <button
-                            class="btn btn-link">perpustakaan@ipdn.ac.id</button> dan
-                        selanjutnya lakukan <b>pengajuan ulang</b> pada website Bebas Pustaka pada menu <b>Soft
-                            Copy</b>.
+                        Praja lakukan perbaikan pada file sesuai dengan catatan yang diberikan petugas.
+
+                        Kemudian silahkan kirimkan Kembali file tersebut ke alamat
+                        <button class="btn btn-link">perpustakaan@ipdn.ac.id</button> dan
+                        selanjutnya lakukan <b>pengajuan ulang</b> pada website Bebas Pustaka pada menu <b> Soft Copy –
+                            Resume Pengajuan </b>.
                         Status pengajuan akan berubah menjadi <b>diterima</b> jika file perbaikan sudah sesuai
                         dengan
                         ketentuan berdasarkan verifikasi petugas.
