@@ -62,7 +62,7 @@
             <table width='100%'>
                 <tr>
                     <th>
-                        <img src="foto_pegawai/logo-ipdn.jpg" alt="Logo ipdn" width="90px" />
+                        <img src="foto_pegawai/logo-kemendagri.png" alt="Logo kemendagri" width="60px" />
                     </th>
 
                     <td>
@@ -80,10 +80,14 @@
                             </div>
                         </center>
                     </td>
+
+                    <th>
+                        <img src="foto_pegawai/logo-ipdn.jpg" alt="Logo ipdn" width="90px" />
+                    </th>
+
                 </tr>
             </table>
 
-            <hr height="5px" size="4" />
             <hr />
         </center>
     </div>
