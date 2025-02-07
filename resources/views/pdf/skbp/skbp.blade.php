@@ -75,8 +75,9 @@
                                 INSTITUT PEMERINTAHAN DALAM NEGERI
                             </div>
                             <div class="">
-                                Jl. Ir. Soekarno Km. 20 Jatinangor-Sumedang Kode Pos 45363 <br />
-                                Telp. (022) 7798252-7798253 fax (022) 7798256, Website http://www.ipdn.ac.id
+                                Jalan Ir. Soekarno Km. 20 Jatinangor - Sumedang <br />
+                                Telp. (022) 7798252 - 7798253 fax (002) 7798256, Website <a href="http://www.ipdn.ac.id"
+                                    target="_blank">http://www.ipdn.ac.id</a> Pos 45363
                             </div>
                         </center>
                     </td>
