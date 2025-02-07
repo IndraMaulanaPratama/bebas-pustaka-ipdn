@@ -10,3 +10,19 @@
 *.sublime-workspace
 *.sublime-project
 
+node_modules
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/app/public/
+/storage/app/livewire-tmp/
+/storage/framework/
+/vendor
+/resources/views/layouts/NiceAdmin/
+.env
+.env.backup
+.env.production
+public/foto_pegawai
+public/tanda_tangan
