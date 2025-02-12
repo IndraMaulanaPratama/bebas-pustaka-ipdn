@@ -19,7 +19,7 @@
                             <p class="text-center small">Silahkan masukan surel dan sandi anda</p>
                         </div>
 
-                        <form method="POST" wire:submit='login' class="row g-3 needs-validation" novalidate>
+                        <form wire:submit='login' class="row g-3 needs-validation" novalidate>
 
                             @if (session('success'))
                                 <x-admin.components.alert.success text="{{ session('success') }}" />
