@@ -55,7 +55,6 @@
                                     href="pages-register.html">Create an account</a></p>
                         </div> --}}
 
-                            <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
                         </form>
 
                     </div>
@@ -66,15 +65,4 @@
             </div>
         </div>
     </div>
-
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
-    <script>
-        grecaptcha.ready(function() {
-            grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
-                action: 'submit'
-            }).then(function(token) {
-                document.getElementById("recaptcha-token").value = token;
-            });
-        });
-    </script>
 </section>
