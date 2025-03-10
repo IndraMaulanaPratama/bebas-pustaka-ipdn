@@ -34,20 +34,28 @@
                             @endif
 
                             {{-- Input Email --}}
-                            <x-admin.components.form.input type="email" name='email' placeholder='E-Mail' required='required' />
+                            <x-admin.components.form.input type="email" name='email' placeholder='E-Mail'
+                                required='required' />
 
                             {{-- Input Kata Sandi --}}
-                            <x-admin.components.form.input type="password" name='password' placeholder='Kata Sandi' required='required' />
+                            <x-admin.components.form.input type="password" name='password' placeholder='Kata Sandi'
+                                required='required' />
 
 
                             <div class="col-12">
                                 <button class="btn btn-primary w-100" type="submit">Masuk</button>
                             </div>
 
+                            {{-- recaptcha --}}
+                            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"
+                                data-callback="onRecaptchaSuccess"></div>
+
                             {{-- <div class="col-12">
                             <p class="small mb-0">Don't have account? <a
                                     href="pages-register.html">Create an account</a></p>
                         </div> --}}
+
+                            <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
                         </form>
 
                     </div>
@@ -59,4 +67,14 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                action: 'submit'
+            }).then(function(token) {
+                document.getElementById("recaptcha-token").value = token;
+            });
+        });
+    </script>
 </section>
