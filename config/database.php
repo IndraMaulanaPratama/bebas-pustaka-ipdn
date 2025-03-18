@@ -63,26 +63,6 @@ return [
             ]) : [],
         ],
 
-        'bebas_pustaka_dev' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DEV_HOST', '127.0.0.1'),
-            'port' => env('DEV_PORT', '3306'),
-            'database' => env('DEV_DATABASE', 'forge'),
-            'username' => env('DEV_USERNAME', 'forge'),
-            'password' => env('DEV_PASSWORD', ''),
-            'unix_socket' => env('DEV_SOCKET', ''),
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
-
         'satu_praja' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
