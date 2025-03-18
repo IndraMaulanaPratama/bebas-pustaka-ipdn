@@ -42,10 +42,10 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/praja/bebas-pinjaman', \App\Livewire\Page\Praja\Pinjaman::class)->name('praja-pinjaman');
     //
     Route::get('/praja/donasi', \App\Livewire\Page\Praja\Donasi::class)->name('praja-donasi');
-    Route::get('praja/survey', \App\Livewire\Page\Praja\SurveyPustaka::class)->name('praja-survey');
-    Route::get('praja/konten-literasi', \App\Livewire\Page\Praja\KontenLiterasi::class)->name('praja-konten.literasi');
-    Route::get('praja/unggah-repository', \App\Livewire\Page\Praja\UnggahRepository::class)->name('praja-unggah.repository');
-    Route::get('praja/copy-skripsi', \App\Livewire\Page\Praja\PengumpulanSkripsi::class)->name('praja-skripsi');
+    Route::get('/praja/survey', \App\Livewire\Page\Praja\SurveyPustaka::class)->name('praja-survey');
+    Route::get('/praja/konten-literasi', \App\Livewire\Page\Praja\KontenLiterasi::class)->name('praja-konten.literasi');
+    Route::get('/praja/unggah-repository', \App\Livewire\Page\Praja\UnggahRepository::class)->name('praja-unggah.repository');
+    Route::get('/praja/copy-skripsi', \App\Livewire\Page\Praja\PengumpulanSkripsi::class)->name('praja-skripsi');
 
 
     // --- *** Officer Area *** --- //
