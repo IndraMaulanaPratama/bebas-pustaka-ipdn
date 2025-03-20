@@ -1,7 +1,7 @@
 {{-- Close your eyes. Count to one. That is how long forever feels. --}}
 
 <x-admin.components.modal.modal id='formReject'>
-    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan donasi buku perpustakaan" />
+    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan konten literasi" />
 
     <form wire:submit='rejecting' method="POST">
 
