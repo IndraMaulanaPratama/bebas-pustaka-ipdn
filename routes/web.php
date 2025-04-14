@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', Dashboard::class)->middleware('auth')->name('/');
+Route::get('/', Dashboard::class)->middleware('auth')->name('dashboard');
 
 
 
