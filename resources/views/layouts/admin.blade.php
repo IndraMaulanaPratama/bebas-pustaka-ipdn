@@ -56,12 +56,10 @@
 
         <!-- Breadcrumb -->
         <x-admin.tamplates.admin-pageTitle title="{{$title}}" />
-        {{-- // TODO: Fixing breadcrumb  --}}
         <!-- End Page Title -->
 
         <section class="section dashboard">
             {{ $slot }}
-            {{-- // TODO: Buatkan module similaritas --}}
         </section>
 
     </main><!-- End #main -->

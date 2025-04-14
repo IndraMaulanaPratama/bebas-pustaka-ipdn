@@ -60,10 +60,10 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/unggah-repository', UnggahRepository::class)->name('admin-unggah.repository');
     Route::get('/hard-copy-fakultas', SkripsiFakultas::class)->name('admin-hard.fakultas');
     Route::get('/hard-copy-perpustakaan', SkripsiPerpustakaan::class)->name('admin-hard.perpustakaan');
-    Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi'); // TODO:: Export Excel
-    Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka'); // TODO:: Export Excel
-    Route::get('/bebas-pustaka/selesai', Selesai::class)->name('admin-pustaka.selesai'); // TODO:: Export Excel
-    Route::get('/bebas-pustaka/belum-selesai', BelumSelesai::class)->name('admin-pustaka.belum-selesai'); // TODO:: Export Excel
+    Route::get('/soft-copy-skripsi', SkripsiSoftCopy::class)->name('admin-soft.skripsi');
+    Route::get('/bebas-pustaka', BebasPustaka::class)->name('admin-pustaka');
+    Route::get('/bebas-pustaka/selesai', Selesai::class)->name('admin-pustaka.selesai');
+    Route::get('/bebas-pustaka/belum-selesai', BelumSelesai::class)->name('admin-pustaka.belum-selesai');
     // --- *** End Of Officer Area *** --- //
 
 
