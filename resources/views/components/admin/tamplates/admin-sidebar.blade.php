@@ -13,7 +13,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <x-admin.tamplates.sidebar.link text="Beranda" navigate="/" icon="grid" />
+        <x-admin.tamplates.sidebar.link text="Beranda" navigate="dashboard" icon="grid" />
 
         <x-admin.tamplates.sidebar.heading text='Bebas Pustaka' />
 
