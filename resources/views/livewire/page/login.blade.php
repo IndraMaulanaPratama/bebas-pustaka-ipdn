@@ -47,10 +47,6 @@
                                 <button class="btn btn-primary w-100" type="submit">Masuk</button>
                             </div>
 
-                            {{-- recaptcha --}}
-                            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"
-                                data-callback="onRecaptchaSuccess"></div>
-
                             {{-- <div class="col-12">
                             <p class="small mb-0">Don't have account? <a
                                     href="pages-register.html">Create an account</a></p>
