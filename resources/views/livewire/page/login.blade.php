@@ -20,7 +20,6 @@
                         </div>
 
                         <form wire:submit='login' class="row g-3 needs-validation" novalidate>
-                            @csrf
 
                             @if (session('success'))
                                 <x-admin.components.alert.success text="{{ session('success') }}" />
