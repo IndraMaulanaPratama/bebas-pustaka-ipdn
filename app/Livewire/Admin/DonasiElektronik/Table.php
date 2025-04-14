@@ -6,7 +6,6 @@ use App\Exports\DonasiElektronikExcel;
 use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\DonasiElektronik;
-use App\Models\DonasiFakultas;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -16,12 +15,13 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Table extends Component
 {
     use WithPagination;
 
-    public $accessReject, $accessApprove, $accessExport;
+    public $accessReject, $accessApprove, $accessExport, $accessPrint;
     public $sortStatus, $sortFakultas, $angkatan, $search;
     public $npp,
     $dataPraja,
@@ -57,6 +57,8 @@ class Table extends Component
         $this->accessApprove = $this->generateAccess($access->ACCESS_APPROVE);
         $this->accessReject = $this->generateAccess($access->ACCESS_REJECT);
         $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
+        $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
+
     }
 
 
@@ -131,6 +133,40 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    /**
+    * Aya sababara catetan kanggo fiture print ieu
+    // TODO:: (1) nomor surat, (2) Data transaksi pembayaran
+    */
+    public function printApprooved($id)
+    {
+
+        $data = DonasiElektronik::where("ELEKTRONIK_ID", $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->ELEKTRONIK_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        $dokumen = view("pdf.donasi.elektronik.perpustakaan-pusat", [
+            'donasi' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print ($pdf);
+            },
+            'Donasi-Cetak-Perpustakaan-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
