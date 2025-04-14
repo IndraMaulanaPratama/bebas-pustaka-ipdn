@@ -83,7 +83,7 @@
             <center>
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                {{-- <h4>NOMOR: 000.5.6.2/BDKC-dummy-nomor/IPDN.18.4/2025</h4> --}}
+                <h4>NOMOR: 000.5.6.2/BDKC-............../IPDN.18.4/2025</h4>
                 {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
@@ -212,12 +212,12 @@
         </p>
 
         {{-- Judul Surat --}}
-        <div id="Judul" style="margin-top: 40px; margin-bottom: 30px;">
+        <div id="Judul" style="margin-top: 40px; margin-bottom: 40px;">
             <center>
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: 000.5.6.2/BDKC-dummy-nomor/IPDN.18.4/2025</h4>
-                {{-- <h4>NOMOR: {{ $similaritas->PUSTAKA_NUMBER }} </h4> --}}
+                <h4>NOMOR: 000.5.6.2/BDKC-............../IPDN.18.4/2025</h4>
+                {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
 
