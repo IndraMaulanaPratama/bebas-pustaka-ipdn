@@ -15,6 +15,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Table extends Component
 {
@@ -150,6 +151,37 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+    public function printApprooved($id)
+    {
+
+        $data = KontenLiterasi::where("KONTEN_ID", $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->KONTEN_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        // dd($dataPraja);
+
+        $dokumen = view("pdf.konten-literasi.bukti-pemeriksaan", [
+            'data' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print ($pdf);
+            },
+            'Konten-literasi-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
