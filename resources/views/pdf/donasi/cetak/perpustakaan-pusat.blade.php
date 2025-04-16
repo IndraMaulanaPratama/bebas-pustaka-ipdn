@@ -208,7 +208,7 @@
                     border-width: 1px;
                     padding: 5px;
                 ">
-            Arsip Pribadi
+            Arsip Perpustakaan
         </p>
 
         {{-- Judul Surat --}}
