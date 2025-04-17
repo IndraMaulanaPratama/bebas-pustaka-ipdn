@@ -77,6 +77,7 @@
             Arsip Pribadi
         </p>
 
+        {{-- Judul --}}
         <div id="Judul" style="margin-top: 40px">
             <center>
                 <h3>BERITA ACARA PENYERAHAN SKRIPSI PRAJA TAHUN LULUS {{ Carbon::now('Asia/Jakarta')->format('Y') }}
@@ -84,6 +85,7 @@
             </center>
         </div>
 
+        {{-- Keterangan --}}
         <div class="container">
             Telah diterima:
 
@@ -101,7 +103,7 @@
 
         {{-- Table Identitas --}}
         <div class="container">
-            <table style="width: 100%; border-style: none; padding:0px 50px;">
+            <table style="width: 100%; border-style: none; padding:0px 0px;">
                 <tr>
                     <td width="120px">Nama</td>
                     <td width="2px">:</td>
@@ -220,6 +222,7 @@
             Arsip Perpustakaan
         </p>
 
+        {{-- Judul --}}
         <div id="Judul" style="margin-top: 40px">
             <center>
                 <h3>BERITA ACARA PENYERAHAN SKRIPSI PRAJA TAHUN LULUS {{ Carbon::now('Asia/Jakarta')->format('Y') }}
@@ -227,6 +230,7 @@
             </center>
         </div>
 
+        {{-- Keterangan --}}
         <div class="container">
             Telah diterima:
 
@@ -244,7 +248,7 @@
 
         {{-- Table Identitas --}}
         <div class="container">
-            <table style="width: 100%; border-style: none; padding:0px 50px;">
+            <table style="width: 100%; border-style: none; padding:0px 0px;">
                 <tr>
                     <td width="120px">Nama</td>
                     <td width="2px">:</td>
