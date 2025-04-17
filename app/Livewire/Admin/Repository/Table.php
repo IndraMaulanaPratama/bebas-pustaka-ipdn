@@ -183,7 +183,7 @@ class Table extends Component
             function () use ($pdf) {
                 print ($pdf);
             },
-            'Donasi-Cetak-Perpustakaan-' . $dataPraja['NAMA'] . '.pdf',
+            'Unggah-Repository-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
         );
 
