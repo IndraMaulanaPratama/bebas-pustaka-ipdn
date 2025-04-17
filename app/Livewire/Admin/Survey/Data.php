@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Data extends Component
 {
@@ -138,6 +139,36 @@ class Data extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    public function printApprooved($id)
+    {
+
+        $data = Survey::where("SURVEY_ID", $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SURVEY_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        $dokumen = view("pdf.survey.bukti-pemeriksaan", [
+            'data' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print ($pdf);
+            },
+            'Survei-Praja-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
