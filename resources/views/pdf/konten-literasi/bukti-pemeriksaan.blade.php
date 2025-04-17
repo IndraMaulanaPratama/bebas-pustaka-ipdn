@@ -81,7 +81,7 @@
         {{-- Judul Surat --}}
         <div id="Judul" style="margin-top: 40px">
             <center>
-                <h3>BUKTI PENGISIAN SURVEI DAN UNGGAH KONTEN LITERASI</h3>
+                <h3>BUKTI UNGGAH KONTEN LITERASI</h3>
                 <h4>SURAT KETERANGAN BEBAS PUSTAKA TAHUN {{ date('Y') }}</h4>
             </center>
         </div>
@@ -197,7 +197,7 @@
         {{-- Judul Surat --}}
         <div id="Judul" style="margin-top: 40px">
             <center>
-                <h3>BUKTI PENGISIAN SURVEI DAN UNGGAH KONTEN LITERASI</h3>
+                <h3>BUKTI UNGGAH KONTEN LITERASI</h3>
                 <h4>SURAT KETERANGAN BEBAS PUSTAKA TAHUN {{ date('Y') }}</h4>
             </center>
         </div>
