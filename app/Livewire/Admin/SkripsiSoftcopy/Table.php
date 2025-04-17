@@ -145,7 +145,7 @@ class Table extends Component
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
 
-        $dokumen = view("pdf.penyerahan-skripsi .bukti-pemeriksaan", [
+        $dokumen = view("pdf.penyerahan-skripsi.bukti-pemeriksaan", [
             'data' => $data,
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
