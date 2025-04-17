@@ -15,7 +15,7 @@
                         <b>Lihat Tamplate</b>
 
                         <p>
-                            Untuk melihat tamplate repository, silahkan klik tautan berikut ini: <br/>
+                            Untuk melihat tamplate repository, silahkan klik tautan berikut ini: <br />
                             <a href="{{ $setting->SETTING_URL_REPOSITORY }}" target="_blank" class="btn btn-link btn-sm">
                                 Buka Tamplate <sup><i class="bi bi-arrow-up-right-circle"></i></sup>
                             </a>
@@ -27,7 +27,7 @@
                         <b>Ubah Tamplate</b>
 
                         <p>
-                            Untuk merubah URL Tamplate, silahkan klik tautan berikut ini: <br/>
+                            Untuk merubah URL Tamplate, silahkan klik tautan berikut ini: <br />
                             <a href="#" data-bs-toggle="collapse" data-bs-target="#updateRepository"
                                 aria-expanded="false" aria-controls="updateRepository" class="btn btn-link btn-sm">
                                 Ubah URL Tamplate
@@ -149,6 +149,7 @@
                             @php
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
+                                $buttonPrint = 'hidden';
 
                                 if ($item->REPOSITORY_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -158,6 +159,7 @@
                                 } elseif ($item->REPOSITORY_STATUS == 'Disetujui') {
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
+                                    $buttonPrint = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -213,6 +215,16 @@
                                     </button>
                                 </td>
 
+                                {{-- Button Print --}}
+                                <td {{ $buttonPrint }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
+                                        wire:confirm='Cetak bukti pemeriksaan {{ $item->REPOSITORY_PRAJA }} ?'
+                                        wire:click='printApprooved("{{ $item->REPOSITORY_ID }}")'>
+                                        <i class="bi bi-printer-fill"></i>
+                                    </button>
+                                </td>
+
                             </tr>
                         @endforeach
 
@@ -243,7 +255,8 @@
                         disabled='disabled' />
                 </div>
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaPonsel' placeholder='Nomor Ponsel' disabled='disabled' />
+                    <x-admin.components.form.input name='prajaPonsel' placeholder='Nomor Ponsel'
+                        disabled='disabled' />
 
                 </div>
 
@@ -262,8 +275,8 @@
 
                 {{-- Tempat Tanggal Lahir dan Jenis Kelamin --}}
                 <div class="col-6">
-                    <x-admin.components.form.input name='prajaTempatTanggalLahir' placeholder='Tempat dan Tanggal Lahir'
-                        disabled='disabled' />
+                    <x-admin.components.form.input name='prajaTempatTanggalLahir'
+                        placeholder='Tempat dan Tanggal Lahir' disabled='disabled' />
 
                 </div>
                 <div class="col-6">
