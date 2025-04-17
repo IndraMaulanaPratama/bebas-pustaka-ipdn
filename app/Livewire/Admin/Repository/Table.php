@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class Table extends Component
 {
@@ -151,6 +153,40 @@ class Table extends Component
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
+    }
+
+
+
+    /**
+ * Aya sababara catetan kanggo fiture print ieu
+ // TODO:: (1) Judul skripsi, (2) Nama Pembimbing
+ */
+    public function printApprooved($id)
+    {
+
+        $data = Repository::where("REPOSITORY_ID", $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->REPOSITORY_PRAJA), true)["data"][0];
+        $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        $dokumen = view("pdf.repository.bukti-pemeriksaan", [
+            'data' => $data,
+            'sign' => url('tanda_tangan/' . $data->user->sign),
+            'praja' => $dataPraja,
+            'ponsel' => $ponsel,
+        ])->render();
+
+        $pdf = Pdf::loadHTML($dokumen)
+            ->output();
+
+
+        return response()->streamDownload(
+            function () use ($pdf) {
+                print ($pdf);
+            },
+            'Donasi-Cetak-Perpustakaan-' . $dataPraja['NAMA'] . '.pdf',
+            ["Attachment" => false],
+        );
+
     }
 
 
