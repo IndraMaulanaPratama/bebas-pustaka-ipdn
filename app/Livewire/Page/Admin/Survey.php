@@ -6,7 +6,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title("Pengaturan Formulir Survey Praja")]
+#[Title("Pengaturan Formulir Survei Praja")]
 class Survey extends Component
 {
 
