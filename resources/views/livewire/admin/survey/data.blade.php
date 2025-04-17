@@ -135,6 +135,7 @@
                                 @php
                                     $buttonApprove = 'hidden';
                                     $buttonReject = 'hidden';
+                                    $buttonPrint = 'hidden';
 
                                     if ($item->SURVEY_STATUS == 'Proses') {
                                         $colorStatus = 'primary';
@@ -144,6 +145,7 @@
                                     } elseif ($item->SURVEY_STATUS == 'Disetujui') {
                                         $colorStatus = 'success';
                                         $iconStatus = 'bi-check2-all';
+                                        $buttonPrint = null;
                                     } else {
                                         $colorStatus = 'danger';
                                         $iconStatus = 'bi-dash-circle-fill';
@@ -189,6 +191,16 @@
                                             data-bs-toggle="modal" data-bs-target="#formReject"
                                             wire:click='rejectData("{{ $item->SURVEY_ID }}")'>
                                             <i class="bi bi-dash-circle-fill"></i>
+                                        </button>
+                                    </td>
+
+                                    {{-- Button Print --}}
+                                    <td {{ $buttonPrint }}>
+                                        <button type="button"
+                                            class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
+                                            wire:confirm='Cetak bukti pemeriksaan {{ $item->SURVEY_PRAJA }} ?'
+                                            wire:click='printApprooved("{{ $item->SURVEY_ID }}")'>
+                                            <i class="bi bi-printer-fill"></i>
                                         </button>
                                     </td>
 
