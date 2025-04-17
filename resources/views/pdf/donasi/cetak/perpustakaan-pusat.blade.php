@@ -83,7 +83,7 @@
             <center>
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: 000.5.6.2/BDKC-............../IPDN.18.4/2025</h4>
+                <h4>NOMOR: 000.5.6.2/BDKC- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /2025</h4>
                 {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
@@ -216,7 +216,7 @@
             <center>
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: 000.5.6.2/BDKC-............../IPDN.18.4/2025</h4>
+                <h4>NOMOR: 000.5.6.2/BDKC- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /2025</h4>
                 {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
