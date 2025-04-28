@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Carbon;
-    $date = Carbon::parse($donasi->PUSTAKA_APPROVED);
+    $date = Carbon::parse($data->FAKULTAS_APPROVED);
     $tanggal = $date->toDateString();
     $waktu = $date->toTimeString();
 @endphp ?>
@@ -10,7 +10,7 @@
 
 <head>
 
-    <title>Donasi Cetak Perpustakaan Pusat</title>
+    <title>Donasi Cetak Perpustakaan Fakultas</title>
     <link href="bootstrap.css" rel="stylesheet" />
 
     <style>
@@ -84,7 +84,7 @@
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
                 <h4>NOMOR: 000.5.6.2/BDKC- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /2025</h4>
-                {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
+                {{-- <h4>NOMOR: {{ $data->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
 
@@ -167,13 +167,13 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="{{ public_path('tanda_tangan/' . $donasi->user->sign) }}"
-                                alt="{{ $donasi->user->sign }}" width="50%" />
+                            <img src="{{ public_path('tanda_tangan/' . $data->user->sign) }}"
+                                alt="{{ $data->user->sign }}" width="50%" />
 
                         </div>
 
                         <div style="position: absolute; bottom: 80px;">
-                            {{ $donasi->user->name }}
+                            {{ $data->user->name }}
                             <hr style="width:200px;text-align:left;margin-left:0" />
                         </div>
                     </td>
@@ -217,7 +217,7 @@
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
                 <h4>NOMOR: 000.5.6.2/BDKC- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /2025</h4>
-                {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
+                {{-- <h4>NOMOR: {{ $data->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
 
@@ -299,13 +299,13 @@
                     <td>&nbsp;</td>
                     <td style="height: 110px;">
                         <div style="position: absolute">
-                            <img src="{{ public_path('tanda_tangan/' . $donasi->user->sign) }}"
-                                alt="{{ $donasi->user->sign }}" width="50%" />
+                            <img src="{{ public_path('tanda_tangan/' . $data->user->sign) }}"
+                                alt="{{ $data->user->sign }}" width="50%" />
 
                         </div>
 
                         <div style="position: absolute; bottom: 80px;">
-                            {{ $donasi->user->name }}
+                            {{ $data->user->name }}
                             <hr style="width:200px;text-align:left;margin-left:0" />
                         </div>
                     </td>
