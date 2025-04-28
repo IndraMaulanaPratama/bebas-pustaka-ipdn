@@ -69,6 +69,7 @@
                             @php
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
+                                $buttonPrint = 'hidden';
 
                                 if ($item->FAKULTAS_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -78,6 +79,7 @@
                                 } elseif ($item->FAKULTAS_STATUS == 'Disetujui') {
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
+                                    $buttonPrint = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -125,6 +127,17 @@
                                         <i class="bi bi-dash-circle-fill"></i>
                                     </button>
                                 </td>
+
+                                {{-- Button Print --}}
+                                <td {{ $buttonPrint }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
+                                        wire:confirm='Cetak Bukti Pengajuan {{ $item->FAKULTAS_PRAJA }} ?'
+                                        wire:click='printApprooved("{{ $item->FAKULTAS_ID }}")'>
+                                        <i class="bi bi-printer-fill"></i>
+                                    </button>
+                                </td>
+
                             </tr>
                         @endforeach
 
