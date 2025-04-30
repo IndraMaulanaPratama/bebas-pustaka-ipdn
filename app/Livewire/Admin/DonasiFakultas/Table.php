@@ -138,6 +138,11 @@ class Table extends Component
 
 
 
+    /**
+    * Aya sababara catetan kanggo fiture print ieu
+    // TODO:: (1) nomor surat, (2) Data Donasi Cetak
+    */
+
     public function printApprooved($id)
     {
 
