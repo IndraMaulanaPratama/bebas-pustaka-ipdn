@@ -140,12 +140,12 @@ class Table extends Component
 
     public function printApprooved($id)
     {
-        $data = PivotSkripsi::where('PIVOT_SOFTCOPY', $id)->first();
-        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->PIVOT_PRAJA), true)["data"][0];
+        $data = SkripsiSoftcopy::where('SKRIPSI_ID', $id)->first();
+        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SKRIPSI_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
 
-        $dokumen = view("pdf.penyerahan-skripsi.bukti-pemeriksaan", [
+        $dokumen = view("pdf.penyerahan-skripsi.bukti-pemeriksaan-pusat", [
             'data' => $data,
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
