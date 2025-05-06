@@ -76,6 +76,7 @@
                             @php
                                 $buttonApprove = 'hidden';
                                 $buttonReject = 'hidden';
+                                $buttonPrint = 'hidden';
 
                                 if ($item->SKRIPSI_STATUS == 'Proses') {
                                     $colorStatus = 'primary';
@@ -85,6 +86,7 @@
                                 } elseif ($item->SKRIPSI_STATUS == 'Disetujui') {
                                     $colorStatus = 'success';
                                     $iconStatus = 'bi-check2-all';
+                                    $buttonPrint = null;
                                 } else {
                                     $colorStatus = 'danger';
                                     $iconStatus = 'bi-dash-circle-fill';
@@ -130,6 +132,16 @@
                                         data-bs-toggle="modal" data-bs-target="#formReject"
                                         wire:click='rejectData("{{ $item->SKRIPSI_ID }}")'>
                                         <i class="bi bi-dash-circle-fill"></i>
+                                    </button>
+                                </td>
+
+                                {{-- Button Print --}}
+                                <td {{ $buttonPrint }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
+                                        wire:confirm='Cetak Bukti Pengajuan {{ $item->SKRIPSI_PRAJA }} ?'
+                                        wire:click='printApprooved("{{ $item->SKRIPSI_ID }}")'>
+                                        <i class="bi bi-printer-fill"></i>
                                     </button>
                                 </td>
 
@@ -245,7 +257,8 @@
                 {{-- Tombol Reset sareng Submit --}}
                 <div class="modal-footer">
                     {{-- Tombol Reset / Cancel --}}
-                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <button type="button" wire:click='resetForm' class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
                         Tutup
                     </button>
                 </div>
