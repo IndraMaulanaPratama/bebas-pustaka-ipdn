@@ -150,10 +150,23 @@ class Table extends Component
         $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->FAKULTAS_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        $dokumen = view("pdf.donasi.cetak.perpustakaan-pusat", [
+        // Generate kode fakultas
+        $fakultas = null;
+        if ($dataPraja['FAKULTAS'] == 'POLITIK PEMERINTAHAN') {
+            $fakultas = 'FPP';
+        } elseif ($dataPraja['FAKULTAS'] == '') {
+            $fakultas = 'FMP';
+        } elseif ($dataPraja['FAKULTAS'] = 'PERLINDUNGAN MASYARAKAT') {
+            $fakultas = 'FPM';
+        } else {
+            $fakultas = null;
+        }
+
+        $dokumen = view("pdf.donasi.cetak.perpustakaan-fakultas", [
             'data' => $data,
             'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
+            'fakultas' => $fakultas,
             'ponsel' => $ponsel,
         ])->render();
 
@@ -165,7 +178,7 @@ class Table extends Component
             function () use ($pdf) {
                 print ($pdf);
             },
-            'Donasi_Cetak-' . $dataPraja['NAMA'] . '.pdf',
+            'Donasi_Cetak-Fakultas-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
         );
 
