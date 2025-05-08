@@ -10,7 +10,7 @@
 
 <head>
 
-    <title>Donasi Cetak Perpustakaan Fakultas</title>
+    <title>Donasi Cetak Perpustakaan Pusat</title>
     <link href="bootstrap.css" rel="stylesheet" />
 
     <style>
