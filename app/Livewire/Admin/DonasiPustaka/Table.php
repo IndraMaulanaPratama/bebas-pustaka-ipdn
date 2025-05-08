@@ -149,7 +149,7 @@ class Table extends Component
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
         $dokumen = view("pdf.donasi.cetak.perpustakaan-pusat", [
-            'donasi' => $data,
+            'data' => $data,
             'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
