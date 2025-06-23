@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Repository;
 
+use App\Exports\RepositoryExport;
 use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\KontenLiterasi;
@@ -195,6 +196,21 @@ class Table extends Component
     {
         $data = Repository::where('REPOSITORY_ID', $id)->first();
         $this->dispatch('data-selected', $data);
+    }
+
+
+
+    public function exportData()
+    {
+        return (new RepositoryExport)
+            ->forStatus($this->sortStatus)
+            ->forAngkatan($this->angkatan)
+            ->forFakultas($this->sortFakultas)
+            ->forSearch($this->search)
+            ->download(
+                'Repository.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
     }
 
 
