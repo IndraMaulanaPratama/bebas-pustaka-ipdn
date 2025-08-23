@@ -54,7 +54,7 @@ class Login extends Component
             $credentials = $this->validate();
             if (Auth::attempt($credentials)) {
                 session()->regenerate();
-                return redirect()->route('dashboard');
+                return redirect()->intended('/');
 
             } else {
                 $this->password = null;
@@ -135,13 +135,13 @@ class Login extends Component
     {
         // Skip reCAPTCHA validation in local environment
         if (app()->environment('local')) {
-            \Log::info('reCAPTCHA validation skipped in local environment');
+            // \Log::info('reCAPTCHA validation skipped in local environment');
             return true;
         }
 
         try {
             $response = Http::timeout(10)->asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'secret' => config('recaptcha.api_secret_key'),
                 'response' => $token,
                 'remoteip' => request()->ip()
             ]);
