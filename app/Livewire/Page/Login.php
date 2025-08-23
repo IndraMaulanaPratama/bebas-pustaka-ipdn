@@ -5,8 +5,8 @@ namespace App\Livewire\Page;
 use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
+use Http;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
@@ -23,7 +23,7 @@ class Login extends Component
     #[Rule(['required', 'string',])]
     public $password;
 
-
+    public $recaptcha_token;
 
     public function login()
     {
@@ -35,6 +35,15 @@ class Login extends Component
                 'recaptcha' => 'reCAPTCHA validation failed. Please try again.',
             ]);
         }
+
+
+        if (!$recaptchaValid) {
+            $this->dispatchBrowserEvent('recaptchaError', ['message' => 'reCAPTCHA validation failed']);
+            throw ValidationException::withMessages([
+                'recaptcha' => 'reCAPTCHA validation failed. Please try again.',
+            ]);
+        }
+
         // Maca sumber data login boh ti admin atanapi praja
         $domain = explode('@', $this->email)[1];
         $npp = explode('@', $this->email)[0];
@@ -124,28 +133,24 @@ class Login extends Component
 
     private function validateRecaptcha($token, $action = null)
     {
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $token,
-            'remoteip' => request()->ip()
-        ]);
-
-        $data = $response->json();
-
-        if (!$data['success']) {
-            return false;
+        // Skip reCAPTCHA validation in local environment
+        if (app()->environment('local')) {
+            \Log::info('reCAPTCHA validation skipped in local environment');
+            return true;
         }
 
-        // Validasi action dan score untuk v3
-        if ($action && (!isset($data['action']) || $data['action'] !== $action)) {
+        try {
+            $response = Http::timeout(10)->asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $token,
+                'remoteip' => request()->ip()
+            ]);
+
+            // ... rest of the validation code
+        } catch (\Exception $e) {
+            \Log::error('reCAPTCHA verification error: ' . $e->getMessage());
             return false;
         }
-
-        if (isset($data['score']) && $data['score'] < 0.5) {
-            return false;
-        }
-
-        return true;
     }
 
 

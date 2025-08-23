@@ -67,6 +67,9 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/admin/js/main.js') }}"></script>
 
+
+    {{-- Recaptcha --}}
+    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo env('RECAPTCHA_SITE_KEY'); ?>" async defer></script>
 </body>
 
 </html>

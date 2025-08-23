@@ -114,5 +114,55 @@
     </div>
 
     <!-- Script untuk reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo config('recaptcha.api_site_key'); ?>"></script>
+    <script>
+        document.addEventListener('livewire:load', function() {
+            const siteKey = '<?php echo env('RECAPTCHA_SITE_KEY'); ?>';
+            let recaptchaReady = false;
+
+            // Pastikan reCAPTCHA sudah siap
+            grecaptcha.ready(function() {
+                recaptchaReady = true;
+                console.log('reCAPTCHA ready');
+            });
+
+            // Execute reCAPTCHA ketika form di-submit
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!recaptchaReady) {
+                    console.error('reCAPTCHA not ready yet');
+                    alert('reCAPTCHA sedang loading, silakan tunggu sebentar.');
+                    return;
+                }
+
+                grecaptcha.execute(siteKey, {
+                    action: 'login'
+                }).then(function(token) {
+                    console.log('reCAPTCHA token received:', token);
+
+                    // Set token ke Livewire component
+                    @this.set('recaptcha_token', token, true);
+
+                    // Beri sedikit delay untuk memastikan token tersimpan
+                    setTimeout(() => {
+                        // Call login method
+                        @this.call('login');
+                    }, 300);
+
+                }).catch(function(error) {
+                    console.error('reCAPTCHA error:', error);
+                    alert('Error reCAPTCHA: ' + error.message);
+                });
+            });
+
+            // Reset reCAPTCHA jika ada error
+            Livewire.on('loginFailed', () => {
+                grecaptcha.execute(siteKey, {
+                    action: 'login'
+                }).then(function(token) {
+                    @this.set('recaptcha_token', token, true);
+                });
+            });
+        });
+    </script>
 </div>
