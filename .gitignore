@@ -23,6 +23,5 @@ node_modules
 .env
 .env.backup
 .env.production
-composer.lock
 public/foto_pegawai
 public/tanda_tangan
