@@ -24,6 +24,7 @@ class Table extends Component
     use WithPagination;
 
 
+    public $idLogin;
     public $inputUrl;
     public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate;
     public $sortStatus, $sortFakultas, $angkatan, $search;
@@ -63,6 +64,9 @@ class Table extends Component
         $this->accessPrint = $this->generateAccess($access->ACCESS_PRINT);
         $this->accessExport = $this->generateAccess($access->ACCESS_EXPORT);
         $this->accessUpdate = $this->generateAccess($access->ACCESS_UPDATE);
+
+        $this->idLogin = Auth::user()->id;
+
     }
 
 
@@ -122,6 +126,54 @@ class Table extends Component
 
 
 
+    public function getButtonStatus($status, $officerId)
+    {
+        $classes = [
+            'print' => 'hidden',
+            'keep' => 'hidden',
+            'approve' => 'hidden',
+            'reject' => 'hidden',
+            'colorStatus' => null,
+            'iconStatus' => null,
+        ];
+
+        switch ($status) {
+            case 'Proses':
+                $classes['keep'] = '';
+                $classes['colorStatus'] = 'primary';
+                $classes['iconStatus'] = 'bi-arrow-clockwise';
+                break;
+
+            case 'Disetujui':
+                $classes['print'] = '';
+                $classes['colorStatus'] = 'success';
+                $classes['iconStatus'] = 'bi-check2-all';
+                break;
+
+            case 'Assign':
+                $classes['colorStatus'] = 'warning';
+                $classes['iconStatus'] = 'bi-hourglass-split';
+
+                if ($officerId == auth()->id()) { // Ganti dengan cara auth Anda
+                    $classes['approve'] = '';
+                    $classes['reject'] = '';
+                }
+                break;
+
+            case 'Ditolak':
+                $classes['colorStatus'] = 'danger';
+                $classes['iconStatus'] = 'bi-dash-circle-fill';
+                break;
+
+            default:
+                break;
+        }
+
+        return $classes;
+    }
+
+
+
     public function approveData($id)
     {
         try {
@@ -151,6 +203,43 @@ class Table extends Component
 
             $this->dispatch("data-updated", "Pengajuan unggah repository berhasil disetujui");
             $this->reset();
+        } catch (\Throwable $th) {
+            $this->dispatch("failed-updating-data", $th->getMessage());
+        }
+    }
+
+
+
+    public function keepData($id)
+    {
+        try {
+
+            // Mencari data repository berdasarkan id
+            $repository = Repository::where('REPOSITORY_ID', $id)->first();
+
+            // Validasi statu pengajuan (meminimalisir terjadi double pemeriksaan oleh petugas)
+            switch ($repository->REPOSITORY_STATUS) {
+                case "Proses":
+
+                    // Inisialisasi data repository
+                    $data = [
+                        'REPOSITORY_OFFICER' => $this->idLogin,
+                        'REPOSITORY_STATUS' => "Assign",
+                    ];
+
+                    // Proses update data repository
+                    Repository::where("REPOSITORY_ID", $id)->update($data);
+
+                    // Mengirimkan pesan notifikasi kepada user
+                    $this->dispatch("data-updated", "Pengajuan repository `$repository->REPOSITORY_PRAJA` siap untuk periksa");
+                    break;
+
+                case 'Assign':
+                    // Mengirimkan pesan notifikasi kepada user
+                    $this->dispatch("failed-updating-data", "Pengajuan ini sudah diperiksa oleh `$repository->user->name`, silahkan periksa pengajuan lainnya");
+                    break;
+            }
+
         } catch (\Throwable $th) {
             $this->dispatch("failed-updating-data", $th->getMessage());
         }
@@ -229,10 +318,9 @@ class Table extends Component
     }
 
 
-    public function render()
-    {
 
-        $setting = SettingApps::latest()->first();
+    private function loadData()
+    {
         $data = Repository::
             when(
                 // <!-- Pilari data pengajuan dumasar kana status
@@ -264,6 +352,16 @@ class Table extends Component
             )
             ->latest()
             ->paginate();
+
+        return $data;
+    }
+
+
+    public function render()
+    {
+        $setting = SettingApps::latest()->first();
+        $data = $this->loadData();
+
 
         return view('livewire.admin.repository.table', [
             'data' => $data,
