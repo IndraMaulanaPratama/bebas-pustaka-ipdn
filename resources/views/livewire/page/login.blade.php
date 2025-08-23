@@ -35,6 +35,7 @@
                         @if (session('error'))
                             <x-admin.components.alert.error text="{{ session('error') }}" />
                         @endif
+
                     </div>
 
                     <!-- Login Form -->
@@ -63,7 +64,8 @@
                     <!-- Google Login Buttons -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <a href="{{ route('google.login', ['domain' => 'praja']) }}" class="btn btn-sm btn-google btn-google-primary">
+                            <a href="{{ route('google.login', ['domain' => 'praja']) }}"
+                                class="btn btn-sm btn-google btn-google-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                     viewBox="0 0 24 24">
                                     <path fill="#4285F4"
@@ -80,7 +82,8 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <a href="{{ route('google.login', ['domain' => 'pegawai']) }}" class="btn btn-sm btn-google btn-google-warning">
+                            <a href="{{ route('google.login', ['domain' => 'pegawai']) }}"
+                                class="btn btn-sm btn-google btn-google-warning">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                     viewBox="0 0 24 24">
                                     <path fill="#4285F4"
@@ -97,10 +100,19 @@
                         </div>
                     </div>
 
+                    <!-- reCAPTCHA v3 (Hidden) -->
+                    <input type="hidden" wire:model="recaptcha_token" id="recaptcha-token">
+                    @error('recaptcha')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+
                     <x-login.footer />
 
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Script untuk reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo config('recaptcha.api_site_key'); ?>"></script>
 </div>

@@ -10,6 +10,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Ramsey\Uuid\Uuid;
+use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 #[Layout('layouts.login')]
 class Login extends Component
@@ -21,8 +22,17 @@ class Login extends Component
     #[Rule(['required', 'string',])]
     public $password;
 
+    public $recaptcha_token;
+
+    protected $messages = [
+        'recaptcha.required' => 'Please complete the reCAPTCHA validation.',
+        'recaptcha.recaptcha' => 'reCAPTCHA validation failed. Please try again.',
+    ];
+
     public function login()
     {
+        // Validasi reCAPTCHA v3
+        $recaptcha = ReCaptcha::validate($this->recaptcha_token);
         session()->forget('warning');
 
         // Maca sumber data login boh ti admin atanapi praja
