@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\Google\GoogleController;
 use App\Livewire\Admin\BebasPustaka\BelumSelesai;
 use App\Livewire\Admin\BebasPustaka\Selesai;
 use App\Livewire\Page\Admin\Assign;
@@ -94,3 +95,13 @@ Route::get('/logout', function () {
 
     return redirect('login');
 })->middleware('auth')->name('logout');
+
+
+
+// Route untuk Google Auth
+Route::get('/auth/google/{domain}', [GoogleController::class, 'redirectToGoogle'])
+    ->name('google.login')
+    ->where('domain', 'pegawai|praja');
+
+Route::get('/auth/google/{domain}/callback', [GoogleController::class, 'handleGoogleCallback'])
+    ->where('domain', 'pegawai|praja');
