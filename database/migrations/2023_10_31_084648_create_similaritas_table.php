@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->boolean('SIMILARITAS_SMALL_WORD')->nullable()->comment('Berisi true dan false');
             $table->string('SIMILARITAS_SMALL_WORD_COUNT')->nullable()->comment('Ketentuan small word yang diterapkan');
             $table->boolean('SIMILARITAS_QUOTE')->nullable()->comment('Berisi true dan false');
-            $table->enum('SIMILARITAS_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
+            $table->enum('SIMILARITAS_STATUS', ['Proses', 'Disetujui', 'Ditolak', 'Assign'])->default('Proses');
             $table->string('SIMILARITAS_APPROVED')->nullable()->comment('Tanggal Approve');
             $table->text('SIMILARITAS_NOTES')->nullable()->comment('Digunakan untuk memberikan keterangan saat pengajuan di tolak');
             $table->timestamps();
