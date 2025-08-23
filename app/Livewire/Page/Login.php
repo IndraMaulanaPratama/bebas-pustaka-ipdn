@@ -6,11 +6,12 @@ use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Ramsey\Uuid\Uuid;
-use Biscolab\ReCaptcha\Facades\ReCaptcha;
 
 #[Layout('layouts.login')]
 class Login extends Component
@@ -22,19 +23,18 @@ class Login extends Component
     #[Rule(['required', 'string',])]
     public $password;
 
-    public $recaptcha_token;
 
-    protected $messages = [
-        'recaptcha.required' => 'Please complete the reCAPTCHA validation.',
-        'recaptcha.recaptcha' => 'reCAPTCHA validation failed. Please try again.',
-    ];
 
     public function login()
     {
-        // Validasi reCAPTCHA v3
-        $recaptcha = ReCaptcha::validate($this->recaptcha_token);
-        session()->forget('warning');
+        // Validasi reCAPTCHA manual
+        $recaptchaValid = $this->validateRecaptcha($this->recaptcha_token, 'login');
 
+        if (!$recaptchaValid) {
+            throw ValidationException::withMessages([
+                'recaptcha' => 'reCAPTCHA validation failed. Please try again.',
+            ]);
+        }
         // Maca sumber data login boh ti admin atanapi praja
         $domain = explode('@', $this->email)[1];
         $npp = explode('@', $this->email)[0];
@@ -119,6 +119,37 @@ class Login extends Component
             session()->flash('warning', 'Data pengguna tidak ditemukan');
         }
     }
+
+
+
+    private function validateRecaptcha($token, $action = null)
+    {
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $token,
+            'remoteip' => request()->ip()
+        ]);
+
+        $data = $response->json();
+
+        if (!$data['success']) {
+            return false;
+        }
+
+        // Validasi action dan score untuk v3
+        if ($action && (!isset($data['action']) || $data['action'] !== $action)) {
+            return false;
+        }
+
+        if (isset($data['score']) && $data['score'] < 0.5) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
 
     public function render()
     {
