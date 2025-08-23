@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('REPOSITORY_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->string('REPOSITORY_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('REPOSITORY_OFFICER');
-            $table->enum('REPOSITORY_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
+            $table->enum('REPOSITORY_STATUS', ['Proses', 'Disetujui', 'Ditolak', 'Assign'])->default('Proses');
             $table->string('REPOSITORY_APPROVED')->nullable()->comment('Tanggal Approve');
             $table->text('REPOSITORY_NOTES')->nullable()->comment('Digunakan untuk memberikan keterangan saat pengajuan di tolak');
             $table->timestamps();
