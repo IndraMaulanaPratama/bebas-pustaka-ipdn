@@ -28,6 +28,7 @@
                     <option value="Proses">Proses</option>
                     <option value="Disetujui">Disetujui</option>
                     <option value="Ditolak">Ditolak</option>
+                    <option value="Assign">Assign</option>
                 </x-admin.components.form.select>
             </div>
 
@@ -71,31 +72,18 @@
                 <tbody>
                     @foreach ($similaritas as $item)
                         @php
-                            $buttonApprove = 'hidden';
-                            $buttonReject = 'hidden';
-                            $buttonPrint = 'hidden';
-
-                            if ($item->SIMILARITAS_STATUS == 'Proses') {
-                                $colorStatus = 'primary';
-                                $iconStatus = 'bi-arrow-clockwise';
-                                $buttonApprove = null;
-                                $buttonReject = null;
-                            } elseif ($item->SIMILARITAS_STATUS == 'Disetujui') {
-                                $colorStatus = 'success';
-                                $iconStatus = 'bi-check2-all';
-                                $buttonPrint = null;
-                            } else {
-                                $colorStatus = 'danger';
-                                $iconStatus = 'bi-dash-circle-fill';
-                            }
+                            $buttonClasses = $this->getButtonStatus(
+                                $item->SIMILARITAS_STATUS,
+                                $item->SIMILARITAS_OFFICER,
+                            );
                         @endphp
 
                         <tr>
                             <th scope="row"> {{ $loop->index + $similaritas->firstItem() }} </th>
 
                             <td> {{-- Status Pengajuan --}}
-                                <span class="badge bg-{{ $colorStatus }}">
-                                    <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                <span class="badge bg-{{ $buttonClasses['colorStatus'] }}">
+                                    <i class="bi {{ $buttonClasses['iconStatus'] }}"></i> &nbsp;
                                     {{ $item->SIMILARITAS_STATUS }}
                                 </span>
                             </td>
@@ -118,8 +106,18 @@
                             <td> {{ $item->SIMILARITAS_APPROVED }} </td>
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
 
+                            {{-- Button Keep --}}
+                            <td {{ $buttonClasses['keep'] }}>
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-primary rounded-pill {{ $accessApprove }}"
+                                    wire:confirm='Anda yakin akan memeriksa pengajuan ini?'
+                                    wire:click='keepData("{{ $item->SIMILARITAS_ID }}")'>
+                                    <i class="bi bi-clipboard2-check"></i>
+                                </button>
+                            </td>
+
                             {{-- Button Approve --}}
-                            <td {{ $buttonApprove }}>
+                            <td {{ $buttonClasses['approve'] }}>
                                 <button type="button"
                                     class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                     data-bs-toggle="modal" data-bs-target="#formApprove"
@@ -129,7 +127,7 @@
                             </td>
 
                             {{-- Button Reject --}}
-                            <td {{ $buttonReject }}>
+                            <td {{ $buttonClasses['reject'] }}>
                                 <button type="button"
                                     class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                     data-bs-toggle="modal" data-bs-target="#formReject"
@@ -139,7 +137,7 @@
                             </td>
 
                             {{-- Button Print --}}
-                            <td {{ $buttonPrint }}>
+                            <td {{ $buttonClasses['print'] }}>
                                 <button type="button"
                                     class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                     wire:confirm='Cetak Pengajuan Similaritas {{ $item->SIMILARITAS_PRAJA }} ?'
