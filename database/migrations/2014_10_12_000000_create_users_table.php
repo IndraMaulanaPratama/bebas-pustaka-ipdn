@@ -25,6 +25,9 @@ return new class extends Migration {
 
             $table->foreignUlid('user_role', 36)->references('ROLE_ID')->on('ROLES');
 
+            // Google Auth
+            $table->string('google_id')->nullable();
+            $table->string('avatar')->nullable();
         });
     }
 
