@@ -109,6 +109,7 @@
                         <option value="Proses">Proses</option>
                         <option value="Disetujui">Disetujui</option>
                         <option value="Ditolak">Ditolak</option>
+                        <option value="Assign">Assign</option>
                     </x-admin.components.form.select>
                 </div>
 
@@ -147,31 +148,18 @@
                     <tbody>
                         @foreach ($data as $item)
                             @php
-                                $buttonApprove = 'hidden';
-                                $buttonReject = 'hidden';
-                                $buttonPrint = 'hidden';
-
-                                if ($item->REPOSITORY_STATUS == 'Proses') {
-                                    $colorStatus = 'primary';
-                                    $iconStatus = 'bi-arrow-clockwise';
-                                    $buttonApprove = null;
-                                    $buttonReject = null;
-                                } elseif ($item->REPOSITORY_STATUS == 'Disetujui') {
-                                    $colorStatus = 'success';
-                                    $iconStatus = 'bi-check2-all';
-                                    $buttonPrint = null;
-                                } else {
-                                    $colorStatus = 'danger';
-                                    $iconStatus = 'bi-dash-circle-fill';
-                                }
+                                $buttonClasses = $this->getButtonStatus(
+                                    $item->REPOSITORY_STATUS,
+                                    $item->REPOSITORY_OFFICER,
+                                );
                             @endphp
 
                             <tr>
                                 <td> {{ $loop->index + $data->firstItem() }} </td>
 
                                 <td>
-                                    <span class="badge bg-{{ $colorStatus }}">
-                                        <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                    <span class="badge bg-{{ $buttonClasses['colorStatus'] }}">
+                                        <i class="bi {{ $buttonClasses['iconStatus'] }}"></i> &nbsp;
                                         {{ $item->REPOSITORY_STATUS }}
                                     </span>
                                 </td>
@@ -195,8 +183,19 @@
                                 <td> {{ $item->REPOSITORY_OFFICER === 1 ? null : $item->user->name }} </td>
                                 <td> {{ $item->REPOSITORY_APPROVED }} </td>
 
+                                {{-- Button Keep --}}
+                                <td {{ $buttonClasses['keep'] }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-primary rounded-pill {{ $accessApprove }}"
+                                        wire:confirm='Anda yakin akan memeriksa pengajuan ini?'
+                                        wire:click='keepData("{{ $item->REPOSITORY_ID }}")'>
+                                        <i class="bi bi-clipboard2-check"></i>
+                                    </button>
+                                </td>
+
+
                                 {{-- Button Approve --}}
-                                <td {{ $buttonApprove }}>
+                                <td {{ $buttonClasses['approve'] }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                         wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
@@ -206,7 +205,7 @@
                                 </td>
 
                                 {{-- Button Reject --}}
-                                <td {{ $buttonReject }}>
+                                <td {{ $buttonClasses['reject'] }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                         data-bs-toggle="modal" data-bs-target="#formReject"
@@ -216,7 +215,7 @@
                                 </td>
 
                                 {{-- Button Print --}}
-                                <td {{ $buttonPrint }}>
+                                <td {{ $buttonClasses['print'] }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                         wire:confirm='Cetak bukti pemeriksaan {{ $item->REPOSITORY_PRAJA }} ?'
