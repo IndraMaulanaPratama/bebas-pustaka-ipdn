@@ -31,4 +31,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google_pegawai' => [
+        'client_id' => env('GOOGLE_PEGAWAI_ID'),
+        'client_secret' => env('GOOGLE_PEGAWAI_SECRET'),
+        'redirect' => env('GOOGLE_PEGAWAI_URI'),
+    ],
+
+    'google_praja' => [
+        'client_id' => env('GOOGLE_PRAJA_ID'),
+        'client_secret' => env('GOOGLE_PRAJA_SECRET'),
+        'redirect' => env('GOOGLE_PRAJA_URI'),
+    ],
 ];
