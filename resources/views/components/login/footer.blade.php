@@ -5,6 +5,6 @@
     <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
     <div class="footer">
         <p>Dibuat oleh Tenaga Ahli Sistem Infoirmasi</p>
-        <p class="mb-0">© 2023 {{ getenv('APP_NAME') }}</p>
+        <p class="mb-0">© 2023 {{ getenv('APP_NAME') }} | Versi {{getenv('APP_VERSION')}}</p>
     </div>
 </div>
