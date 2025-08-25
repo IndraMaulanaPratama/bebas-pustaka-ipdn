@@ -13,6 +13,23 @@
     <link href="./assets/admin/img/favicon.png" rel="icon">
     <link href="./assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNPW8ZLDHP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FNPW8ZLDHP');
+    </script>
+
+
+
     <!-- Google Fonts -->
     {{-- <link href="https://fonts.gstatic.com" rel="preconnect"> --}}
     {{-- <link
@@ -20,15 +37,15 @@
         rel="stylesheet"> --}}
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset("assets/admin/vendor/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("assets/admin/vendor/boxicons/css/boxicons.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("assets/admin/vendor/quill/quill.snow.css") }}" rel="stylesheet">
-    <link href="{{ asset("assets/admin/vendor/quill/quill.bubble.css") }}" rel="stylesheet">
-    <link href="{{ asset("assets/admin/vendor/remixicon/remixicon.css") }}" rel="stylesheet">
-    <link href="{{ asset("assets/admin/vendor/simple-datatables/style.css") }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset("assets/admin/css/style.css") }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet">
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -55,7 +72,7 @@
     <main id="main" class="main">
 
         <!-- Breadcrumb -->
-        <x-admin.tamplates.admin-pageTitle title="{{$title}}" />
+        <x-admin.tamplates.admin-pageTitle title="{{ $title }}" />
         <!-- End Page Title -->
 
         <section class="section dashboard">
@@ -70,20 +87,20 @@
 
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset("assets/admin/vendor/tinymce/tinymce.min.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/quill/quill.min.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/simple-datatables/simple-datatables.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/apexcharts/apexcharts.min.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/chart.js/chart.umd.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/echarts/echarts.min.js") }}"></script>
-    <script src="{{ asset("assets/admin/vendor/php-email-form/validate.js") }}"></script>
+    <script src="{{ asset('assets/admin/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/php-email-form/validate.js') }}"></script>
 
     {{--
     <script src="./assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     --}}
 
     <!-- Template Main JS File -->
-    <script src="{{ asset("assets/admin/js/main.js") }}"></script>
+    <script src="{{ asset('assets/admin/js/main.js') }}"></script>
 
 </body>
 

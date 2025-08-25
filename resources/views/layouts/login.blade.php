@@ -9,6 +9,21 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNPW8ZLDHP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FNPW8ZLDHP');
+    </script>
+
+
     <!-- Favicons -->
     <link href="./assets/admin/img/favicon.png" rel="icon">
     <link href="./assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
