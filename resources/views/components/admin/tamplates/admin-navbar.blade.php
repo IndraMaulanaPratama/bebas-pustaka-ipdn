@@ -160,9 +160,9 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    {{-- <img src="{{asset("assets/admin/img/profile-img.jpg")}}" alt="Profile" class="rounded-circle"> --}}
-                    <img src="{{ asset('storage/foto_pegawai/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}"
-                        class="rounded-circle">
+
+                    <img src="{{ 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?s=200&d=mp' ?? asset('foto_pegawai/defaultPhoto.png') }}" alt="Avatar" class="rounded-circle" />
+
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->
 
