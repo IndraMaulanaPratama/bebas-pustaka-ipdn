@@ -3,6 +3,7 @@
 namespace App\Livewire\Praja\Dashboard;
 
 use App\Models\BebasPustaka;
+use App\Models\bimbingan_pemustaka;
 use App\Models\DonasiElektronik;
 use App\Models\DonasiFakultas;
 use App\Models\DonasiPustaka;
@@ -17,6 +18,7 @@ use App\Models\SkripsiPerpustakaan;
 use App\Models\SkripsiSoftcopy;
 use App\Models\Survey;
 use App\Models\User;
+use App\Services\PrajaService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -26,6 +28,7 @@ class Dashboard extends Component
 {
     public $npp, $praja, $fakultas, $bebasPustaka;
     public $buttonPrint, $resume, $data, $sprint;
+    protected $prajaService;
 
 
 
@@ -37,19 +40,24 @@ class Dashboard extends Component
 
 
 
+    public function boot(PrajaService $prajaService)
+    {
+        // Ngadamel data npp dumasar kana email praja
+        $this->npp = explode("@", Auth::user()->email)[0];
+
+        // Ngaktifkeun service praja
+        $this->prajaService = $prajaService;
+    }
+
+
+
     public function mount()
     {
-        $this->npp = explode("@", Auth::user()->email)[0];
-        $this->praja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $this->npp), true)['data'][0];
-        $this->praja['NOMOR_PONSEL'] = User::where('email', Auth::user()->email)->first()->nomor_ponsel;
+        // Milarian detail praja dumasar kana npp
+        $this->praja = $this->prajaService->getDetailPraja($this->npp) ?? [];
 
-        if ('PERLINDUNGAN MASYARAKAT' == $this->praja['FAKULTAS']) {
-            $this->fakultas = 'FPM';
-        } elseif ('POLITIK PEMERINTAHAN' == $this->praja['FAKULTAS']) {
-            $this->fakultas = 'FPP';
-        } elseif ('MANAJEMEN PEMERINTAHAN' == $this->praja['FAKULTAS']) {
-            $this->fakultas = 'FMP';
-        }
+        // Ngadamel inisial fakultas kanggo di lebetkeun kana database
+        $this->inisialFakultas = $this->prajaService->getInisialFakultas($this->praja['FAKULTAS']);
     }
 
 
@@ -95,20 +103,34 @@ class Dashboard extends Component
             ['BEBAS_NUMBER', '!=', null]
         ])->first() != null ? true : false;
 
+        $pemustaka = bimbingan_pemustaka::where('PEMUSTAKA_PRAJA', $this->npp)->first()->PEMUSTAKA_STATUS ?? 'Belum ada pengajuan';
+
         $similaritas = Similaritas::where('SIMILARITAS_PRAJA', $this->npp)->first()->SIMILARITAS_STATUS ?? 'Belum ada pengajuan';
+
         $pinjamanPustaka = PinjamanPustaka::where('PUSTAKA_PRAJA', $this->npp)->first()->PUSTAKA_STATUS ?? 'Belum ada pengajuan';
+
         $pinjamanFakultas = PinjamanFakultas::where('FAKULTAS_PRAJA', $this->npp)->first()->FAKULTAS_STATUS ?? 'Belum ada pengajuan';
+
         $donasiPustaka = DonasiPustaka::where('PUSTAKA_PRAJA', $this->npp)->first()->PUSTAKA_STATUS ?? 'Belum ada pengajuan';
+
         $donasiFakultas = DonasiFakultas::where('FAKULTAS_PRAJA', $this->npp)->first()->FAKULTAS_STATUS ?? 'Belum ada pengajuan';
+
         $donasiElektronik = DonasiElektronik::where('ELEKTRONIK_PRAJA', $this->npp)->first()->ELEKTRONIK_STATUS ?? 'Belum ada pengajuan';
+
         $survey = Survey::where('SURVEY_PRAJA', $this->npp)->first()->SURVEY_STATUS ?? 'Belum ada pengajuan';
+
         $kontenLiterasi = KontenLiterasi::where('KONTEN_PRAJA', $this->npp)->first()->KONTEN_STATUS ?? 'Belum ada pengajuan';
+
         $repository = Repository::where('REPOSITORY_PRAJA', $this->npp)->first()->REPOSITORY_STATUS ?? 'Belum ada pengajuan';
+
         $skripsiPustaka = SkripsiPerpustakaan::where('SKRIPSI_PRAJA', $this->npp)->first()->SKRIPSI_STATUS ?? 'Belum ada pengajuan';
+
         $skripsiFakultas = SkripsiFakultas::where('SKRIPSI_PRAJA', $this->npp)->first()->SKRIPSI_STATUS ?? 'Belum ada pengajuan';
+
         $skripsiSoftcopy = SkripsiSoftcopy::where('SKRIPSI_PRAJA', $this->npp)->first()->SKRIPSI_STATUS ?? 'Belum ada pengajuan';
 
         if (
+            'Disetujui' == $pemustaka &&
             'Disetujui' == $similaritas &&
             'Disetujui' == $pinjamanPustaka &&
             'Disetujui' == $pinjamanFakultas &&
@@ -133,6 +155,10 @@ class Dashboard extends Component
         // dd(Similaritas::get());
 
         $this->data = [
+            [
+                'pengajuan' => 'Kegiatan Bimbingan Pemustaka',
+                'status' => $pemustaka
+            ],
             [
                 'pengajuan' => 'Pemeriksaan Similaritas',
                 'status' => $similaritas
