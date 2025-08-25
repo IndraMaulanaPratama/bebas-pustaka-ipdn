@@ -31,6 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+
+    // Google Auth //
     'google_pegawai' => [
         'client_id' => env('GOOGLE_PEGAWAI_ID'),
         'client_secret' => env('GOOGLE_PEGAWAI_SECRET'),
@@ -41,5 +44,13 @@ return [
         'client_id' => env('GOOGLE_PRAJA_ID'),
         'client_secret' => env('GOOGLE_PRAJA_SECRET'),
         'redirect' => env('GOOGLE_PRAJA_URI'),
+    ],
+
+
+
+    // API Praja
+    'praja_api' => [
+        'url' => env('APP_PRAJA'),
+        'token' => env('PRAJA_API_TOKEN'),
     ],
 ];
