@@ -28,6 +28,7 @@ use App\Livewire\Page\Admin\Users;
 use App\Livewire\Page\Dashboard;
 use App\Livewire\Page\Login;
 use App\Livewire\Page\Menu;
+use App\Livewire\Page\Praja\BimbinganPemustaka as prajaBimbinganPemustaka;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,7 @@ Route::get('/', Dashboard::class)->middleware('auth')->name('dashboard');
 // Ranahna nu gaduh akses
 Route::middleware(['auth', 'access'])->group(function () {
     // --- *** Praja Area *** --- //
+    Route::get('/praja/bimbingan-pemustaka', prajaBimbinganPemustaka::class)->name('praja-bimbingan.pemustaka');
     Route::get('/praja/similaritas', App\Livewire\Page\Praja\Similaritas::class)->name('praja-similaritas');
     Route::get('/praja/bebas-pinjaman', \App\Livewire\Page\Praja\Pinjaman::class)->name('praja-pinjaman');
     //
