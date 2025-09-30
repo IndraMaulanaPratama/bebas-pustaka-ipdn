@@ -1,11 +1,36 @@
 @php
     use App\Models\pivotMenu;
+    use App\Models\bimbingan_pemustaka;
 
     $role = Auth::user()->role;
     $pivot = pivotMenu::with(['menu'])
         ->where('PIVOT_ROLE', $role->ROLE_ID)
         ->oldest()
         ->get();
+
+    if ($role->ROLE_NAME == 'Praja Utama') {
+        $npp = explode('@', Auth::user()->email)[0];
+
+        // Cek Data Bimbingan Pemustaka
+        $statusBimbingan = bimbingan_pemustaka::where('PEMUSTAKA_PRAJA', $npp)->first('PEMUSTAKA_STATUS');
+        // dd($statusBimbingan['PEMUSTAKA_STATUS']);
+
+        if ($statusBimbingan['PEMUSTAKA_STATUS'] == "Disetujui") {
+            # code...
+            $pivot = pivotMenu::with(['menu'])
+                ->where('PIVOT_ROLE', $role->ROLE_ID)
+                ->oldest()
+                ->get();
+        } else {
+            $pivot = pivotMenu::with(['menu'])
+                ->whereHas('menu', function ($query) {
+                    $query->where('MENU_NAME', 'Bimbingan Pemustaka');
+                })
+                ->where('PIVOT_ROLE', $role->ROLE_ID)
+                ->oldest()
+                ->get();
+        }
+    }
 
 @endphp
 
