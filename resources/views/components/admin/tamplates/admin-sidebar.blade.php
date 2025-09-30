@@ -13,19 +13,19 @@
 
         // Cek Data Bimbingan Pemustaka
         $statusBimbingan = bimbingan_pemustaka::where('PEMUSTAKA_PRAJA', $npp)->first('PEMUSTAKA_STATUS');
-        // dd($statusBimbingan['PEMUSTAKA_STATUS']);
+        // dd($statusBimbingan);
 
-        if ($statusBimbingan['PEMUSTAKA_STATUS'] == "Disetujui") {
+        if ($statusBimbingan == null || $statusBimbingan['PEMUSTAKA_STATUS'] != 'Disetujui') {
             # code...
-            $pivot = pivotMenu::with(['menu'])
-                ->where('PIVOT_ROLE', $role->ROLE_ID)
-                ->oldest()
-                ->get();
-        } else {
             $pivot = pivotMenu::with(['menu'])
                 ->whereHas('menu', function ($query) {
                     $query->where('MENU_NAME', 'Bimbingan Pemustaka');
                 })
+                ->where('PIVOT_ROLE', $role->ROLE_ID)
+                ->oldest()
+                ->get();
+        } elseif ($statusBimbingan['PEMUSTAKA_STATUS'] == 'Disetujui') {
+            $pivot = pivotMenu::with(['menu'])
                 ->where('PIVOT_ROLE', $role->ROLE_ID)
                 ->oldest()
                 ->get();
