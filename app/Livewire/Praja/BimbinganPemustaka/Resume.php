@@ -44,6 +44,23 @@ class Resume extends Component
 
 
 
+    public function resendPengajuan($id)
+    {
+        try {
+            //code...
+            $data = ['PEMUSTAKA_STATUS' => "Proses"];
+            bimbingan_pemustaka::where('PEMUSTAKA_ID', $id)->update($data);
+
+            $this->dispatch('data-updated', 'Pengajuan anda sudah kami terima');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->dispatch('failed-updating-data', 'Pengajuan anda gagal dibuat, silahkan hubungi pihak pengembang aplikasi');
+        }
+    }
+
+
+
     public function render()
     {
 

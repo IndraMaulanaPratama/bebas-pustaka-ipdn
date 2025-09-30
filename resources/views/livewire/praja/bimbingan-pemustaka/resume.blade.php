@@ -98,8 +98,8 @@
 
 
                     <button wire:confirm='Anda yakin akan membuat pengajuan ulang?'
-                        wire:click='resendPengajuan("pustaka")' class="btn btn-sm btn-outline-secondary"
-                        {{ $buttonResendPustaka }}>
+                        wire:click='resendPengajuan("{{ $data->PEMUSTAKA_ID ?? null }}")'
+                        class="btn btn-sm btn-outline-secondary" {{ $buttonResendPustaka }}>
                         Ajukan Ulang
                     </button>
                 </div>
