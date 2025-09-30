@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Exception;
 use function PHPUnit\Framework\returnArgument;
@@ -119,5 +121,27 @@ class PrajaService
         }
 
         return $fakultas;
+    }
+
+
+    // Modal Get Detail Praja
+    public function getModalDetailPraja($npp)
+    {
+        // Nyandak data praja ti API
+        $praja = $this->getDetailPraja($npp);
+
+        // Milari nomor HP Praja
+        $userPraja = User::where('email', $npp . '@praja.ipdn.ac.id')->first();
+        $praja['NOMOR_PONSEL'] = $userPraja->nomor_ponsel;
+
+
+        // Tanggal Lahir
+        $praja['TANGGAL_LAHIR'] = Carbon::createFromFormat("Y-m-d", $praja["TANGGAL_LAHIR"])->format("d M Y");
+
+
+        // Jenis Kelamin
+        $praja['JENIS_KELAMIN'] = $praja['JENIS_KELAMIN'] == 'P' ? 'PEREMPUAN' : 'LAKI-LAKI';
+
+        return $praja;
     }
 }
