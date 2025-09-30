@@ -134,7 +134,7 @@
                                 </td>
 
                                 {{-- Button Print --}}
-                                <td {{ $buttonClasses['print'] }}>
+                                <td hidden >
                                     <button type="button"
                                         class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                         wire:confirm='Cetak bukti pemeriksaan {{ $item->PEMUSTAKA_PRAJA }} ?'
