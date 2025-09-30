@@ -5,6 +5,7 @@ use App\Livewire\Admin\BebasPustaka\BelumSelesai;
 use App\Livewire\Admin\BebasPustaka\Selesai;
 use App\Livewire\Page\Admin\Assign;
 use App\Livewire\Page\Admin\BebasPustaka;
+use App\Livewire\Page\Admin\BimbinganPemustaka as adminBimbinganPemustaka;
 use App\Livewire\Page\Admin\DonasiElektronik;
 use App\Livewire\Page\Admin\DonasiFakultas;
 use App\Livewire\Page\Admin\DonasiPustaka;
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'access'])->group(function () {
 
 
     // --- *** Officer Area *** --- //
+    Route::get('bimbingan-pemustaka', adminBimbinganPemustaka::class)->name('admin-bimbingan.pemustaka');
     Route::get('/similaritas', Similaritas::class)->name('admin-similaritas');
     Route::get('/bebas-pinjaman-perpustakaan', PinjamanPustaka::class)->name('admin-pinjaman.perpustakaan');
     Route::get('/bebas-pinjaman-fakultas', PinjamanFakultas::class)->name('admin-pinjaman.fakultas');
