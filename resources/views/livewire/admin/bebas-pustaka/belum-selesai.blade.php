@@ -163,13 +163,14 @@
                 <table class="table table-responsive table-hover">
 
                     <thead>
-                        <tr style="text-align: center">
-                            <th rowspan="2" scope="row">#</th>
-                            <th rowspan="2" style="min-width: 6cm">Nomor Pokok Praja</th>
-                            <th colspan="12" style="min-width: 2cm; text-align: center">Status Pengajuan</th>
+                        <tr>
+                            <th colspan="15" style="min-width: 2cm; text-align: center">Status Pengajuan</th>
                         </tr>
 
                         <tr style="text-align: center">
+                            <th scope="row">#</th>
+                            <th style="min-width: 6cm">Nomor Pokok Praja</th>
+                            <th style="min-width: 5cm">Bimbingan Pemustaka</th>
                             <th style="min-width: 5cm">Similaritas</th>
                             <th style="min-width: 5cm">Pinjaman Pusat</th>
                             <th style="min-width: 5cm">Pinjaman Fakultas</th>
@@ -198,6 +199,7 @@
                                     </button>
                                 </td>
 
+                                <td> {{ $item->BEBAS_BIMBINGAN_PEMUSTAKA != 0 ? '✅' : '❌' }} </td>
                                 <td> {{ $item->BEBAS_SIMILARITAS != 0 ? '✅' : '❌' }} </td>
                                 <td> {{ $item->BEBAS_PINJAMAN_PUSAT != 0 ? '✅' : '❌' }}</td>
                                 <td> {{ $item->BEBAS_PINJAMAN_FAKULTAS != 0 ? '✅' : '❌' }}</td>
@@ -215,11 +217,8 @@
 
                             </tr>
                         @endforeach
-
                     </tbody>
-
                 </table>
-
             </div>
 
             <x-admin.tamplates.paginate.paginate :item="$data" />

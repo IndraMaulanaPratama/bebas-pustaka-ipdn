@@ -33,6 +33,7 @@ class BebasPustaka extends Model
         'BEBAS_HARD_COPY_PUSAT',
         'BEBAS_HARD_COPY_FAKULTAS',
         'BEBAS_SOFT_COPY',
+        'BEBAS_BIMBINGAN_PEMUSTAKA',
     ];
 
     // --- *** Ranahna Relasi *** --- //
@@ -66,6 +67,7 @@ class BebasPustaka extends Model
             'BEBAS_HARD_COPY_PUSAT as status_hard_copy_perpustakaan_pusat',
             'BEBAS_HARD_COPY_FAKULTAS as status_hard_copy_perpustakaan_fakultas',
             'BEBAS_SOFT_COPY as status_soft_copy',
+            'BEBAS_SOFT_COPY as status_bebas_pemustaka',
             'updated_at'
         );
     }

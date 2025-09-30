@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->boolean('BEBAS_HARD_COPY_PUSAT')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Hard Copy Skripsi Perpustakaan Pusat');
             $table->boolean('BEBAS_HARD_COPY_FAKULTAS')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Hard Copy Skripsi Perpustakaan Fakultas');
             $table->boolean('BEBAS_SOFT_COPY')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Soft Copy');
+            $table->boolean('BEBAS_BIMBINGAN_PEMUSTAKA')->nullable()->default(false)->comment('Status Pengajuan Pengumpulan Soft Copy');
 
 
             $table->foreign('BEBAS_OFFICER')->references('id')->on('users');
