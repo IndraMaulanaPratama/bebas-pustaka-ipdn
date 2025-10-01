@@ -31,6 +31,12 @@ class GoogleController extends Controller
             $config['redirect']
         );
 
+        // Tambahkan scope yang diperlukan
+        $provider->scopes(['openid', 'profile', 'email']);
+
+        // Tambahkan access type untuk offline access
+        $provider->with(['access_type' => 'offline', 'prompt' => 'consent']);
+
         return $provider->redirect();
     }
 
@@ -43,8 +49,20 @@ class GoogleController extends Controller
                 return redirect()->route('login');
             }
 
+            // Cek apakah ada error dari Google
+            if (request()->has('error')) {
+                session()->flash('warning', 'Error dari Google: ' . request()->get('error_description', 'Unknown error'));
+                return redirect()->route('login');
+            }
+
             // Buat Google provider manual
             $config = config("services.google_{$domain}");
+
+            // Validasi konfigurasi
+            if (!$config || !$config['client_id'] || !$config['client_secret']) {
+                session()->flash('warning', 'Konfigurasi Google OAuth tidak lengkap');
+                return redirect()->route('login');
+            }
 
             $provider = new GoogleProvider(
                 app('request'),
@@ -59,7 +77,7 @@ class GoogleController extends Controller
 
             // Ekstrak domain dari email
             $userDomain = substr(strrchr($email, "@"), 1);
-            $npp = substr(strrchr($email, "@"), 0);
+            $npp = explode('@', $email)[0];
 
             // Validasi domain email
             $allowedDomains = ['ipdn.ac.id', 'praja.ipdn.ac.id'];
@@ -97,7 +115,7 @@ class GoogleController extends Controller
 
             } else {
                 // Milari data praja dumasar kana email sareng password
-                $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
+                $praja = json_decode(file_get_contents('https://datapraja.ipdn.ac.id/api/' . 'praja?npp=' . $npp), true);
 
                 if ($praja) {
 
@@ -152,7 +170,7 @@ class GoogleController extends Controller
 
                         } catch (\Throwable $th) {
                             $this->password = null;
-                            session()->flash('warning', 'Data pengguna tidak ditemukan');
+                            session()->flash('warning', $th->getMessage());
                         }
                     }
                 }
@@ -162,7 +180,7 @@ class GoogleController extends Controller
 
 
         } catch (\Exception $e) {
-            session()->flash('warning', 'Data pengguna tidak ditemukan');
+            session()->flash('warning', $e->getMessage());
             return redirect()->route('login');
         }
     }

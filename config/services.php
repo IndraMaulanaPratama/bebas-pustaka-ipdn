@@ -38,12 +38,18 @@ return [
         'client_id' => env('GOOGLE_PEGAWAI_ID'),
         'client_secret' => env('GOOGLE_PEGAWAI_SECRET'),
         'redirect' => env('GOOGLE_PEGAWAI_URI'),
+        'scopes' => ['openid', 'profile', 'email'],
+        'access_type' => 'offline',
+        'approval_prompt' => 'force',
     ],
 
     'google_praja' => [
         'client_id' => env('GOOGLE_PRAJA_ID'),
         'client_secret' => env('GOOGLE_PRAJA_SECRET'),
         'redirect' => env('GOOGLE_PRAJA_URI'),
+        'scopes' => ['openid', 'profile', 'email'],
+        'access_type' => 'offline',
+        'approval_prompt' => 'force',
     ],
 
 
