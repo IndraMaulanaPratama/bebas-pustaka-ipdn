@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Illuminate\Support\Facades\Route;
+use Livewire\WithPagination;
 
 
 class Table extends Component
 {
+    use WithPagination;
+
     public $idLogin;
     public $inputUrl;
     public $accessReject, $accessApprove, $accessExport, $accessPrint, $accessUpdate;
