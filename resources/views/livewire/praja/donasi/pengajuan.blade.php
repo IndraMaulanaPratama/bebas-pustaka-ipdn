@@ -25,14 +25,8 @@
 
                 <li><b>Petunjuk</b></li>
                 <p>
-                    Praja melakukan pembelian buku cetak pada kegiatan Bazaar Buku Perpustakaan IPDN yang dilaksanakan
-                    di Gedung Perpustakaan IPDN Lt. 2 pada tahun 2025.
-                </p>
-
-                <p>
-                    Setelah melakukan pembelian, Praja akan mendapatkan bukti transaksi yang selanjutnya buku tersebut
-                    dapat diserahkan ke petugas Perpustakaan di Ruang Pengolahan Gedung Perpustakaan Pusat IPDN Lantai
-                    1.
+                    Silahkan lakukan konfirmasi kepada Bapak/Ibu Pustakawan Perpustakaan Pusat IPDN masing-masing,
+                    kemudian silahkan Praja melakukan donasi sesuai dengan kebijakan Perpustakaan Fakultas tersebut.
                 </p>
             </ol>
         </li>

@@ -11,69 +11,154 @@
         <li>
             <b>Petunjuk</b>
 
-            <p>
-                Praja membuat 1 (satu) buah video review buku/rekomendasi buku. Adapun ketentuan konten sebagai berikut:
-
-            <ol type="1">
+            <ul type="circle">
 
                 {{-- 1 --}}
                 <li>
                     <p>
-                        <b>Praja wajib In Frame;</b>
+                        Konten literasi bertemakan <b>ulasan buku</b> yang ada di Perpustakaan IPDN Jatinangor.
                     </p>
                 </li>
 
                 {{-- 2 --}}
                 <li>
                     <p>
-                        Konten memuat: (1) Judul buku; (2) Nama pengarang; (3) Waktu terbit; (4) Durasi membaca buku;
-                        (5) pembahasan buku (kelebihan, kekurangan); (6) Tempat mengakses buku tersebut.
+                        Konten literasi berbentuk <b>desain grafis</b> (bukan video) dengan hasil akhir berformat
+                        <b>JPEG/PNG</b>.
                     </p>
                 </li>
 
                 {{-- 3 --}}
                 <li>
                     <p>
-                        Tuliskan <b>Caption</b> yang bertemakan literasi/ ajakan membaca buku/ ajakan berkunjung ke
-                        Perpustakaan IPDN.
+                        Konten literasi diproyeksikan untuk diunggah di Instagram dengan rasio ukuran <b>1:1</b> atau
+                        resolusi <b>1080:1080</b> pixel.
                     </p>
                 </li>
 
                 {{-- 4 --}}
                 <li>
                     <p>
-                        Sertakan tagar <b>#perpustakaanipdn #fomoliterasi</b>.
+                        Konten literasi minimal terdiri dari 5 slide dengan ketentuan sebagai berikut:
+                    </p>
+
+                    <ul>
+                        {{-- 4.1 --}}
+                        <li>
+                            <p>
+                                Slide 1: Sampul buku dan informasi singkat (judul buku, nama pengarang, penerbit, tahun
+                                terbit, dan genre).
+                            </p>
+                        </li>
+
+                        {{-- 4.2 --}}
+                        <li>
+                            <p>
+                                Slide 2: Sinopsis/ringkasan.
+                            </p>
+                        </li>
+
+                        {{-- 4.3 --}}
+                        <li>
+                            <p>
+                                Slide 3: Kelebihan dan kekurangan.
+                            </p>
+                        </li>
+
+                        {{-- 4.4 --}}
+                        <li>
+                            <p>
+                                Slide 4: Hikmah/kata-kata bijak/kesimpulan/pelajaran yang bisa diambil.
+                            </p>
+                        </li>
+
+                        {{-- 4.5 --}}
+                        <li>
+                            <p>
+                                Slide 5: Ajakan untuk berkunjung ke Perpustakaan IPDN.
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+
+                {{-- 5 --}}
+                <li>
+                    <p>
+                        Apabila ada informasi lain yang ingin ditambahkan, dipersilakan membuat slide tambahan tanpa ada
+                        batasan jumlah maksimal, misalnya durasi membaca, jumlah halaman, fakta unik buku, dsb.
                     </p>
                 </li>
-            </ol>
+
+                {{-- 6 --}}
+                <li>
+                    <p>
+                        <b>Foto diri Praja Utama wajib muncul</b> minimal sekali dalam konten yang dimaksud. Foto diri
+                        tersebut
+                        bebas
+                        diletakkan di slide berapapun sesuai kreatifitas masing-masing. Contohnya, foto berpose memegang
+                        dan
+                        menunjukkan buku yang ingin diulas di slide pertama.
+                    </p>
+                </li>
 
 
-            <p>
-                Selanjutnya unggah video tersebut pada platform social media <b>Instagram/ Tiktok/ Youtube</b> dengan
-                menggunakan fitur Reels/ Short dan pastikan sudah dilakukan tag pada akun Instagram <b>@perpustakaanipdn</b>.
-            </p>
+                {{-- 7 --}}
+                <li>
+                    <p>
+                        Desain hanya diperkenankan menggunakan palet warna sesuai kode yang telah ditentukan
+                        (<b>#0c3964, #0d2551, #ffffff, #ac2425, #e8ab26 dan #000000</b>).
+                    </p>
+                </li>
 
-            <p>
-                Kemudian kirimkan <i>softfile video</i> tersebut melalui  <a href="{{ $setting->SETTING_URL_LITERASI }}"
-                    target="_blank">Google Form <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a> yang sudah kami
-                sediakan. Jika kedua
-                proses unggah sudah selesai dilakukan, maka Praja sudah dapat melakukan verifikasi kepada Petugas
-                Perpustakaan Pusat IPDN.
-            </p>
+                {{-- 8 --}}
+                <li>
+                    <p>
+                        Tidak perlu menyertakan logo apapun.
+                    </p>
+                </li>
 
+                {{-- 9 --}}
+                <li>
+                    <p>
+                        Boleh menyertakan identitas praja utama secara singkat hanya di slide pertama atau slide
+                        terakhir.
+                    </p>
+                </li>
+
+                {{-- 10 --}}
+                <li>
+                    <p>
+                        Praja utama bebas menggunakan software desain grafis manapun, namun disarankan menggunakan
+                        <b>Canva</b>.
+                    </p>
+                </li>
+
+                {{-- 11 --}}
+                <li>
+                    <p>
+                        Semua file dijadikan satu dan dikompress dalam bentuk ZIP/RAR dengan subjek email KONTEN
+                        LITERASI dan format nama file <b>Nama Lengkap_NPP_Kelas_Prodi</b>. Contoh: Moch. Alfa
+                        Alfiansyah_33.0000_A1_PIT
+                    </p>
+                </li>
+
+                {{-- 12 --}}
+                <li>
+                    <p>
+                        Konten literasi dikirimkan melalui email resmi Perpustakaan IPDN di
+                        <i>kontenliterasi@ipdn.ac.id</i>
+                    </p>
+                </li>
+
+                {{-- 13 --}}
+                <li>
+                    <p>
+                        Praja utama mengajukan permohonan persetujuan konten literasi pada akun aplikasi SKBP
+                        masing-masing
+                    </p>
+                </li>
+            </ul>
         </li>
-
-
-        <li>
-            <b>Pengajuan</b>
-
-            <p>
-                silahkan klik tombol <button data-bs-toggle="modal" data-bs-target="#formPengajuan"
-                    class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat Pengajuan
-                </button> untuk melakukan pengajuan pemeriksaan tahap konten litarasi
-            </p>
-        </li>
-
     </ol>
 
 

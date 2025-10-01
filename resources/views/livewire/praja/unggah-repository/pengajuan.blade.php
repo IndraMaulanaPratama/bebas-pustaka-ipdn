@@ -3,7 +3,7 @@
         <li>
             <b>Lokasi Verifikasi</b>
 
-            <p>Perpustakaan IPDN Jatinangor</p>
+            <p>Perpustakaan Pusat IPDN.</p>
         </li>
 
         <li>
@@ -11,28 +11,15 @@
 
             <p>
                 Praja melakukan unggah file ringkasan skripsi pada laman <a href="http://eprints.ipdn.ac.id/"
-                    target="blank">eprints ipdn <sup><i class="bi bi-arrow-up-right-circle-fill"></i></sup></a>. Kemudian
-                silahkan
+                    target="_blank">http://eprints.ipdn.ac.id/</a>. Kemudian silahkan
                 masuk dengan <i>username</i> dan <i>password</i> berdasarkan akun program studi masing-masing. Pastikan
-                <i>file yang
-                    diunggah dalam jenis Pdf dan sudah sesuai template yang ditentukan</i>. Adapun template tersebut
+                file yang
+                diunggah dalam jenis <b>Pdf</b> dan sudah sesuai template yang ditentukan. Adapun <i>template</i>
+                tersebut
                 dapat Praja
-                unduh pada alamat <a href="{{ $setting->SETTING_URL_REPOSITORY }}" target="blank">Buka Tamplate <sup><i
-                            class="bi bi-arrow-up-right-circle-fill"></i></sup></a>. Tutorial tips mudah
-                deposit repository dapat Praja tonton pada
-                laman <a href="https://www.youtube.com/watch?v=yqEX4CzYPAE" target="blank">Youtube Bayu Pambayun <sup><i
-                            class="bi bi-arrow-up-right-circle-fill"></i></sup></a>.
-            </p>
-        </li>
-
-        <li>
-            <b>Pengajuan</b>
-
-            <p>
-                silahkan klik tombol <button data-bs-toggle="modal" data-bs-target="#formPengajuan"
-                    class="btn btn-outline-primary btn-sm" {{ $buttonCreate }}> Buat
-                    Pengajuan
-                </button> untuk melakukan pengajuan pemeriksaan tahap unggah repository
+                unduh pada alamat <a href="https://bit.ly/46RAoeo" target="_blank">https://bit.ly/46RAoeo</a>. Tutorial
+                tips mudah deposit repository dapat Praja tonton pada
+                laman <a href="https://bit.ly/tutorrepo" target="_blank">https://bit.ly/tutorrepo</a>.
             </p>
         </li>
 
@@ -42,12 +29,14 @@
             <p>
                 Jika status pengajuan verifikasi Praja dilakukan penolakan oleh petugas, maka silahkan Praja lakukan
                 perbaikan pada file ringkasan skripsi sesuai dengan catatan yang diberikan petugas. Kemudian silahkan
-                lakukan upload kembali pada laman Repository IPDN dan selanjutnya lakukan <b>pengajuan ulang</b> pada
-                website
-                Bebas Pustaka menu Repository. Status pengajuan akan berubah menjadi <b>diterima</b> jika file ringkasan
-                skripsi perbaikan sudah sesuai dengan ketentuan berdasarkan verifikasi petugas.
+                lakukan <i>upload</i> kembali pada laman <i>Repository</i> IPDN dan selanjutnya lakukan <b>pengajuan
+                    ulang</b> pada
+                website Bebas Pustaka menu <i>Repository</i>. Status pengajuan akan berubah menjadi <b>diterima</b> jika
+                file
+                ringkasan skripsi perbaikan sudah sesuai dengan ketentuan berdasarkan verifikasi petugas.
             </p>
         </li>
+
     </ol>
 
 
