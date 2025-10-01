@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth\Google;
 
 use App\Http\Controllers\Controller;
+use App\Models\BebasPustaka;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
+use Ramsey\Uuid\Uuid;
 
 
 class GoogleController extends Controller
@@ -56,6 +59,7 @@ class GoogleController extends Controller
 
             // Ekstrak domain dari email
             $userDomain = substr(strrchr($email, "@"), 1);
+            $npp = substr(strrchr($email, "@"), 0);
 
             // Validasi domain email
             $allowedDomains = ['ipdn.ac.id', 'praja.ipdn.ac.id'];
@@ -65,29 +69,97 @@ class GoogleController extends Controller
             }
 
 
-            // Cari user didalam database internal
-            $user = User::where('email', $email)->first();
+            // Mekanisme login pegawai dan praja
+            if ($userDomain == "ipdn.ac.id") {
+                // Cari user didalam database internal
+                $user = User::where('email', $email)->first();
 
 
-            // Jika user sudah ada, update id google dan avatar || Kembali ke halaman login
-            if ($user) {
+                // Jika user sudah ada, update id google dan avatar || Kembali ke halaman login
+                if ($user) {
 
-                // Update id google dan avatar
-                $user->update([
-                    'google_id' => $googleUser->getId(),
-                    'avatar' => $googleUser->getAvatar(),
-                ]);
+                    // Update id google dan avatar
+                    $user->update([
+                        'google_id' => $googleUser->getId(),
+                        'avatar' => $googleUser->getAvatar(),
+                    ]);
 
-                // Login user
-                Auth::login($user);
+                    // Login user
+                    Auth::login($user);
+                } else {
+                    session()->flash('warning', 'Data pengguna tidak ditemukan');
+                    return redirect()->route('login');
+                }
+
+
+                // Redirect berdasarkan domain
+                return redirect()->intended('/');
+
             } else {
-                session()->flash('warning', 'Data pengguna tidak ditemukan');
-                return redirect()->route('login');
+                // Milari data praja dumasar kana email sareng password
+                $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
+
+                if ($praja) {
+
+                    // Inisiasi data API Praja
+                    $nppPraja = $praja['data'][0]['NPP'];
+                    $namaPraja = $praja['data'][0]['NAMA'];
+                    $emailPraja = $praja['data'][0]['EMAIL'];
+                    $tanggalLahirPraja = $praja['data'][0]['TANGGAL_LAHIR'];
+
+                    // Milarian data praja ka table user
+                    if (User::where('email', $email)->first()) {
+                        session()->regenerate();
+                        return redirect()->route('dashboard');
+                    }
+
+                    // Ngadamel user praja kumargi teu acan ka data di user
+                    else {
+
+                        try {
+                            // Milari data role PRAJA_UTAMA
+                            $role = Role::where('ROLE_NAME', 'PRAJA UTAMA')->first();
+
+                            // Inisiasi variable kanggo praja enggal
+                            $data = [
+                                'name' => $namaPraja,
+                                'email' => $emailPraja,
+                                'password' => bcrypt($tanggalLahirPraja),
+                                'photo' => "defaultPraja.png",
+                                'user_role' => $role->ROLE_ID,
+                            ];
+
+                            // Inisiasi variable kanggo skbp enggal
+                            $skbp = [
+                                'BEBAS_ID' => Uuid::uuid4(),
+                                'BEBAS_PRAJA' => $nppPraja,
+                                'BEBAS_OFFICER' => 1,
+                            ];
+
+                            // Ngadamel user
+                            User::create($data);
+
+                            // Ngadamel skbp
+                            BebasPustaka::create($skbp);
+
+                            // Maca data user dumasar kana email
+                            $user = User::where('email', $emailPraja)->first();
+
+                            // Ngadamel session login nganggo data user
+                            Auth::login($user);
+                            session()->regenerate();
+                            return redirect()->route('dashboard');
+
+                        } catch (\Throwable $th) {
+                            $this->password = null;
+                            session()->flash('warning', 'Data pengguna tidak ditemukan');
+                        }
+                    }
+                }
             }
 
 
-            // Redirect berdasarkan domain
-            return redirect()->intended('/');
+
 
         } catch (\Exception $e) {
             session()->flash('warning', 'Data pengguna tidak ditemukan');
