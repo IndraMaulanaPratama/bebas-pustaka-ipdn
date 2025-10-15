@@ -37,6 +37,18 @@
             </p>
         </li>
 
+        <li>
+            <b>Pengajuan</b>
+
+            <p>
+                silahkan klik tombol
+                <button data-bs-toggle="modal" data-bs-target="#formPengajuan" class="btn btn-outline-primary btn-sm"
+                    {{ $buttonCreate }}> Buat
+                    Pengajuan
+                </button> untuk melakukan pengajuan
+            </p>
+        </li>
+
     </ol>
 
 
