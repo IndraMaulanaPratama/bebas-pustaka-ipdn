@@ -44,7 +44,7 @@
                     <i>install</i> melalui <i>handphone</i> dan atau laptop masing-masing. Selanjutnya seluruh Praja
                     silahkan melakukan pendaftaran akun Digilib Praja dan tunggu hingga dilakukan aktivasi akun oleh
                     Admin.
-                    Kemudian silahkan <b>masuk (login)</b> dan lakukan <b>donasi poin sebesar Rp. 50.000,-</b> pada menu
+                    Kemudian silahkan <b>masuk (login)</b> dan lakukan <b>donasi poin sebesar Rp. 75.000,-</b> pada menu
                     <b>Donasi</b>. Kemudian Praja klik pada tombol <b>checkout</b> dan selanjutnya lakukan pembayaran
                     sesuai dengan jenis pembayaran yang dipilih. Jika status pembayaran sudah berhasil maka donasi poin
                     Praja akan masuk pada sistem Admin Digilib Praja dan Praja dapat melakukan verifikasi kepada Petugas
