@@ -182,7 +182,7 @@
             <div class="row g-4 p-2">
                 &nbsp;
 
-                <x-admin.components.form.input name='inputUrl' placeholder='Masukan alamat url konten anda' />
+                <x-admin.components.form.input name='inputUrl' placeholder='Masukan alamat email Anda' />
 
                 {{-- Tombol Reset sareng Submit --}}
                 <div class="modal-footer">
