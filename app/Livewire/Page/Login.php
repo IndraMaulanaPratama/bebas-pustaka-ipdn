@@ -5,6 +5,7 @@ namespace App\Livewire\Page;
 use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\PrajaService;
 use Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -24,6 +25,15 @@ class Login extends Component
     public $password;
 
     public $recaptcha_token;
+    protected $PrajaService;
+
+
+    public function boot(PrajaService $prajaService)
+    {
+        // Ngaktifkeun service praja
+        $this->prajaService = $prajaService;
+    }
+
 
     public function login()
     {
@@ -66,7 +76,9 @@ class Login extends Component
         elseif ($domain === 'praja.ipdn.ac.id') {
 
             // Milari data praja dumasar kana email sareng password
-            $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
+            // $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
+
+            $praja = $this->prajaService->getDetailPraja($npp) ?? [];
 
             if ($praja) {
                 $credentials = $this->validate();
