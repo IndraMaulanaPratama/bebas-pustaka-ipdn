@@ -54,91 +54,100 @@ class Login extends Component
             ]);
         }
 
-        // Maca sumber data login boh ti admin atanapi praja
-        $domain = explode('@', $this->email)[1];
-        $npp = explode('@', $this->email)[0];
+        // Proses Authentication
+        try {
+            // Maca sumber data login boh ti admin atanapi praja
+            $domain = explode('@', $this->email)[1];
+            $npp = explode('@', $this->email)[0];
 
 
-        // Proses upami semah ti pangurus perpustakaan
-        if ($domain === "ipdn.ac.id") {
-            $credentials = $this->validate();
-            if (Auth::attempt($credentials)) {
-                session()->regenerate();
-                return redirect()->intended('/');
-
-            } else {
-                $this->password = null;
-                session()->flash('warning', 'Data pengguna tidak ditemukan');
-            }
-        }
-
-        // Proses upami semah ti praja
-        elseif ($domain === 'praja.ipdn.ac.id') {
-
-            // Milari data praja dumasar kana email sareng password
-            // $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
-
-            $praja = $this->prajaService->getDetailPraja($npp) ?? [];
-
-            if ($praja) {
+            // Proses upami semah ti pangurus perpustakaan
+            if ($domain === "ipdn.ac.id") {
                 $credentials = $this->validate();
-
-                // Milarian data praja ka table user
                 if (Auth::attempt($credentials)) {
                     session()->regenerate();
-                    return redirect()->route('dashboard');
+                    return redirect()->intended('/');
+
+                } else {
+                    $this->password = null;
+                    session()->flash('warning', 'Data pengguna tidak ditemukan');
+                    return redirect()->route('login');
                 }
+            }
 
-                // Ngadamel user praja kumargi teu acan ka data di user
-                elseif ($praja['data'][0]['TANGGAL_LAHIR'] == $this->password) {
+            // Proses upami semah ti praja
+            elseif ($domain === 'praja.ipdn.ac.id') {
 
-                    try {
-                        $role = Role::where('ROLE_NAME', 'PRAJA UTAMA')->first();
+                // Milari data praja dumasar kana email sareng password
+                // $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
 
-                        $data = [
-                            'name' => $praja['data'][0]['NAMA'],
-                            'email' => $praja['data'][0]['EMAIL'],
-                            'password' => bcrypt($praja['data'][0]['TANGGAL_LAHIR']),
-                            'photo' => "defaultPraja.png",
-                            'user_role' => $role->ROLE_ID,
-                        ];
+                $praja = $this->prajaService->getDetailPraja($npp) ?? [];
 
-                        $skbp = [
-                            'BEBAS_ID' => Uuid::uuid4(),
-                            'BEBAS_PRAJA' => $praja['data'][0]['NPP'],
-                            'BEBAS_OFFICER' => 1,
-                        ];
+                if ($praja) {
+                    $credentials = $this->validate();
 
-                        User::create($data);
-                        BebasPustaka::create($skbp);
-
-                        $credentials = $this->validate();
-                        Auth::attempt($credentials);
+                    // Milarian data praja ka table user
+                    if (Auth::attempt($credentials)) {
                         session()->regenerate();
                         return redirect()->route('dashboard');
+                    }
 
-                    } catch (\Throwable $th) {
-                        $this->password = null;
+                    // Ngadamel user praja kumargi teu acan ka data di user
+                    elseif ($praja['TANGGAL_LAHIR'] == $this->password) {
+
+                        try {
+                            $role = Role::where('ROLE_NAME', 'PRAJA UTAMA')->first();
+
+                            $data = [
+                                'name' => $praja['NAMA'],
+                                'email' => $praja['EMAIL'],
+                                'password' => bcrypt($praja['TANGGAL_LAHIR']),
+                                'photo' => "defaultPraja.png",
+                                'user_role' => $role->ROLE_ID,
+                            ];
+
+                            $skbp = [
+                                'BEBAS_ID' => Uuid::uuid4(),
+                                'BEBAS_PRAJA' => $praja['NPP'],
+                                'BEBAS_OFFICER' => 1,
+                            ];
+
+                            User::create($data);
+                            BebasPustaka::create($skbp);
+
+                            $credentials = $this->validate();
+                            Auth::attempt($credentials);
+                            session()->regenerate();
+                            return redirect()->route('dashboard');
+
+                        } catch (\Throwable $th) {
+                            $this->password = null;
+                            session()->flash('warning', 'Data pengguna tidak ditemukan');
+                        }
+                    }
+
+                    //  Masihkeun pesan error kumargi data password teu sami sareng data tanggal lahir praja
+                    else {
                         session()->flash('warning', 'Data pengguna tidak ditemukan');
+                        return;
                     }
                 }
 
-                //  Masihkeun pesan error kumargi data password teu sami sareng data tanggal lahir praja
-                else {
-                    session()->flash('warning', 'Data pengguna tidak ditemukan');
-                    return;
-                }
+                // masihkeun pesan error ka semah kumargi data login teu kapendak di system
+                session()->flash('warning', 'Data pengguna tidak ditemukan');
+                return;
             }
 
-            // masihkeun pesan error ka semah kumargi data login teu kapendak di system
-            session()->flash('warning', 'Data pengguna tidak ditemukan');
-            return;
+            // Proses Upami domain duka timanten
+            else {
+                session()->flash('warning', 'Data pengguna tidak ditemukan');
+            }
+        } catch (\Throwable $th) {
+            session()->flash('warning', $th->getMessage());
+            return redirect()->route('login');
         }
 
-        // Proses Upami domain duka timanten
-        else {
-            session()->flash('warning', 'Data pengguna tidak ditemukan');
-        }
+
     }
 
 
