@@ -1,6 +1,6 @@
 {{-- The whole world belongs to you. --}}
 <x-admin.components.modal.modal id='formReject'>
-    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan donasi buku perpustakaan" />
+    <x-admin.components.modal.header id='formReject' title="Tolak pengajuan Survei bebas pustaka" />
 
     <form wire:submit='rejecting' method="POST">
 
