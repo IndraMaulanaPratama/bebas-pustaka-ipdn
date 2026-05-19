@@ -154,9 +154,9 @@ class Table extends Component
         $fakultas = null;
         if ($dataPraja['FAKULTAS'] == 'POLITIK PEMERINTAHAN') {
             $fakultas = 'FPP';
-        } elseif ($dataPraja['FAKULTAS'] == '') {
+        } elseif ($dataPraja['FAKULTAS'] == 'MANAJEMEN PEMERINTAHAN') {
             $fakultas = 'FMP';
-        } elseif ($dataPraja['FAKULTAS'] = 'PERLINDUNGAN MASYARAKAT') {
+        } elseif ($dataPraja['FAKULTAS'] == 'PERLINDUNGAN MASYARAKAT') {
             $fakultas = 'FPM';
         } else {
             $fakultas = null;
