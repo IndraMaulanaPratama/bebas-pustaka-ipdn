@@ -84,7 +84,7 @@
                 <h3>BUKTI DONASI KOLEKSI CETAK</h3>
                 <h4>PERPUSTAKAAN {{ $fakultas }}</h4>
                 <h4>NOMOR: 000.5.6.2/BDKC- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    /2025</h4>
+                    /{{ $tahun }}</h4>
                 {{-- <h4>NOMOR: {{ $data->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>

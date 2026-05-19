@@ -168,6 +168,7 @@ class Table extends Component
             'praja' => $dataPraja,
             'fakultas' => $fakultas,
             'ponsel' => $ponsel,
+            'tahun' => date('Y')
         ])->render();
 
         $pdf = Pdf::loadHTML($dokumen)

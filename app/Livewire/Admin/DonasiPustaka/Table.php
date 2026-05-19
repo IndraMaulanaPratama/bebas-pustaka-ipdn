@@ -153,6 +153,7 @@ class Table extends Component
             'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
+            'tahun' => date('Y'),
         ])->render();
 
         $pdf = Pdf::loadHTML($dokumen)

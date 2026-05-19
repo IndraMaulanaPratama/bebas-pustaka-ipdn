@@ -148,11 +148,12 @@ class Table extends Component
         $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->ELEKTRONIK_PRAJA), true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        $dokumen = view("pdf.donasi.elektronik.perpustakaan-pusat", [
+        $dokumen = view("pdf.donasi.elektronik.poin", [
             'donasi' => $data,
             'sign' => url('tanda_tangan/' . $data->user->sign),
             'praja' => $dataPraja,
             'ponsel' => $ponsel,
+            'tahun' => date('Y')
         ])->render();
 
         $pdf = Pdf::loadHTML($dokumen)
@@ -163,7 +164,7 @@ class Table extends Component
             function () use ($pdf) {
                 print ($pdf);
             },
-            'Donasi-Cetak-Perpustakaan-' . $dataPraja['NAMA'] . '.pdf',
+            'Bukti-Donasi-Elektronik-' . $dataPraja['NAMA'] . '.pdf',
             ["Attachment" => false],
         );
 
