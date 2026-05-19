@@ -217,7 +217,8 @@
             <center>
                 <h3>BUKTI DONASI KOLEKSI ELEKTRONIK</h3>
                 <h4>PERPUSTAKAAN PUSAT IPDN JATINANGOR</h4>
-                <h4>NOMOR: 000.5.6.2/BDE-................/IPDN.18.4/2025</h4>
+                <h4>NOMOR: 000.5.6.2/BDKE- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /IPDN. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    /{{ $tahun }}</h4>
                 {{-- <h4>NOMOR: {{ $donasi->PUSTAKA_NUMBER }} </h4> --}}
             </center>
         </div>
