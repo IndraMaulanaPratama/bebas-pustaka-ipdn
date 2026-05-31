@@ -92,37 +92,45 @@ class Login extends Component
                         return redirect()->route('dashboard');
                     }
 
-                    // Ngadamel user praja kumargi teu acan ka data di user
+                    // Ngadamel user praja kumargi teu acan ka data di user ATAU sinkronisasi password
                     elseif ($praja['TANGGAL_LAHIR'] == $this->password) {
 
                         try {
-                            $role = Role::where('ROLE_NAME', 'PRAJA UTAMA')->first();
+                            $user = User::where('email', $this->email)->first();
+                            
+                            if ($user) {
+                                // Update password karena user sudah ada tapi password berbeda/lama
+                                $user->update(['password' => bcrypt($this->password)]);
+                            } else {
+                                $role = Role::where('ROLE_NAME', 'PRAJA UTAMA')->first();
 
-                            $data = [
-                                'name' => $praja['NAMA'],
-                                'email' => $praja['EMAIL'],
-                                'password' => bcrypt($praja['TANGGAL_LAHIR']),
-                                'photo' => "defaultPraja.png",
-                                'user_role' => $role->ROLE_ID,
-                            ];
+                                $data = [
+                                    'id' => Uuid::uuid4()->toString(),
+                                    'name' => $praja['NAMA'],
+                                    'email' => $praja['EMAIL'],
+                                    'password' => bcrypt($praja['TANGGAL_LAHIR']),
+                                    'photo' => "defaultPraja.png",
+                                    'user_role' => $role->ROLE_ID,
+                                ];
 
-                            $skbp = [
-                                'BEBAS_ID' => Uuid::uuid4(),
-                                'BEBAS_PRAJA' => $praja['NPP'],
-                                'BEBAS_OFFICER' => 1,
-                            ];
+                                $skbp = [
+                                    'BEBAS_ID' => Uuid::uuid4()->toString(),
+                                    'BEBAS_PRAJA' => $praja['NPP'],
+                                    'BEBAS_OFFICER' => 1,
+                                ];
 
-                            User::create($data);
-                            BebasPustaka::create($skbp);
+                                $user = User::create($data);
+                                BebasPustaka::create($skbp);
+                            }
 
-                            $credentials = $this->validate();
-                            Auth::attempt($credentials);
+                            Auth::login($user);
                             session()->regenerate();
                             return redirect()->route('dashboard');
 
                         } catch (\Throwable $th) {
+                            logger()->error("Praja Login Error: " . $th->getMessage() . " at " . $th->getFile() . ":" . $th->getLine());
                             $this->password = null;
-                            session()->flash('warning', 'Data pengguna tidak ditemukan');
+                            session()->flash('warning', 'Data pengguna tidak ditemukan (' . $th->getMessage() . ')');
                         }
                     }
 

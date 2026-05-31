@@ -24,16 +24,7 @@ class PrajaService
     public function getPraja($npp = null)
     {
         try {
-
-            $response = Http::get($this->baseUrl . 'praja');
-            // $response = json_decode(file_get_contents($url));
-
-            if ($response->successful()) {
-                return $response->json();
-            }
-
-            throw new Exception('API request failed: ' . $response->body());
-
+            return \App\Helpers\PrajaApi::getPraja($npp, true);
         } catch (Exception $e) {
             logger()->error('Mahasiswa API Error: ' . $e->getMessage());
             return null;
@@ -45,21 +36,11 @@ class PrajaService
     public function getDetailPraja($npp = null)
     {
         try {
-            $url = $this->baseUrl . 'praja';
-            if ($npp) {
-                $url .= '?npp=' . $npp;
+            $response = \App\Helpers\PrajaApi::getPraja($npp, true);
+            if ($response && isset($response['data'][0])) {
+                return $response['data'][0];
             }
-
-            $response = Http::timeout(30)
-                ->get($url);
-
-            if ($response->successful()) {
-                $response->json();
-                return $response["data"][0];
-            }
-
-            throw new Exception('API request failed: ' . $response->body());
-
+            return null;
         } catch (Exception $e) {
             logger()->error('Mahasiswa API Error: ' . $e->getMessage());
             return null;
