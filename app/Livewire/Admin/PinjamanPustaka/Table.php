@@ -70,7 +70,7 @@ class Table extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = \App\Helpers\PrajaApi::getPraja($npp, true);
         $this->dataPraja = $detailPraja["data"][0];
 
         $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");
@@ -110,7 +110,7 @@ class Table extends Component
     public function generateNomorSurat($npp)
     {
 
-        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = \App\Helpers\PrajaApi::getPraja($npp, true);
         $dataPraja = $detailPraja["data"][0];
 
         if ($dataPraja['FAKULTAS'] == "POLITIK PEMERINTAHAN") {
@@ -171,7 +171,7 @@ class Table extends Component
     public function printApprooved($id)
     {
         $data = PinjamanPustaka::where('PUSTAKA_ID', $id)->first();
-        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->PUSTAKA_PRAJA), true)["data"][0];
+        $dataPraja = \App\Helpers\PrajaApi::getPraja($data->PUSTAKA_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
         $dokumen = view("pdf.pinjaman-pustaka.bukti-pemeriksaan", [

@@ -27,7 +27,7 @@ class Pengajuan extends Component
     public function generateNomorSurat($npp)
     {
 
-        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = \App\Helpers\PrajaApi::getPraja($npp, true);
         $dataPraja = $detailPraja["data"][0];
 
         if ($dataPraja['FAKULTAS'] == "POLITIK PEMERINTAHAN") {

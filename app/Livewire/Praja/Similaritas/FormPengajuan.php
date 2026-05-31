@@ -83,7 +83,7 @@ class FormPengajuan extends Component
     public function mount()
     {
         $this->npp = explode("@", Auth::user()->email)[0];
-        $this->praja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $this->npp), true)["data"][0];
+        $this->praja = \App\Helpers\PrajaApi::getPraja($this->npp, true)["data"][0];
     }
 
 

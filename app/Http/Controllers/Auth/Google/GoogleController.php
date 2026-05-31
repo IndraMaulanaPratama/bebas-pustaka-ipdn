@@ -115,7 +115,7 @@ class GoogleController extends Controller
 
             } else {
                 // Milari data praja dumasar kana email sareng password
-                $praja = json_decode(file_get_contents('https://datapraja.ipdn.ac.id/api/' . 'praja?npp=' . $npp), true);
+                $praja = \App\Helpers\PrajaApi::getPraja($npp, true);
 
                 if ($praja) {
 

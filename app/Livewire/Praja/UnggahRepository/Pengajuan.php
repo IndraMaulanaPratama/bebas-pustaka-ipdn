@@ -25,7 +25,7 @@ class Pengajuan extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = \App\Helpers\PrajaApi::getPraja($npp, true);
         $this->dataPraja = $detailPraja["data"][0];
 
         // $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");

@@ -75,7 +75,7 @@ class Table extends Component
 
     public function detailPraja($npp)
     {
-        $detailPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $npp), true);
+        $detailPraja = \App\Helpers\PrajaApi::getPraja($npp, true);
         $this->dataPraja = $detailPraja["data"][0];
 
         $tanggalLahir = Carbon::createFromFormat("Y-m-d", $this->dataPraja["TANGGAL_LAHIR"])->format("d M Y");
@@ -143,7 +143,7 @@ class Table extends Component
     {
 
         $data = SkripsiFakultas::where("SKRIPSI_ID", $id)->first();
-        $dataPraja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $data->SKRIPSI_PRAJA), true)["data"][0];
+        $dataPraja = \App\Helpers\PrajaApi::getPraja($data->SKRIPSI_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
         $dokumen = view("pdf.penyerahan-skripsi.bukti-pemeriksaan-fakultas", [

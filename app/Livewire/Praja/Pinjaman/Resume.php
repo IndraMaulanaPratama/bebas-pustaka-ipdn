@@ -46,7 +46,7 @@ class Resume extends Component
         $this->npp = explode("@", Auth::user()->email)[0];
 
         // Nyandak data praja ka server satu praja dumasar kana npp
-        $praja = json_decode(file_get_contents(env("APP_PRAJA") . "praja?npp=" . $this->npp));
+        $praja = \App\Helpers\PrajaApi::getPraja($this->npp);
         $this->praja = $praja->data[0];
     }
 

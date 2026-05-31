@@ -79,7 +79,7 @@ class Login extends Component
             elseif ($domain === 'praja.ipdn.ac.id') {
 
                 // Milari data praja dumasar kana email sareng password
-                // $praja = json_decode(file_get_contents(getenv('APP_PRAJA') . 'praja?npp=' . $npp), true);
+                // $praja = \App\Helpers\PrajaApi::getPraja($npp, true);
 
                 $praja = $this->prajaService->getDetailPraja($npp) ?? [];
 
