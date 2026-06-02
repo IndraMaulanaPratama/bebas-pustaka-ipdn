@@ -3,8 +3,8 @@
 namespace App\Exports;
 
 use App\Models\BebasPustaka;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
@@ -16,6 +16,7 @@ class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
     public function forSearch($search)
     {
         $this->sortSearch = $search;
+
         return $this;
     }
 
@@ -23,6 +24,7 @@ class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
     {
         return [
             'Nomor Pokok Praja (NPP)',
+            'Status Kelas Literasi',
             'Status Similaritas',
             'Status Pinjaman Perpustakaan',
             'Status Pinjaman Fakultas',
@@ -45,6 +47,7 @@ class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
             ->select(
                 [
                     'BEBAS_PRAJA',
+                    'BEBAS_BIMBINGAN_PEMUSTAKA',
                     'BEBAS_SIMILARITAS',
                     'BEBAS_PINJAMAN_PUSAT',
                     'BEBAS_PINJAMAN_FAKULTAS',
@@ -63,7 +66,7 @@ class ResumeBelumSelesaiExcel implements FromQuery, WithHeadings
                 // <!-- Pilari data pengajuan dumasar kana npp
                 $this->sortSearch,
                 function ($query, $npp) {
-                    return $query->where("BEBAS_PRAJA", "LIKE", $npp . "%");
+                    return $query->where('BEBAS_PRAJA', 'LIKE', $npp.'%');
                 }
             )
             ->where('BEBAS_NUMBER', '=', null);

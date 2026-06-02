@@ -170,7 +170,7 @@
                         <tr style="text-align: center">
                             <th scope="row">#</th>
                             <th style="min-width: 6cm">Nomor Pokok Praja</th>
-                            <th style="min-width: 5cm">Bimbingan Pemustaka</th>
+                            <th style="min-width: 5cm">Kelas Literasi</th>
                             <th style="min-width: 5cm">Similaritas</th>
                             <th style="min-width: 5cm">Pinjaman Pusat</th>
                             <th style="min-width: 5cm">Pinjaman Fakultas</th>
