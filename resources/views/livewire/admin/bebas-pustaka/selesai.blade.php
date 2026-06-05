@@ -20,13 +20,22 @@
         <x-admin.components.card.card size=12 title="Data Pengajuan" titleSpan='Aktif'>
 
             {{-- Baris bagian search sareng tombol export data --}}
-            <div class="row d-flex bd-highlight g-4">
+            <div class="row d-flex bd-highlight g-4" x-data="{ processing: false, progress: 0 }"
+                x-on:update-progress.window="progress = $event.detail.progress; if(progress >= 100) { setTimeout(() => { processing = false; progress = 0; location.reload(); }, 1500) }">
 
                 {{-- Button Export Data --}}
                 <div class="w-auto bd-highlight {{ $accessExport }}">
-                    <div wire:confirm='Apakah data yang akan diexport sudah sesuai?' wire:click='exportData'>
+                    <div wire:confirm="Apakah data yang akan diexport sudah sesuai?" wire:click='exportData'>
                         <x-admin.components.button.icon-button text="Export Data" :access=$accessExport />
                     </div>
+                </div>
+
+                {{-- Button Perbaiki Penomoran --}}
+                <div class="w-auto bd-highlight" x-show="!processing">
+                    <button type="button" class="btn btn-info"
+                        @click="if(confirm('Apakah Anda yakin ingin merapihkan ulang penomoran surat dan fakultas untuk tahun ini?')) { processing = true; $wire.fixPenomoranSurat() }">
+                        <i class="bi bi-magic"></i> Perbaiki Penomoran
+                    </button>
                 </div>
 
 
@@ -36,6 +45,18 @@
                         placeholder='Cari Nomor Pokok Praja' />
                 </div>
 
+                {{-- Progress Bar --}}
+                <div class="col-12" x-show="processing" style="display: none;">
+                    <div class="mt-3">
+                        <p class="mb-1"><strong>Merapihkan penomoran... <span
+                                    x-text="progress.toFixed(0)"></span>%</strong></p>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                :style="`width: ${progress}%`" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
