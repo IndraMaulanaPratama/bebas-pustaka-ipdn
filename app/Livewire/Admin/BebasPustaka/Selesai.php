@@ -293,13 +293,16 @@ class Selesai extends Component
                 $this->sortUrutan,
                 function ($query, $urutan) {
                     if ($urutan == 'nomor') {
-                        return $query->orderBy('created_at', 'ASC');
+                        return $query->orderBy('updated_at', 'ASC');
                     } elseif ($urutan == 'terbaru') {
-                        return $query->latest();
+                        return $query->orderBy('updated_at', 'DESC');
                     }
+                },
+                function ($query) {
+                    // Ini adalah default urutan jika dropdown 'Urutan Data' tidak dipilih
+                    return $query->orderBy('updated_at', 'DESC');
                 }
             )
-            ->orderBy('updated_at', 'DESC')
             ->where('BEBAS_NUMBER', '!=', null)
             ->paginate();
 
