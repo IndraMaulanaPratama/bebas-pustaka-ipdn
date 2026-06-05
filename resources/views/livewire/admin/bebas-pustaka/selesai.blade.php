@@ -72,6 +72,15 @@
                     </x-admin.components.form.select>
                 </div>
 
+                {{-- Select Tahun Surat --}}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+                    <x-admin.components.form.select name='tahunFilter' placeholder='Tahun Terbit'>
+                        @for ($i = date('Y'); $i >= 2023; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </x-admin.components.form.select>
+                </div>
+
                 {{-- Select ututan data dumasar kana angkatan --}}
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
                     <x-admin.components.form.input size=12 type='text' name='angkatan' maxlength=2

@@ -43,6 +43,8 @@ class Selesai extends Component
 
     public $angkatan;
 
+    public $tahunFilter;
+
     public $search;
 
     public $npp;
@@ -286,6 +288,13 @@ class Selesai extends Component
                 $this->angkatan,
                 function ($query, $angkatan) {
                     return $query->where('BEBAS_PRAJA', 'LIKE', $angkatan.'%');
+                }
+            )
+            ->when(
+                // <!-- Pilari data pengajuan dumasar kana tahun surat
+                $this->tahunFilter,
+                function ($query, $tahun) {
+                    return $query->where('BEBAS_NUMBER', 'LIKE', '%/'.$tahun);
                 }
             )
             ->when(
