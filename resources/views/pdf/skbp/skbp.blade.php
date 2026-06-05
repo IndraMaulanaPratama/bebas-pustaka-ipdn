@@ -158,6 +158,7 @@
         </div>
 
         <ol type="1">
+            <li>Kelas Literasi</li>
             <li>Pemeriksaan Similaritas</li>
             <li>Bebas Pinjaman Buku Perpustakaan Pusat</li>
             <li>Bebas Pinjaman Buku Perpustakaan Fakultas</li>
