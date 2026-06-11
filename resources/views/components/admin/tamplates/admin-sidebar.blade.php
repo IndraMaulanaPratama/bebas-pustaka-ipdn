@@ -11,7 +11,7 @@
     if ($role->ROLE_NAME == 'Praja Utama') {
         $npp = explode('@', Auth::user()->email)[0];
 
-        // Cek Data Bimbingan Pemustaka
+        // Cek Data Kelas Literasi
         $statusBimbingan = bimbingan_pemustaka::where('PEMUSTAKA_PRAJA', $npp)->first('PEMUSTAKA_STATUS');
         // dd($statusBimbingan);
 
@@ -19,7 +19,7 @@
             # code...
             $pivot = pivotMenu::with(['menu'])
                 ->whereHas('menu', function ($query) {
-                    $query->where('MENU_NAME', 'Bimbingan Pemustaka');
+                    $query->where('MENU_NAME', 'Kelas Literasi');
                 })
                 ->where('PIVOT_ROLE', $role->ROLE_ID)
                 ->oldest()

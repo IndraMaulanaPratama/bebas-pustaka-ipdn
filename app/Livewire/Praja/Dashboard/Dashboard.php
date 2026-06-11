@@ -161,7 +161,7 @@ class Dashboard extends Component
 
         $this->data = [
             [
-                'pengajuan' => 'Kegiatan Bimbingan Pemustaka',
+                'pengajuan' => 'Kelas Literasi',
                 'status' => $pemustaka,
             ],
             [
