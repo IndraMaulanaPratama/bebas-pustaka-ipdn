@@ -66,11 +66,12 @@ class FormPengajuan extends Component
     public function buatPengajuan()
     {
         try {
-            $fakultas = $this->fakultasPraja($this->npp);
+            $npp = explode("@", Auth::user()->email)[0];
+            $fakultas = $this->fakultasPraja($npp);
 
             $data_skripsi = [
                 'SKRIPSI_ID' => uuid_create(4),
-                'SKRIPSI_PRAJA' => $this->npp,
+                'SKRIPSI_PRAJA' => $npp,
                 'SKRIPSI_FAKULTAS' => $fakultas,
                 'SKRIPSI_OFFICER' => 1,
                 'SKRIPSI_STATUS' => 'Proses'
@@ -82,7 +83,7 @@ class FormPengajuan extends Component
 
             $data_pivot = [
                 'PIVOT_ID' => uuid_create(4),
-                'PIVOT_PRAJA' => $this->npp,
+                'PIVOT_PRAJA' => $npp,
                 'PIVOT_PUSTAKA' => $data_skripsi['SKRIPSI_ID'],
                 'PIVOT_FAKULTAS' => $data_skripsi['SKRIPSI_ID'],
                 'PIVOT_SOFTCOPY' => $data_skripsi['SKRIPSI_ID'],
@@ -94,7 +95,7 @@ class FormPengajuan extends Component
             PivotSkripsi::create($data_pivot);
 
             $this->buttonCreate = 'disabled';
-            $this->reset();
+            $this->reset(['judul', 'pembimbingSatu', 'pembimbingDua']);
 
             $this->dispatch("data-created", "Pengajuan tahap unggah repository anda berhasil disimpan");
         } catch (\Throwable $th) {
@@ -104,7 +105,7 @@ class FormPengajuan extends Component
 
     public function resetForm()
     {
-        $this->reset();
+        $this->reset(['judul', 'pembimbingSatu', 'pembimbingDua']);
     }
 
 

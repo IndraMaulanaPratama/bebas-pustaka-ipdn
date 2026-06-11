@@ -72,12 +72,12 @@ class Pengajuan extends Component
     public function buatPengajuan()
     {
         try {
-
-            $fakultas = $this->fakultasPraja($this->npp);
+            $npp = explode("@", Auth::user()->email)[0];
+            $fakultas = $this->fakultasPraja($npp);
             $data = [
                 'REPOSITORY_ID' => uuid_create(4),
                 'REPOSITORY_URL' => $this->inputUrl,
-                'REPOSITORY_PRAJA' => $this->npp,
+                'REPOSITORY_PRAJA' => $npp,
                 'REPOSITORY_FAKULTAS' => $fakultas,
                 'REPOSITORY_OFFICER' => 1,
                 'REPOSITORY_STATUS' => 'Proses'
@@ -97,7 +97,7 @@ class Pengajuan extends Component
 
     public function resetForm()
     {
-        $this->reset();
+        $this->reset('inputUrl');
     }
 
 

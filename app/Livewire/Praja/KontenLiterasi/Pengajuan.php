@@ -75,12 +75,13 @@ class Pengajuan extends Component
     {
         if(null != $this->inputUrl) :
             try {
-                $fakultas = $this->fakultasPraja($this->npp);
+                $npp = explode("@", Auth::user()->email)[0];
+                $fakultas = $this->fakultasPraja($npp);
 
                 $data = [
                     'KONTEN_ID' => uuid_create(4),
                     'KONTEN_URL' => $this->inputUrl,
-                    'KONTEN_PRAJA' => $this->npp,
+                    'KONTEN_PRAJA' => $npp,
                     'KONTEN_FAKULTAS' => $fakultas,
                     'KONTEN_OFFICER' => 1,
                     'KONTEN_STATUS' => 'Proses'
@@ -104,7 +105,7 @@ class Pengajuan extends Component
 
     public function resetForm()
     {
-        $this->reset();
+        $this->reset('inputUrl');
     }
 
 
