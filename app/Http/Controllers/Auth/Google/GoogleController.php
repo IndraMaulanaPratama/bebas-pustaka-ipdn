@@ -7,17 +7,15 @@ use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\GoogleProvider;
 use Ramsey\Uuid\Uuid;
-
 
 class GoogleController extends Controller
 {
     public function redirectToGoogle($domain)
     {
         // Validasi domain
-        if (!in_array($domain, ['praja', 'pegawai'])) {
+        if (! in_array($domain, ['praja', 'pegawai'])) {
             abort(404, 'Domain tidak dikenali');
         }
 
@@ -28,7 +26,8 @@ class GoogleController extends Controller
             app('request'),
             $config['client_id'],
             $config['client_secret'],
-            $config['redirect']
+            $config['redirect'],
+            ['verify' => false, 'force_ip_resolve' => 'v4']
         );
 
         // Tambahkan scope yang diperlukan
@@ -44,14 +43,16 @@ class GoogleController extends Controller
     {
         try {
             // Validasi domain
-            if (!in_array($domain, ['pegawai', 'praja'])) {
+            if (! in_array($domain, ['pegawai', 'praja'])) {
                 session()->flash('warning', 'Domain tidak valid');
+
                 return redirect()->route('login');
             }
 
             // Cek apakah ada error dari Google
             if (request()->has('error')) {
-                session()->flash('warning', 'Error dari Google: ' . request()->get('error_description', 'Unknown error'));
+                session()->flash('warning', 'Error dari Google: '.request()->get('error_description', 'Unknown error'));
+
                 return redirect()->route('login');
             }
 
@@ -59,8 +60,9 @@ class GoogleController extends Controller
             $config = config("services.google_{$domain}");
 
             // Validasi konfigurasi
-            if (!$config || !$config['client_id'] || !$config['client_secret']) {
+            if (! $config || ! $config['client_id'] || ! $config['client_secret']) {
                 session()->flash('warning', 'Konfigurasi Google OAuth tidak lengkap');
+
                 return redirect()->route('login');
             }
 
@@ -68,7 +70,8 @@ class GoogleController extends Controller
                 app('request'),
                 $config['client_id'],
                 $config['client_secret'],
-                $config['redirect']
+                $config['redirect'],
+                ['verify' => false, 'force_ip_resolve' => 'v4']
             );
 
             // Dapatkan user data dari Google
@@ -76,22 +79,21 @@ class GoogleController extends Controller
             $email = $googleUser->getEmail();
 
             // Ekstrak domain dari email
-            $userDomain = substr(strrchr($email, "@"), 1);
+            $userDomain = substr(strrchr($email, '@'), 1);
             $npp = explode('@', $email)[0];
 
             // Validasi domain email
             $allowedDomains = ['ipdn.ac.id', 'praja.ipdn.ac.id'];
-            if (!in_array($userDomain, $allowedDomains)) {
+            if (! in_array($userDomain, $allowedDomains)) {
                 session()->flash('warning', 'Domain tidak valid');
+
                 return redirect()->route('login');
             }
 
-
             // Mekanisme login pegawai dan praja
-            if ($userDomain == "ipdn.ac.id") {
+            if ($userDomain == 'ipdn.ac.id') {
                 // Cari user didalam database internal
                 $user = User::where('email', $email)->first();
-
 
                 // Jika user sudah ada, update id google dan avatar || Kembali ke halaman login
                 if ($user) {
@@ -106,9 +108,9 @@ class GoogleController extends Controller
                     Auth::login($user);
                 } else {
                     session()->flash('warning', 'Data pengguna tidak ditemukan');
+
                     return redirect()->route('login');
                 }
-
 
                 // Redirect berdasarkan domain
                 return redirect()->intended('/');
@@ -128,6 +130,7 @@ class GoogleController extends Controller
                     // Milarian data praja ka table user
                     if (User::where('email', $email)->first()) {
                         session()->regenerate();
+
                         return redirect()->route('dashboard');
                     }
 
@@ -143,7 +146,7 @@ class GoogleController extends Controller
                                 'name' => $namaPraja,
                                 'email' => $emailPraja,
                                 'password' => bcrypt($tanggalLahirPraja),
-                                'photo' => "defaultPraja.png",
+                                'photo' => 'defaultPraja.png',
                                 'user_role' => $role->ROLE_ID,
                             ];
 
@@ -166,6 +169,7 @@ class GoogleController extends Controller
                             // Ngadamel session login nganggo data user
                             Auth::login($user);
                             session()->regenerate();
+
                             return redirect()->route('dashboard');
 
                         } catch (\Throwable $th) {
@@ -176,11 +180,9 @@ class GoogleController extends Controller
                 }
             }
 
-
-
-
         } catch (\Exception $e) {
             session()->flash('warning', $e->getMessage());
+
             return redirect()->route('login');
         }
     }
