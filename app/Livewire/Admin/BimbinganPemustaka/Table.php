@@ -151,7 +151,7 @@ class Table extends Component
 
                     // Inisialisasi data pengajuan
                     $data = [
-                        'PEMUSTAKA_OFFICER' => $this->idLogin,
+                        'PEMUSTAKA_OFFICER' => Auth::id(),
                         'PEMUSTAKA_STATUS' => "Assign",
                     ];
 

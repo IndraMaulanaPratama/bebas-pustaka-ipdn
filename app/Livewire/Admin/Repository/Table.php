@@ -223,7 +223,7 @@ class Table extends Component
 
                     // Inisialisasi data repository
                     $data = [
-                        'REPOSITORY_OFFICER' => $this->idLogin,
+                        'REPOSITORY_OFFICER' => Auth::id(),
                         'REPOSITORY_STATUS' => "Assign",
                     ];
 

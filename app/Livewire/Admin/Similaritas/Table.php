@@ -127,7 +127,7 @@ class Table extends Component
 
                     // Inisialisasi data similaritas
                     $data = [
-                        'SIMILARITAS_OFFICER' => $this->idLogin,
+                        'SIMILARITAS_OFFICER' => Auth::id(),
                         'SIMILARITAS_STATUS' => "Assign",
                     ];
 
