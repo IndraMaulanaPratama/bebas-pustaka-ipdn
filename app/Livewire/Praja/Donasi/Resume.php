@@ -20,7 +20,6 @@ class Resume extends Component
 
 
 
-    #[On("failed-updating-data"), On("data-updated"), On("data-created"), On("failed-creating-data")]
     public function placeholder()
     {
         return view("components.admin.components.spinner.loading");

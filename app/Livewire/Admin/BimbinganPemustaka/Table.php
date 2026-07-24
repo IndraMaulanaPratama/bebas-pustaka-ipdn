@@ -45,7 +45,6 @@ class Table extends Component
     protected $prajaService;
 
 
-    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
     public function placeholder()
     {
         return view("components.admin.components.spinner.loading");

@@ -45,7 +45,6 @@ class Data extends Component
 
 
 
-    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
     public function placeholder()
     {
         return view("components.admin.components.spinner.loading");

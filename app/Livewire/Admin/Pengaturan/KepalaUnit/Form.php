@@ -15,7 +15,6 @@ class Form extends Component
     public $nama_lengkap, $nip, $sign;
     public $timestamp;
 
-    #[On("data-rejected"), On("failed-updating-data"), On("data-updated")]
     public function placeholder()
     {
         return view("components.admin.components.spinner.loading");
