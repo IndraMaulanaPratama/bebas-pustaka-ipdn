@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -16,12 +17,11 @@ return new class extends Migration {
             $table->string('ELEKTRONIK_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->string('ELEKTRONIK_FAKULTAS', 3)->comment('Data fakultas praja');
             $table->unsignedBigInteger('ELEKTRONIK_OFFICER');
-            $table->enum('ELEKTRONIK_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
+            $table->enum('ELEKTRONIK_STATUS', ['Proses', 'Disetujui', 'Ditolak', 'Assign'])->default('Proses');
             $table->string('ELEKTRONIK_APPROVED')->nullable()->comment('Tanggal Approve');
             $table->text('ELEKTRONIK_NOTES')->nullable()->comment('Digunakan untuk memberikan keterangan saat pengajuan di tolak');
             $table->timestamps();
             $table->softDeletes();
-
 
             $table->foreign('ELEKTRONIK_OFFICER')->references('id')->on('users');
             $table->unsignedBigInteger('ELEKTRONIK_OFFICER', 255)->nullable()->change()->comment('Foreign Key ke table user sebagai petugas');

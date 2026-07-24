@@ -39,6 +39,7 @@
                         <option value="Proses">Proses</option>
                         <option value="Disetujui">Disetujui</option>
                         <option value="Ditolak">Ditolak</option>
+                        <option value="Assign">Assign</option>
                     </x-admin.components.form.select>
                 </div>
 
@@ -97,26 +98,18 @@
                                     $buttonPrint = null;
                                 }
 
-                                if ($item->SKRIPSI_STATUS == 'Proses') {
-                                    $colorStatus = 'primary';
-                                    $iconStatus = 'bi-arrow-clockwise';
-                                    $buttonApprove = null;
-                                    $buttonReject = null;
-                                } elseif ($item->SKRIPSI_STATUS == 'Disetujui') {
-                                    $colorStatus = 'success';
-                                    $iconStatus = 'bi-check2-all';
-                                } else {
-                                    $colorStatus = 'danger';
-                                    $iconStatus = 'bi-dash-circle-fill';
-                                }
+                                $buttonClasses = $this->getButtonStatus(
+                                    $item->SKRIPSI_STATUS,
+                                    $item->SKRIPSI_OFFICER,
+                                );
                             @endphp
 
                             <tr>
                                 <td> {{ $loop->index + $data->firstItem() }} </td>
 
                                 <td>
-                                    <span class="badge bg-{{ $colorStatus }}">
-                                        <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                    <span class="badge bg-{{ $buttonClasses['colorStatus'] }}">
+                                        <i class="bi {{ $buttonClasses['iconStatus'] }}"></i> &nbsp;
                                         {{ $item->SKRIPSI_STATUS }}
                                     </span>
                                 </td>
@@ -133,8 +126,17 @@
                                 <td> {{ $item->SKRIPSI_OFFICER === 1 ? null : $item->user->name }} </td>
                                 <td> {{ $item->SKRIPSI_APPROVED }} </td>
 
+                                <td {{ $buttonClasses['keep'] }}>
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-primary rounded-pill {{ $accessApprove }}"
+                                        wire:confirm='Anda yakin akan memeriksa pengajuan ini?'
+                                        wire:click='keepData("{{ $item->SKRIPSI_ID }}")'>
+                                        <i class="bi bi-clipboard2-check"></i>
+                                    </button>
+                                </td>
+
                                 {{-- Button Approve --}}
-                                <td {{ $buttonApprove }}>
+                                <td {{ $buttonClasses['approve'] }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                         wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
@@ -144,7 +146,7 @@
                                 </td>
 
                                 {{-- Button Reject --}}
-                                <td {{ $buttonReject }}>
+                                <td {{ $buttonClasses['reject'] }}>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                         data-bs-toggle="modal" data-bs-target="#formReject"

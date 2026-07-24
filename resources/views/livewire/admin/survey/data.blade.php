@@ -95,6 +95,7 @@
                             <option value="Proses">Proses</option>
                             <option value="Disetujui">Disetujui</option>
                             <option value="Ditolak">Ditolak</option>
+                            <option value="Assign">Assign</option>
                         </x-admin.components.form.select>
                     </div>
 
@@ -133,31 +134,18 @@
                         <tbody>
                             @foreach ($survey as $item)
                                 @php
-                                    $buttonApprove = 'hidden';
-                                    $buttonReject = 'hidden';
-                                    $buttonPrint = 'hidden';
-
-                                    if ($item->SURVEY_STATUS == 'Proses') {
-                                        $colorStatus = 'primary';
-                                        $iconStatus = 'bi-arrow-clockwise';
-                                        $buttonApprove = null;
-                                        $buttonReject = null;
-                                    } elseif ($item->SURVEY_STATUS == 'Disetujui') {
-                                        $colorStatus = 'success';
-                                        $iconStatus = 'bi-check2-all';
-                                        $buttonPrint = null;
-                                    } else {
-                                        $colorStatus = 'danger';
-                                        $iconStatus = 'bi-dash-circle-fill';
-                                    }
+                                    $buttonClasses = $this->getButtonStatus(
+                                        $item->SURVEY_STATUS,
+                                        $item->SURVEY_OFFICER,
+                                    );
                                 @endphp
 
                                 <tr>
                                     <td> {{ $loop->index + $survey->firstItem() }} </td>
 
                                     <td>
-                                        <span class="badge bg-{{ $colorStatus }}">
-                                            <i class="bi {{ $iconStatus }}"></i> &nbsp;
+                                        <span class="badge bg-{{ $buttonClasses['colorStatus'] }}">
+                                            <i class="bi {{ $buttonClasses['iconStatus'] }}"></i> &nbsp;
                                             {{ $item->SURVEY_STATUS }}
                                         </span>
                                     </td>
@@ -174,8 +162,17 @@
                                     <td> {{ $item->SURVEY_OFFICER === 1 ? null : $item->user->name }} </td>
                                     <td> {{ $item->SURVEY_APPROVED }} </td>
 
+                                    <td {{ $buttonClasses['keep'] }}>
+                                        <button type="button"
+                                            class="btn btn-sm btn-outline-primary rounded-pill {{ $accessApprove }}"
+                                            wire:confirm='Anda yakin akan memeriksa pengajuan ini?'
+                                            wire:click='keepData("{{ $item->SURVEY_ID }}")'>
+                                            <i class="bi bi-clipboard2-check"></i>
+                                        </button>
+                                    </td>
+
                                     {{-- Button Approve --}}
-                                    <td {{ $buttonApprove }}>
+                                    <td {{ $buttonClasses['approve'] }}>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-success rounded-pill {{ $accessApprove }}"
                                             wire:confirm='Anda yakin akan menyetujui pengajuan ini?'
@@ -185,7 +182,7 @@
                                     </td>
 
                                     {{-- Button Reject --}}
-                                    <td {{ $buttonReject }}>
+                                    <td {{ $buttonClasses['reject'] }}>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-danger rounded-pill {{ $accessReject }}"
                                             data-bs-toggle="modal" data-bs-target="#formReject"
@@ -195,7 +192,7 @@
                                     </td>
 
                                     {{-- Button Print --}}
-                                    <td {{ $buttonPrint }}>
+                                    <td {{ $buttonClasses['print'] }}>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-secondary rounded-pill {{ $accessPrint }}"
                                             wire:confirm='Cetak bukti pemeriksaan {{ $item->SURVEY_PRAJA }} ?'

@@ -58,6 +58,77 @@ class Data extends Component
         return $value == 1 ? null : 'hidden';
     }
 
+    public function getButtonStatus($status, $officerId)
+    {
+        $classes = [
+            'print' => 'hidden',
+            'keep' => 'hidden',
+            'approve' => 'hidden',
+            'reject' => 'hidden',
+            'colorStatus' => null,
+            'iconStatus' => null,
+        ];
+
+        switch ($status) {
+            case 'Proses':
+                $classes['keep'] = '';
+                $classes['colorStatus'] = 'primary';
+                $classes['iconStatus'] = 'bi-arrow-clockwise';
+                break;
+
+            case 'Disetujui':
+                $classes['print'] = '';
+                $classes['colorStatus'] = 'success';
+                $classes['iconStatus'] = 'bi-check2-all';
+                break;
+
+            case 'Assign':
+                $classes['colorStatus'] = 'warning';
+                $classes['iconStatus'] = 'bi-hourglass-split';
+
+                if ($officerId == auth()->id()) {
+                    $classes['approve'] = '';
+                    $classes['reject'] = '';
+                }
+                break;
+
+            case 'Ditolak':
+                $classes['colorStatus'] = 'danger';
+                $classes['iconStatus'] = 'bi-dash-circle-fill';
+                break;
+
+            default:
+                break;
+        }
+
+        return $classes;
+    }
+
+    public function keepData($id)
+    {
+        try {
+            $data = Survey::where('SURVEY_ID', $id)->first();
+
+            switch ($data->SURVEY_STATUS) {
+                case "Proses":
+                    $updateData = [
+                        'SURVEY_OFFICER' => Auth::id(),
+                        'SURVEY_STATUS' => "Assign",
+                    ];
+                    Survey::where("SURVEY_ID", $id)->update($updateData);
+                    $this->dispatch("data-updated", "Pengajuan survei praja `{$data->SURVEY_PRAJA}` siap untuk periksa");
+                    break;
+
+                case 'Assign':
+                    $officerName = $data->user->name ?? 'Petugas';
+                    $this->dispatch("failed-updating-data", "Pengajuan ini sudah diperiksa oleh `{$officerName}`, silahkan periksa pengajuan lainnya");
+                    break;
+            }
+        } catch (\Throwable $th) {
+            $this->dispatch("failed-updating-data", $th->getMessage());
+        }
+    }
+
 
 
     public function updateSurvey()

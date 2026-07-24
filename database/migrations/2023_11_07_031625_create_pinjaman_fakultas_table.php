@@ -16,12 +16,11 @@ return new class extends Migration
             $table->string('FAKULTAS_NUMBER', 50)->nullable()->comment('Nomor surat bebas pinjaman');
             $table->string('FAKULTAS_PRAJA', 8)->comment('Foreign Key ke data praja');
             $table->unsignedBigInteger('FAKULTAS_OFFICER');
-            $table->enum('FAKULTAS_STATUS', ['Proses', 'Disetujui', 'Ditolak'])->default('Proses');
+            $table->enum('FAKULTAS_STATUS', ['Proses', 'Disetujui', 'Ditolak', 'Assign'])->default('Proses');
             $table->string('FAKULTAS_APPROVED')->nullable()->comment('Tanggal Approve');
             $table->text('FAKULTAS_NOTES')->nullable()->comment('Digunakan untuk memberikan keterangan saat pengajuan di tolak');
             $table->timestamps();
             $table->softDeletes();
-
 
             $table->foreign('FAKULTAS_OFFICER')->references('id')->on('users');
             $table->unsignedBigInteger('FAKULTAS_OFFICER', 255)->nullable()->change()->comment('Foreign Key ke table user sebagai petugas');
