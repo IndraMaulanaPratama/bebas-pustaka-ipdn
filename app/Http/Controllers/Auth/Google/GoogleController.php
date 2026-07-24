@@ -34,7 +34,7 @@ class GoogleController extends Controller
         $provider->scopes(['openid', 'profile', 'email']);
 
         // Tambahkan access type untuk offline access
-        $provider->with(['access_type' => 'offline', 'prompt' => 'consent']);
+        $provider->with(['prompt' => 'select_account']);
 
         return $provider->redirect();
     }
