@@ -269,7 +269,8 @@ class Table extends Component
                     return $query->where("SIMILARITAS_PRAJA", "LIKE", $npp . "%");
                 }
             )
-            ->latest()
+            ->orderBy('SIMILARITAS_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
 
         return view('livewire.admin.similaritas.table', [
