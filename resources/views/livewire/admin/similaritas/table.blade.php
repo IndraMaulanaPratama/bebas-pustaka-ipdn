@@ -62,6 +62,7 @@
                         <th style="min-width: 5cm">Tingkat Similaritas</th>
                         <th style="min-width: 5cm">Status Bibliografi</th>
                         <th style="min-width: 5cm">Status Small Word</th>
+                        <th style="min-width: 5cm">Tanggal Pengajuan</th>
                         <th style="min-width: 6cm">Petugas</th>
                         <th style="min-width: 5cm">Tanggal Validasi</th>
                         <th style="min-width: 5cm">Keterangan</th>
@@ -102,6 +103,7 @@
                             <td> {{ $item->SIMILARITAS_VALUE }}% </td>
                             <td> {{ $item->SIMILARITAS_BIBLIOGRAFI == 1 ? '✅' : '❌' }} </td>
                             <td> {{ $item->SIMILARITAS_SMALL_WORD == 1 ? '✅' : '❌' }} </td>
+                            <td> {{ $item->SIMILARITAS_TANGGAL_PENGAJUAN ? $item->SIMILARITAS_TANGGAL_PENGAJUAN->format('d M Y H:i') : '-' }} </td>
                             <td> {{ $item->SIMILARITAS_OFFICER === 1 ? null : $item->user->name }} </td>
                             <td> {{ $item->SIMILARITAS_APPROVED }} </td>
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
