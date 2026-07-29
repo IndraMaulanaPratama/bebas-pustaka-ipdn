@@ -67,6 +67,7 @@ class FormPengajuan extends Component
                 'SIMILARITAS_TITLE' => $this->inputJudul,
                 'SIMILARITAS_CLASS' => $this->inputKelas,
                 'SIMILARITAS_ABSENT' => $this->inputAbsen,
+                'SIMILARITAS_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             Similaritas::create($data);
