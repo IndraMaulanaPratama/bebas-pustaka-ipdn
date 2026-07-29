@@ -1,5 +1,6 @@
 {{-- The best athlete wants his opponent at his best. --}}
 <div class="row">
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -12,6 +13,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Data Table --}}
     @livewire('Admin.DonasiFakultas.Table', [], key('table'))
 

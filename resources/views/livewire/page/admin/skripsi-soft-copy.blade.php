@@ -1,6 +1,7 @@
 {{-- Nothing in the world is as soft and yielding as water. --}}
 
 <div class="row">
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -13,6 +14,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Data --}}
     @livewire('Admin.SkripsiSoftcopy.Table', [], key('table'))
 

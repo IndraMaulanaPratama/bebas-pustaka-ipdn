@@ -1,6 +1,7 @@
 {{-- Close your eyes. Count to one. That is how long forever feels. --}}
 
 <div class="row">
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -13,6 +14,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Tabs Content Similaritas --}}
     <div class="row g-4">
         <div class="col-lg-12 col-md-12 col-sm-12">

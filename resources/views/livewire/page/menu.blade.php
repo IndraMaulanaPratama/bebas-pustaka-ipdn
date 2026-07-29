@@ -1,4 +1,5 @@
 <div>
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -11,6 +12,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     <div class="row">
         <livewire:admin.menu.table />
     </div>

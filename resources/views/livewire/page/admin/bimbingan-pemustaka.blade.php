@@ -1,6 +1,7 @@
 {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
 
 <div class="row">
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -13,6 +14,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Data --}}
     @livewire('Admin.BimbinganPemustaka.Table', [], key('table'))
 

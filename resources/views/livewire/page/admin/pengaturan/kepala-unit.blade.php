@@ -1,4 +1,5 @@
 <div class="row">
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -11,6 +12,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Formulir --}}
     @livewire('Admin.Pengaturan.KepalaUnit.Form', [], key('form'))
 

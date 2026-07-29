@@ -1,5 +1,6 @@
 {{-- Because she competes with no one, no one can compete with her. --}}
 <div>
+    <div wire:key="alerts">
     @if (session('success'))
         <x-admin.components.alert.success text="{{ session('success') }}" />
     @endif
@@ -12,6 +13,7 @@
         <x-admin.components.alert.error text="{{ session('error') }}" />
     @endif
 
+    </div>
     {{-- Tabs Content Similaritas --}}
     <div class="row g-4">
         <div class="col-lg-12 col-md-12 col-sm-12">

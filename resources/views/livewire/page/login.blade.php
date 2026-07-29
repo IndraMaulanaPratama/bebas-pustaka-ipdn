@@ -24,6 +24,7 @@
 
                     <div class="">
                         {{-- Alert --}}
+    <div wire:key="alerts">
                         @if (session('success'))
                             <x-admin.components.alert.success text="{{ session('success') }}" />
                         @endif
@@ -36,6 +37,7 @@
                             <x-admin.components.alert.error text="{{ session('error') }}" />
                         @endif
 
+    </div>
                     </div>
 
                     <!-- Login Form -->
