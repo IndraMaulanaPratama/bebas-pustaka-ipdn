@@ -30,10 +30,14 @@ class Similaritas extends Model
         'SIMILARITAS_SMALL_WORD_COUNT',
         'SIMILARITAS_QUOTE',
         'SIMILARITAS_STATUS',
+        'SIMILARITAS_TANGGAL_PENGAJUAN',
         'SIMILARITAS_APPROVED',
         'SIMILARITAS_NOTES',
     ];
     protected $hidden = ['updated_at', 'deleted_at'];
+    protected $casts = [
+        'SIMILARITAS_TANGGAL_PENGAJUAN' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {
