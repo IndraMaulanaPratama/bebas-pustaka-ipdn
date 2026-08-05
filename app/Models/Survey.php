@@ -16,7 +16,10 @@ class Survey extends Model
     protected $keyType = "string";
     protected $perPage = 10;
     protected $with = ['user'];
-    protected $fillable = ['SURVEY_ID', 'SURVEY_PRAJA', 'SURVEY_FAKULTAS', 'SURVEY_OFFICER', 'SURVEY_STATUS', 'SURVEY_APPROVED'];
+    protected $fillable = ['SURVEY_ID', 'SURVEY_PRAJA', 'SURVEY_FAKULTAS', 'SURVEY_OFFICER', 'SURVEY_STATUS', 'SURVEY_TANGGAL_PENGAJUAN', 'SURVEY_APPROVED'];
+    protected $casts = [
+        'SURVEY_TANGGAL_PENGAJUAN' => 'datetime',
+    ];
 
 
     /**

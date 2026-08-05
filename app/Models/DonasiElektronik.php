@@ -26,8 +26,13 @@ class DonasiElektronik extends Model
         'ELEKTRONIK_FAKULTAS',
         'ELEKTRONIK_OFFICER',
         'ELEKTRONIK_STATUS',
+        'ELEKTRONIK_TANGGAL_PENGAJUAN',
         'ELEKTRONIK_APPROVED',
         'ELEKTRONIK_NOTES',
+    ];
+
+    protected $casts = [
+        'ELEKTRONIK_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
 

@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\UnggahRepository;
 use App\Models\Repository;
 use App\Models\SettingApps;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -80,7 +81,8 @@ class Pengajuan extends Component
                 'REPOSITORY_PRAJA' => $npp,
                 'REPOSITORY_FAKULTAS' => $fakultas,
                 'REPOSITORY_OFFICER' => 1,
-                'REPOSITORY_STATUS' => 'Proses'
+                'REPOSITORY_STATUS' => 'Proses',
+                'REPOSITORY_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             Repository::create($data);

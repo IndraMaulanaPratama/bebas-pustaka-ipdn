@@ -308,7 +308,8 @@ class Data extends Component
                     return $query->where("SURVEY_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->orderBy('SURVEY_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
         return view('livewire.admin.survey.data', [
             'setting' => $setting,

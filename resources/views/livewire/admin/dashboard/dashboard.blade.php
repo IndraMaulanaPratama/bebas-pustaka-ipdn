@@ -163,7 +163,7 @@
         <div class="col-lg-4">
 
             <!-- Aktivitas Terbaru -->
-            <div class="card">
+            <div class="card" id="recent-activity">
 
                 <div class="card-body">
                     <h5 class="card-title">Aktivitas Terbaru <span>| {{ $date }}</span></h5>

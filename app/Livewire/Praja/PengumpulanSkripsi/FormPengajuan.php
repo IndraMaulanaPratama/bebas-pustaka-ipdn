@@ -7,6 +7,7 @@ use App\Models\SkripsiFakultas;
 use App\Models\SkripsiPerpustakaan;
 use App\Models\SkripsiSoftcopy;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -74,7 +75,8 @@ class FormPengajuan extends Component
                 'SKRIPSI_PRAJA' => $npp,
                 'SKRIPSI_FAKULTAS' => $fakultas,
                 'SKRIPSI_OFFICER' => 1,
-                'SKRIPSI_STATUS' => 'Proses'
+                'SKRIPSI_STATUS' => 'Proses',
+                'SKRIPSI_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             SkripsiPerpustakaan::create($data_skripsi);

@@ -23,8 +23,12 @@ class KontenLiterasi extends Model
         'KONTEN_FAKULTAS',
         'KONTEN_OFFICER',
         'KONTEN_STATUS',
+        'KONTEN_TANGGAL_PENGAJUAN',
         'KONTEN_APPROVED',
         'KONTEN_NOTES',
+    ];
+    protected $casts = [
+        'KONTEN_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
 

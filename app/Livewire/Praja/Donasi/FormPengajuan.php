@@ -7,6 +7,7 @@ use App\Models\DonasiFakultas;
 use App\Models\DonasiPustaka;
 use App\Models\PivotDonasi;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -107,7 +108,8 @@ class FormPengajuan extends Component
                     'PUSTAKA_PRAJA' => $this->npp,
                     'PUSTAKA_FAKULTAS' => $fakultas,
                     'PUSTAKA_OFFICER' => 1,
-                    'PUSTAKA_STATUS' => 'Proses'
+                    'PUSTAKA_STATUS' => 'Proses',
+                    'PUSTAKA_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
                 ];
 
                 DonasiPustaka::create($data_pustaka);
@@ -118,7 +120,8 @@ class FormPengajuan extends Component
                     'FAKULTAS_PRAJA' => $this->npp,
                     'FAKULTAS_FAKULTAS' => $fakultas,
                     'FAKULTAS_OFFICER' => 1,
-                    'FAKULTAS_STATUS' => 'Proses'
+                    'FAKULTAS_STATUS' => 'Proses',
+                    'FAKULTAS_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
                 ];
 
                 DonasiFakultas::create($data_fakultas);
@@ -130,7 +133,8 @@ class FormPengajuan extends Component
                     'ELEKTRONIK_PRAJA' => $this->npp,
                     'ELEKTRONIK_FAKULTAS' => $fakultas,
                     'ELEKTRONIK_OFFICER' => 1,
-                    'ELEKTRONIK_STATUS' => 'Proses'
+                    'ELEKTRONIK_STATUS' => 'Proses',
+                    'ELEKTRONIK_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
                 ];
 
                 DonasiElektronik::create($data_elektronik);

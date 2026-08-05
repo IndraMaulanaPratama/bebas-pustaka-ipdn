@@ -23,8 +23,12 @@ class Repository extends Model
         'REPOSITORY_FAKULTAS',
         'REPOSITORY_OFFICER',
         'REPOSITORY_STATUS',
+        'REPOSITORY_TANGGAL_PENGAJUAN',
         'REPOSITORY_APPROVED',
         'REPOSITORY_NOTES',
+    ];
+    protected $casts = [
+        'REPOSITORY_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
     // --- *** Ranahna Relasi *** --- //

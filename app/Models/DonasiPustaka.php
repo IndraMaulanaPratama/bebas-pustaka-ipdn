@@ -26,8 +26,13 @@ class DonasiPustaka extends Model
         'PUSTAKA_PRAJA',
         'PUSTAKA_OFFICER',
         'PUSTAKA_STATUS',
+        'PUSTAKA_TANGGAL_PENGAJUAN',
         'PUSTAKA_APPROVED',
         'PUSTAKA_NOTES',
+    ];
+
+    protected $casts = [
+        'PUSTAKA_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
 

@@ -23,8 +23,12 @@ class SkripsiPerpustakaan extends Model
         'SKRIPSI_FAKULTAS',
         'SKRIPSI_OFFICER',
         'SKRIPSI_STATUS',
+        'SKRIPSI_TANGGAL_PENGAJUAN',
         'SKRIPSI_APPROVED',
         'SKRIPSI_NOTES',
+    ];
+    protected $casts = [
+        'SKRIPSI_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
     /**

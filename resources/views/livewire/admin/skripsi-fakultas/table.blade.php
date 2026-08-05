@@ -65,6 +65,7 @@
                             <th scope="row">#</th>
                             <th>Status</th>
                             <th style="min-width: 2cm">NPP</th>
+                            <th style="min-width: 5cm">Tanggal Pengajuan</th>
                             <th style="min-width: 10cm">Keterangan</th>
                             <th style="min-width: 6cm">Petugas</th>
                             <th style="min-width: 5cm">Tanggal Validasi</th>
@@ -99,9 +100,10 @@
                                     </button>
                                 </td>
 
+                                <td> {{ $item->SKRIPSI_TANGGAL_PENGAJUAN ? $item->SKRIPSI_TANGGAL_PENGAJUAN->locale('id')->translatedFormat('d M Y H:i') : '-' }} </td>
                                 <td> {{ $item->SKRIPSI_NOTES }} </td>
                                 <td> {{ $item->SKRIPSI_OFFICER === 1 ? null : $item->user->name }} </td>
-                                <td> {{ $item->SKRIPSI_APPROVED }} </td>
+                                <td> {{ $item->SKRIPSI_APPROVED ? \Carbon\Carbon::parse($item->SKRIPSI_APPROVED)->locale('id')->translatedFormat('d M Y H:i') : '-' }} </td>
 
                                 <td {{ $buttonClasses['keep'] }}>
                                     <button type="button"

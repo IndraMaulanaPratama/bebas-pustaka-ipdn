@@ -25,8 +25,12 @@ class PinjamanFakultas extends Model
         'FAKULTAS_PRAJA',
         'FAKULTAS_OFFICER',
         'FAKULTAS_STATUS',
+        'FAKULTAS_TANGGAL_PENGAJUAN',
         'FAKULTAS_APPROVED',
         'FAKULTAS_NOTES',
+    ];
+    protected $casts = [
+        'FAKULTAS_TANGGAL_PENGAJUAN' => 'datetime',
     ];
 
 

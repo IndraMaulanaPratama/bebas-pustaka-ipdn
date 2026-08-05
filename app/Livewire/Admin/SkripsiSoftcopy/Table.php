@@ -296,7 +296,8 @@ class Table extends Component
                     return $query->where("SKRIPSI_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->orderBy('SKRIPSI_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
 
         return view('livewire.admin.skripsi-softcopy.table', [

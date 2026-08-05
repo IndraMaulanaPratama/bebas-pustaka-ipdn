@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\SurveyPraja;
 use App\Models\SettingApps;
 use App\Models\Survey;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -80,7 +81,8 @@ class Pengajuan extends Component
                 'SURVEY_PRAJA' => $this->npp,
                 'SURVEY_FAKULTAS' => $fakultas,
                 'SURVEY_OFFICER' => 1,
-                'SURVEY_STATUS' => 'Proses'
+                'SURVEY_STATUS' => 'Proses',
+                'SURVEY_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             Survey::create($data);

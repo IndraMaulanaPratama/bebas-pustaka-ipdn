@@ -321,7 +321,8 @@ class Table extends Component
                     return $query->where("FAKULTAS_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->orderBy('FAKULTAS_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
 
 

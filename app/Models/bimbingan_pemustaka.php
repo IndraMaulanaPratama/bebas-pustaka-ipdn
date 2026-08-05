@@ -17,7 +17,10 @@ class bimbingan_pemustaka extends Model
     protected $keyType = "string";
     protected $perPage = 10;
     protected $with = ['user'];
-    protected $fillable = ['PEMUSTAKA_ID', 'PEMUSTAKA_PRAJA', 'PEMUSTAKA_FAKULTAS', 'PEMUSTAKA_OFFICER', 'PEMUSTAKA_STATUS', 'PEMUSTAKA_APPROVED'];
+    protected $fillable = ['PEMUSTAKA_ID', 'PEMUSTAKA_PRAJA', 'PEMUSTAKA_FAKULTAS', 'PEMUSTAKA_OFFICER', 'PEMUSTAKA_STATUS', 'PEMUSTAKA_TANGGAL_PENGAJUAN', 'PEMUSTAKA_APPROVED'];
+    protected $casts = [
+        'PEMUSTAKA_TANGGAL_PENGAJUAN' => 'datetime',
+    ];
 
 
 

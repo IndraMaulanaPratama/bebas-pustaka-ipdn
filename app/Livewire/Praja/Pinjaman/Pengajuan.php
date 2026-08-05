@@ -58,7 +58,8 @@ class Pengajuan extends Component
                 'PUSTAKA_PRAJA' => $this->npp,
                 'PUSTAKA_NUMBER' => $nomorSurat,
                 'PUSTAKA_OFFICER' => 1,
-                'PUSTAKA_STATUS' => 'Proses'
+                'PUSTAKA_STATUS' => 'Proses',
+                'PUSTAKA_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             PinjamanPustaka::create($data_pustaka);
@@ -68,7 +69,8 @@ class Pengajuan extends Component
                 'FAKULTAS_PRAJA' => $this->npp,
                 'FAKULTAS_NUMBER' => $nomorSurat,
                 'FAKULTAS_OFFICER' => 1,
-                'FAKULTAS_STATUS' => 'Proses'
+                'FAKULTAS_STATUS' => 'Proses',
+                'FAKULTAS_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             PinjamanFakultas::create($data_fakultas);

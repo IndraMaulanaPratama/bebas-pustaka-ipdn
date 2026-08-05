@@ -103,9 +103,9 @@
                             <td> {{ $item->SIMILARITAS_VALUE }}% </td>
                             <td> {{ $item->SIMILARITAS_BIBLIOGRAFI == 1 ? '✅' : '❌' }} </td>
                             <td> {{ $item->SIMILARITAS_SMALL_WORD == 1 ? '✅' : '❌' }} </td>
-                            <td> {{ $item->SIMILARITAS_TANGGAL_PENGAJUAN ? $item->SIMILARITAS_TANGGAL_PENGAJUAN->format('d M Y H:i') : '-' }} </td>
+                            <td> {{ $item->SIMILARITAS_TANGGAL_PENGAJUAN ? $item->SIMILARITAS_TANGGAL_PENGAJUAN->locale('id')->translatedFormat('d M Y H:i') : '-' }} </td>
                             <td> {{ $item->SIMILARITAS_OFFICER === 1 ? null : $item->user->name }} </td>
-                            <td> {{ $item->SIMILARITAS_APPROVED }} </td>
+                            <td> {{ $item->SIMILARITAS_APPROVED ? \Carbon\Carbon::parse($item->SIMILARITAS_APPROVED)->locale('id')->translatedFormat('d M Y H:i') : '-' }} </td>
                             <td> {{ $item->SIMILARITAS_NOTES }} </td>
 
                             {{-- Button Keep --}}

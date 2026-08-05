@@ -321,7 +321,8 @@ class Table extends Component
                     return $query->where("PUSTAKA_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->orderBy('PUSTAKA_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
 
 

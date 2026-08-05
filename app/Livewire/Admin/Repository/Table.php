@@ -349,7 +349,8 @@ class Table extends Component
                     return $query->where("REPOSITORY_PRAJA", "LIKE", $angkatan . "%");
                 }
             )
-            ->latest()
+            ->orderBy('REPOSITORY_TANGGAL_PENGAJUAN', 'asc')
+            ->orderBy('created_at', 'asc')
             ->paginate();
 
         return $data;

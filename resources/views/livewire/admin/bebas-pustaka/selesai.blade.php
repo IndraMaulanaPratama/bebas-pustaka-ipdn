@@ -127,7 +127,7 @@
                                 </td>
 
                                 <td> {{ $item->BEBAS_OFFICER === 1 ? null : $item->user->name }} </td>
-                                <td> {{ $item->updated_at }} </td>
+                                <td> {{ $item->updated_at ? $item->updated_at->locale('id')->translatedFormat('d M Y H:i') : '-' }} </td>
 
                                 {{-- Button Print --}}
                                 <td {{ $accessPrint }}>

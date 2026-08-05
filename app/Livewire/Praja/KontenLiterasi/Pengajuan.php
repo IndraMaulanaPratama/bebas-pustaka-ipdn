@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\KontenLiterasi;
 use App\Models\KontenLiterasi;
 use App\Models\SettingApps;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -84,7 +85,8 @@ class Pengajuan extends Component
                     'KONTEN_PRAJA' => $npp,
                     'KONTEN_FAKULTAS' => $fakultas,
                     'KONTEN_OFFICER' => 1,
-                    'KONTEN_STATUS' => 'Proses'
+                    'KONTEN_STATUS' => 'Proses',
+                    'KONTEN_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
                 ];
 
                 KontenLiterasi::create($data);

@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\BimbinganPemustaka;
 use App\Models\bimbingan_pemustaka;
 use App\Models\User;
 use App\Services\PrajaService;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -63,7 +64,8 @@ class Pengajuan extends Component
                 'PEMUSTAKA_PRAJA' => $this->npp,
                 'PEMUSTAKA_FAKULTAS' => $this->inisialFakultas,
                 'PEMUSTAKA_OFFICER' => 1,
-                'PEMUSTAKA_STATUS' => 'Proses'
+                'PEMUSTAKA_STATUS' => 'Proses',
+                'PEMUSTAKA_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
             bimbingan_pemustaka::create($data);
