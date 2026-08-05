@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\DonasiElektronik;
 use App\Models\Menu;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -126,6 +127,7 @@ class Table extends Component
                         'ELEKTRONIK_STATUS' => "Assign",
                     ];
                     DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($updateData);
+                    ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi elektronik a.n. {$data->ELEKTRONIK_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan donasi elektronik `{$data->ELEKTRONIK_PRAJA}` siap untuk periksa");
                     break;
 
@@ -199,6 +201,8 @@ class Table extends Component
             // Proses update data donasi poin
             DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($data);
 
+            ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi elektronik a.n. {$donasi->ELEKTRONIK_PRAJA}", $donasi);
+
             $this->dispatch("data-updated", "Pengajuan donasi buku elektronik perpustakaan pusat berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -218,6 +222,8 @@ class Table extends Component
         $data = DonasiElektronik::where("ELEKTRONIK_ID", $id)->first();
         $dataPraja = \App\Helpers\PrajaApi::getPraja($data->ELEKTRONIK_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti donasi elektronik a.n. {$data->ELEKTRONIK_PRAJA}", $data);
 
         $dokumen = view("pdf.donasi.elektronik.poin", [
             'donasi' => $data,
@@ -245,6 +251,8 @@ class Table extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::EXPORT, "Mengekspor data donasi elektronik ke Excel");
+
         return (new DonasiElektronikExcel)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)

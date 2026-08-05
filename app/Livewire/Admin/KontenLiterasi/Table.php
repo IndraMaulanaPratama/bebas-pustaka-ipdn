@@ -8,6 +8,7 @@ use App\Models\KontenLiterasi;
 use App\Models\Menu;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +129,10 @@ class Table extends Component
                         'KONTEN_STATUS' => "Assign",
                     ];
                     KontenLiterasi::where("KONTEN_ID", $id)->update($updateData);
+
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Konten Literasi', ActivityLogger::ASSIGN, "Memeriksa pengajuan konten literasi a.n. {$data->KONTEN_PRAJA}", $data);
+
                     $this->dispatch("data-updated", "Pengajuan konten literasi `{$data->KONTEN_PRAJA}` siap untuk periksa");
                     break;
 
@@ -149,6 +154,9 @@ class Table extends Component
 
         try {
             SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_LITERASI' => $this->inputUrl]);
+
+            // Nyatet aktivitas parobahan alamat formulir literasi
+            ActivityLogger::log('Konten Literasi', ActivityLogger::UPDATE, "Memperbaharui alamat formulir literasi menjadi {$this->inputUrl}", $setting);
 
             $this->dispatch("data-updated", "Alamat formulir literasi berhasil diperbaharui");
             $this->reset();
@@ -217,6 +225,9 @@ class Table extends Component
             // Proses update data konten literasi
             KontenLiterasi::where("KONTEN_ID", $id)->update($data);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Konten Literasi', ActivityLogger::APPROVE, "Menyetujui pengajuan konten literasi a.n. {$literasi->KONTEN_PRAJA}", $literasi);
+
             $this->dispatch("data-updated", "Pengajuan konten literasi berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -244,6 +255,8 @@ class Table extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Konten Literasi', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan konten literasi a.n. {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
@@ -259,6 +272,9 @@ class Table extends Component
 
     public function exportData()
     {
+        // Nyatet aktivitas export data
+        ActivityLogger::log('Konten Literasi', ActivityLogger::EXPORT, "Mengekspor data konten literasi ke Excel");
+
         return Excel::download(new \App\Exports\KontenLiterasi, 'Konten-literasi.xlsx');
     }
 

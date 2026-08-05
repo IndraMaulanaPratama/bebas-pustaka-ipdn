@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Pengaturan\KepalaUnit;
 
 use App\Models\SettingApps;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -36,6 +37,9 @@ class Form extends Component
             $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public');
 
             SettingApps::where('SETTING_ID', 1)->update($data);
+
+            $setting = SettingApps::where('SETTING_ID', 1)->first();
+            ActivityLogger::log('Pengaturan - Kepala Unit', ActivityLogger::UPDATE, 'Memperbaharui data Kepala Unit: ' . $this->nama_lengkap, $setting);
 
             $this->dispatch("data-updated", "Data Kepala Unit berhasil diperbaharui");
             // $this->reset();

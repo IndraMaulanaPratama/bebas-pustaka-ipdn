@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\UnggahRepository;
 use App\Models\Repository;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -85,7 +86,9 @@ class Pengajuan extends Component
                 'REPOSITORY_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
-            Repository::create($data);
+            $repository = Repository::create($data);
+
+            ActivityLogger::log('Unggah Repository', ActivityLogger::SUBMIT, "Mengajukan unggah repository a.n. {$npp}", $repository);
 
             $this->buttonCreate = 'disabled';
 

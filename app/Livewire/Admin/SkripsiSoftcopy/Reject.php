@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\SkripsiSoftcopy;
 
 use App\Models\SkripsiSoftcopy;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -42,6 +43,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             SkripsiSoftcopy::where("SKRIPSI_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::REJECT, "Menolak pengajuan soft copy skripsi a.n. {$this->data['SKRIPSI_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan pengumpulan skripsi berhasil ditolak");

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -49,6 +50,8 @@ class ResetPassword extends Component
         try {
             $user = User::where('id', $this->id)->first();
             User::where('id', $this->id)->update(['password' => bcrypt($this->password)]);
+
+            ActivityLogger::log('Pengguna', ActivityLogger::UPDATE, 'Mereset password pengguna ' . $user->name, $user);
 
             $this->reset();
             $this->dispatch('user-updated', 'Kata sandi untuk pengguna ' . $user->name . ' berhasil diperbaharui');

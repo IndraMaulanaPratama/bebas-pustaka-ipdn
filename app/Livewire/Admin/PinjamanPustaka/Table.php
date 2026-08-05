@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\PinjamanPustaka;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -124,6 +125,7 @@ class Table extends Component
                         'PUSTAKA_STATUS' => "Assign",
                     ];
                     PinjamanPustaka::where("PUSTAKA_ID", $id)->update($updateData);
+                    ActivityLogger::log('Pinjaman Perpustakaan Pusat', ActivityLogger::ASSIGN, "Memeriksa pengajuan pinjaman pustaka a.n. {$data->PUSTAKA_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan pinjaman pustaka `{$data->PUSTAKA_PRAJA}` siap untuk periksa");
                     break;
 
@@ -229,6 +231,8 @@ class Table extends Component
             // Proses update data table pinjaman pustaka
             PinjamanPustaka::where("PUSTAKA_ID", $id)->update($data);
 
+            ActivityLogger::log('Pinjaman Perpustakaan Pusat', ActivityLogger::APPROVE, "Menyetujui pengajuan pinjaman pustaka a.n. {$pinjaman->PUSTAKA_PRAJA}", $pinjaman);
+
             $this->dispatch("data-updated", "Pengajuan bebas pustaka perpustakaan berhasil disetujui");
             $this->reset();
 
@@ -244,6 +248,8 @@ class Table extends Component
         $data = PinjamanPustaka::where('PUSTAKA_ID', $id)->first();
         $dataPraja = \App\Helpers\PrajaApi::getPraja($data->PUSTAKA_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        ActivityLogger::log('Pinjaman Perpustakaan Pusat', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan pinjaman pustaka a.n. {$data->PUSTAKA_PRAJA}", $data);
 
         $dokumen = view("pdf.pinjaman-pustaka.bukti-pemeriksaan", [
             'pinjaman' => $data,
@@ -268,6 +274,8 @@ class Table extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Pinjaman Perpustakaan Pusat', ActivityLogger::EXPORT, "Mengekspor data pinjaman pustaka ke Excel");
+
         return (new PinjamanPerpustakaanExcel)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)

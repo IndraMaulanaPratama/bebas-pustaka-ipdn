@@ -5,6 +5,7 @@ namespace App\Livewire\Page;
 use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use App\Services\PrajaService;
 use Http;
 use Illuminate\Support\Facades\Auth;
@@ -66,9 +67,11 @@ class Login extends Component
                 $credentials = $this->validate();
                 if (Auth::attempt($credentials)) {
                     session()->regenerate();
+                    ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi', Auth::user());
                     return redirect()->intended('/');
 
                 } else {
+                    ActivityLogger::logAs($this->email, 'Autentikasi', ActivityLogger::LOGIN, "Percobaan login gagal ({$this->email})");
                     $this->password = null;
                     session()->flash('warning', 'Data pengguna tidak ditemukan');
                     return redirect()->route('login');
@@ -89,6 +92,7 @@ class Login extends Component
                     // Milarian data praja ka table user
                     if (Auth::attempt($credentials)) {
                         session()->regenerate();
+                        ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi', Auth::user());
                         return redirect()->route('dashboard');
                     }
 
@@ -125,6 +129,7 @@ class Login extends Component
 
                             Auth::login($user);
                             session()->regenerate();
+                            ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi', $user);
                             return redirect()->route('dashboard');
 
                         } catch (\Throwable $th) {

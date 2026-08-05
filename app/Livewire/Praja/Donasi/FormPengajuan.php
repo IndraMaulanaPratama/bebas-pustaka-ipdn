@@ -7,6 +7,7 @@ use App\Models\DonasiFakultas;
 use App\Models\DonasiPustaka;
 use App\Models\PivotDonasi;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -149,6 +150,8 @@ class FormPengajuan extends Component
                 ];
 
                 PivotDonasi::create($data_pivot);
+
+                ActivityLogger::log('Donasi Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan donasi perpustakaan a.n. {$this->npp}");
 
                 $this->buttonCreate = 'disabled';
                 $this->reset();

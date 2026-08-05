@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\PinjamanFakultas;
 
 use App\Models\PinjamanFakultas;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -44,6 +45,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             PinjamanFakultas::where("FAKULTAS_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::REJECT, "Menolak pengajuan pinjaman fakultas a.n. {$this->pustaka['FAKULTAS_PRAJA']}", $this->pustaka);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan Bebas Pinjaman Fakultas Berhasil Ditolak");

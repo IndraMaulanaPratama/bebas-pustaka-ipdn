@@ -7,6 +7,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\Similaritas;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -134,6 +135,9 @@ class Table extends Component
                     // Proses update data similaritas
                     Similaritas::where("SIMILARITAS_ID", $id)->update($data);
 
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Similaritas', ActivityLogger::ASSIGN, "Memeriksa pengajuan similaritas a.n. {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
+
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan similaritas `$similaritas->SIMILARITAS_PRAJA` siap untuk periksa");
                     break;
@@ -198,6 +202,9 @@ class Table extends Component
 
     public function exportData()
     {
+        // Nyatet aktivitas export data
+        ActivityLogger::log('Similaritas', ActivityLogger::EXPORT, "Mengekspor data similaritas ke Excel");
+
         return (new SimilaritasExport)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)
@@ -227,6 +234,8 @@ class Table extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Similaritas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan similaritas a.n. {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {

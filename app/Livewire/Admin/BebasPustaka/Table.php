@@ -7,6 +7,7 @@ use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -123,6 +124,8 @@ class Table extends Component
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
         $kepalaUnit = SettingApps::first();
 
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::PRINT, "Mencetak dokumen SKBP a.n. {$data->BEBAS_PRAJA}", $data);
+
         $dokumen = view("pdf.skbp.skbp", [
             'skbp' => $data,
             'praja' => $dataPraja,
@@ -146,6 +149,8 @@ class Table extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::EXPORT, "Mengekspor data bebas pustaka (SKBP) ke Excel");
+
         return Excel::download(new \App\Exports\BebasPustaka, 'Bebas-pustaka.xlsx');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Pengaturan\SprintSkbp;
 
 use App\Models\SettingApps;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -34,6 +35,9 @@ class Form extends Component
 
             // Update database
             SettingApps::where('SETTING_ID', 1)->update($data);
+
+            $setting = SettingApps::where('SETTING_ID', 1)->first();
+            ActivityLogger::log('Pengaturan - Sprint SKBP', ActivityLogger::UPDATE, 'Memperbarui dokumen Surat Perintah SKBP', $setting);
 
             $this->dispatch("data-updated", "Dokumen Surat Perintah SKBP berhasil diperbaharui");
             $this->reset();

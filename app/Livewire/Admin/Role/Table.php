@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Role;
 
 use App\Models\Role;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -20,7 +21,11 @@ class Table extends Component
     public function deleteRole($id)
     {
         try {
+            $role = Role::where('ROLE_ID', $id)->first();
             Role::where('ROLE_ID', $id)->delete();
+
+            ActivityLogger::log('Role', ActivityLogger::DELETE, 'Menghapus role: ' . ($role->ROLE_NAME ?? $id), $role);
+
             $this->dispatch('role-deleted', 'Data role yang anda pilih, berhasil dihapuskan');
         } catch (\Throwable $th) {
             $this->dispatch('failed-deleting-role', $th->getMessage());
@@ -49,6 +54,10 @@ class Table extends Component
             $data = ['ROLE_NAME' => $this->name];
 
             Role::where('ROLE_ID', $this->id)->update($data);
+
+            $role = Role::find($this->id);
+            ActivityLogger::log('Role', ActivityLogger::UPDATE, 'Memperbaharui data role menjadi: ' . $this->name, $role);
+
             $this->dispatch('role-updated', 'Data role ' . $this->name . ', berhasil diperbaharui');
 
         } catch (\Throwable $th) {
@@ -63,7 +72,9 @@ class Table extends Component
         $idRole = uuid_create(4);
         try {
             $data = ['ROLE_ID' => $idRole, 'ROLE_NAME' => $this->name];
-            Role::create($data);
+            $role = Role::create($data);
+
+            ActivityLogger::log('Role', ActivityLogger::CREATE, 'Menambahkan role baru: ' . $this->name, $role);
 
             $this->resetForm();
             $this->dispatch('role-created', 'Role ' . $this->name . ' berhasil ditambahkan');

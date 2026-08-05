@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use App\Services\PrajaService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
@@ -171,6 +172,8 @@ class Selesai extends Component
         $ponsel = User::where('email', $dataPraja['EMAIL'])->first('nomor_ponsel');
         $kepalaUnit = SettingApps::first();
 
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::PRINT, "Mencetak dokumen SKBP a.n. {$data->BEBAS_PRAJA}", $data);
+
         $dokumen = view('pdf.skbp.skbp', [
             'skbp' => $data,
             'praja' => $dataPraja,
@@ -201,6 +204,9 @@ class Selesai extends Component
             // Proses menghapus data
             BebasPustaka::where('BEBAS_ID', $id)->update($data);
 
+            // Nyatet aktivitas panghapusan data SKBP
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::DELETE, "Menghapus data SKBP dengan ID {$id}");
+
             // Mengembalikan pesan sukses
             $this->processSuccessfully('Data SKBP berhasil dihapuskan');
         } catch (\Throwable $th) {
@@ -211,6 +217,8 @@ class Selesai extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::EXPORT, 'Mengekspor data resume SKBP - Selesai ke Excel');
+
         return (new ResumeSelesaiExcel)
             ->forData($this->sortUrutan)
             ->forAngkatan($this->angkatan)
@@ -259,6 +267,9 @@ class Selesai extends Component
                 $this->dispatch('update-progress', progress: $progress);
                 $counter++;
             }
+
+            // Nyatet aktivitas parapihan penomoran surat SKBP
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, "Merapihkan penomoran surat SKBP tahun {$tahun} sebanyak {$totalSurat} data");
         } catch (\Throwable $th) {
             $this->dispatch('update-progress', progress: 100); // Sembunyikan progress bar jika error
             $this->failedProcess('Terjadi kesalahan: '.$th->getMessage());

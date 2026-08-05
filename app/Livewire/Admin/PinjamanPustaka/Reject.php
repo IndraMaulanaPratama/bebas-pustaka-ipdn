@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\PinjamanPustaka;
 
 use App\Models\PinjamanPustaka;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -44,6 +45,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             PinjamanPustaka::where("PUSTAKA_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Pinjaman Perpustakaan Pusat', ActivityLogger::REJECT, "Menolak pengajuan pinjaman pustaka a.n. {$this->pustaka['PUSTAKA_PRAJA']}", $this->pustaka);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan Bebas Pinjaman Perpustakaan berhasil ditolak");

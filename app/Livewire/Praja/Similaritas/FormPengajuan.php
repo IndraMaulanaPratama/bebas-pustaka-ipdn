@@ -3,6 +3,7 @@
 namespace App\Livewire\Praja\Similaritas;
 
 use App\Models\Similaritas;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -70,7 +71,9 @@ class FormPengajuan extends Component
                 'SIMILARITAS_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
-            Similaritas::create($data);
+            $similaritas = Similaritas::create($data);
+
+            ActivityLogger::log('Similaritas', ActivityLogger::SUBMIT, "Mengajukan similaritas a.n. {$this->npp}", $similaritas);
 
             $this->dispatch("similaritas-created", "Pengajuan similaritas anda sudah berhasil disimpan");
             $this->reset();

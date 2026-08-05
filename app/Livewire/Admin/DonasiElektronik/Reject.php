@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\DonasiElektronik;
 
 use App\Models\DonasiElektronik;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -45,6 +46,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::REJECT, "Menolak pengajuan donasi elektronik a.n. {$this->elektronik['ELEKTRONIK_PRAJA']}", $this->elektronik);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan donasi buku elektronik perpustakaan pusat berhasil ditolak");

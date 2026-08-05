@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\SurveyPraja;
 use App\Models\SettingApps;
 use App\Models\Survey;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -85,8 +86,9 @@ class Pengajuan extends Component
                 'SURVEY_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
-            Survey::create($data);
+            $survey = Survey::create($data);
 
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan survey perpustakaan a.n. {$this->npp}", $survey);
 
             $this->buttonCreate = 'disabled';
 

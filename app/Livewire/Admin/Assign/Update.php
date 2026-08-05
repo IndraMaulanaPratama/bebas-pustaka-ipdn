@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -165,6 +166,9 @@ class Update extends Component
             ];
 
             Akses::where('ACCESS_ID', $idAccess)->update($dataAccess);
+
+            $pivot = pivotMenu::where('PIVOT_ID', $idPivot)->first();
+            ActivityLogger::log('Manajemen Akses', ActivityLogger::UPDATE, 'Memperbaharui data assign: ' . $this->description, $pivot);
 
             $this->resetForm();
             $this->dispatch('assign-updated', 'Anda berhasil memperbaharui data assign');

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\SkripsiPerpustakaan;
 
 use App\Models\SkripsiPerpustakaan;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -43,6 +44,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             SkripsiPerpustakaan::where("SKRIPSI_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Hard Copy Skripsi Perpustakaan', ActivityLogger::REJECT, "Menolak pengajuan hard copy skripsi perpustakaan a.n. {$this->data['SKRIPSI_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan pengumpulan hard copy skripsi berhasil ditolak");

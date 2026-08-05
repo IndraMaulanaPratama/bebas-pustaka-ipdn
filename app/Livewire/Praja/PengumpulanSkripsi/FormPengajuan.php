@@ -7,6 +7,7 @@ use App\Models\SkripsiFakultas;
 use App\Models\SkripsiPerpustakaan;
 use App\Models\SkripsiSoftcopy;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -94,7 +95,9 @@ class FormPengajuan extends Component
                 'PIVOT_PEMBIMBING_DUA' => $this->pembimbingDua,
             ];
 
-            PivotSkripsi::create($data_pivot);
+            $pivot = PivotSkripsi::create($data_pivot);
+
+            ActivityLogger::log('Pengumpulan Skripsi', ActivityLogger::SUBMIT, "Mengajukan pengumpulan skripsi a.n. {$npp}", $pivot);
 
             $this->buttonCreate = 'disabled';
             $this->reset(['judul', 'pembimbingSatu', 'pembimbingDua']);

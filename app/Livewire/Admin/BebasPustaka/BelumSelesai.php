@@ -7,6 +7,7 @@ use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -165,6 +166,9 @@ class BelumSelesai extends Component
                 BebasPustaka::create($data);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data SKBP');
+
             // Masihan bewara yen proses singkronasi parantos rengse
             $this->dispatch('success', 'Singkronasi data selesai dijalankan');
 
@@ -196,6 +200,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_SIMILARITAS' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data similaritas');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status similaritas berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -225,6 +232,9 @@ class BelumSelesai extends Component
                 // Proses ngalebetkeun data ka database
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_PINJAMAN_PUSAT' => true]);
             }
+
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data pinjaman perpustakaan pusat');
 
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status pinjaman perpustakaan pusat berhasil disingkronisasikan');
@@ -257,6 +267,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_PINJAMAN_FAKULTAS' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data pinjaman perpustakaan fakultas');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status pinjaman perpustakaan fakultas berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -287,6 +300,9 @@ class BelumSelesai extends Component
                 // Proses ngalebetkeun data ka database
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_DONASI_PUSAT' => true]);
             }
+
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data donasi perpustakaan pusat');
 
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status donasi perpustakaan pusat berhasil disingkronisasikan');
@@ -319,6 +335,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_DONASI_FAKULTAS' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data donasi perpustakaan fakultas');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status donasi perpustakaan fakultas berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -349,6 +368,9 @@ class BelumSelesai extends Component
                 // Proses ngalebetkeun data ka database
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_DONASI_POINT' => true]);
             }
+
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data donasi point');
 
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status donasi point berhasil disingkronisasikan');
@@ -381,6 +403,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_SURVEI' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data survei praja');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status survei praja berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -411,6 +436,9 @@ class BelumSelesai extends Component
                 // Proses ngalebetkeun data ka database
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_KONTEN_LITERASI' => true]);
             }
+
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data konten literasi');
 
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status konten literasi berhasil disingkronisasikan');
@@ -443,6 +471,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_REPOSITORY' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data repository');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status repository berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -473,6 +504,9 @@ class BelumSelesai extends Component
                 // Proses ngalebetkeun data ka database
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_HARD_COPY_PUSAT' => true]);
             }
+
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data hard copy skripsi perpustakaan pusat');
 
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status hard copy skripsi perpustakaan pusat berhasil disingkronisasikan');
@@ -505,6 +539,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_HARD_COPY_FAKULTAS' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data hard copy skripsi perpustakaan fakultas');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status hard copy skripsi perpustakaan fakultas berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -536,6 +573,9 @@ class BelumSelesai extends Component
                 BebasPustaka::where('BEBAS_PRAJA', $npp[$i])->update(['BEBAS_SOFT_COPY' => true]);
             }
 
+            // Nyatet aktivitas singkronisasi data
+            ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::UPDATE, 'Menjalankan sinkronisasi data soft copy skripsi');
+
             // Ngadamel bewara yen singkronisasi data parantos rengse
             $this->dispatch('success', 'Data status soft copy skripsi berhasil disingkronisasikan');
         } catch (\Throwable $th) {
@@ -560,6 +600,8 @@ class BelumSelesai extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::EXPORT, 'Mengekspor data resume SKBP - Belum Selesai ke Excel');
+
         return (new ResumeBelumSelesaiExcel)
             ->forSearch($this->search)
             ->download(

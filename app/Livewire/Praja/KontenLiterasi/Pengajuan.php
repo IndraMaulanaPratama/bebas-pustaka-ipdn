@@ -5,6 +5,7 @@ namespace App\Livewire\Praja\KontenLiterasi;
 use App\Models\KontenLiterasi;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -89,7 +90,9 @@ class Pengajuan extends Component
                     'KONTEN_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
                 ];
 
-                KontenLiterasi::create($data);
+                $konten = KontenLiterasi::create($data);
+
+                ActivityLogger::log('Konten Literasi', ActivityLogger::SUBMIT, "Mengajukan konten literasi a.n. {$npp}", $konten);
 
                 $this->buttonCreate = 'disabled';
 

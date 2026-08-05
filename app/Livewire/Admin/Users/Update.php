@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Users;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -97,6 +98,10 @@ class Update extends Component
             $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $sign), 'public') : null;
 
             User::where('id', $this->id)->update($data);
+
+            $user = User::find($this->id);
+            ActivityLogger::log('Pengguna', ActivityLogger::UPDATE, 'Memperbaharui data pengguna: ' . $data['name'], $user);
+
             $this->dispatch('user-updated', 'Data ' . $data['name'] . ' berhasil diperbaharui');
 
         } catch (\Throwable $th) {

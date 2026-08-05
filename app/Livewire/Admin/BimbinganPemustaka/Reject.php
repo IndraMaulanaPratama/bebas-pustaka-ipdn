@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\BimbinganPemustaka;
 
 use App\Models\bimbingan_pemustaka;
+use App\Services\ActivityLogger;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -44,6 +45,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::REJECT, "Menolak pengajuan bimbingan pemustaka a.n. {$this->data['PEMUSTAKA_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan bimbingan pemustaka berhasil ditolak");

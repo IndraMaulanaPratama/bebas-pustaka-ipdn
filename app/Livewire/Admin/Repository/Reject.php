@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Repository;
 
 use App\Models\Repository;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -43,6 +44,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             Repository::where("REPOSITORY_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Unggah Repository', ActivityLogger::REJECT, "Menolak pengajuan unggah repository a.n. {$this->data['REPOSITORY_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan unggah repository berhasil ditolak");

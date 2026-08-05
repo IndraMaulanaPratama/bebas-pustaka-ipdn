@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Survey;
 
 use App\Models\Survey;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -42,6 +43,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             Survey::where("SURVEY_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::REJECT, "Menolak pengajuan survey perpustakaan a.n. {$this->survey['SURVEY_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan survey perpustakaan berhasil ditolak");

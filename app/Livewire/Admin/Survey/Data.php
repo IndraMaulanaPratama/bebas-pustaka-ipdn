@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\SettingApps;
 use App\Models\Survey;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -115,6 +116,10 @@ class Data extends Component
                         'SURVEY_STATUS' => "Assign",
                     ];
                     Survey::where("SURVEY_ID", $id)->update($updateData);
+
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Survey Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan survei praja a.n. {$data->SURVEY_PRAJA}", $data);
+
                     $this->dispatch("data-updated", "Pengajuan survei praja `{$data->SURVEY_PRAJA}` siap untuk periksa");
                     break;
 
@@ -136,6 +141,9 @@ class Data extends Component
 
         try {
             SettingApps::where('SETTING_ID', $survey->SETTING_ID)->update(['SETTING_URL_SURVEY' => $this->inputUrl]);
+
+            // Nyatet aktivitas parobahan alamat formulir survey
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::UPDATE, "Memperbaharui alamat formulir survey menjadi {$this->inputUrl}", $survey);
 
             $this->dispatch("data-updated", "Alamat formulir survey berhasil diperbaharui");
             $this->reset();
@@ -204,6 +212,9 @@ class Data extends Component
             // Proses update data survei praja
             Survey::where("SURVEY_ID", $id)->update($data);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan survey perpustakaan a.n. {$survei->SURVEY_PRAJA}", $survei);
+
             $this->dispatch("data-updated", "Pengajuan survey perpustakaan berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -230,6 +241,8 @@ class Data extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Survey Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan survey perpustakaan a.n. {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {

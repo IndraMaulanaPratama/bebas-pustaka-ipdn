@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\DonasiFakultas;
 use App\Models\Menu;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +129,7 @@ class Table extends Component
                         'FAKULTAS_STATUS' => "Assign",
                     ];
                     DonasiFakultas::where("FAKULTAS_ID", $id)->update($updateData);
+                    ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan donasi fakultas `{$data->FAKULTAS_PRAJA}` siap untuk periksa");
                     break;
 
@@ -200,6 +202,8 @@ class Table extends Component
             // Proses update data table donasi fakultas
             DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
 
+            ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi fakultas a.n. {$donasi->FAKULTAS_PRAJA}", $donasi);
+
             $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -233,6 +237,8 @@ class Table extends Component
             $fakultas = null;
         }
 
+        ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::PRINT, "Mencetak bukti donasi fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
+
         $dokumen = view("pdf.donasi.cetak.perpustakaan-fakultas", [
             'data' => $data,
             'sign' => url('tanda_tangan/' . $data->user->sign),
@@ -260,6 +266,8 @@ class Table extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::EXPORT, "Mengekspor data donasi fakultas ke Excel");
+
         return (new DonasiFakultasExcel)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)

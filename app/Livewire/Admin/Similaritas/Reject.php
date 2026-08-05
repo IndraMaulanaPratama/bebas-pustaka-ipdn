@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Similaritas;
 
 use App\Models\Similaritas;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -42,6 +43,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             Similaritas::where("SIMILARITAS_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Similaritas', ActivityLogger::REJECT, "Menolak pengajuan similaritas a.n. {$this->similaritas['SIMILARITAS_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan Similaritas berhasil ditolak");

@@ -6,6 +6,7 @@ use App\Models\PinjamanFakultas;
 use App\Models\PinjamanPustaka;
 use App\Models\PivotPinjaman;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -82,7 +83,9 @@ class Pengajuan extends Component
                 'PIVOT_FAKULTAS' => $data_fakultas['FAKULTAS_ID'],
             ];
 
-            PivotPinjaman::create($data_pivot);
+            $pivot = PivotPinjaman::create($data_pivot);
+
+            ActivityLogger::log('Pinjaman Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan bebas pinjaman perpustakaan a.n. {$this->npp}", $pivot);
 
             $this->buttonCreate = 'disabled';
 

@@ -4,6 +4,7 @@ namespace App\Livewire\Praja\BimbinganPemustaka;
 
 use App\Models\bimbingan_pemustaka;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use App\Services\PrajaService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -68,8 +69,9 @@ class Pengajuan extends Component
                 'PEMUSTAKA_TANGGAL_PENGAJUAN' => Carbon::now('Asia/Jakarta'),
             ];
 
-            bimbingan_pemustaka::create($data);
+            $bimbingan = bimbingan_pemustaka::create($data);
 
+            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::SUBMIT, "Mengajukan bimbingan pemustaka a.n. {$this->npp}", $bimbingan);
 
             $this->buttonCreate = 'disabled';
 

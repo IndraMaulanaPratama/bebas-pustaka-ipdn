@@ -7,6 +7,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -41,7 +42,10 @@ class Table extends Component
     public function deleteUser($id)
     {
         try {
-            User::find($id)->delete();
+            $user = User::find($id);
+            $user->delete();
+
+            ActivityLogger::log('Pengguna', ActivityLogger::DELETE, 'Menghapus pengguna: ' . ($user->name ?? $id), $user);
 
             $this->placeholder();
             $this->dispatch('deleted-user', 'User yang anda pilih, berhasil dihapuskan');

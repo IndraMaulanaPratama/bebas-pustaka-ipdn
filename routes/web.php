@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\Google\GoogleController;
+use App\Services\ActivityLogger;
 use App\Livewire\Admin\BebasPustaka\BelumSelesai;
 use App\Livewire\Admin\BebasPustaka\Selesai;
 use App\Livewire\Page\Admin\Assign;
@@ -93,6 +94,8 @@ Route::middleware(['auth', 'access'])->group(function () {
 // Ranahna gapura
 Route::get('/login', Login::class)->middleware('guest')->name('login');
 Route::get('/logout', function () {
+    ActivityLogger::log('Autentikasi', ActivityLogger::LOGOUT, 'Logout dari aplikasi', Auth::user());
+
     Auth::logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Users;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -101,7 +102,10 @@ class Create extends Component
             $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
 
             // Proses nyimpen data nu dikintun ka lebet database
-            User::create($data);
+            $user = User::create($data);
+
+            // nyatet aktivitas nambihan pengguna enggal
+            ActivityLogger::log('Pengguna', ActivityLogger::CREATE, 'Menambahkan pengguna baru: ' . $this->name, $user);
 
             // Ngintun sinyal ka komponen nu sanes, yen data tos rengse di simpen
             $this->dispatch('user-created', 'Pengguna baru berhasil ditambahkan');

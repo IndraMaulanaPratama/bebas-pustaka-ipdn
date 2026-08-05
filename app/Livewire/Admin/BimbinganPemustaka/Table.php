@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\BebasPustaka;
 use App\Models\bimbingan_pemustaka;
 use App\Models\Menu;
+use App\Services\ActivityLogger;
 use App\Services\PrajaService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -157,6 +158,9 @@ class Table extends Component
                     // Proses update data pengajuan
                     bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
 
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::ASSIGN, "Memeriksa pengajuan bimbingan pemustaka a.n. {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
+
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan Bimbingan Pemustaka `$pengajuan->PEMUSTAKA_PRAJA` siap untuk periksa");
                     break;
@@ -199,6 +203,9 @@ class Table extends Component
 
             // Proses update data bimbingan pemustaka
             bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
+
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::APPROVE, "Menyetujui pengajuan bimbingan pemustaka a.n. {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
 
             $this->dispatch("data-updated", "Pengajuan bimbingan pemustaka berhasil disetujui");
             $this->reset();

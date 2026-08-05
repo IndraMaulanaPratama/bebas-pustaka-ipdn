@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Menu;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -82,7 +83,10 @@ class Table extends Component
             ];
 
             // proses nyimpen data ka database
-            Menu::create($data);
+            $menu = Menu::create($data);
+
+            // nyatet aktivitas nambihan menu enggal
+            ActivityLogger::log('Menu', ActivityLogger::CREATE, 'Menambahkan menu baru: ' . $this->menu, $menu);
 
             // ngadamel pengumuman kanggo component nu sanes
             $this->dispatch('menu-created', 'Menu baru berhasil ditambahkan');
@@ -135,7 +139,11 @@ class Table extends Component
             ];
 
             // proses nyimpen data ka database
-            Menu::find($this->id)->update($data);
+            $menu = Menu::find($this->id);
+            $menu->update($data);
+
+            // nyatet aktivitas ngarobih data menu
+            ActivityLogger::log('Menu', ActivityLogger::UPDATE, 'Memperbaharui data menu: ' . $this->menu, $menu);
 
             // mulihkeun kondisi form ka posisi default
             $this->resetForm();
@@ -151,8 +159,12 @@ class Table extends Component
     public function deleteMenu($id)
     {
         try {
+            $menu = Menu::find($id);
             pivotMenu::where('PIVOT_MENU', $id)->delete();
-            Menu::find($id)->delete();
+            $menu->delete();
+
+            // nyatet aktivitas ngahapus data menu
+            ActivityLogger::log('Menu', ActivityLogger::DELETE, 'Menghapus menu: ' . ($menu->MENU_NAME ?? $id), $menu);
 
             $this->placeholder();
             $this->dispatch('deleted-menu', 'Menu yang anda pilih, berhasil dihapuskan');

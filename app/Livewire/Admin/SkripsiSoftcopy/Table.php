@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\PivotSkripsi;
 use App\Models\SkripsiSoftcopy;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -130,6 +131,10 @@ class Table extends Component
                         'SKRIPSI_STATUS' => "Assign",
                     ];
                     SkripsiSoftcopy::where("SKRIPSI_ID", $id)->update($updateData);
+
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::ASSIGN, "Memeriksa pengajuan soft copy skripsi a.n. {$data->SKRIPSI_PRAJA}", $data);
+
                     $this->dispatch("data-updated", "Pengajuan skripsi softcopy `{$data->SKRIPSI_PRAJA}` siap untuk periksa");
                     break;
 
@@ -200,6 +205,9 @@ class Table extends Component
             // Proses update data pengajuan soft copy skripsi
             SkripsiSoftcopy::where("SKRIPSI_ID", $id)->update($data);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::APPROVE, "Menyetujui pengajuan soft copy skripsi a.n. {$skripsi->SKRIPSI_PRAJA}", $skripsi);
+
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -225,6 +233,9 @@ class Table extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan soft copy skripsi a.n. {$dataPraja['NAMA']}", $data);
+
         return response()->streamDownload(
             function () use ($pdf) {
                 print ($pdf);
@@ -239,6 +250,9 @@ class Table extends Component
 
     public function exportData()
     {
+        // Nyatet aktivitas export data
+        ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::EXPORT, "Mengekspor data soft copy skripsi ke Excel");
+
         return Excel::download(new \App\Exports\SkripsiSoftcopy, 'Skripsi-softcopy.xlsx');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Menu;
 
+use App\Services\ActivityLogger;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -93,7 +94,10 @@ class Create extends Component
             ];
 
             // proses nyimpen data ka database
-            \App\Models\Menu::create($data);
+            $menu = \App\Models\Menu::create($data);
+
+            // nyatet aktivitas nambihan menu enggal
+            ActivityLogger::log('Menu', ActivityLogger::CREATE, 'Menambahkan menu baru: ' . $this->menu, $menu);
 
             // ngadamel pengumuman kanggo component nu sanes
             $this->dispatch('menu-created', 'Menu baru berhasil ditambahkan');
@@ -144,7 +148,11 @@ class Create extends Component
             ];
 
             // proses nyimpen data ka database
-            \App\Models\Menu::find($this->id)->update($data);
+            $menu = \App\Models\Menu::find($this->id);
+            $menu->update($data);
+
+            // nyatet aktivitas ngarobih data menu
+            ActivityLogger::log('Menu', ActivityLogger::UPDATE, 'Memperbaharui data menu: ' . $this->menu, $menu);
 
             // mulihkeun kondisi form ka posisi default
             $this->resetForm();

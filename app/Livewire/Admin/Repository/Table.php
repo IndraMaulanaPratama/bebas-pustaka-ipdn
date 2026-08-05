@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Repository;
 use App\Models\SettingApps;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -116,6 +117,9 @@ class Table extends Component
         try {
             SettingApps::where('SETTING_ID', $setting->SETTING_ID)->update(['SETTING_URL_REPOSITORY' => $this->inputUrl]);
 
+            // Nyatet aktivitas parobahan alamat tamplate repository
+            ActivityLogger::log('Unggah Repository', ActivityLogger::UPDATE, "Memperbaharui alamat tamplate repository menjadi {$this->inputUrl}", $setting);
+
             $this->dispatch("data-updated", "Alamat tamplate repository berhasil diperbaharui");
             $this->reset();
 
@@ -201,6 +205,9 @@ class Table extends Component
             // Proses update data repository
             Repository::where("REPOSITORY_ID", $id)->update($data);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Unggah Repository', ActivityLogger::APPROVE, "Menyetujui pengajuan unggah repository a.n. {$repository->REPOSITORY_PRAJA}", $repository);
+
             $this->dispatch("data-updated", "Pengajuan unggah repository berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -229,6 +236,9 @@ class Table extends Component
 
                     // Proses update data repository
                     Repository::where("REPOSITORY_ID", $id)->update($data);
+
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Unggah Repository', ActivityLogger::ASSIGN, "Memeriksa pengajuan unggah repository a.n. {$repository->REPOSITORY_PRAJA}", $repository);
 
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan repository `$repository->REPOSITORY_PRAJA` siap untuk periksa");
@@ -268,6 +278,8 @@ class Table extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Unggah Repository', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan unggah repository a.n. {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
@@ -291,6 +303,9 @@ class Table extends Component
 
     public function exportData()
     {
+        // Nyatet aktivitas export data
+        ActivityLogger::log('Unggah Repository', ActivityLogger::EXPORT, "Mengekspor data unggah repository ke Excel");
+
         return (new RepositoryExport)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)

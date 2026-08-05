@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\KontenLiterasi;
 
 use App\Models\KontenLiterasi;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -42,6 +43,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             KontenLiterasi::where("KONTEN_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Konten Literasi', ActivityLogger::REJECT, "Menolak pengajuan konten literasi a.n. {$this->konten['KONTEN_PRAJA']}");
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan konten literasi berhasil ditolak");

@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\Menu;
 use App\Models\SkripsiFakultas;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -130,6 +131,10 @@ class Table extends Component
                         'SKRIPSI_STATUS' => "Assign",
                     ];
                     SkripsiFakultas::where("SKRIPSI_ID", $id)->update($updateData);
+
+                    // Nyatet aktivitas mariksa pengajuan
+                    ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan hard copy skripsi fakultas a.n. {$data->SKRIPSI_PRAJA}", $data);
+
                     $this->dispatch("data-updated", "Pengajuan skripsi fakultas `{$data->SKRIPSI_PRAJA}` siap untuk periksa");
                     break;
 
@@ -201,6 +206,9 @@ class Table extends Component
             // Proses update hard copy skripsi fakultas
             SkripsiFakultas::where("SKRIPSI_ID", $id)->update($data);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan hard copy skripsi fakultas a.n. {$skripsi->SKRIPSI_PRAJA}", $skripsi);
+
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -227,6 +235,8 @@ class Table extends Component
         $pdf = Pdf::loadHTML($dokumen)
             ->output();
 
+        // Nyatet aktivitas cetak bukti pemeriksaan
+        ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan hard copy skripsi fakultas a.n. {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
@@ -242,6 +252,9 @@ class Table extends Component
 
     public function exportData()
     {
+        // Nyatet aktivitas export data
+        ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::EXPORT, "Mengekspor data hard copy skripsi fakultas ke Excel");
+
         return Excel::download(new SkripsiHardcopyFakultas, 'Skripsi-hardcopy-fakultas.xlsx');
     }
 

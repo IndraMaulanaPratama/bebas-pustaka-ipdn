@@ -6,6 +6,7 @@ use App\Models\Akses;
 use App\Models\Menu;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -99,7 +100,7 @@ class Create extends Component
                 'PIVOT_ROLE' => $this->selectRole,
                 'PIVOT_DESCRIPTION' => $this->description,
             ];
-            pivotMenu::create($dataPivot);
+            $pivot = pivotMenu::create($dataPivot);
 
 
             $dataAccess = [
@@ -120,6 +121,8 @@ class Create extends Component
             ];
 
             Akses::create($dataAccess);
+
+            ActivityLogger::log('Manajemen Akses', ActivityLogger::CREATE, 'Menambahkan data assign baru: ' . $this->description, $pivot);
 
             $this->resetForm();
             $this->dispatch('assign-created', 'Anda berhasil menambahkan assign');

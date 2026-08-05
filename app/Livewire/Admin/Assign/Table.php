@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Assign;
 use App\Models\Akses;
 use App\Models\pivotMenu;
 use App\Models\Role;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -38,8 +39,11 @@ class Table extends Component
     public function deletePivot($id)
     {
         try {
+            $pivot = pivotMenu::where('PIVOT_ID', $id)->first();
             pivotMenu::where('PIVOT_ID', $id)->delete();
             Akses::where('ACCESS_MENU', $id)->delete();
+
+            ActivityLogger::log('Manajemen Akses', ActivityLogger::DELETE, 'Menghapus data assign: ' . ($pivot->PIVOT_DESCRIPTION ?? $id), $pivot);
 
             $this->reset();
             $this->dispatch("assign-deleted", "Data Assign berhasil dihapus");

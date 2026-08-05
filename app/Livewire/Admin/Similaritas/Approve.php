@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Similaritas;
 
 use App\Models\BebasPustaka;
 use App\Models\Similaritas;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -75,6 +76,8 @@ class Approve extends Component
             // Update Data Table Bebas Pustaka
             BebasPustaka::where('BEBAS_PRAJA', $similaritas->SIMILARITAS_PRAJA)->update(['BEBAS_SIMILARITAS' => true]);
 
+            // Nyatet aktivitas persetujuan pengajuan
+            ActivityLogger::log('Similaritas', ActivityLogger::APPROVE, "Menyetujui pengajuan similaritas a.n. {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
 
             $this->dispatch("data-updated", "Pengajuan similaritas berhasil disetujui");
             $this->reset();

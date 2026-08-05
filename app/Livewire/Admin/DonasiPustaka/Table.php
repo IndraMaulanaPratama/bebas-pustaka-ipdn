@@ -8,6 +8,7 @@ use App\Models\BebasPustaka;
 use App\Models\DonasiPustaka;
 use App\Models\Menu;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -126,6 +127,7 @@ class Table extends Component
                         'PUSTAKA_STATUS' => "Assign",
                     ];
                     DonasiPustaka::where("PUSTAKA_ID", $id)->update($updateData);
+                    ActivityLogger::log('Donasi Buku Perpustakaan Pusat', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi pustaka a.n. {$data->PUSTAKA_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan donasi pustaka `{$data->PUSTAKA_PRAJA}` siap untuk periksa");
                     break;
 
@@ -200,6 +202,8 @@ class Table extends Component
             // Proses update data donasi pustaka
             DonasiPustaka::where("PUSTAKA_ID", $id)->update($data);
 
+            ActivityLogger::log('Donasi Buku Perpustakaan Pusat', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi pustaka a.n. {$donasi->PUSTAKA_PRAJA}", $donasi);
+
             $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan pusat berhasil disetujui");
             $this->reset();
         } catch (\Throwable $th) {
@@ -218,6 +222,8 @@ class Table extends Component
         $data = DonasiPustaka::where("PUSTAKA_ID", $id)->first();
         $dataPraja = \App\Helpers\PrajaApi::getPraja($data->PUSTAKA_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
+
+        ActivityLogger::log('Donasi Buku Perpustakaan Pusat', ActivityLogger::PRINT, "Mencetak bukti donasi pustaka a.n. {$data->PUSTAKA_PRAJA}", $data);
 
         $dokumen = view("pdf.donasi.cetak.perpustakaan-pusat", [
             'data' => $data,
@@ -245,6 +251,8 @@ class Table extends Component
 
     public function exportData()
     {
+        ActivityLogger::log('Donasi Buku Perpustakaan Pusat', ActivityLogger::EXPORT, "Mengekspor data donasi pustaka ke Excel");
+
         return (new DonasiPustakaExcel)
             ->forStatus($this->sortStatus)
             ->forAngkatan($this->angkatan)

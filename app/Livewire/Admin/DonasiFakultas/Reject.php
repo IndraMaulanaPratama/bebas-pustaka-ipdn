@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\DonasiFakultas;
 
 use App\Models\DonasiFakultas;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -42,6 +43,9 @@ class Reject extends Component
 
             // Proses ngarobih data pengajuan
             DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
+
+            // Nyatet aktivitas panolakan pengajuan
+            ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::REJECT, "Menolak pengajuan donasi fakultas a.n. {$this->fakultas['FAKULTAS_PRAJA']}", $this->fakultas);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil ditolak");
