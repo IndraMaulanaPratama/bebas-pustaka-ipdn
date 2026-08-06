@@ -44,8 +44,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             Similaritas::where("SIMILARITAS_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Similaritas', ActivityLogger::REJECT, "Menolak pengajuan similaritas a.n. {$this->similaritas['SIMILARITAS_PRAJA']}");
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->similaritas asalna ti event Livewire nu wangunna array)
+            $similaritas = Similaritas::where("SIMILARITAS_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Similaritas',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan similaritas id praja {$this->similaritas['SIMILARITAS_PRAJA']}. Alasan: {$this->inputNote}",
+                $similaritas,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan Similaritas berhasil ditolak");
