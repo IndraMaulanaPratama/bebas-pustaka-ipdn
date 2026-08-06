@@ -1,4 +1,4 @@
-<div wire:poll.30s="$refresh">
+<div wire:poll.5s="$refresh">
 
     @forelse ($activities as $activity)
         <div class="activity-item d-flex">
