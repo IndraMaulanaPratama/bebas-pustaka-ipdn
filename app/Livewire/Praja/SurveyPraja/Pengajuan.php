@@ -88,7 +88,7 @@ class Pengajuan extends Component
 
             $survey = Survey::create($data);
 
-            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan survey perpustakaan a.n. {$this->npp}", $survey);
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan survey perpustakaan id praja {$this->npp}", $survey);
 
             $this->buttonCreate = 'disabled';
 
