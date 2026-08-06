@@ -71,7 +71,7 @@ class Pengajuan extends Component
 
             $bimbingan = bimbingan_pemustaka::create($data);
 
-            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::SUBMIT, "Mengajukan bimbingan pemustaka a.n. {$this->npp}", $bimbingan);
+            ActivityLogger::log('Kelas Literasi', ActivityLogger::SUBMIT, "Mengajukan kelas literasi id praja {$this->npp}", $bimbingan);
 
             $this->buttonCreate = 'disabled';
 
