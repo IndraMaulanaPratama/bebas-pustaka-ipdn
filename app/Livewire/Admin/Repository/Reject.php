@@ -45,8 +45,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             Repository::where("REPOSITORY_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Unggah Repository', ActivityLogger::REJECT, "Menolak pengajuan unggah repository a.n. {$this->data['REPOSITORY_PRAJA']}");
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->data asalna ti event Livewire nu wangunna array)
+            $repository = Repository::where("REPOSITORY_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Unggah Repository',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan unggah repository id praja {$this->data['REPOSITORY_PRAJA']}. Alasan: {$this->inputNote}",
+                $repository,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan unggah repository berhasil ditolak");
