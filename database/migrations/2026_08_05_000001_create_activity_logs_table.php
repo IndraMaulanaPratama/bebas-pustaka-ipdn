@@ -15,7 +15,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('activity_logs', function (Blueprint $table) {
-            $table->id();
+            // UUID (dijieun otomatis ku model, pake trait HasUuids) supados
+            // id log activity teu berurutan/teu bisa ditebak.
+            $table->uuid('id')->primary();
 
             // Sasaha nu ngalakukeun aktivitas (disimpen duplikat name/role
             // supados riwayat tetep kabaca sanajan data user robih/dihapus)
