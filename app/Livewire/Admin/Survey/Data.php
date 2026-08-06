@@ -118,7 +118,7 @@ class Data extends Component
                     Survey::where("SURVEY_ID", $id)->update($updateData);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Survey Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan survei praja a.n. {$data->SURVEY_PRAJA}", $data);
+                    ActivityLogger::log('Survey Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan survei praja id praja {$data->SURVEY_PRAJA}", $data);
 
                     $this->dispatch("data-updated", "Pengajuan survei praja `{$data->SURVEY_PRAJA}` siap untuk periksa");
                     break;
@@ -213,7 +213,7 @@ class Data extends Component
             Survey::where("SURVEY_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan survey perpustakaan a.n. {$survei->SURVEY_PRAJA}", $survei);
+            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan survey perpustakaan id praja {$survei->SURVEY_PRAJA}", $survei);
 
             $this->dispatch("data-updated", "Pengajuan survey perpustakaan berhasil disetujui");
             $this->reset();
@@ -242,7 +242,7 @@ class Data extends Component
             ->output();
 
         // Nyatet aktivitas cetak bukti pemeriksaan
-        ActivityLogger::log('Survey Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan survey perpustakaan a.n. {$dataPraja['NAMA']}", $data);
+        ActivityLogger::log('Survey Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan survey perpustakaan id praja {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
