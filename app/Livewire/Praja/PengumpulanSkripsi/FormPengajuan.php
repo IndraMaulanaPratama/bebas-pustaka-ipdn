@@ -97,7 +97,7 @@ class FormPengajuan extends Component
 
             $pivot = PivotSkripsi::create($data_pivot);
 
-            ActivityLogger::log('Pengumpulan Skripsi', ActivityLogger::SUBMIT, "Mengajukan pengumpulan skripsi a.n. {$npp}", $pivot);
+            ActivityLogger::log('Pengumpulan Skripsi', ActivityLogger::SUBMIT, "Mengajukan pengumpulan skripsi id praja {$npp}", $pivot);
 
             $this->buttonCreate = 'disabled';
             $this->reset(['judul', 'pembimbingSatu', 'pembimbingDua']);
