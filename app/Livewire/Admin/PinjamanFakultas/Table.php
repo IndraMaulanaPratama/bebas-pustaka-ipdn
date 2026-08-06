@@ -126,7 +126,7 @@ class Table extends Component
                         'FAKULTAS_STATUS' => "Assign",
                     ];
                     PinjamanFakultas::where("FAKULTAS_ID", $id)->update($updateData);
-                    ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan pinjaman fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
+                    ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan pinjaman fakultas id praja {$data->FAKULTAS_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan pinjaman fakultas `{$data->FAKULTAS_PRAJA}` siap untuk periksa");
                     break;
 
@@ -232,7 +232,7 @@ class Table extends Component
             // Proses update data table pinjaman fakultas
             PinjamanFakultas::where("FAKULTAS_ID", $id)->update($data);
 
-            ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan pinjaman fakultas a.n. {$pinjaman->FAKULTAS_PRAJA}", $pinjaman);
+            ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan pinjaman fakultas id praja {$pinjaman->FAKULTAS_PRAJA}", $pinjaman);
 
             $this->dispatch("data-updated", "Pengajuan bebas pinjaman fakultas berhasil disetujui");
             $this->reset();
@@ -249,7 +249,7 @@ class Table extends Component
         $dataPraja = \App\Helpers\PrajaApi::getPraja($data->FAKULTAS_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan pinjaman fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
+        ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan pinjaman fakultas id praja {$data->FAKULTAS_PRAJA}", $data);
 
         $dokumen = view("pdf.pinjaman-fakultas.bukti-pemeriksaan", [
             'pinjaman' => $data,
