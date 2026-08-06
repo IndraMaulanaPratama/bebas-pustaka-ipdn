@@ -136,7 +136,7 @@ class Table extends Component
                     Similaritas::where("SIMILARITAS_ID", $id)->update($data);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Similaritas', ActivityLogger::ASSIGN, "Memeriksa pengajuan similaritas a.n. {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
+                    ActivityLogger::log('Similaritas', ActivityLogger::ASSIGN, "Memeriksa pengajuan similaritas id praja {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
 
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan similaritas `$similaritas->SIMILARITAS_PRAJA` siap untuk periksa");
@@ -235,7 +235,7 @@ class Table extends Component
             ->output();
 
         // Nyatet aktivitas cetak bukti pemeriksaan
-        ActivityLogger::log('Similaritas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan similaritas a.n. {$dataPraja['NAMA']}", $data);
+        ActivityLogger::log('Similaritas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan similaritas id praja {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
