@@ -44,8 +44,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::REJECT, "Menolak pengajuan donasi fakultas a.n. {$this->fakultas['FAKULTAS_PRAJA']}", $this->fakultas);
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->fakultas asalna ti event Livewire nu wangunna array)
+            $donasi = DonasiFakultas::where("FAKULTAS_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Donasi Buku Perpustakaan Fakultas',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan donasi fakultas id praja {$this->fakultas['FAKULTAS_PRAJA']}. Alasan: {$this->inputNote}",
+                $donasi,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil ditolak");
