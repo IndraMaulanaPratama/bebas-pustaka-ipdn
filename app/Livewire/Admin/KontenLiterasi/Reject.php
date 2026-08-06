@@ -44,8 +44,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             KontenLiterasi::where("KONTEN_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Konten Literasi', ActivityLogger::REJECT, "Menolak pengajuan konten literasi a.n. {$this->konten['KONTEN_PRAJA']}");
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->konten asalna ti event Livewire nu wangunna array)
+            $konten = KontenLiterasi::where("KONTEN_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Konten Literasi',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan konten literasi id praja {$this->konten['KONTEN_PRAJA']}. Alasan: {$this->inputNote}",
+                $konten,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan konten literasi berhasil ditolak");
