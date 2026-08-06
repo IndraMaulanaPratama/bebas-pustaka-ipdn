@@ -133,7 +133,7 @@ class Table extends Component
                     SkripsiSoftcopy::where("SKRIPSI_ID", $id)->update($updateData);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::ASSIGN, "Memeriksa pengajuan soft copy skripsi a.n. {$data->SKRIPSI_PRAJA}", $data);
+                    ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::ASSIGN, "Memeriksa pengajuan soft copy skripsi id praja {$data->SKRIPSI_PRAJA}", $data);
 
                     $this->dispatch("data-updated", "Pengajuan skripsi softcopy `{$data->SKRIPSI_PRAJA}` siap untuk periksa");
                     break;
@@ -206,7 +206,7 @@ class Table extends Component
             SkripsiSoftcopy::where("SKRIPSI_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::APPROVE, "Menyetujui pengajuan soft copy skripsi a.n. {$skripsi->SKRIPSI_PRAJA}", $skripsi);
+            ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::APPROVE, "Menyetujui pengajuan soft copy skripsi id praja {$skripsi->SKRIPSI_PRAJA}", $skripsi);
 
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
             $this->reset();
@@ -234,7 +234,7 @@ class Table extends Component
             ->output();
 
         // Nyatet aktivitas cetak bukti pemeriksaan
-        ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan soft copy skripsi a.n. {$dataPraja['NAMA']}", $data);
+        ActivityLogger::log('Soft Copy Skripsi', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan soft copy skripsi id praja {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
