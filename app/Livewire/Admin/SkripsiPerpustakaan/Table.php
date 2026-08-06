@@ -132,7 +132,7 @@ class Table extends Component
                     SkripsiPerpustakaan::where("SKRIPSI_ID", $id)->update($updateData);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Hard Copy Skripsi Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan hard copy skripsi perpustakaan a.n. {$data->SKRIPSI_PRAJA}", $data);
+                    ActivityLogger::log('Hard Copy Skripsi Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan hard copy skripsi perpustakaan id praja {$data->SKRIPSI_PRAJA}", $data);
 
                     $this->dispatch("data-updated", "Pengajuan skripsi perpustakaan `{$data->SKRIPSI_PRAJA}` siap untuk periksa");
                     break;
@@ -206,7 +206,7 @@ class Table extends Component
             SkripsiPerpustakaan::where("SKRIPSI_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Hard Copy Skripsi Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan hard copy skripsi perpustakaan a.n. {$skripsi->SKRIPSI_PRAJA}", $skripsi);
+            ActivityLogger::log('Hard Copy Skripsi Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan hard copy skripsi perpustakaan id praja {$skripsi->SKRIPSI_PRAJA}", $skripsi);
 
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
             $this->reset();
