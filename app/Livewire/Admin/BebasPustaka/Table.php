@@ -124,7 +124,7 @@ class Table extends Component
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
         $kepalaUnit = SettingApps::first();
 
-        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::PRINT, "Mencetak dokumen SKBP a.n. {$data->BEBAS_PRAJA}", $data);
+        ActivityLogger::log('Bebas Pustaka (SKBP)', ActivityLogger::PRINT, "Mencetak dokumen SKBP id praja {$data->BEBAS_PRAJA}", $data);
 
         $dokumen = view("pdf.skbp.skbp", [
             'skbp' => $data,
