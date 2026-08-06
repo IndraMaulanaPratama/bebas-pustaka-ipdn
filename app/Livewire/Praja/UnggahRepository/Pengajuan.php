@@ -88,7 +88,7 @@ class Pengajuan extends Component
 
             $repository = Repository::create($data);
 
-            ActivityLogger::log('Unggah Repository', ActivityLogger::SUBMIT, "Mengajukan unggah repository a.n. {$npp}", $repository);
+            ActivityLogger::log('Unggah Repository', ActivityLogger::SUBMIT, "Mengajukan unggah repository id praja {$npp}", $repository);
 
             $this->buttonCreate = 'disabled';
 
