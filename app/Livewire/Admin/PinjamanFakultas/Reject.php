@@ -46,8 +46,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             PinjamanFakultas::where("FAKULTAS_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Pinjaman Perpustakaan Fakultas', ActivityLogger::REJECT, "Menolak pengajuan pinjaman fakultas a.n. {$this->pustaka['FAKULTAS_PRAJA']}", $this->pustaka);
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->pustaka asalna ti event Livewire nu wangunna array)
+            $pinjaman = PinjamanFakultas::where("FAKULTAS_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Pinjaman Perpustakaan Fakultas',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan pinjaman fakultas id praja {$this->pustaka['FAKULTAS_PRAJA']}. Alasan: {$this->inputNote}",
+                $pinjaman,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan Bebas Pinjaman Fakultas Berhasil Ditolak");
