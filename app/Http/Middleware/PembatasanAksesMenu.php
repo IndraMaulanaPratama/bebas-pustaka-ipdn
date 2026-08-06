@@ -52,6 +52,7 @@ class PembatasanAksesMenu
                 '',
                 'user-manajemen',
                 'assign-manajemen',
+                'riwayat-aktivitas',
                 'menu',
                 'role-manajemen',
                 'settings-web',
