@@ -19,6 +19,7 @@ use App\Livewire\Page\Admin\Pengaturan\SprintSkbp;
 use App\Livewire\Page\Admin\PengaturanApplikasi;
 use App\Livewire\Page\Admin\PinjamanFakultas;
 use App\Livewire\Page\Admin\PinjamanPustaka;
+use App\Livewire\Page\Admin\RiwayatAktivitas;
 use App\Livewire\Page\Admin\Role;
 use App\Livewire\Page\Admin\Similaritas;
 use App\Livewire\Page\Admin\SkripsiFakultas;
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'access'])->group(function () {
     Route::get('/menu', Menu::class)->name('menu');
     Route::get('/users', Users::class)->name('user-manajemen');
     Route::get('/assign', Assign::class)->name('assign-manajemen');
+    Route::get('/riwayat-aktivitas', RiwayatAktivitas::class)->name('riwayat-aktivitas');
     Route::get('/role', Role::class)->name('role-manajemen');
     Route::get('/setting', PengaturanApplikasi::class)->name('settings-web');
 
