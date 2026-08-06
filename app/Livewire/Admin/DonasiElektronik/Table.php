@@ -127,7 +127,7 @@ class Table extends Component
                         'ELEKTRONIK_STATUS' => "Assign",
                     ];
                     DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($updateData);
-                    ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi elektronik a.n. {$data->ELEKTRONIK_PRAJA}", $data);
+                    ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi elektronik id praja {$data->ELEKTRONIK_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan donasi elektronik `{$data->ELEKTRONIK_PRAJA}` siap untuk periksa");
                     break;
 
@@ -201,7 +201,7 @@ class Table extends Component
             // Proses update data donasi poin
             DonasiElektronik::where("ELEKTRONIK_ID", $id)->update($data);
 
-            ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi elektronik a.n. {$donasi->ELEKTRONIK_PRAJA}", $donasi);
+            ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi elektronik id praja {$donasi->ELEKTRONIK_PRAJA}", $donasi);
 
             $this->dispatch("data-updated", "Pengajuan donasi buku elektronik perpustakaan pusat berhasil disetujui");
             $this->reset();
@@ -223,7 +223,7 @@ class Table extends Component
         $dataPraja = \App\Helpers\PrajaApi::getPraja($data->ELEKTRONIK_PRAJA, true)["data"][0];
         $ponsel = User::where("email", $dataPraja["EMAIL"])->first('nomor_ponsel');
 
-        ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti donasi elektronik a.n. {$data->ELEKTRONIK_PRAJA}", $data);
+        ActivityLogger::log('Donasi Poin Perpustakaan', ActivityLogger::PRINT, "Mencetak bukti donasi elektronik id praja {$data->ELEKTRONIK_PRAJA}", $data);
 
         $dokumen = view("pdf.donasi.elektronik.poin", [
             'donasi' => $data,
