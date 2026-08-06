@@ -151,7 +151,7 @@ class FormPengajuan extends Component
 
                 PivotDonasi::create($data_pivot);
 
-                ActivityLogger::log('Donasi Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan donasi perpustakaan a.n. {$this->npp}");
+                ActivityLogger::log('Donasi Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan donasi perpustakaan id praja {$this->npp}");
 
                 $this->buttonCreate = 'disabled';
                 $this->reset();
