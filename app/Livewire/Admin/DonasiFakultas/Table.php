@@ -129,7 +129,7 @@ class Table extends Component
                         'FAKULTAS_STATUS' => "Assign",
                     ];
                     DonasiFakultas::where("FAKULTAS_ID", $id)->update($updateData);
-                    ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
+                    ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan donasi fakultas id praja {$data->FAKULTAS_PRAJA}", $data);
                     $this->dispatch("data-updated", "Pengajuan donasi fakultas `{$data->FAKULTAS_PRAJA}` siap untuk periksa");
                     break;
 
@@ -202,7 +202,7 @@ class Table extends Component
             // Proses update data table donasi fakultas
             DonasiFakultas::where("FAKULTAS_ID", $id)->update($data);
 
-            ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi fakultas a.n. {$donasi->FAKULTAS_PRAJA}", $donasi);
+            ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan donasi fakultas id praja {$donasi->FAKULTAS_PRAJA}", $donasi);
 
             $this->dispatch("data-updated", "Pengajuan donasi buku cetak perpustakaan fakultas berhasil disetujui");
             $this->reset();
@@ -237,7 +237,7 @@ class Table extends Component
             $fakultas = null;
         }
 
-        ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::PRINT, "Mencetak bukti donasi fakultas a.n. {$data->FAKULTAS_PRAJA}", $data);
+        ActivityLogger::log('Donasi Buku Perpustakaan Fakultas', ActivityLogger::PRINT, "Mencetak bukti donasi fakultas id praja {$data->FAKULTAS_PRAJA}", $data);
 
         $dokumen = view("pdf.donasi.cetak.perpustakaan-fakultas", [
             'data' => $data,
