@@ -92,7 +92,7 @@ class Pengajuan extends Component
 
                 $konten = KontenLiterasi::create($data);
 
-                ActivityLogger::log('Konten Literasi', ActivityLogger::SUBMIT, "Mengajukan konten literasi a.n. {$npp}", $konten);
+                ActivityLogger::log('Konten Literasi', ActivityLogger::SUBMIT, "Mengajukan konten literasi id praja {$npp}", $konten);
 
                 $this->buttonCreate = 'disabled';
 
