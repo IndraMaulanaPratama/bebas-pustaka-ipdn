@@ -133,7 +133,7 @@ class Table extends Component
                     SkripsiFakultas::where("SKRIPSI_ID", $id)->update($updateData);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan hard copy skripsi fakultas a.n. {$data->SKRIPSI_PRAJA}", $data);
+                    ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::ASSIGN, "Memeriksa pengajuan hard copy skripsi fakultas id praja {$data->SKRIPSI_PRAJA}", $data);
 
                     $this->dispatch("data-updated", "Pengajuan skripsi fakultas `{$data->SKRIPSI_PRAJA}` siap untuk periksa");
                     break;
@@ -207,7 +207,7 @@ class Table extends Component
             SkripsiFakultas::where("SKRIPSI_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan hard copy skripsi fakultas a.n. {$skripsi->SKRIPSI_PRAJA}", $skripsi);
+            ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::APPROVE, "Menyetujui pengajuan hard copy skripsi fakultas id praja {$skripsi->SKRIPSI_PRAJA}", $skripsi);
 
             $this->dispatch("data-updated", "Pengajuan pengumpulan skripsi berhasil disetujui");
             $this->reset();
@@ -236,7 +236,7 @@ class Table extends Component
             ->output();
 
         // Nyatet aktivitas cetak bukti pemeriksaan
-        ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan hard copy skripsi fakultas a.n. {$dataPraja['NAMA']}", $data);
+        ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan hard copy skripsi fakultas id praja {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
