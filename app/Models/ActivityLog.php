@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasSmartDates;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,7 @@ class ActivityLog extends Model
 {
     use HasFactory;
     use HasSmartDates;
+    use HasUuids;
 
     protected $table = 'activity_logs';
     protected $perPage = 10;
@@ -71,6 +73,25 @@ class ActivityLog extends Model
         'resubmit' => 'bi-arrow-repeat',
     ];
 
+    /**
+     * Label Basa Indonesia nu babari dibaca pikeun unggal jenis aktivitas,
+     * dianggo di halaman Riwayat Aktivitas (filter jeung kolom tabel).
+     */
+    public const ACTION_LABELS = [
+        'login' => 'Login',
+        'logout' => 'Logout',
+        'create' => 'Tambah Data',
+        'submit' => 'Ajukan Pengajuan',
+        'update' => 'Ubah Data',
+        'delete' => 'Hapus Data',
+        'approve' => 'Setujui Pengajuan',
+        'reject' => 'Tolak Pengajuan',
+        'assign' => 'Mulai Periksa Pengajuan',
+        'print' => 'Cetak Dokumen',
+        'export' => 'Export Data',
+        'resubmit' => 'Ajukan Ulang',
+    ];
+
     // --- *** Ranahna Relasi *** --- //
 
     public function user(): BelongsTo
@@ -93,5 +114,47 @@ class ActivityLog extends Model
     public function getActionIconAttribute(): string
     {
         return self::ACTION_ICONS[$this->action] ?? 'bi-circle-fill';
+    }
+
+    public function getActionLabelAttribute(): string
+    {
+        return self::ACTION_LABELS[$this->action] ?? ucfirst($this->action);
+    }
+
+    /**
+     * Narjamahkeun string user_agent (nu asalna teknis pisan) jadi kalimah
+     * anu babari dibaca ku jalma awam, contona "Google Chrome di Windows".
+     * Sengaja ditulis manual (teu maké library tambihan) supados teu
+     * nambihan dependency anyar ka proyek ieu.
+     */
+    public function getPerangkatLabelAttribute(): string
+    {
+        $ua = $this->user_agent;
+
+        if (!$ua) {
+            return 'Tidak diketahui';
+        }
+
+        $browser = match (true) {
+            str_contains($ua, 'Edg/') => 'Microsoft Edge',
+            str_contains($ua, 'OPR/') || str_contains($ua, 'Opera') => 'Opera',
+            str_contains($ua, 'Chrome/') && !str_contains($ua, 'Chromium') => 'Google Chrome',
+            str_contains($ua, 'CriOS/') => 'Google Chrome',
+            str_contains($ua, 'FxiOS/') => 'Mozilla Firefox',
+            str_contains($ua, 'Firefox/') => 'Mozilla Firefox',
+            str_contains($ua, 'Safari/') && str_contains($ua, 'Version/') => 'Safari',
+            default => 'Browser tidak dikenal',
+        };
+
+        $sistem = match (true) {
+            str_contains($ua, 'Android') => 'Android',
+            str_contains($ua, 'iPhone') || str_contains($ua, 'iPad') => 'iOS',
+            str_contains($ua, 'Windows') => 'Windows',
+            str_contains($ua, 'Mac OS X') || str_contains($ua, 'Macintosh') => 'macOS',
+            str_contains($ua, 'Linux') => 'Linux',
+            default => null,
+        };
+
+        return $sistem ? "{$browser} di {$sistem}" : $browser;
     }
 }
