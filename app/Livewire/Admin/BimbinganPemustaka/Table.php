@@ -159,7 +159,7 @@ class Table extends Component
                     bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::ASSIGN, "Memeriksa pengajuan bimbingan pemustaka a.n. {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
+                    ActivityLogger::log('Kelas Literasi', ActivityLogger::ASSIGN, "Memeriksa pengajuan kelas literasi id praja {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
 
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan Bimbingan Pemustaka `$pengajuan->PEMUSTAKA_PRAJA` siap untuk periksa");
@@ -205,7 +205,7 @@ class Table extends Component
             bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::APPROVE, "Menyetujui pengajuan bimbingan pemustaka a.n. {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
+            ActivityLogger::log('Kelas Literasi', ActivityLogger::APPROVE, "Menyetujui pengajuan kelas literasi id praja {$pengajuan->PEMUSTAKA_PRAJA}", $pengajuan);
 
             $this->dispatch("data-updated", "Pengajuan bimbingan pemustaka berhasil disetujui");
             $this->reset();
