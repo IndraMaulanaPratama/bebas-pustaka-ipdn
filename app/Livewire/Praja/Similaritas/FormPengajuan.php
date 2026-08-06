@@ -73,7 +73,7 @@ class FormPengajuan extends Component
 
             $similaritas = Similaritas::create($data);
 
-            ActivityLogger::log('Similaritas', ActivityLogger::SUBMIT, "Mengajukan similaritas a.n. {$this->npp}", $similaritas);
+            ActivityLogger::log('Similaritas', ActivityLogger::SUBMIT, "Mengajukan similaritas id praja {$this->npp}", $similaritas);
 
             $this->dispatch("similaritas-created", "Pengajuan similaritas anda sudah berhasil disimpan");
             $this->reset();
