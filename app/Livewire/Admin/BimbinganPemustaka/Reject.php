@@ -46,8 +46,11 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             bimbingan_pemustaka::where("PEMUSTAKA_ID", $id)->update($data);
 
+            // Nyandak deui data model anu tos di robih pikeun di jadikeun subject log
+            $model = bimbingan_pemustaka::where('PEMUSTAKA_ID', $id)->first();
+
             // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Bimbingan Pemustaka', ActivityLogger::REJECT, "Menolak pengajuan bimbingan pemustaka a.n. {$this->data['PEMUSTAKA_PRAJA']}");
+            ActivityLogger::log('Kelas Literasi', ActivityLogger::REJECT, "Menolak pengajuan kelas literasi id praja {$this->data['PEMUSTAKA_PRAJA']}. Alasan: {$this->inputNote}", $model, ['alasan_penolakan' => $this->inputNote]);
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan bimbingan pemustaka berhasil ditolak");
