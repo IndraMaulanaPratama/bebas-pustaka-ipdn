@@ -67,6 +67,10 @@
             <x-admin.tamplates.sidebar.link text="Manajemen Akses" navigate="assign-manajemen"
                 icon="bi-universal-access-circle" />
 
+            {{-- Riwayat Aktivitas --}}
+            <x-admin.tamplates.sidebar.link text="Riwayat Aktivitas" navigate="riwayat-aktivitas"
+                icon="bi-clock-history" />
+
             {{-- Pengaturan Website --}}
             <x-admin.tamplates.sidebar.list-item text="Pengaturan website" name="pengaturan" wire:key='pengaturan'>
                 <x-admin.tamplates.sidebar.item-link text="Data Kepala Unit" navigate="/pengaturan/data-kepala-unit"
