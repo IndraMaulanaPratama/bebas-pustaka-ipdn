@@ -85,7 +85,7 @@ class Pengajuan extends Component
 
             $pivot = PivotPinjaman::create($data_pivot);
 
-            ActivityLogger::log('Pinjaman Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan bebas pinjaman perpustakaan a.n. {$this->npp}", $pivot);
+            ActivityLogger::log('Pinjaman Perpustakaan', ActivityLogger::SUBMIT, "Mengajukan bebas pinjaman perpustakaan id praja {$this->npp}", $pivot);
 
             $this->buttonCreate = 'disabled';
 
