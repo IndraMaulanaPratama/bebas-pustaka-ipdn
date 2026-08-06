@@ -44,8 +44,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             Survey::where("SURVEY_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Survey Perpustakaan', ActivityLogger::REJECT, "Menolak pengajuan survey perpustakaan a.n. {$this->survey['SURVEY_PRAJA']}");
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->survey asalna ti event Livewire nu wangunna array)
+            $survei = Survey::where("SURVEY_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Survey Perpustakaan',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan survey perpustakaan id praja {$this->survey['SURVEY_PRAJA']}. Alasan: {$this->inputNote}",
+                $survei,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan survey perpustakaan berhasil ditolak");
