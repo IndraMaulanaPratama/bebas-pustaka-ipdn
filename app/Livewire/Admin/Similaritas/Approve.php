@@ -77,7 +77,7 @@ class Approve extends Component
             BebasPustaka::where('BEBAS_PRAJA', $similaritas->SIMILARITAS_PRAJA)->update(['BEBAS_SIMILARITAS' => true]);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Similaritas', ActivityLogger::APPROVE, "Menyetujui pengajuan similaritas a.n. {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
+            ActivityLogger::log('Similaritas', ActivityLogger::APPROVE, "Menyetujui pengajuan similaritas id praja {$similaritas->SIMILARITAS_PRAJA}", $similaritas);
 
             $this->dispatch("data-updated", "Pengajuan similaritas berhasil disetujui");
             $this->reset();
