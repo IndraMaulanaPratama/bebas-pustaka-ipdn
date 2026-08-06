@@ -45,8 +45,18 @@ class Reject extends Component
             // Proses ngarobih data pengajuan
             SkripsiFakultas::where("SKRIPSI_ID", $id)->update($data);
 
-            // Nyatet aktivitas panolakan pengajuan
-            ActivityLogger::log('Hard Copy Skripsi Fakultas', ActivityLogger::REJECT, "Menolak pengajuan hard copy skripsi fakultas a.n. {$this->data['SKRIPSI_PRAJA']}");
+            // Nyandak deui data anu tos dirobih (jadi instance Model nu bener,
+            // sabab $this->data asalna ti event Livewire nu wangunna array)
+            $skripsi = SkripsiFakultas::where("SKRIPSI_ID", $id)->first();
+
+            // Nyatet aktivitas panolakan pengajuan, sakantenan alesan panolakanana
+            ActivityLogger::log(
+                'Hard Copy Skripsi Fakultas',
+                ActivityLogger::REJECT,
+                "Menolak pengajuan hard copy skripsi fakultas id praja {$this->data['SKRIPSI_PRAJA']}. Alasan: {$this->inputNote}",
+                $skripsi,
+                ['alasan_penolakan' => $this->inputNote]
+            );
 
             // Ngadamel sinyal yen perobihan data pengajuan tos rengse
             $this->dispatch("data-rejected", "Pengajuan pengumpulan hard copy skripsi berhasil ditolak");
