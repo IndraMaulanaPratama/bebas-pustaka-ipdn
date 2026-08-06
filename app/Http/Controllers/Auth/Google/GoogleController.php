@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BebasPustaka;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Two\GoogleProvider;
 use Ramsey\Uuid\Uuid;
@@ -106,6 +107,7 @@ class GoogleController extends Controller
 
                     // Login user
                     Auth::login($user);
+                    ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi via Google', $user);
                 } else {
                     session()->flash('warning', 'Data pengguna tidak ditemukan');
 
@@ -169,6 +171,7 @@ class GoogleController extends Controller
                             // Ngadamel session login nganggo data user
                             Auth::login($user);
                             session()->regenerate();
+                            ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi via Google', $user);
 
                             return redirect()->route('dashboard');
 
