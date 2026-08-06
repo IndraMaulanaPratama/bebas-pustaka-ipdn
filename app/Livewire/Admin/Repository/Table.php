@@ -206,7 +206,7 @@ class Table extends Component
             Repository::where("REPOSITORY_ID", $id)->update($data);
 
             // Nyatet aktivitas persetujuan pengajuan
-            ActivityLogger::log('Unggah Repository', ActivityLogger::APPROVE, "Menyetujui pengajuan unggah repository a.n. {$repository->REPOSITORY_PRAJA}", $repository);
+            ActivityLogger::log('Unggah Repository', ActivityLogger::APPROVE, "Menyetujui pengajuan unggah repository id praja {$repository->REPOSITORY_PRAJA}", $repository);
 
             $this->dispatch("data-updated", "Pengajuan unggah repository berhasil disetujui");
             $this->reset();
@@ -238,7 +238,7 @@ class Table extends Component
                     Repository::where("REPOSITORY_ID", $id)->update($data);
 
                     // Nyatet aktivitas mariksa pengajuan
-                    ActivityLogger::log('Unggah Repository', ActivityLogger::ASSIGN, "Memeriksa pengajuan unggah repository a.n. {$repository->REPOSITORY_PRAJA}", $repository);
+                    ActivityLogger::log('Unggah Repository', ActivityLogger::ASSIGN, "Memeriksa pengajuan unggah repository id praja {$repository->REPOSITORY_PRAJA}", $repository);
 
                     // Mengirimkan pesan notifikasi kepada user
                     $this->dispatch("data-updated", "Pengajuan repository `$repository->REPOSITORY_PRAJA` siap untuk periksa");
@@ -279,7 +279,7 @@ class Table extends Component
             ->output();
 
         // Nyatet aktivitas cetak bukti pemeriksaan
-        ActivityLogger::log('Unggah Repository', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan unggah repository a.n. {$dataPraja['NAMA']}", $data);
+        ActivityLogger::log('Unggah Repository', ActivityLogger::PRINT, "Mencetak bukti pemeriksaan unggah repository id praja {$dataPraja['NAMA']}", $data);
 
         return response()->streamDownload(
             function () use ($pdf) {
