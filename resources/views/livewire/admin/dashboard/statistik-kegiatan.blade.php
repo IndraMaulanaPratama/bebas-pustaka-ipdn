@@ -1,5 +1,16 @@
-<div wire:poll.60s="pollKegiatan">
-    <div id="reportsChart"></div>
+<div wire:poll.5s="pollKegiatan">
+    {{--
+        wire:ignore WAJIB aya di dieu. Tanpa ieu, unggal polling Livewire
+        bakal "morph" (nyaimbangkeun) HTML jero div ieu balik ka kaayaan
+        kosong sapertos di Blade (sabab template-na mémang salawasna kosong
+        — eusina/SVG chart-na disieun ku ApexCharts via JS SANGGEUS blade
+        di-render, lain ti Blade), nyababkeun grafik nu geus digambar ku
+        ApexCharts kahapus unggal 5 detik (persis bug nu kapendak: grafik
+        leungit sanggeus auto-refresh, balik deui ngan saupami full reload).
+        wire:ignore nyarengkeun Livewire supados ulah nyabak/mikirkeun eusi
+        div ieu pisan, sina jadi tanggung jawab ApexCharts sagemblengna.
+    --}}
+    <div id="reportsChart" wire:ignore></div>
 
     @script
     <script>
@@ -15,7 +26,7 @@
             markers: {
                 size: 4
             },
-            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+            colors: ['#4154f1', '#ffc107', '#2eca6a', '#ff771d'],
             fill: {
                 type: 'gradient',
                 gradient: {
