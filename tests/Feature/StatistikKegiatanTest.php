@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Test pikeun widget grafik "Statistik Kegiatan Aplikasi" di dashboard admin.
- * Sumber datana tabel activity_logs, disaring action submit/approve/reject
+ * Sumber datana tabel activity_logs, disaring action submit/assign/approve/reject
  * pikeun poe ayeuna, dikelompokkeun per jam (00:00-23:00, sabab aplikasi
  * ieu tiasa diaksés 24 jam, sanes ngan jam kerja 08:00-16:00 wungkul).
  */
@@ -43,16 +43,19 @@ class StatistikKegiatanTest extends TestCase
     {
         $this->logAtHour(ActivityLogger::SUBMIT, 7);
         $this->logAtHour(ActivityLogger::SUBMIT, 7);
+        $this->logAtHour(ActivityLogger::ASSIGN, 9);
         $this->logAtHour(ActivityLogger::APPROVE, 20);
         $this->logAtHour(ActivityLogger::REJECT, 23);
 
         $series = $this->renderedData()['series'];
 
         $submit = collect($series)->firstWhere('name', 'Pengajuan Baru')['data'];
+        $assign = collect($series)->firstWhere('name', 'Mulai Periksa Pengajuan')['data'];
         $approve = collect($series)->firstWhere('name', 'Penyetujuan')['data'];
         $reject = collect($series)->firstWhere('name', 'Penolakan')['data'];
 
         $this->assertSame(2, $submit[7]);
+        $this->assertSame(1, $assign[9]);
         $this->assertSame(1, $approve[20]);
         $this->assertSame(1, $reject[23]);
     }
