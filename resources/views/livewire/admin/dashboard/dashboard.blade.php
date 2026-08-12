@@ -75,80 +75,11 @@
                 <div class="col-12">
                     <div class="card">
 
-                        <div class="card-body">
+                        <div class="card-body" id="statistik-kegiatan">
                             <h5 class="card-title">Statistik Kegiatan Aplikasi <span>| {{ Date('d M Y') }} </span></h5>
 
                             <!-- Line Chart -->
-                            <div id="reportsChart"></div>
-
-                            <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new ApexCharts(document.querySelector("#reportsChart"), {
-                                        series: [{
-                                            name: 'Pengajuan Baru',
-                                            data: [31, 40, 28, 51, 42, 82, 56, 82, null, null, null, null, null, null, null,
-                                                null, null, null
-                                            ],
-                                        }, {
-                                            name: 'Penyetujuan',
-                                            data: [11, 32, 45, 32, 34, 52, 41, 10, null, null, null, null, null, null, null,
-                                                null, null, null
-                                            ]
-                                        }, {
-                                            name: 'Penolakan',
-                                            data: [15, 11, 32, 18, 9, 24, 11, 40, null, null, null, null, null, null, null,
-                                                null, null, null
-                                            ]
-                                        }],
-                                        chart: {
-                                            height: 350,
-                                            type: 'area',
-                                            toolbar: {
-                                                show: false
-                                            },
-                                        },
-                                        markers: {
-                                            size: 4
-                                        },
-                                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                        fill: {
-                                            type: "gradient",
-                                            gradient: {
-                                                shadeIntensity: 1,
-                                                opacityFrom: 0.3,
-                                                opacityTo: 0.4,
-                                                stops: [0, 90, 500]
-                                            }
-                                        },
-                                        dataLabels: {
-                                            enabled: false
-                                        },
-                                        stroke: {
-                                            curve: 'smooth',
-                                            width: 3
-                                        },
-                                        xaxis: {
-                                            type: 'datetime',
-                                            categories: [
-                                                "{{ Date('Y-m-d') }}T08:00:00.000Z", "{{ Date('Y-m-d') }}T08:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T09:00:00.000Z", "{{ Date('Y-m-d') }}T09:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T10:00:00.000Z", "{{ Date('Y-m-d') }}T10:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T11:00:00.000Z", "{{ Date('Y-m-d') }}T11:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T12:00:00.000Z", "{{ Date('Y-m-d') }}T12:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T13:00:00.000Z", "{{ Date('Y-m-d') }}T13:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T14:00:00.000Z", "{{ Date('Y-m-d') }}T14:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T15:00:00.000Z", "{{ Date('Y-m-d') }}T15:30:00.000Z",
-                                                "{{ Date('Y-m-d') }}T16:00:00.000Z", "{{ Date('Y-m-d') }}T16:30:00.000Z",
-                                            ]
-                                        },
-                                        tooltip: {
-                                            x: {
-                                                format: 'd-M-yyyy HH:mm'
-                                            },
-                                        }
-                                    }).render();
-                                });
-                            </script>
+                            <livewire:admin.dashboard.statistik-kegiatan />
                             <!-- End Line Chart -->
 
                         </div>
