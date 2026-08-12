@@ -163,8 +163,8 @@
             <li>Bebas Pinjaman Buku Perpustakaan Pusat</li>
             <li>Bebas Pinjaman Buku Perpustakaan Fakultas</li>
             <li>Donasi Buku Perpustakaan Pusat</li>
+            <li>Donasi Elektornik Perpustakaan Pusat</li>
             <li>Donasi Buku Perpustakaan Fakultas</li>
-            <li>Donasi Elektornik</li>
             <li>Pengisian Survey</li>
             <li>Konten Literasi</li>
             <li>Unggah Repository</li>
