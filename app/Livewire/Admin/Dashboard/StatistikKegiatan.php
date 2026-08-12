@@ -14,7 +14,7 @@ use Livewire\Component;
  * (Dashboard.php ngalakukeun puluhan query pikeun eta).
  *
  * Sumber data grafik ieu nyaeta tabel activity_logs (fitur Log Activity),
- * disaring action submit/approve/reject sarta dikelompokkeun per jam
+ * disaring action submit/assign/approve/reject sarta dikelompokkeun per jam
  * pikeun poe ayeuna, ti jam 00:00 nepi ka 23:00 (sanes ngan jam kerja
  * wungkul, sabab aplikasi ieu tiasa diaksés 24 jam).
  */
@@ -26,12 +26,13 @@ class StatistikKegiatan extends Component
         $ahir = Carbon::today('Asia/Jakarta')->endOfDay();
 
         $logs = ActivityLog::query()
-            ->whereIn('action', ['submit', 'approve', 'reject'])
+            ->whereIn('action', ['submit', 'assign', 'approve', 'reject'])
             ->whereBetween('created_at', [$mulai, $ahir])
             ->get(['action', 'created_at']);
 
         $perJam = [
             'submit' => array_fill(0, 24, 0),
+            'assign' => array_fill(0, 24, 0),
             'approve' => array_fill(0, 24, 0),
             'reject' => array_fill(0, 24, 0),
         ];
@@ -43,6 +44,7 @@ class StatistikKegiatan extends Component
 
         return [
             ['name' => 'Pengajuan Baru', 'data' => $perJam['submit']],
+            ['name' => 'Mulai Periksa Pengajuan', 'data' => $perJam['assign']],
             ['name' => 'Penyetujuan', 'data' => $perJam['approve']],
             ['name' => 'Penolakan', 'data' => $perJam['reject']],
         ];
