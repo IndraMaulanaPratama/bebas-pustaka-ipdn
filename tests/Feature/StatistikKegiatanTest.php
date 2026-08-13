@@ -39,8 +39,22 @@ class StatistikKegiatanTest extends TestCase
         $this->assertSame(array_map(fn ($h) => sprintf('%02d:00', $h), range(0, 23)), $categories);
     }
 
+    /**
+     * Catetan: sadaya test di dieu ngukur SELISIH (before/after), lain angka
+     * mutlak — sabab database dev nu dipaké test ieu (DatabaseTransactions,
+     * lain database kosong/fresh) tiasa geus miboga data nyata ti pamakean
+     * aplikasi sapopoe (contona ti pangguna anu keur nyobian aplikasi
+     * langsung). Ngukur selisih nyingkahan test ieu jadi flaky ku data nyata
+     * anu lumangsung dina jam nu sarua.
+     */
     public function test_series_buckets_activities_by_hour_and_action_type(): void
     {
+        $sebelum = $this->renderedData()['series'];
+        $submitSebelum = collect($sebelum)->firstWhere('name', 'Pengajuan Baru')['data'][7];
+        $assignSebelum = collect($sebelum)->firstWhere('name', 'Mulai Periksa Pengajuan')['data'][9];
+        $approveSebelum = collect($sebelum)->firstWhere('name', 'Penyetujuan')['data'][20];
+        $rejectSebelum = collect($sebelum)->firstWhere('name', 'Penolakan')['data'][23];
+
         $this->logAtHour(ActivityLogger::SUBMIT, 7);
         $this->logAtHour(ActivityLogger::SUBMIT, 7);
         $this->logAtHour(ActivityLogger::ASSIGN, 9);
@@ -54,14 +68,16 @@ class StatistikKegiatanTest extends TestCase
         $approve = collect($series)->firstWhere('name', 'Penyetujuan')['data'];
         $reject = collect($series)->firstWhere('name', 'Penolakan')['data'];
 
-        $this->assertSame(2, $submit[7]);
-        $this->assertSame(1, $assign[9]);
-        $this->assertSame(1, $approve[20]);
-        $this->assertSame(1, $reject[23]);
+        $this->assertSame($submitSebelum + 2, $submit[7]);
+        $this->assertSame($assignSebelum + 1, $assign[9]);
+        $this->assertSame($approveSebelum + 1, $approve[20]);
+        $this->assertSame($rejectSebelum + 1, $reject[23]);
     }
 
     public function test_it_ignores_activities_outside_today_and_non_transactional_actions(): void
     {
+        $totalSebelum = collect($this->renderedData()['series'])->sum(fn ($s) => array_sum($s['data']));
+
         // Log kamari (kaluar rentang "poe ayeuna") teu meunang kahitung.
         $this->logAtHour(ActivityLogger::SUBMIT, 10);
         $kamari = ActivityLog::latest()->first();
@@ -71,10 +87,9 @@ class StatistikKegiatanTest extends TestCase
         // Action login/logout lain transaksi pengajuan, teu kudu katembong di grafik ieu.
         ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi');
 
-        $series = $this->renderedData()['series'];
-        $totalSemuaAksi = collect($series)->sum(fn ($s) => array_sum($s['data']));
+        $totalSasudah = collect($this->renderedData()['series'])->sum(fn ($s) => array_sum($s['data']));
 
-        $this->assertSame(0, $totalSemuaAksi);
+        $this->assertSame($totalSebelum, $totalSasudah);
     }
 
     public function test_polling_dispatches_updated_series_without_recreating_the_chart(): void
