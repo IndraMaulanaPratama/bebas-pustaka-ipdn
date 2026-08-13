@@ -61,6 +61,39 @@ class RiwayatAktivitasTest extends TestCase
         $response->assertNotFound();
     }
 
+    /**
+     * Permintaan: pilihan filter "Petugas" teu kudu nembongkeun akun Praja
+     * Utama (sabab éta mahasiswa/praja anu ngajukeun, sanes petugas anu
+     * meriksa/nyatujuan) atawa Super Admin (dikaluarkeun sacara sengaja
+     * ku pamundut). Petugas nu sabenerna (contona Admin Pustaka) kudu
+     * tetep némbongan salaku pilihan.
+     */
+    public function test_petugas_filter_options_exclude_praja_and_super_admin_roles(): void
+    {
+        $admin = $this->createUserWithRole('Super Admin');
+        Auth::login($admin);
+
+        $praja = $this->createUserWithRole('Praja Utama');
+        $superAdminLain = $this->createUserWithRole('Super Admin');
+        $petugas = $this->createUserWithRole('Admin Pustaka');
+
+        Auth::login($praja);
+        ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi');
+
+        Auth::login($superAdminLain);
+        ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi');
+
+        Auth::login($petugas);
+        ActivityLogger::log('Autentikasi', ActivityLogger::LOGIN, 'Login ke aplikasi');
+
+        Auth::login($admin);
+        $users = (new Table)->render()->getData()['users'];
+
+        $this->assertTrue($users->contains($petugas->name));
+        $this->assertFalse($users->contains($praja->name));
+        $this->assertFalse($users->contains($superAdminLain->name));
+    }
+
     public function test_filtering_by_module_only_returns_matching_activities(): void
     {
         $admin = $this->createUserWithRole('Super Admin');
