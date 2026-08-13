@@ -20,27 +20,47 @@
         sababaraha kali polling (kapendak pas real testing).
     --}}
     <style>
-        @keyframes angka-live-flash {
-            0% {
-                background-color: rgba(65, 84, 241, 0.18);
-            }
-
-            100% {
-                background-color: transparent;
-            }
-        }
-
-        .angka-live {
-            display: inline-block;
-            border-radius: 6px;
-            animation: angka-live-flash 1s ease-out;
-        }
-
+        {{--
+            Catetan: efek hover "glassmorphic" (blur + shine) SENGAJA
+            dipiceun deui — pas dicoba langsung, blur-na nutupan sakabéh
+            angka di jero kartu jadi teu kabaca pisan. Fokus ayeuna ngan
+            kana efek "counting" wungkul.
+        --}}
         .dashboard .total-card .card-icon {
             color: #6f42c1;
             background: #efe6fb;
         }
     </style>
+
+    {{--
+        Fungsi ngitung angka ti 0 nepi ka nilai aslina (efek "counting"),
+        dijieun sakali wungkul per component (@script) sarta disimpen di
+        window supados bisa dianggo deui ku komponen Ringkasan Pengajuan.
+        Dipicu ku x-init, anu otomatis dijalankeun deui ku Livewire/Alpine
+        unggal elemen-na diganti (nyaeta unggal wire:key-na robih —
+        sarua jeung logika animasi angka-live saméméhna).
+    --}}
+    @script
+    <script>
+        if (!window.hitungNaekKuAnimasi) {
+            window.hitungNaekKuAnimasi = function(el, target, durasi = 900) {
+                const mimiti = performance.now();
+                function jalan(waktuAyeuna) {
+                    const progress = Math.min((waktuAyeuna - mimiti) / durasi, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const nilaiAyeuna = Math.round(target * eased);
+                    el.textContent = nilaiAyeuna.toLocaleString('id-ID');
+                    if (progress < 1) {
+                        requestAnimationFrame(jalan);
+                    } else {
+                        el.textContent = target.toLocaleString('id-ID');
+                    }
+                }
+                requestAnimationFrame(jalan);
+            };
+        }
+    </script>
+    @endscript
 
     <!-- Card Total Pengajuan -->
     <div class="col-xxl-3 col-md-6">
@@ -54,9 +74,8 @@
                         <i class="bi bi-collection-fill"></i>
                     </div>
                     <div class="ps-3">
-                        <h6 wire:key="total-sepanjang-waktu-{{ $totalSepanjangWaktu }}" class="angka-live">
-                            {{ number_format($totalSepanjangWaktu, 0, 0, '.') }}
-                        </h6>
+                        <h6 wire:key="total-sepanjang-waktu-{{ $totalSepanjangWaktu }}" class="angka-live" x-data
+                            x-init="window.hitungNaekKuAnimasi($el, {{ $totalSepanjangWaktu }})">{{ number_format($totalSepanjangWaktu, 0, 0, '.') }}</h6>
                     </div>
                 </div>
             </div>
@@ -76,9 +95,8 @@
                         <i class="bi bi-arrow-clockwise"></i>
                     </div>
                     <div class="ps-3">
-                        <h6 wire:key="total-proses-{{ $total['proses'] }}" class="angka-live">
-                            {{ number_format($total['proses'], 0, 0, '.') }}
-                        </h6>
+                        <h6 wire:key="total-proses-{{ $total['proses'] }}" class="angka-live" x-data
+                            x-init="window.hitungNaekKuAnimasi($el, {{ $total['proses'] }})">{{ number_format($total['proses'], 0, 0, '.') }}</h6>
                     </div>
                 </div>
             </div>
@@ -98,9 +116,8 @@
                         <i class="bi bi-check2-all"></i>
                     </div>
                     <div class="ps-3">
-                        <h6 wire:key="total-disetujui-{{ $total['disetujui'] }}" class="angka-live">
-                            {{ number_format($total['disetujui'], 0, 0, '.') }}
-                        </h6>
+                        <h6 wire:key="total-disetujui-{{ $total['disetujui'] }}" class="angka-live" x-data
+                            x-init="window.hitungNaekKuAnimasi($el, {{ $total['disetujui'] }})">{{ number_format($total['disetujui'], 0, 0, '.') }}</h6>
                     </div>
                 </div>
             </div>
@@ -120,9 +137,8 @@
                         <i class="bi bi-dash-circle"></i>
                     </div>
                     <div class="ps-3">
-                        <h6 wire:key="total-ditolak-{{ $total['ditolak'] }}" class="angka-live">
-                            {{ number_format($total['ditolak'], 0, 0, '.') }}
-                        </h6>
+                        <h6 wire:key="total-ditolak-{{ $total['ditolak'] }}" class="angka-live" x-data
+                            x-init="window.hitungNaekKuAnimasi($el, {{ $total['ditolak'] }})">{{ number_format($total['ditolak'], 0, 0, '.') }}</h6>
                     </div>
                 </div>
             </div>
