@@ -15,6 +15,16 @@ class Table extends Component
 {
     use WithPagination;
 
+    /**
+     * Peran anu SENGAJA teu ditembongkeun jadi pilihan di filter Petugas —
+     * sabab Praja Utama sanes petugas (mahasiswa/praja anu ngajukeun,
+     * sanes anu meriksa/nyatujuan pengajuan), sedengkeun Super Admin
+     * sengaja disumputkeun ku pamundut khusus (teu kudu némbongan salaku
+     * pilihan filter, sanajan aktivitasna sorangan tetep katembong di
+     * tabel upami teu difilter).
+     */
+    private const PERAN_DIKALUARKEUN_TINA_FILTER_PETUGAS = ['Praja Utama', 'Super Admin'];
+
     public $filterDateStart, $filterDateEnd, $filterModule, $filterAction, $filterUser, $search;
     public $perPage = 20;
 
@@ -165,6 +175,14 @@ class Table extends Component
 
         $users = ActivityLog::query()
             ->whereNotNull('user_name')
+            ->where(function ($query) {
+                // "whereNotIn" wungkul bakal sacara teu kahaja miceun log
+                // anu user_role-na NULL (contona log lawas saméméh kolom
+                // ieu aya), padahal éta lain Praja/Super Admin — ku kituna
+                // NULL sengaja tetep diidinan ngaliwatan.
+                $query->whereNull('user_role')
+                    ->orWhereNotIn('user_role', self::PERAN_DIKALUARKEUN_TINA_FILTER_PETUGAS);
+            })
             ->distinct()
             ->orderBy('user_name')
             ->pluck('user_name');
