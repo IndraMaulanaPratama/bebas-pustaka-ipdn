@@ -5,10 +5,14 @@
 
         <!-- Bagean Kolom Katuhu -->
         <div class="col-lg-8">
-            <div class="row">
 
-                <!-- Kartu Diajukan / Disetujui / Ditolak -->
-                <livewire:admin.dashboard.ringkasan-kartu />
+            {{-- Kartu Total Pengajuan / Diajukan / Disetujui / Ditolak --}}
+            {{-- Komponen ieu root-na sorangan mangrupa <div class="row"> nu bener
+                (sanes wrapper display:contents), supados jarak antar kartu
+                (gutter grid Bootstrap) tetep bener sacara alami. --}}
+            <livewire:admin.dashboard.ringkasan-kartu />
+
+            <div class="row">
 
                 <!-- Laporan Padamelan -->
                 <div class="col-12">
