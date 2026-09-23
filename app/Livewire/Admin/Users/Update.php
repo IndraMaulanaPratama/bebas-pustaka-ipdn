@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\ActivityLogger;
+use App\Services\SecureImageUploader;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -17,7 +18,7 @@ class Update extends Component
 
     public $id, $name, $email, $password, $role;
 
-    #[Rule('image|max:1024')]
+    #[Rule('nullable|image|mimes:jpeg,jpg,png,webp|max:2048')]
     public $photo, $sign;
 
 
@@ -64,38 +65,26 @@ class Update extends Component
     {
 
         try {
-            $photo = null;
-            $sign = null;
-
-            $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
-            $this->photo != null ? $photo = $timestamp . '-' . str_replace(" ", "", $this->photo->getClientOriginalName()) : null;
-            $this->sign != null ? $sign = $timestamp . '-' . str_replace(" ", "", $this->sign->getClientOriginalName()) : null;
-
-            // null != $this->photo ? $photoName = Carbon::now()->timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = null;
-            // null != $this->sign ? $signName = Carbon::now()->timestamp . '-' . $this->sign->getClientOriginalName() : $signName = null;
-
-
             $data = [
                 'name' => $this->name,
                 'email' => $this->email,
-                'photo' => $photo,
-                'sign' => $sign,
                 'user_role' => $this->role,
             ];
 
-            if (null == $this->photo) {
-                unset($data['photo']);
-            }
-            if (null == $this->sign) {
-                unset($data['sign']);
-            }
             if (null == $this->role) {
                 unset($data['user_role']);
             }
 
-            // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
-            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $photo), 'public') : null;
-            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $sign), 'public') : null;
+            // Foto/tanda tangan disimpen ku SecureImageUploader: isi filena
+            // dibaca ulang tur digambar ulang jadi PNG anyar (teu percaya
+            // kana nami/ekstensi file asli ti client) sateuacan disimpen
+            // kalayan nami deterministik dumasar id user (1 file per user).
+            if ($this->photo != null) {
+                $data['photo'] = SecureImageUploader::store($this->photo, 'foto_pegawai', 'profile_' . $this->id);
+            }
+            if ($this->sign != null) {
+                $data['sign'] = SecureImageUploader::store($this->sign, 'tanda_tangan', 'sign_' . $this->id);
+            }
 
             User::where('id', $this->id)->update($data);
 
