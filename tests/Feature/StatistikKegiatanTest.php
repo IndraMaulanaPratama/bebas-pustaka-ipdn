@@ -20,11 +20,13 @@ class StatistikKegiatanTest extends TestCase
 {
     use DatabaseTransactions;
 
-    private function logAtHour(string $action, int $hour): void
+    private function logAtHour(string $action, int $hour): ActivityLog
     {
         $log = ActivityLogger::log('Contoh Modul', $action, "Contoh aktivitas jam {$hour}");
         $log->created_at = Carbon::today('Asia/Jakarta')->setTime($hour, 0);
         $log->save();
+
+        return $log;
     }
 
     private function renderedData(): array
@@ -79,8 +81,15 @@ class StatistikKegiatanTest extends TestCase
         $totalSebelum = collect($this->renderedData()['series'])->sum(fn ($s) => array_sum($s['data']));
 
         // Log kamari (kaluar rentang "poe ayeuna") teu meunang kahitung.
-        $this->logAtHour(ActivityLogger::SUBMIT, 10);
-        $kamari = ActivityLog::latest()->first();
+        //
+        // Catetan: sengaja langsung maké instance nu dibalikkeun ku
+        // logAtHour(), lain "ActivityLog::latest()->first()" — sabab
+        // "latest()" ngurutkeun dumasar NILAI created_at (nu ku test ieu
+        // dirobih jadi jam 10:00), lain dumasar urutan pangnyaeta
+        // disimpen. Upami geus aya log nyata séjén poe ieu nu created_at-na
+        // leuwih anyar ti jam 10:00 (misalna aktivitas nyata pangguna ti
+        // jam 14:00), "latest()->first()" bakal balik log nu SALAH.
+        $kamari = $this->logAtHour(ActivityLogger::SUBMIT, 10);
         $kamari->created_at = Carbon::yesterday('Asia/Jakarta')->setTime(10, 0);
         $kamari->save();
 
