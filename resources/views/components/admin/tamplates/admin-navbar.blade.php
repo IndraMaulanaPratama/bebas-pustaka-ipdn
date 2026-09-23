@@ -161,7 +161,7 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
 
-                    <img src="{{ 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?s=200&d=mp' ?? asset('foto_pegawai/defaultPhoto.png') }}" alt="Avatar" class="rounded-circle" />
+                    <img src="{{ Auth::user()->photo ? asset('foto_pegawai/' . Auth::user()->photo) : 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(Auth::user()->email))) . '?s=200&d=mp' }}" alt="Avatar" class="rounded-circle" />
 
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->
@@ -174,10 +174,11 @@
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li class="d-none">
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
+                            data-bs-target="#profilSaya">
                             <i class="bi bi-person"></i>
-                            <span>My Profile</span>
+                            <span>Profil Saya</span>
                         </a>
                     </li>
                     <li>
@@ -218,3 +219,60 @@
     </nav><!-- End Icons Navigation -->
 
 </header>
+
+@auth
+    <livewire:admin.profile.update />
+
+    {{--
+        Modal "Profil Saya" (x-admin.components.modal.modal) dibungkus
+        wire:ignore, jadi Livewire moal bisa nutup modal-na sorangan atawa
+        némbongkeun pesen sukses/gagal ti jero éta modal. Ku kituna kadua
+        hal ieu ditanganan manual ku JS di dieu, ngadangukeun event nu
+        di-dispatch ti App\Livewire\Admin\Profile\Update::updateProfile().
+    --}}
+    <div id="profilNotifikasi" class="alert d-none position-fixed top-0 end-0 m-3 shadow"
+        style="z-index: 2000; min-width: 320px;" role="alert"></div>
+
+    <script>
+        document.addEventListener('livewire:init', () => {
+            const modalEl = document.getElementById('profilSaya');
+            const notif = document.getElementById('profilNotifikasi');
+            let hideTimeout;
+
+            const showNotifikasi = (message, isSuccess) => {
+                notif.textContent = message;
+                notif.classList.remove('d-none', 'alert-success', 'alert-danger');
+                notif.classList.add(isSuccess ? 'alert-success' : 'alert-danger');
+
+                clearTimeout(hideTimeout);
+                hideTimeout = setTimeout(() => notif.classList.add('d-none'), 5000);
+            };
+
+            // Ngabersihkeun <input type="file"> unggal modal ditutup (ku cara
+            // naon wae: tombol X, tombol Tutup, klik backdrop, atawa Esc),
+            // supados foto lami nu kapilih moal kabawa deui teu kahaja
+            // dina sesi buka-tutup modal salajengna.
+            modalEl?.addEventListener('hidden.bs.modal', () => {
+                const fileInput = modalEl.querySelector('input[type="file"]');
+                if (fileInput) fileInput.value = '';
+            });
+
+            // Livewire ngintun parameter nu di-dispatch kalayan nami
+            // (contona "message: $x") minangka hiji objék, sanés string
+            // langsung — ku kituna kudu di-destructure { message }.
+            Livewire.on('profile-updated', ({ message }) => {
+                showNotifikasi(message ?? 'Profil berhasil diperbaharui.', true);
+                // Nutup modal ku cara nyimulasikeun klik kana tombol tutup
+                // bawaan (data-bs-dismiss), sanés maké API JS Bootstrap
+                // langsung — sabab "window.bootstrap" teu diékspos global
+                // ku bundel Vite proyék ieu (napak kana pola nu sarua
+                // dipaké ku sadaya modal séjén di aplikasi ieu).
+                modalEl?.querySelector('.btn-close')?.click();
+            });
+
+            Livewire.on('profile-update-failed', ({ message }) => {
+                showNotifikasi(message ?? 'Gagal memperbaharui profil.', false);
+            });
+        });
+    </script>
+@endauth
