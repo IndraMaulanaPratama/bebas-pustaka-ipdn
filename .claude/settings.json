@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\('n/a'\\)\")",
+      "Bash(php -l app/Livewire/Admin/Profile/Update.php)",
+      "Bash(grep -n 'protected $table\\\\|class ActivityLog' /Users/mac/Project/Git/IPDN/bebas-pustaka-ipdn/app/Models/ActivityLog.php)",
+      "Bash(php -r \"echo \\(new DateTime\\(\\)\\)->format\\('Y-m-d H:i:s T'\\); echo PHP_EOL; echo date_default_timezone_get\\(\\);\")",
+      "Bash(php -l tests/Feature/StatistikKegiatanTest.php)",
+      "Bash(npm run *)"
+    ]
+  }
+}
