@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\ActivityLogger;
+use App\Services\SecureImageUploader;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
@@ -42,7 +43,7 @@ class Create extends Component
     #[Rule(["same:password"])]
     public $confirm_password;
 
-    #[Rule('image|max:1024')]
+    #[Rule('nullable|image|mimes:jpeg,jpg,png,webp|max:2048')]
     public $photo, $sign;
 
 
@@ -71,11 +72,6 @@ class Create extends Component
         try {
             $timestamp = Carbon::now('Asia/Jakarta')->timestamp;
             $idUser = uuid_create(4); // <!-- Ngadamel id nu unik kanggo database
-            $this->photo != null ? $photoName = $timestamp . '-' . $this->photo->getClientOriginalName() : $photoName = "defaultPhoto.png";
-            $this->sign != null ? $signName = $timestamp . '-' . $this->sign->getClientOriginalName() : $signName = "defaultSign.png";
-
-            // $photoName = $this->photo == null ? 'defaultPhoto.jpg' : $timestamp . '-' . $this->photo->getClientOriginalName();
-            // $signName = $this->sign == null ? 'defaultSign.jpg' : $timestamp . '-' . $this->sign->getClientOriginalName();
 
             // Ngadamel inisialisasi data kangga database user
             $data = [
@@ -84,8 +80,8 @@ class Create extends Component
                 'email' => $this->email,
                 'email_verified_at' => $timestamp,
                 'password' => bcrypt($this->password),
-                'photo' => str_replace(" ", "", $photoName),
-                'sign' => str_replace(" ", "", $signName),
+                'photo' => 'defaultPhoto.png',
+                'sign' => 'defaultSign.png',
                 'user_role' => $this->role,
             ];
 
@@ -93,13 +89,16 @@ class Create extends Component
                 unset($data['password']);
             }
 
-            // Maca alamat asli tinu data anu bakal disimpen
-            // $photoPath = $this->photo->getRealPath();
-            // $photoSign = $this->sign->getRealPath();
-
-            // Miwarang livewire kanggo nyimpen data dumasar kana katangtosan nu tos di damel
-            $this->photo != null ? $this->photo->storeAs('foto_pegawai', str_replace(" ", "", $photoName), 'public') : null;
-            $this->sign != null ? $this->sign->storeAs('tanda_tangan', str_replace(" ", "", $signName), 'public') : null;
+            // Foto/tanda tangan disimpen ku SecureImageUploader: isi filena
+            // dibaca ulang tur digambar ulang jadi PNG anyar (teu percaya
+            // kana nami/ekstensi file asli ti client) sateuacan disimpen
+            // kalayan nami deterministik dumasar id user (1 file per user).
+            if ($this->photo != null) {
+                $data['photo'] = SecureImageUploader::store($this->photo, 'foto_pegawai', 'profile_' . $idUser);
+            }
+            if ($this->sign != null) {
+                $data['sign'] = SecureImageUploader::store($this->sign, 'tanda_tangan', 'sign_' . $idUser);
+            }
 
             // Proses nyimpen data nu dikintun ka lebet database
             $user = User::create($data);
