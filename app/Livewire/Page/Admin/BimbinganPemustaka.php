@@ -6,7 +6,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title("Bimbingan Pemustaka")]
+#[Title("Kelas Literasi")]
 
 class BimbinganPemustaka extends Component
 {
